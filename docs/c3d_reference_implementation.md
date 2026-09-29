@@ -81,3 +81,7 @@ conda run -n yolo11 python -B scripts/run_c3d_reference_checks.py --stage subset
 ```
 
 These commands update only `runs/full_video_c3d_reference_v1/`. The script has no train or test stage.
+
+## 2026-09-30 follow-up
+
+The later [training feasibility audit](c3d_training_protocol.md#pooling--fc-shape-audit) compared the author Caffe `pool3d_layer.cpp` shape formula with actual PyTorch `ceil_mode=True` outputs. For the checked official network definition, pool5 and fc6 **shape** compatibility is now confirmed: `[B,512,1,4,4]` → flatten 8192 → fc6 4096. The earlier unresolved item above remains relevant to full **numerical checkpoint** equivalence; no author weights were loaded.

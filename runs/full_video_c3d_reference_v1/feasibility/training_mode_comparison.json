@@ -1,0 +1,19 @@
+{
+  "modes": {
+    "full": {
+      "trainable_parameter_count": 78012164,
+      "active_gradient_parameter_count": 61222658,
+      "maximum_tested_safe_clip_batch": 8
+    },
+    "frozen": {
+      "trainable_parameter_count": 8194,
+      "active_gradient_parameter_count": 8194,
+      "maximum_tested_safe_clip_batch": 8
+    },
+    "partial": {
+      "trainable_parameter_count": 47723522,
+      "active_gradient_parameter_count": 47723522,
+      "maximum_tested_safe_clip_batch": 8
+    }
+  }
+}

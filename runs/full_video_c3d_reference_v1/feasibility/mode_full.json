@@ -1,0 +1,101 @@
+{
+  "mode": "full",
+  "results": [
+    {
+      "mode": "full",
+      "clip_batch_size": 1,
+      "input_shape": [
+        1,
+        3,
+        16,
+        112,
+        112
+      ],
+      "trainable_parameter_count": 78012164,
+      "warmup_iterations": 3,
+      "measured_iterations": 5,
+      "status": "PASS",
+      "forward_pass": true,
+      "backward_pass": true,
+      "peak_allocated_bytes": 1319569408,
+      "peak_reserved_bytes": 1432354816,
+      "average_iteration_seconds": 0.017541638598777352,
+      "clips_per_second": 57.007217106257094,
+      "active_gradient_parameter_count": 61222658,
+      "loss_finite": true,
+      "oom": false
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 2,
+      "input_shape": [
+        2,
+        3,
+        16,
+        112,
+        112
+      ],
+      "trainable_parameter_count": 78012164,
+      "warmup_iterations": 3,
+      "measured_iterations": 5,
+      "status": "PASS",
+      "forward_pass": true,
+      "backward_pass": true,
+      "peak_allocated_bytes": 1426307584,
+      "peak_reserved_bytes": 1642070016,
+      "average_iteration_seconds": 0.026006503400276416,
+      "clips_per_second": 76.90384090537687,
+      "active_gradient_parameter_count": 61222658,
+      "loss_finite": true,
+      "oom": false
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 4,
+      "input_shape": [
+        4,
+        3,
+        16,
+        112,
+        112
+      ],
+      "trainable_parameter_count": 78012164,
+      "warmup_iterations": 3,
+      "measured_iterations": 5,
+      "status": "PASS",
+      "forward_pass": true,
+      "backward_pass": true,
+      "peak_allocated_bytes": 1765161472,
+      "peak_reserved_bytes": 2569011200,
+      "average_iteration_seconds": 0.04226257979971706,
+      "clips_per_second": 94.64637556334834,
+      "active_gradient_parameter_count": 61222658,
+      "loss_finite": true,
+      "oom": false
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 8,
+      "input_shape": [
+        8,
+        3,
+        16,
+        112,
+        112
+      ],
+      "trainable_parameter_count": 78012164,
+      "warmup_iterations": 3,
+      "measured_iterations": 5,
+      "status": "PASS",
+      "forward_pass": true,
+      "backward_pass": true,
+      "peak_allocated_bytes": 2447850496,
+      "peak_reserved_bytes": 4106223616,
+      "average_iteration_seconds": 0.07355532360015786,
+      "clips_per_second": 108.76167228204311,
+      "active_gradient_parameter_count": 61222658,
+      "loss_finite": true,
+      "oom": false
+    }
+  ]
+}

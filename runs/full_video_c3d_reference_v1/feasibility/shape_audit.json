@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "official_pool_source": "https://github.com/facebookarchive/C3D/blob/master/C3D-v1.0/src/caffe/layers/pool3d_layer.cpp",
+  "official_network_definition": "https://github.com/facebookarchive/C3D/blob/master/C3D-v1.0/examples/c3d_feature_extraction/prototxt/c3d_sport1m_feature_extractor_video.prototxt",
+  "source_formula": "ceil((input + 2*pad - kernel)/stride) + 1; pool pad=0",
+  "pools": [
+    {
+      "pool": 1,
+      "official_formula_t_h_w": [
+        16,
+        56,
+        56
+      ],
+      "pytorch_actual_t_h_w": [
+        16,
+        56,
+        56
+      ],
+      "match": true
+    },
+    {
+      "pool": 2,
+      "official_formula_t_h_w": [
+        8,
+        28,
+        28
+      ],
+      "pytorch_actual_t_h_w": [
+        8,
+        28,
+        28
+      ],
+      "match": true
+    },
+    {
+      "pool": 3,
+      "official_formula_t_h_w": [
+        4,
+        14,
+        14
+      ],
+      "pytorch_actual_t_h_w": [
+        4,
+        14,
+        14
+      ],
+      "match": true
+    },
+    {
+      "pool": 4,
+      "official_formula_t_h_w": [
+        2,
+        7,
+        7
+      ],
+      "pytorch_actual_t_h_w": [
+        2,
+        7,
+        7
+      ],
+      "match": true
+    },
+    {
+      "pool": 5,
+      "official_formula_t_h_w": [
+        1,
+        4,
+        4
+      ],
+      "pytorch_actual_t_h_w": [
+        1,
+        4,
+        4
+      ],
+      "match": true
+    }
+  ],
+  "pool5_c_h_w": [
+    512,
+    1,
+    4,
+    4
+  ],
+  "flatten_size": 8192,
+  "fc6_in_features": 8192,
+  "fc6_out_features": 4096
+}

@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "status": "PASS",
+      "workers": 0,
+      "video_count": 6,
+      "clip_counts": [
+        17,
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "loader_setup_seconds": 0.00010652100172592327,
+      "average_data_wait_seconds": 0.09077040216652676,
+      "average_gpu_step_seconds": 0.06325507016723957,
+      "data_wait_fraction": 0.5893207194315974,
+      "clip_batch_size_on_gpu": 2,
+      "all_video_clips_processed": true,
+      "gpu_utilization_measured": false
+    },
+    {
+      "status": "PASS",
+      "workers": 2,
+      "video_count": 6,
+      "clip_counts": [
+        17,
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "loader_setup_seconds": 0.0179593710017798,
+      "average_data_wait_seconds": 0.015602994168148143,
+      "average_gpu_step_seconds": 0.053777163999863355,
+      "data_wait_fraction": 0.224891302933669,
+      "clip_batch_size_on_gpu": 2,
+      "all_video_clips_processed": true,
+      "gpu_utilization_measured": false
+    },
+    {
+      "status": "PASS",
+      "workers": 4,
+      "video_count": 6,
+      "clip_counts": [
+        17,
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "loader_setup_seconds": 0.02619925999897532,
+      "average_data_wait_seconds": 0.018851773833375773,
+      "average_gpu_step_seconds": 0.05370849966736083,
+      "data_wait_fraction": 0.2598084726511456,
+      "clip_batch_size_on_gpu": 2,
+      "all_video_clips_processed": true,
+      "gpu_utilization_measured": false
+    }
+  ]
+}

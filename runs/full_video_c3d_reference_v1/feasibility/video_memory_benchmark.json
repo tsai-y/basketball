@@ -1,0 +1,51 @@
+{
+  "results": [
+    {
+      "strategy": "all_clips_one_batch_full_gradient",
+      "clip_count": 17,
+      "clip_batch_size": 17,
+      "retains_clip_graphs": true,
+      "status": "PASS",
+      "peak_allocated_bytes": 3980360192,
+      "peak_reserved_bytes": 9409921024,
+      "step_seconds": 0.14646063200052595,
+      "gradient_reached_conv1a": true,
+      "gradient_reached_fc6": true,
+      "descriptor_shape": [
+        4096
+      ]
+    },
+    {
+      "strategy": "chunked_two_full_gradient",
+      "clip_count": 17,
+      "clip_batch_size": 2,
+      "retains_clip_graphs": true,
+      "status": "PASS",
+      "peak_allocated_bytes": 3708766208,
+      "peak_reserved_bytes": 4026531840,
+      "step_seconds": 0.18042508499638643,
+      "gradient_reached_conv1a": true,
+      "gradient_reached_fc6": true,
+      "descriptor_shape": [
+        4096
+      ]
+    },
+    {
+      "strategy": "chunked_two_frozen_backbone",
+      "clip_count": 17,
+      "clip_batch_size": 2,
+      "retains_clip_graphs": false,
+      "status": "PASS",
+      "peak_allocated_bytes": 543819776,
+      "peak_reserved_bytes": 1021313024,
+      "step_seconds": 0.05595513200023561,
+      "gradient_reached_conv1a": false,
+      "gradient_reached_fc6": false,
+      "descriptor_shape": [
+        4096
+      ]
+    }
+  ],
+  "frozen_float32_descriptor_storage_estimate_bytes_for_10279_videos": 168411136,
+  "estimate_excludes_ids_metadata_and_filesystem_overhead": true
+}

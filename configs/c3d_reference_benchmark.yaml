@@ -1,0 +1,15 @@
+seed: 20260930
+dataset_path: archive/Basketball_51 dataset
+manifest_path: data/processed/dataset_manifest.csv
+split_summary_path: data/processed/split_summary.json
+reference_config_path: configs/c3d_reference.yaml
+output_dir: runs/full_video_c3d_reference_v1/feasibility
+clip_batches: [1, 2, 4, 8]
+warmup_iterations: 3
+measured_iterations: 5
+optimizer: adamw
+learning_rate: 0.0001
+weight_decay: 0.0001
+loader_workers: [0, 2, 4]
+loader_video_count: 6
+loader_clip_batch_size: 2

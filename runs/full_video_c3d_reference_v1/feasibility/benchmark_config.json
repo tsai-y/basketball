@@ -1,0 +1,63 @@
+{
+  "config": {
+    "seed": 20260930,
+    "dataset_path": "archive/Basketball_51 dataset",
+    "manifest_path": "data/processed/dataset_manifest.csv",
+    "split_summary_path": "data/processed/split_summary.json",
+    "reference_config_path": "configs/c3d_reference.yaml",
+    "output_dir": "runs/full_video_c3d_reference_v1/feasibility",
+    "clip_batches": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "warmup_iterations": 3,
+    "measured_iterations": 5,
+    "optimizer": "adamw",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "loader_workers": [
+      0,
+      2,
+      4
+    ],
+    "loader_video_count": 6,
+    "loader_clip_batch_size": 2
+  },
+  "reference_config": {
+    "experiment_name": "basketball51_full_video_c3d_reference_v1",
+    "seed": 20260930,
+    "dataset_path": "archive/Basketball_51 dataset",
+    "manifest_path": "data/processed/dataset_manifest.csv",
+    "split_summary_path": "data/processed/split_summary.json",
+    "run_dir": "runs/full_video_c3d_reference_v1",
+    "clip_length": 16,
+    "clip_stride": 8,
+    "tail_policy": "discard_incomplete",
+    "resize_height": 128,
+    "resize_width": 171,
+    "crop_size": 112,
+    "train_crop": "random",
+    "eval_crop": "center",
+    "train_horizontal_flip_probability": 0.5,
+    "pixel_preprocessing": "rgb_float_minus_one_to_one",
+    "fc6_feature_point": "post_relu_pre_dropout",
+    "pool_ceil_mode": true,
+    "video_aggregation": "mean_fc6_then_l2",
+    "clip_batch_size": 2,
+    "num_workers": 0,
+    "device": "auto",
+    "num_classes": 2,
+    "small_subset_per_class": 1,
+    "small_subset_linear_lr": 0.1,
+    "small_subset_feature_scaling": "train_subset_center_and_global_std",
+    "small_subset_max_steps": 200,
+    "small_subset_target_accuracy": 1.0
+  },
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "split_summary_sha256": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti"
+}

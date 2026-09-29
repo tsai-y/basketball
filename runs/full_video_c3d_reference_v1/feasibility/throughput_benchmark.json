@@ -1,0 +1,112 @@
+{
+  "results": [
+    {
+      "mode": "full",
+      "clip_batch_size": 1,
+      "status": "PASS",
+      "average_iteration_seconds": 0.017541638598777352,
+      "clips_per_second": 57.007217106257094,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 2,
+      "status": "PASS",
+      "average_iteration_seconds": 0.026006503400276416,
+      "clips_per_second": 76.90384090537687,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 4,
+      "status": "PASS",
+      "average_iteration_seconds": 0.04226257979971706,
+      "clips_per_second": 94.64637556334834,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "full",
+      "clip_batch_size": 8,
+      "status": "PASS",
+      "average_iteration_seconds": 0.07355532360015786,
+      "clips_per_second": 108.76167228204311,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "frozen",
+      "clip_batch_size": 1,
+      "status": "PASS",
+      "average_iteration_seconds": 0.003908363200753229,
+      "clips_per_second": 255.86158415555587,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "frozen",
+      "clip_batch_size": 2,
+      "status": "PASS",
+      "average_iteration_seconds": 0.006861738200677791,
+      "clips_per_second": 291.4713359076339,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "frozen",
+      "clip_batch_size": 4,
+      "status": "PASS",
+      "average_iteration_seconds": 0.011980086199037033,
+      "clips_per_second": 333.8874139588013,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "frozen",
+      "clip_batch_size": 8,
+      "status": "PASS",
+      "average_iteration_seconds": 0.022571842999604998,
+      "clips_per_second": 354.42387226156046,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "partial",
+      "clip_batch_size": 1,
+      "status": "PASS",
+      "average_iteration_seconds": 0.0097379078004451,
+      "clips_per_second": 102.69146314512159,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "partial",
+      "clip_batch_size": 2,
+      "status": "PASS",
+      "average_iteration_seconds": 0.012700285398022971,
+      "clips_per_second": 157.47677609759353,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "partial",
+      "clip_batch_size": 4,
+      "status": "PASS",
+      "average_iteration_seconds": 0.017942395000136457,
+      "clips_per_second": 222.9356783177262,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    },
+    {
+      "mode": "partial",
+      "clip_batch_size": 8,
+      "status": "PASS",
+      "average_iteration_seconds": 0.029140963399549948,
+      "clips_per_second": 274.52764310886,
+      "warmup_iterations": 3,
+      "measured_iterations": 5
+    }
+  ]
+}

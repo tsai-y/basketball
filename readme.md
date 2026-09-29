@@ -9,6 +9,7 @@
 3. 建立並執行 RGB Dataset/DataLoader、modified C3D-style 模型、smoke test、小樣本 overfit test、五個 epoch 訓練和一次 test 評估。
 4. 完成原始 C3D 論文與作者官方 Caffe 網路定義的實作稽核，寫成 reference-faithful C3D reproduction specification。
 5. 依規格新增獨立的 continuous-clip C3D adaptation 與 fc6 影片描述子流程；clip 索引、CUDA smoke 和兩支 train 影片的小樣本 pipeline gate 已通過。**Reference C3D 尚未進行完整資料訓練或 test 評估。**
+6. 完成 Reference C3D 的短時 shape、VRAM、throughput、DataLoader feasibility 與正式訓練 protocol；正式訓練腳本只通過 config check 和單支 train／validation dry-run，**尚未跑完整 epoch**。
 
 原始 **10,311** 支影片中，排除 **6** 支結果標籤衝突影片及 **26** 支一致標籤的重複複本，留下 **10,279** 支。可用資料分為 train **7,193**、validation **1,547**、test **1,539**。這些是固定來源代碼分組，**尚未由原始比賽資料核實為真正的 game-level split**。已完成的 modified C3D-style baseline test accuracy 為 **74.79%**；完整指標、失敗與修正紀錄見 [baseline_results.md](docs/baseline_results.md)。新 reference C3D 的小樣本 gate 不是正式研究結果。
 
@@ -81,6 +82,10 @@
 | [`reference_c3d/aggregate.py`](reference_c3d/aggregate.py) | 多個 clip 的 fc6 平均後 L2 normalization，產生 4096 維影片描述子。 |
 | [`scripts/run_c3d_reference_checks.py`](scripts/run_c3d_reference_checks.py) | 只提供 `verify`、`smoke`、`subset`；不包含全量訓練或 test 評估階段。 |
 | [`runs/full_video_c3d_reference_v1/`](runs/full_video_c3d_reference_v1/) | 獨立保存 clip 驗證、CUDA smoke、小樣本第一次失敗與修正後通過的紀錄；沒有正式 checkpoint。 |
+| [`runs/full_video_c3d_reference_v1/feasibility/`](runs/full_video_c3d_reference_v1/feasibility/) | 本輪獨立保存 Caffe/PyTorch shape audit、三種訓練模式的短時 VRAM／吞吐、影片級記憶體及 DataLoader benchmark。它不是訓練結果。 |
+| [`configs/c3d_reference_benchmark.yaml`](configs/c3d_reference_benchmark.yaml)、[`scripts/benchmark_c3d_reference.py`](scripts/benchmark_c3d_reference.py) | 短時 train-only GPU／資料載入可行性測試設定與程式；沒有完整 epoch。 |
+| [`scripts/audit_c3d_shape.py`](scripts/audit_c3d_shape.py) | 以作者 Caffe pooling shape 公式與 PyTorch 實際輸出核對 pool5、flatten 和 fc6。 |
+| [`configs/c3d_reference_train.yaml`](configs/c3d_reference_train.yaml)、[`scripts/run_c3d_reference_train.py`](scripts/run_c3d_reference_train.py) | **尚未執行的正式訓練方案**：既有固定 split、影片級 fc6 loss、獨立 `runs/full_video_c3d_reference_train_v1/`、validation checkpoint 與 epoch-boundary resume。 |
 
 ### 研究與實驗文件
 
@@ -89,9 +94,10 @@
 | [`docs/references.md`](docs/references.md) | Basketball-51、C3D、I3D 的文獻資訊、各篇在本專案中的角色及與論文實作的差異。I3D 尚未實作。 |
 | [`docs/c3d_reproduction_spec.md`](docs/c3d_reproduction_spec.md) | C3D 實作稽核：逐項區分論文確認、作者官方實作確認、Basketball-51 適配選項與尚未確認事項，並比較目前 modified baseline。 |
 | [`docs/c3d_reference_implementation.md`](docs/c3d_reference_implementation.md) | 新 reference C3D adaptation 的實作細節、PROJECT_ADAPTATION、實際 clip 索引、tensor shapes、失敗與通過的 gate 紀錄及限制。 |
+| [`docs/c3d_training_protocol.md`](docs/c3d_training_protocol.md) | 初始化與訓練層級決策、影片級 loss／分類器比較、pretrained 相容性門檻、實測 VRAM／吞吐／DataLoader、下一階段正式設定與命令。 |
 | [`docs/baseline_protocol.md`](docs/baseline_protocol.md) | 本輪研究問題、清理與 split 規則、前處理、模型、訓練、評估及限制。 |
 | [`docs/baseline_results.md`](docs/baseline_results.md) | 實際 smoke/overfit、五個 epoch、test 指標、混淆矩陣和環境紀錄。 |
-| [`docs/progress_log.md`](docs/progress_log.md) | 階段性進度摘要；reference C3D adaptation 的 pipeline 與驗證 gate 已完成，完整訓練／特徵擷取實驗尚未執行。 |
+| [`docs/progress_log.md`](docs/progress_log.md) | 階段性進度摘要；reference C3D 的 pipeline、驗證 gate 與訓練 feasibility/protocol 已完成，完整訓練／特徵擷取實驗尚未執行。 |
 
 ### C3D 稽核確認了什麼
 
@@ -104,6 +110,8 @@
 **影片切 clip 的程式位置：**Experiment A 由 [`baseline/data.py`](baseline/data.py) 的 `UniformBinSampler.indices()` 從完整影片的 16 個區間各取一 frame。新 reference C3D 由 [`reference_c3d/data.py`](reference_c3d/data.py) 的 `ContinuousClipSampler.indices()` 產生連續 16-frame、stride 8 的多個 clips；`C3DVideoDataset.__getitem__()` 解碼、前處理並組成 `[clips,3,16,112,112]`。兩者使用不同 config 與 run 目錄。
 
 待確認的 C3D 實作細節包含原實驗權重與 seed 的完整來源、測試 clip 的精確位置、與原權重相容的色彩及 mean preprocessing，以及 fc6 特徵匯出的精確位置。本專案已把尾段丟棄、pooling rounding 與 fc6 擷取點明列為 PROJECT_ADAPTATION；下一步是另行規劃完整訓練／特徵擷取實驗，仍不能稱為重現原論文的 benchmark 成績。
+
+本輪已用作者 Caffe pooling 公式確認目前 PyTorch `ceil_mode=True` 的 **pool5 shape `[B,512,1,4,4]`、flatten 8192、fc6 輸入 8192**；這只核對 shape，未驗證 pretrained 權重的數值相容性。短時 GPU 測試的 clip batch 1/2/4/8 皆可 forward/backward，但「8 clips 可行」不等於「8 支完整影片同時保留梯度圖可行」。正式訓練方案選擇一支影片分塊處理、影片級 loss；詳細理由與風險見 [training protocol](docs/c3d_training_protocol.md)。
 
 ### 已完成實驗的產物
 
@@ -140,6 +148,8 @@ conda run -n yolo11 python -B scripts/run_baseline.py --stage overfit
 conda run -n yolo11 python -B scripts/run_baseline.py --stage train
 conda run -n yolo11 python -B scripts/run_baseline.py --stage evaluate
 ```
+
+Reference C3D **下一階段**的正式命令已寫入 [training protocol](docs/c3d_training_protocol.md)。本輪只執行其 `--check` 與 `--dry-run`；目前沒有建立 `runs/full_video_c3d_reference_train_v1/` 或開始完整訓練。
 
 ## 解讀結果時的限制
 

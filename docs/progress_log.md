@@ -3,7 +3,7 @@
 ## Current Status
 
 Current phase:
-Reference-faithful C3D adaptation pipeline and validation gates completed; full training pending
+Reference C3D training protocol and short feasibility tests completed; full training pending
 
 Current model:
 Modified C3D-style Experiment A (trained); reference C3D adaptation (implemented, untrained)
@@ -15,7 +15,7 @@ Current reference:
 C3D - Tran et al., ICCV 2015
 
 Next planned task:
-Full reference C3D training / feature extraction experiment
+Full Reference C3D training in terminal/tmux
 
 Last updated:
 2026-09-30
@@ -144,3 +144,39 @@ Reference-faithful C3D implementation（須先定案未解決的 preprocessing�
 
 ### Next Step
 Full reference C3D training / feature extraction experiment（本輪未開始）。
+
+
+## 2026-09-30 - Reference C3D Training Protocol / Feasibility
+
+### Goal
+決定初始化、訓練層級、影片級 loss 與 binary classifier；在 train 資料上做短時 shape、VRAM、throughput、DataLoader 和正式腳本 dry-run。**沒有跑完整 epoch、完整資料訓練或 test 評估。**
+
+### Modes Benchmarked
+- Full fc6 gradient path、frozen C3D + linear head、partial conv5a/conv5b/fc6 + head。
+- 三種模式均以 clip batch 1/2/4/8 各做 3 warmup + 5 timed iterations；全部 forward/backward PASS、無 OOM。
+- 對一支 17-clip train 影片各測一次：全 clips 同批、兩 clip 分塊但保留完整梯度圖、兩 clip 分塊且 backbone frozen。記憶體與時間詳見 `docs/c3d_training_protocol.md` 及 `runs/full_video_c3d_reference_v1/feasibility/`。
+
+### VRAM / Throughput Results
+- Full fc6 path batch 1/2/4/8：peak allocated 約 1258/1360/1683/2334 MiB，平均 17.54/26.01/42.26/73.56 ms/step；8 clip batch 約 108.8 clips/s。完整 17-clip 影片分塊、保留梯度圖時 peak allocated 3537 MiB、reserved 3840 MiB。
+- Frozen batch 8：約 1139 MiB allocated、354.4 clips/s；partial batch 8：約 1503 MiB allocated、274.5 clips/s。這些只是短 benchmark，非正式 epoch 速度。
+- DataLoader 六支 train 影片、每支 17 clips：0/2/4 workers 的平均 data wait 為 0.0908/0.0156/0.0189 秒／影片，三者皆穩定；選 2 workers。沒有直接量測 GPU utilization。
+
+### Initialization / Protocol Decision
+- 目前沒有可靠相容的原作者 Sports-1M checkpoint 或 mean file，因此**主要可執行方案**選官方 prototxt filler 從零初始化，訓練 conv1a→fc6 全部活躍路徑加 4096→2 線性 head；影片所有 clip 先平均 fc6、L2 normalize，再計算一次 video-level CE。fc7/fc8 不在此 loss 路徑，將凍結。
+- **次要條件比較**：若日後驗證作者權重、channel/mean、pool5/fc6 與輸出一致，再做 frozen descriptors + binary linear SVM，之後才比較 partial/full fine-tuning。這些是研究建議，不是本輪已完成實驗。
+- 官方 Caffe pool3d `ceil` shape 公式與 PyTorch `ceil_mode=True` 的最小 audit PASS：pool5 `[B,512,1,4,4]`、flatten 8192、fc6 `8192→4096`。
+
+### Training Script Check
+- 新正式腳本只允許既定 train/validation split，另存新 run 目錄，支援 epoch-boundary checkpoint/resume；本輪只執行 `--check` 與單支 train／validation 的 `--dry-run`。
+- 第一次 dry-run 的運算完成後，NumPy 布林值 JSON serialization 報錯；修正型別後重跑 PASS。train 與 validation 各處理 17 clips，loss 均為有限值，沒有寫正式 run 檔。CUDA max-pool3d backward 發出非 bitwise-deterministic 警告。
+
+### Files Changed
+- 新增 `configs/c3d_reference_benchmark.yaml`、`configs/c3d_reference_train.yaml`、`scripts/audit_c3d_shape.py`、`scripts/benchmark_c3d_reference.py`、`scripts/run_c3d_reference_train.py`、`docs/c3d_training_protocol.md`。
+- 僅在 `runs/full_video_c3d_reference_v1/feasibility/` 寫入本輪短 benchmark JSON；既有 Experiment A 與 3B gate 檔未覆寫。
+- 追加本紀錄並補充 README。
+
+### Remaining Risks
+從零訓練過擬合風險、原權重的 mean/color 相容性、fc6 精確匯出點、短測無法代表完整 epoch、CUDA max-pool3d backward 非 bitwise deterministic、真實 game identity 與 near-duplicate 未核實。
+
+### Next Step
+Full Reference C3D training in terminal/tmux（待確認，尚未執行）。
