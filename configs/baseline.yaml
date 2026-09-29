@@ -1,0 +1,24 @@
+experiment_name: basketball51_full_video_c3d_style_v1
+seed: 20260927
+dataset_path: archive/Basketball_51 dataset
+manifest_path: data/processed/dataset_manifest.csv
+split_summary_path: data/processed/split_summary.json
+num_classes: 2
+num_frames: 16
+image_size: 96
+batch_size: 16
+learning_rate: 0.001
+optimizer: adamw
+weight_decay: 0.0001
+epochs: 5
+num_workers: 4
+device: auto
+checkpoint_path: runs/full_video_c3d_style_v1/best.pt
+run_dir: runs/full_video_c3d_style_v1
+temporal_sampler: uniform_bins
+train_temporal_jitter: true
+train_horizontal_flip_probability: 0.5
+smoke_batch_size: 2
+overfit_subset_size: 8
+overfit_steps: 120
+overfit_target_accuracy: 1.0

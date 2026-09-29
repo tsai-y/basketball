@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "protocol_sha256": "7ebeb961d9b39b9d3214879b18713ca0fa4613dc034c265fcd676618956cd13a",
+  "input_shape": [
+    2,
+    3,
+    16,
+    96,
+    96
+  ],
+  "output_shape": [
+    2,
+    2
+  ],
+  "labels": [
+    0,
+    1
+  ],
+  "loss": 0.7325361371040344,
+  "gradients_finite": true,
+  "optimizer_step": true,
+  "device": "cuda",
+  "parameters": 6951874,
+  "peak_gpu_memory_bytes": 356121088,
+  "video_ids": [
+    "2p0/2p0_v108_000437_x264.mp4",
+    "2p1/2p1_v108_000340_x264.mp4"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "accuracy": 0.7478882391163093,
+  "precision_make": 0.7116935483870968,
+  "recall_make": 0.8737623762376238,
+  "f1_make": 0.7844444444444445,
+  "confusion_matrix_rows_true_0_1": [
+    [
+      445,
+      286
+    ],
+    [
+      102,
+      706
+    ]
+  ],
+  "positive_class": "Make=1",
+  "n": 1539,
+  "checkpoint_epoch": 5,
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6"
+}

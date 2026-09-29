@@ -1,0 +1,9 @@
+{
+  "status": "COMPLETE",
+  "best_epoch": 5,
+  "best_validation_loss": 0.5254383027630617,
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "epochs": 5,
+  "elapsed_seconds": 319.81,
+  "peak_gpu_memory_bytes": 1648338432
+}

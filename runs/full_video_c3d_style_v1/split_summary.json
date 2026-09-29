@@ -1,0 +1,86 @@
+{
+  "seed": 20260927,
+  "ratios": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "candidate_assignments": 20000,
+  "selection_score": 0.0014104335701823141,
+  "source_group_count": 50,
+  "group_assignment": {
+    "v108": "train",
+    "v111": "train",
+    "v112": "test",
+    "v113": "validation",
+    "v114": "test",
+    "v115": "train",
+    "v116": "train",
+    "v117": "train",
+    "v118": "train",
+    "v119": "train",
+    "v120": "train",
+    "v121": "test",
+    "v122": "train",
+    "v123": "validation",
+    "v124": "train",
+    "v127": "train",
+    "v128": "train",
+    "v129": "test",
+    "v130": "train",
+    "v131": "train",
+    "v133": "train",
+    "v145": "train",
+    "v146": "test",
+    "v147": "train",
+    "v149": "validation",
+    "v150": "train",
+    "v152": "validation",
+    "v153": "validation",
+    "v154": "validation",
+    "v155": "train",
+    "v156": "train",
+    "v157": "train",
+    "v158": "train",
+    "v159": "train",
+    "v160_v166": "train",
+    "v161": "train",
+    "v162": "test",
+    "v163": "train",
+    "v164": "train",
+    "v165": "validation",
+    "v167": "train",
+    "v168": "validation",
+    "v169": "train",
+    "v171": "test",
+    "v174": "train",
+    "v175": "train",
+    "v181": "train",
+    "v182": "train",
+    "v183": "train",
+    "v184": "train"
+  },
+  "label_counts": {
+    "train": {
+      "0": 3421,
+      "1": 3772
+    },
+    "validation": {
+      "0": 740,
+      "1": 807
+    },
+    "test": {
+      "0": 731,
+      "1": 808
+    },
+    "excluded": {
+      "0": 9,
+      "1": 23
+    }
+  },
+  "exclusions": {
+    "conflicting_outcome": 6,
+    "duplicate_copy": 26
+  },
+  "total_rows": 10311
+}

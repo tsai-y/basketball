@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "protocol_sha256": "7ebeb961d9b39b9d3214879b18713ca0fa4613dc034c265fcd676618956cd13a",
+  "subset_size": 8,
+  "video_ids": [
+    "2p0/2p0_v108_000437_x264.mp4",
+    "2p0/2p0_v108_000447_x264.mp4",
+    "2p0/2p0_v108_000627_x264.mp4",
+    "2p0/2p0_v108_000911_x264.mp4",
+    "2p1/2p1_v108_000340_x264.mp4",
+    "2p1/2p1_v108_000546_x264.mp4",
+    "2p1/2p1_v108_000635_x264.mp4",
+    "2p1/2p1_v108_001207_x264.mp4"
+  ],
+  "history": [
+    {
+      "step": 1,
+      "train_loss": 0.6228101253509521,
+      "subset_eval_loss": 0.6931716203689575,
+      "subset_accuracy": 0.5
+    },
+    {
+      "step": 10,
+      "train_loss": 0.024526525288820267,
+      "subset_eval_loss": 4.068535327911377,
+      "subset_accuracy": 0.5
+    },
+    {
+      "step": 20,
+      "train_loss": 0.0012018760899081826,
+      "subset_eval_loss": 1.2534854412078857,
+      "subset_accuracy": 0.5
+    },
+    {
+      "step": 30,
+      "train_loss": 0.00028620415832847357,
+      "subset_eval_loss": 0.3618668019771576,
+      "subset_accuracy": 0.875
+    },
+    {
+      "step": 40,
+      "train_loss": 0.00029251730302348733,
+      "subset_eval_loss": 0.0003873430541716516,
+      "subset_accuracy": 1.0
+    }
+  ],
+  "device": "cuda",
+  "peak_gpu_memory_bytes": 924558848
+}

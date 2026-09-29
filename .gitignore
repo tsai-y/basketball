@@ -1,0 +1,33 @@
+# Basketball-51 dataset
+archive/
+*.mp4
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Research PDFs
+papers/*.pdf
+TOPIC 1.pdf
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Large checkpoints inside experiment runs
+runs/**/best.pt
