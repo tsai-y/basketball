@@ -3,10 +3,10 @@
 ## Current Status
 
 Current phase:
-C3D implementation audit / reproduction specification completed
+Reference-faithful C3D adaptation pipeline and validation gates completed; full training pending
 
 Current model:
-Modified C3D-style
+Modified C3D-style Experiment A (trained); reference C3D adaptation (implemented, untrained)
 
 Latest test accuracy:
 74.79%
@@ -15,10 +15,10 @@ Current reference:
 C3D - Tran et al., ICCV 2015
 
 Next planned task:
-Reference-faithful C3D reproduction
+Full reference C3D training / feature extraction experiment
 
 Last updated:
-2026-09-29
+2026-09-30
 
 
 ## 2026-09-27 - Dataset Inspection
@@ -123,3 +123,24 @@ F1:
 
 ### Next Step
 Reference-faithful C3D implementation（須先定案未解決的 preprocessing、aggregation、checkpoint 來源；本輪未開始）。
+
+
+## 2026-09-30 - Basketball-51 Reference C3D Adaptation Pipeline
+
+### Goal
+實作連續 16-frame clips、原始 C3D 架構對應、fc6 影片描述子，以及有限的 clip／CUDA smoke／小樣本 pipeline gates；不進行全量訓練或 test 評估。
+
+### Completed
+- 沿用既有 cleaned manifest 與固定 split，沒有重抽或改寫；Experiment A 的模型與 run 未修改。
+- 新增獨立 `reference_c3d/`、`configs/c3d_reference.yaml`、`scripts/run_c3d_reference_checks.py` 與 `docs/c3d_reference_implementation.md`。
+- 尾段規則選擇只保留完整 clip，標記為 PROJECT_ADAPTATION；兩支 146-frame train 影片皆產生 17 個連續 clips，第一、二個零起算索引為 `[0..15]` 與 `[8..23]`。
+- CUDA smoke PASS：`[2,3,16,112,112]` → pool5 `[2,512,1,4,4]` → fc6 `[2,4096]` → descriptor `[4096]`；梯度有限且非零；模型參數 `78,003,970`。
+- 小樣本第一次 FAIL：原始隨機 fc6 描述子差距很小，診斷分類器 loss 停在約 0.693；失敗紀錄保留。只用兩支 train 影片做診斷特徵縮放後，小樣本 pipeline gate PASS。這只訓練線性診斷 head，C3D backbone 沒有訓練。
+
+### Important Decisions and Unresolved
+- fc6 輸出取在 ReLU 後、dropout 前；`ceil_mode: true`、RGB `[-1,1]`、尾段丟棄與二類 fc8 都是明列的 PROJECT_ADAPTATION。
+- 原 checkpoint／mean-file 相容性、精確 Caffe pooling 與 fc6 匯出位置仍需確認。小樣本結果不是研究準確率，也不能證明 backbone 已學會分類。
+- `runs/full_video_c3d_reference_v1/` 只有 config、環境與 gate 紀錄；無正式 checkpoint 或 test metrics。詳情見 `docs/c3d_reference_implementation.md`。
+
+### Next Step
+Full reference C3D training / feature extraction experiment（本輪未開始）。

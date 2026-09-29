@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "2495c3d47553685ef5693c85df71a8ebd50a0235e1ac3f8f3cfa10a43b8d5f69",
+  "train_only": true,
+  "model_training": "frozen_random_c3d_plus_tiny_linear_head_diagnostic",
+  "sample_count": 2,
+  "samples": [
+    {
+      "video_id": "2p0/2p0_v108_000437_x264.mp4",
+      "label": 0,
+      "clip_count": 17,
+      "fc6_shape": [
+        17,
+        4096
+      ],
+      "descriptor_l2_norm": 0.9999999403953552
+    },
+    {
+      "video_id": "2p1/2p1_v108_000340_x264.mp4",
+      "label": 1,
+      "clip_count": 17,
+      "fc6_shape": [
+        17,
+        4096
+      ],
+      "descriptor_l2_norm": 1.0
+    }
+  ],
+  "descriptor_shape": [
+    2,
+    4096
+  ],
+  "first_two_descriptor_distance": 0.00023732025874778628,
+  "diagnostic_feature_scaling": "train_subset_center_and_global_std",
+  "diagnostic_scale": 0.00011866012937389314,
+  "history": [
+    {
+      "step": 1,
+      "accuracy": 1.0,
+      "loss": 0.00010281255526933819
+    }
+  ],
+  "peak_gpu_memory_bytes": 536117248
+}

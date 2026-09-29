@@ -7,9 +7,10 @@
 1. 檢查本地 Basketball-51 的目錄、標籤、影片規格與解碼狀況。
 2. 用 manifest 記錄完全重複影片、互相矛盾的標籤、排除原因與固定 split；原始影片沒有被移動或改寫。
 3. 建立並執行 RGB Dataset/DataLoader、modified C3D-style 模型、smoke test、小樣本 overfit test、五個 epoch 訓練和一次 test 評估。
-4. 完成原始 C3D 論文與作者官方 Caffe 網路定義的實作稽核，寫成 reference-faithful C3D reproduction specification。**目前只完成規格，尚未實作或訓練 reference-faithful C3D。**
+4. 完成原始 C3D 論文與作者官方 Caffe 網路定義的實作稽核，寫成 reference-faithful C3D reproduction specification。
+5. 依規格新增獨立的 continuous-clip C3D adaptation 與 fc6 影片描述子流程；clip 索引、CUDA smoke 和兩支 train 影片的小樣本 pipeline gate 已通過。**Reference C3D 尚未進行完整資料訓練或 test 評估。**
 
-原始 **10,311** 支影片中，排除 **6** 支結果標籤衝突影片及 **26** 支一致標籤的重複複本，留下 **10,279** 支。可用資料分為 train **7,193**、validation **1,547**、test **1,539**。這些是固定來源代碼分組，**尚未由原始比賽資料核實為真正的 game-level split**。已完成的 modified C3D-style baseline test accuracy 為 **74.79%**；完整指標、失敗與修正紀錄見 [baseline_results.md](docs/baseline_results.md)。本次 C3D 稽核沒有產生新模型結果。
+原始 **10,311** 支影片中，排除 **6** 支結果標籤衝突影片及 **26** 支一致標籤的重複複本，留下 **10,279** 支。可用資料分為 train **7,193**、validation **1,547**、test **1,539**。這些是固定來源代碼分組，**尚未由原始比賽資料核實為真正的 game-level split**。已完成的 modified C3D-style baseline test accuracy 為 **74.79%**；完整指標、失敗與修正紀錄見 [baseline_results.md](docs/baseline_results.md)。新 reference C3D 的小樣本 gate 不是正式研究結果。
 
 ## 專案目錄與檔案
 
@@ -70,15 +71,27 @@
 | [`baseline/model.py`](baseline/model.py) | 修改版 C3D-style 3D CNN；含八層 3D 卷積、BatchNorm3d、五層 pooling 及二分類 head。**不是原始 C3D 的完全相同架構。** |
 | [`scripts/run_baseline.py`](scripts/run_baseline.py) | 四個執行階段：`smoke`、`overfit`、`train`、`evaluate`。只有前兩個 gate 通過且 manifest/protocol hash 相符，才能進入訓練；評估載入 validation loss 最低的 checkpoint。 |
 
+### Reference C3D adaptation（尚未完整訓練）
+
+| 路徑 | 用途 |
+| --- | --- |
+| [`configs/c3d_reference.yaml`](configs/c3d_reference.yaml) | 獨立設定：16-frame clip、stride 8、resize/crop、尾段處理、fc6 聚合及 gate 參數；使用新 run 目錄。 |
+| [`reference_c3d/data.py`](reference_c3d/data.py) | `ContinuousClipSampler` 和影片 Dataset；每個 clip 使用連續 frame，與 Experiment A 的 16-bin sampler 分開。 |
+| [`reference_c3d/model.py`](reference_c3d/model.py) | C3D 參考拓撲、fc6 特徵擷取及明列的 Basketball-51 適配；目前沒有預訓練權重。 |
+| [`reference_c3d/aggregate.py`](reference_c3d/aggregate.py) | 多個 clip 的 fc6 平均後 L2 normalization，產生 4096 維影片描述子。 |
+| [`scripts/run_c3d_reference_checks.py`](scripts/run_c3d_reference_checks.py) | 只提供 `verify`、`smoke`、`subset`；不包含全量訓練或 test 評估階段。 |
+| [`runs/full_video_c3d_reference_v1/`](runs/full_video_c3d_reference_v1/) | 獨立保存 clip 驗證、CUDA smoke、小樣本第一次失敗與修正後通過的紀錄；沒有正式 checkpoint。 |
+
 ### 研究與實驗文件
 
 | 路徑 | 用途 |
 | --- | --- |
 | [`docs/references.md`](docs/references.md) | Basketball-51、C3D、I3D 的文獻資訊、各篇在本專案中的角色及與論文實作的差異。I3D 尚未實作。 |
-| [`docs/c3d_reproduction_spec.md`](docs/c3d_reproduction_spec.md) | 本輪完成的 C3D 實作稽核：逐項區分論文確認、作者官方實作確認、Basketball-51 適配選項與尚未確認事項，並比較目前 modified baseline。**這是下一階段的規格，不是已完成的模型或實驗結果。** |
+| [`docs/c3d_reproduction_spec.md`](docs/c3d_reproduction_spec.md) | C3D 實作稽核：逐項區分論文確認、作者官方實作確認、Basketball-51 適配選項與尚未確認事項，並比較目前 modified baseline。 |
+| [`docs/c3d_reference_implementation.md`](docs/c3d_reference_implementation.md) | 新 reference C3D adaptation 的實作細節、PROJECT_ADAPTATION、實際 clip 索引、tensor shapes、失敗與通過的 gate 紀錄及限制。 |
 | [`docs/baseline_protocol.md`](docs/baseline_protocol.md) | 本輪研究問題、清理與 split 規則、前處理、模型、訓練、評估及限制。 |
 | [`docs/baseline_results.md`](docs/baseline_results.md) | 實際 smoke/overfit、五個 epoch、test 指標、混淆矩陣和環境紀錄。 |
-| [`docs/progress_log.md`](docs/progress_log.md) | 階段性進度摘要；目前已完成 C3D implementation audit / reproduction specification，下一步的 reference-faithful C3D implementation 尚未執行。 |
+| [`docs/progress_log.md`](docs/progress_log.md) | 階段性進度摘要；reference C3D adaptation 的 pipeline 與驗證 gate 已完成，完整訓練／特徵擷取實驗尚未執行。 |
 
 ### C3D 稽核確認了什麼
 
@@ -88,9 +101,9 @@
 | [作者官方 C3D 程式庫](https://github.com/facebookarchive/C3D)的網路定義 | 卷積及 fc6/fc7 後的 ReLU、fc6/fc7 後 0.5 dropout、卷積的時間與空間 padding 1、bias 和初始化宣告；檢查的定義沒有 BatchNorm/LayerNorm。這些細節不能誤寫成論文正文有明確說明。 |
 | 本專案程式 | 現有模型從整段影片的 16 個時間區間各取一 frame，得到 `[3,16,96,96]`；採較窄通道、BatchNorm、global average pooling 及二分類 head，沒有原始 fc6/fc7 或多 clip 聚合。 |
 
-**目前影片切 clip 的程式位置：**[`baseline/data.py`](baseline/data.py) 的 `UniformBinSampler.indices()` 決定 16 個影格索引，`BasketballVideoDataset.__getitem__()` 解碼、前處理並組成 tensor；設定在 [`configs/baseline.yaml`](configs/baseline.yaml) 的 `num_frames` 與 `temporal_sampler`。目前取的是**跨完整影片的稀疏影格**，並未實作論文的連續 16-frame、8-frame overlap 多 clip 流程。
+**影片切 clip 的程式位置：**Experiment A 由 [`baseline/data.py`](baseline/data.py) 的 `UniformBinSampler.indices()` 從完整影片的 16 個區間各取一 frame。新 reference C3D 由 [`reference_c3d/data.py`](reference_c3d/data.py) 的 `ContinuousClipSampler.indices()` 產生連續 16-frame、stride 8 的多個 clips；`C3DVideoDataset.__getitem__()` 解碼、前處理並組成 `[clips,3,16,112,112]`。兩者使用不同 config 與 run 目錄。
 
-待確認的 C3D 實作細節包含原實驗權重與 seed 的完整來源、測試 clip 的精確位置、影片尾段處理、與原權重相容的色彩及 mean preprocessing，以及 fc6 特徵匯出的精確位置。下一階段在定案這些設定後，才能建立 **Basketball-51 上的 reference-faithful C3D adaptation**；它仍不等於重現原論文的 benchmark 成績。
+待確認的 C3D 實作細節包含原實驗權重與 seed 的完整來源、測試 clip 的精確位置、與原權重相容的色彩及 mean preprocessing，以及 fc6 特徵匯出的精確位置。本專案已把尾段丟棄、pooling rounding 與 fc6 擷取點明列為 PROJECT_ADAPTATION；下一步是另行規劃完整訓練／特徵擷取實驗，仍不能稱為重現原論文的 benchmark 成績。
 
 ### 已完成實驗的產物
 
