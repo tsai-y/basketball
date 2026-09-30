@@ -1,0 +1,10 @@
+{
+  "status": "COMPLETE",
+  "epochs_completed": 13,
+  "target_max_epochs": 20,
+  "best_validation_loss": 0.6015637946479461,
+  "best_epoch": 10,
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "protocol_sha256": "d327941d35d9a9832af8ecf90ee5f6fa9ba21899bc9a8e61e71de56b501e039a",
+  "test_evaluation_performed": false
+}

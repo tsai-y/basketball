@@ -31,6 +31,19 @@ from reference_c3d.data import C3DVideoDataset, ContinuousClipSampler
 from reference_c3d.model import ReferenceC3D
 
 
+# One-time compatibility for the already completed 10-epoch run. The original
+# protocol hash included this script, so fixing resume changes that hash.
+LEGACY_TEN_EPOCH_PROTOCOL_SHA256 = "793ce3bf97ff8cdddbff74ed8081ea7d8cb6a2dfecddf33455765b3af1b55b10"
+# Hash of the completed 13-epoch run before the resume-only patience override.
+THIRTEEN_EPOCH_PROTOCOL_SHA256 = "d327941d35d9a9832af8ecf90ee5f6fa9ba21899bc9a8e61e71de56b501e039a"
+LEGACY_SOURCE_SHA256 = {
+    "reference_c3d/data.py": "108993d2e14680649733eb59796f8d18b9d19fe7774bf7042aa9b53cb7529db6",
+    "reference_c3d/model.py": "efe0585d8ffa8693cef575b7a5d426abbb25edfe9545aa3a2b01f892b9ddd3d9",
+    "reference_c3d/aggregate.py": "ebbfe7cb1548c5e60842d5502fa3dd05e01682f49634e5321cccf8e9278c0640",
+    "configs/c3d_reference.yaml": "8ac4000eb5f9a2b82bd1680affe66779912b0a9bd95e5cc6a33be01bddf93e82",
+}
+
+
 def root_path(value):
     candidate = Path(value)
     return candidate if candidate.is_absolute() else ROOT / candidate
@@ -202,20 +215,120 @@ def restore_rng(value):
     torch.cuda.set_rng_state_all(value["cuda"])
 
 
+def load_resume_checkpoint(run_dir, config_path, config, protocol_hash, max_epochs,
+                           early_stopping_patience):
+    """Read-only preflight; never modify the existing run on failure."""
+    if not run_dir.is_dir():
+        raise RuntimeError("Resume requested but run directory does not exist")
+    last_path = run_dir / "last.pt"
+    if not last_path.is_file():
+        raise RuntimeError("Resume requested but no last.pt checkpoint exists")
+    if (run_dir / "config.yaml").read_bytes() != config_path.read_bytes():
+        raise RuntimeError("Resume config differs from original run; use --max-epochs for extension")
+    status = json.loads((run_dir / "training_status.json").read_text())
+    if status.get("test_evaluation_performed") is not False:
+        raise RuntimeError("Resume requires an untouched test set")
+    for name, expected in (("dataset_manifest.csv", config["expected_manifest_sha256"]),
+                           ("split_summary.json", config["expected_split_summary_sha256"])):
+        if sha256(run_dir / name) != expected:
+            raise RuntimeError(f"Run snapshot {name} differs from the fixed split")
+    checkpoint = torch.load(last_path, map_location="cpu", weights_only=False, mmap=True)
+    recorded_patience = checkpoint.get("effective_early_stopping_patience")
+    if recorded_patience is not None and recorded_patience != early_stopping_patience:
+        raise RuntimeError("Resume early-stopping patience differs from the checkpoint")
+    saved_hash = checkpoint["protocol_sha256"]
+    environment = json.loads((run_dir / "environment.json").read_text())
+    legacy_compatible = (
+        environment["protocol_sha256"] == LEGACY_TEN_EPOCH_PROTOCOL_SHA256
+        and config["max_epochs"] == 10
+        and all(sha256(ROOT / name) == expected
+                for name, expected in LEGACY_SOURCE_SHA256.items())
+    )
+    if saved_hash != protocol_hash:
+        known_run_hash = (saved_hash == LEGACY_TEN_EPOCH_PROTOCOL_SHA256
+                          or (saved_hash == THIRTEEN_EPOCH_PROTOCOL_SHA256
+                              and checkpoint["epoch"] == 13
+                              and checkpoint.get("target_max_epochs") == 20))
+        if not (known_run_hash and legacy_compatible):
+            raise RuntimeError("Resume code/config protocol hash differs")
+    epoch = checkpoint["epoch"]
+    history = checkpoint["history"]
+    if (not isinstance(epoch, int) or epoch < 1 or len(history) != epoch
+            or [record["epoch"] for record in history] != list(range(1, epoch + 1))):
+        raise RuntimeError("Checkpoint epoch and history disagree")
+    if json.loads((run_dir / "training_log.json").read_text()) != history:
+        raise RuntimeError("Existing training log differs from checkpoint history")
+    if max_epochs <= epoch:
+        raise RuntimeError("Checkpoint already reached max_epochs")
+    if checkpoint["stale_epochs"] >= early_stopping_patience:
+        raise RuntimeError("Checkpoint already met the early-stopping condition")
+    if (checkpoint["best_epoch"] is None or checkpoint["best_epoch"] > epoch
+            or checkpoint["best_epoch"] < 1):
+        raise RuntimeError("Checkpoint best epoch is invalid")
+    best_path = run_dir / "best.pt"
+    if not best_path.is_file():
+        raise RuntimeError("Existing best.pt is missing")
+    best = torch.load(best_path, map_location="cpu", weights_only=False, mmap=True)
+    if (best["epoch"] != checkpoint["best_epoch"]
+            or best["best_loss"] != checkpoint["best_loss"]
+            or (best["protocol_sha256"] != saved_hash
+                and not (best["protocol_sha256"] == LEGACY_TEN_EPOCH_PROTOCOL_SHA256
+                         and legacy_compatible))):
+        raise RuntimeError("Existing best.pt differs from checkpoint best metadata")
+    for key in ("model_state", "head_state", "optimizer_state", "scheduler_state",
+                "rng_state", "stale_epochs", "best_loss", "best_epoch"):
+        if key not in checkpoint:
+            raise RuntimeError(f"Checkpoint lacks {key}")
+    if set(checkpoint["rng_state"]) != {"python", "numpy", "torch", "cuda"}:
+        raise RuntimeError("Checkpoint lacks a complete random state")
+    return checkpoint
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs/c3d_reference_train.yaml")
     parser.add_argument("--check", action="store_true", help="Validate protocol without starting training")
     parser.add_argument("--dry-run", action="store_true", help="One train and one validation video; no run files")
     parser.add_argument("--resume", action="store_true", help="Resume from last completed epoch")
+    parser.add_argument("--max-epochs", type=int, help="Resume-only extension of the original epoch limit")
+    parser.add_argument("--early-stopping-patience", type=int,
+                        help="Resume-only increase; keeps the checkpoint's existing stale-epoch counter")
     args = parser.parse_args()
+    if (args.max_epochs is not None or args.early_stopping_patience is not None) and not args.resume:
+        parser.error("Epoch-limit and early-stopping overrides require --resume")
+    if args.resume and args.dry_run:
+        parser.error("--resume cannot be combined with --dry-run")
     config = yaml.safe_load(args.config.read_text())
     reference, run_dir, protocol_hash = verify_config(args.config, config)
+    max_epochs = args.max_epochs if args.max_epochs is not None else config["max_epochs"]
+    early_stopping_patience = (args.early_stopping_patience
+                               if args.early_stopping_patience is not None
+                               else config["early_stopping_patience"])
+    if args.max_epochs is not None and args.max_epochs <= config["max_epochs"]:
+        parser.error("--max-epochs must exceed the original config max_epochs")
+    if (args.early_stopping_patience is not None
+            and args.early_stopping_patience <= config["early_stopping_patience"]):
+        parser.error("--early-stopping-patience must exceed the original config value")
+    checkpoint = None
+    if args.resume:
+        checkpoint = load_resume_checkpoint(run_dir, args.config, config, protocol_hash,
+                                            max_epochs, early_stopping_patience)
     if args.check:
-        print(json.dumps({"status": "CONFIG_VALID", "run_dir": str(run_dir.relative_to(ROOT)),
+        print(json.dumps({"status": "RESUME_VALID" if args.resume else "CONFIG_VALID",
+                          "run_dir": str(run_dir.relative_to(ROOT)),
                           "manifest_sha256": config["expected_manifest_sha256"],
                           "split_summary_sha256": config["expected_split_summary_sha256"],
                           "protocol_sha256": protocol_hash,
+                          "current_epoch": checkpoint["epoch"] if checkpoint else None,
+                          "next_epoch": checkpoint["epoch"] + 1 if checkpoint else None,
+                          "max_epochs": max_epochs,
+                          "original_early_stopping_patience": config["early_stopping_patience"],
+                          "effective_early_stopping_patience": early_stopping_patience,
+                          "current_learning_rate": checkpoint["optimizer_state"]["param_groups"][0]["lr"] if checkpoint else None,
+                          "best_epoch": checkpoint["best_epoch"] if checkpoint else None,
+                          "best_validation_loss": checkpoint["best_loss"] if checkpoint else None,
+                          "early_stopping_counter": checkpoint["stale_epochs"] if checkpoint else None,
+                          "run_files_written": False,
                           "test_split_accessed": False}, indent=2))
         return
     if config["device"] != "cuda" or not torch.cuda.is_available():
@@ -241,14 +354,9 @@ def main():
                           "test_split_accessed": False, "run_files_written": False}, indent=2))
         return
     last_path, best_path = run_dir / "last.pt", run_dir / "best.pt"
-    if args.resume:
-        if not last_path.exists():
-            raise RuntimeError("Resume requested but no last.pt checkpoint exists")
-        if (run_dir / "config.yaml").read_bytes() != args.config.read_bytes():
-            raise RuntimeError("Resume config differs from original run")
-    elif run_dir.exists():
-        raise RuntimeError("New training run directory already exists; use --resume or a new experiment")
-    else:
+    if not args.resume:
+        if run_dir.exists():
+            raise RuntimeError("New training run directory already exists; use --resume or a new experiment")
         run_dir.mkdir(parents=True)
         (run_dir / "config.yaml").write_bytes(args.config.read_bytes())
         (run_dir / "dataset_manifest.csv").write_bytes(root_path(config["manifest_path"]).read_bytes())
@@ -276,9 +384,6 @@ def main():
     history = []
     start_epoch = 1
     if args.resume:
-        checkpoint = torch.load(last_path, map_location="cpu", weights_only=False)
-        if checkpoint["protocol_sha256"] != protocol_hash:
-            raise RuntimeError("Resume code/config protocol hash differs")
         model.load_state_dict(checkpoint["model_state"])
         head.load_state_dict(checkpoint["head_state"])
         optimizer.load_state_dict(checkpoint["optimizer_state"])
@@ -288,10 +393,7 @@ def main():
         stale_epochs = checkpoint["stale_epochs"]
         history = checkpoint["history"]
         start_epoch = checkpoint["epoch"] + 1
-        save_json(run_dir / "training_log.json", history)
-    if start_epoch > config["max_epochs"]:
-        raise RuntimeError("Checkpoint already reached max_epochs")
-    for epoch in range(start_epoch, config["max_epochs"] + 1):
+    for epoch in range(start_epoch, max_epochs + 1):
         torch.cuda.reset_peak_memory_stats()
         start = time.perf_counter()
         train = run_epoch(model, head, make_loader(config, reference, "train", epoch), optimizer, config)
@@ -316,16 +418,20 @@ def main():
                  "scheduler_state": scheduler.state_dict(), "rng_state": rng_state(),
                  "best_loss": best_loss, "best_epoch": best_epoch,
                  "stale_epochs": stale_epochs,
-                 "history": history, "protocol_sha256": protocol_hash}
+                 "history": history, "protocol_sha256": protocol_hash,
+                 "target_max_epochs": max_epochs,
+                 "effective_early_stopping_patience": early_stopping_patience}
         if improved:
             save_checkpoint(best_path, state)
         save_checkpoint(last_path, state)
         save_json(run_dir / "training_log.json", history)
         print(json.dumps(record), flush=True)
-        if stale_epochs >= config["early_stopping_patience"]:
+        if stale_epochs >= early_stopping_patience:
             break
     save_json(run_dir / "training_status.json",
               {"status": "COMPLETE", "epochs_completed": len(history),
+               "target_max_epochs": max_epochs,
+               "effective_early_stopping_patience": early_stopping_patience,
                "best_validation_loss": best_loss,
                "best_epoch": best_epoch,
                "manifest_sha256": config["expected_manifest_sha256"],

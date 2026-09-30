@@ -134,7 +134,7 @@ All entries below are **PROJECT_ADAPTATION** for Basketball-51, except the netwo
 
 ## Validation Policy
 
-Use **only the existing fixed train and validation splits**. Log per epoch: train/validation loss, accuracy, Make precision/recall/F1, confusion matrix, epoch time, peak allocated/reserved VRAM, and learning rate. Validation loss controls scheduler, early stopping and best checkpoint. The script snapshots config, manifest and split; checkpoints include model/head, optimizer, scheduler, RNG states, protocol hash and epoch history for **epoch-boundary resume**. Any code/config/manifest mismatch prevents resume. If the script or settings change, use a new run name rather than rewriting this protocol after observing outcomes.
+Use **only the existing fixed train and validation splits**. Log per epoch: train/validation loss, accuracy, Make precision/recall/F1, confusion matrix, epoch time, peak allocated/reserved VRAM, and learning rate. Validation loss controls scheduler, early stopping and best checkpoint. The script snapshots config, manifest and split; checkpoints include model/head, optimizer, scheduler, RNG states, protocol hash and epoch history for **epoch-boundary resume**. Code/config/manifest mismatches prevent resume, apart from the documented one-time compatibility for the resume script fix and a resume-only increase to the epoch limit. Other setting changes require a new run name rather than rewriting this protocol after observing outcomes.
 
 ## Test Policy
 
@@ -160,14 +160,80 @@ Basketball-51 binary labels; existing manifest/split; discard incomplete tail; O
 conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml
 ```
 
-Epoch-boundary resume after interruption:
+Epoch-boundary resume after interruption (same epoch limit):
 
 ```bash
 conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume
 ```
 
+To extend the completed 10-epoch run to a maximum of 20 epochs, keep the
+original config and run snapshot unchanged. The resume-only CLI override
+changes only the stopping limit; all other settings and the fixed split must
+match. First perform the read-only preflight:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --max-epochs 20 --check
+```
+
+Then, when the extension is approved, run:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --max-epochs 20
+```
+
+The preflight checks `last.pt`, the original run config and fixed-split
+snapshots, existing history, and `best.pt` without writing run files. The
+first resumed epoch is 11. The ten existing log records are preserved when
+new epoch records are added. `best.pt` changes only if a later validation
+loss improves the recorded best under the same criterion. Checkpoints from
+the extension record the effective maximum epoch. The earlier checkpoint's
+protocol hash included the old training script; the resume fix accepts only
+that known 10-epoch hash with unchanged reference model, data, aggregation,
+and preprocessing source hashes. New checkpoints use the updated script hash;
+an older `best.pt` remains valid if later epochs have not improved validation
+loss.
+
 Read-only preflight:
 
 ```bash
 conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --check
+```
+
+## Early-Stopping Adjustment Audit
+
+**2026-09-30; PROJECT_ADAPTATION; before any test evaluation.** The run was
+extended from the original 10-epoch limit to 20 but stopped at epoch 13:
+`last.pt` records best epoch 10, best validation loss
+`0.6015637946479461`, and three consecutive non-improving epochs (11–13).
+The original early-stopping patience was **3**. `ReduceLROnPlateau` uses
+patience **1**, factor **0.5**. It stepped from `1e-4` to `5e-5` **after**
+epoch 12 validation; the log's LR is recorded after `scheduler.step`, so only
+epoch 13 was actually trained at `5e-5` before early stopping. This supports
+the research judgment that patience 3 may be too short to assess the lower
+LR; it does not establish that more epochs will improve validation loss.
+
+Proposed resume-only adjustment: **patience 6, maximum 20 epochs**. Keep the
+original config at patience 3/max 10, and preserve epoch 13 model/head,
+optimizer, scheduler, current `5e-5` LR, RNG, best loss/epoch, and the existing
+counter **3**. The counter is **not reset**. If validation never improves by
+the existing `0.001` minimum delta, early stopping will occur after epoch 16.
+The unchanged scheduler may reduce LR again after epoch 14 validation if its
+plateau condition persists; this adjustment does not guarantee several epochs
+at exactly `5e-5`.
+The existing 13 log records remain in the history when new records are added;
+the JSON log is atomically rewritten with that extended history after each
+completed epoch. `best.pt` changes only on a qualifying validation-loss
+improvement. The test set remains untouched; `training_status.json` records
+`test_evaluation_performed=false`.
+
+Read-only preflight:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --check --max-epochs 20 --early-stopping-patience 6
+```
+
+Proposed resume command, **not executed during this audit**:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --max-epochs 20 --early-stopping-patience 6
 ```

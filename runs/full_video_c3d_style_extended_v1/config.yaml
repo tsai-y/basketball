@@ -1,0 +1,30 @@
+# Experiment A2: warm-start from A1 best weights; this is not an A1 resume.
+experiment_name: full_video_c3d_style_extended_v1
+run_dir: runs/full_video_c3d_style_extended_v1
+seed: 20260927
+dataset_path: archive/Basketball_51 dataset
+manifest_path: data/processed/dataset_manifest.csv
+split_summary_path: data/processed/split_summary.json
+expected_manifest_sha256: e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6
+expected_split_summary_sha256: 953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5
+a1_checkpoint_path: runs/full_video_c3d_style_v1/best.pt
+expected_a1_checkpoint_sha256: 7829694b60b44fc791ad7f13d2a54b8d1ad81a5a82ff21d2fc7c6b9d4cf7bd8c
+expected_model_sha256: ef95cab8ff51eacc0b6ec2eca052aaafc5e38d1073c26338efc4c9cc836a0372
+expected_data_sha256: e4a07c5e5a44019c981cd3ad8d8a8f634dca91ccef3ae99869aabb525777e59e
+num_classes: 2
+num_frames: 16
+image_size: 96
+temporal_sampler: uniform_bins
+train_temporal_jitter: true
+train_horizontal_flip_probability: 0.5
+batch_size: 16
+num_workers: 4
+optimizer: adamw
+learning_rate: 0.001
+weight_decay: 0.0001
+lr_scheduler: none
+max_total_epochs: 15
+early_stopping_patience: 5
+early_stopping_min_delta: 0.0
+checkpoint_criterion: lowest_validation_loss
+device: auto

@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETE",
+  "epochs_completed_in_a2": 23,
+  "last_epoch": 28,
+  "best_epoch": 21,
+  "best_validation_loss": 0.4401281460416494,
+  "target_max_epochs": 50,
+  "effective_early_stopping_patience": 7,
+  "a1_checkpoint_sha256": "7829694b60b44fc791ad7f13d2a54b8d1ad81a5a82ff21d2fc7c6b9d4cf7bd8c",
+  "protocol_sha256": "14f8245edf47f1d5a0a56cf8298fd773f5d730b00594b58f6cb268a690520ab4",
+  "test_evaluation_performed": false
+}

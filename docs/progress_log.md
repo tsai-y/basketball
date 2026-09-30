@@ -180,3 +180,52 @@ Full reference C3D training / feature extraction experiment（本輪未開始）
 
 ### Next Step
 Full Reference C3D training in terminal/tmux（待確認，尚未執行）。
+
+
+## 2026-09-30 - Reference C3D Early-Stopping / Scheduler Audit
+
+### Goal
+稽核已完成的 Experiment B epoch 13 early stop 與降 LR 的交互作用；只做唯讀檢查和 resume 專用的小修正，不執行 epoch 14 或 test 評估。
+
+### Confirmed State
+- `training_log.json` 有 13 筆；`last.pt` 記錄 epoch 13、best epoch 10、best validation loss `0.6015637946479461`、未改善 counter 3、optimizer LR `5e-5`，scheduler `last_epoch=13`。
+- 程式於 epoch 12 validation 後降 LR；log 記的是 `scheduler.step` 後的 LR，所以低 LR 實際只用於 epoch 13 訓練一次。epoch 11–13 均未達原有 best-loss/min-delta 條件，counter 因而為 3，符合 early-stopping 停止條件。
+- `best.pt` 仍是 epoch 10；`training_status.json` 為 13 epochs、目標上限 20、`test_evaluation_performed=false`。
+
+### Decision and Files Changed
+- 研究判斷：原 patience 3 可能未給降 LR 後足夠觀察期；保守建議 resume-only patience 6、max epochs 20，不修改原 config、不清零 counter，也不變更 optimizer/scheduler/best checkpoint。這不是 C3D 論文設定。
+- `scripts/run_c3d_reference_train.py` 新增 resume-only patience override、唯讀 preflight 顯示當前 LR/counter/epoch，並保存後續 checkpoint 的有效 patience；`docs/c3d_training_protocol.md` 新增 audit 與指令。本紀錄只追加，不改寫歷史。
+- 唯讀 `--resume --check --max-epochs 20 --early-stopping-patience 6` 通過：next epoch 14、LR `5e-5`、best epoch 10、原 counter 3。未執行正式訓練，未讀取 test set。
+
+### Next Step
+待研究者確認後，才從 epoch 13 的 `last.pt` 續跑；test set 仍保持封存。
+
+
+## 2026-09-30 - Experiment A1 Resume Audit / A2 Protocol
+
+### Audit
+A1 `best.pt` 僅保存模型權重、epoch 5、validation loss、seed、config、manifest/protocol hash；沒有 optimizer、scheduler、RNG、training history 或 `last.pt`。因此 A1→A2 分類為 **WARM_START_ONLY**，不能稱為真正 resume。A1 最後五個 validation loss 連續下降；以 validation 趨勢支持有界的延長訓練，但不預測 A2 效果。
+
+### A2 Prepared
+新增獨立 `configs/c3d_style_extended.yaml`、`scripts/run_c3d_style_extended.py` 和 `docs/c3d_style_extended_protocol.md`。A2 從 A1 epoch-5 最佳權重初始化、新建 AdamW，最多跑總 epoch 標籤 6–15，early-stopping patience 5，以最低 validation loss 選 checkpoint；不新增 scheduler。正式 A2 run 目錄尚未建立。
+
+### Checks
+唯讀 config/checkpoint compatibility PASS；CPU 單批 train/validation dry-run PASS，輸入 `[2,3,16,96,96]`、輸出 `[2,2]`、loss 與梯度有限。沒有執行 A2 正式訓練，也沒有讀取 test 影片或重新評估 A1 test。A1 四個受保護檔案的 SHA-256 於本輪前後一致。
+
+### Next Step
+待確認後執行獨立 A2 training command；A2 固定完成前不做 test 評估。
+
+
+## 2026-09-30 - Experiment A2 Epoch-15 Resume Audit
+
+### Confirmed State
+A2 `last.pt` 已到 epoch 15，保存模型、AdamW state、四種 RNG state、10 筆 A2 歷史、best epoch 15／validation loss `0.48392225430138125`、未改善 counter 0；optimizer LR `0.001`。`best.pt` 與此最佳值一致；`training_status.json` 記錄 `test_evaluation_performed=false`。這是 **A2 內部 TRUE_RESUME**，不改變先前 A1→A2 為 warm-start 的判定。
+
+### Decision / Changes
+只新增 A2 resume 專用上限 50、patience 7；保留原 config 的歷史 15／5、固定 LR `0.001`、既有 optimizer/RNG/counter/history/best。`scripts/run_c3d_style_extended.py` 加入唯讀 resume preflight 和從 `last.pt` 恢復的分支；`docs/c3d_style_extended_protocol.md` 記錄延長決策與指令。沒有執行 epoch 16 或 test 評估。
+
+### Checks
+`--resume --check` PASS：next epoch 16、best epoch 15、best loss `0.48392225430138125`、LR `0.001`、history 10 筆。從 epoch-15 權重與 optimizer 載入的單批 CPU train/validation dry-run PASS，沒有寫入 run 檔。A2 `last.pt`、`best.pt`、`training_log.json` 的 SHA-256 前後一致。
+
+### Next Step
+待確認後在終端執行 A2 resume command；test 仍封存。
