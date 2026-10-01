@@ -265,6 +265,8 @@ def load_resume_checkpoint(run_dir, config_path, config, protocol_hash, max_epoc
     if (checkpoint["best_epoch"] is None or checkpoint["best_epoch"] > epoch
             or checkpoint["best_epoch"] < 1):
         raise RuntimeError("Checkpoint best epoch is invalid")
+    if checkpoint.get("early_stopping_reference_loss", checkpoint["best_loss"]) < checkpoint["best_loss"]:
+        raise RuntimeError("Early-stopping reference loss is below the best validation loss")
     best_path = run_dir / "best.pt"
     if not best_path.is_file():
         raise RuntimeError("Existing best.pt is missing")
@@ -327,6 +329,9 @@ def main():
                           "current_learning_rate": checkpoint["optimizer_state"]["param_groups"][0]["lr"] if checkpoint else None,
                           "best_epoch": checkpoint["best_epoch"] if checkpoint else None,
                           "best_validation_loss": checkpoint["best_loss"] if checkpoint else None,
+                          "early_stopping_reference_loss": (
+                              checkpoint.get("early_stopping_reference_loss", checkpoint["best_loss"])
+                              if checkpoint else None),
                           "early_stopping_counter": checkpoint["stale_epochs"] if checkpoint else None,
                           "run_files_written": False,
                           "test_split_accessed": False}, indent=2))
@@ -380,6 +385,7 @@ def main():
         optimizer, mode="min", factor=config["lr_factor"], patience=config["lr_patience"])
     best_loss = float("inf")
     best_epoch = None
+    early_stopping_reference_loss = float("inf")
     stale_epochs = 0
     history = []
     start_epoch = 1
@@ -390,6 +396,7 @@ def main():
         scheduler.load_state_dict(checkpoint["scheduler_state"])
         restore_rng(checkpoint["rng_state"])
         best_loss, best_epoch = checkpoint["best_loss"], checkpoint["best_epoch"]
+        early_stopping_reference_loss = checkpoint.get("early_stopping_reference_loss", best_loss)
         stale_epochs = checkpoint["stale_epochs"]
         history = checkpoint["history"]
         start_epoch = checkpoint["epoch"] + 1
@@ -400,10 +407,14 @@ def main():
         validation = run_epoch(model, head, make_loader(config, reference, "validation", epoch),
                                None, config)
         scheduler.step(validation["loss"])
-        improved = validation["loss"] < best_loss - config["early_stopping_min_delta"]
-        if improved:
+        new_best = validation["loss"] < best_loss
+        significant_improvement = (
+            validation["loss"] < early_stopping_reference_loss - config["early_stopping_min_delta"])
+        if new_best:
             best_loss = validation["loss"]
             best_epoch = epoch
+        if significant_improvement:
+            early_stopping_reference_loss = validation["loss"]
             stale_epochs = 0
         else:
             stale_epochs += 1
@@ -417,11 +428,12 @@ def main():
                  "head_state": head.state_dict(), "optimizer_state": optimizer.state_dict(),
                  "scheduler_state": scheduler.state_dict(), "rng_state": rng_state(),
                  "best_loss": best_loss, "best_epoch": best_epoch,
+                 "early_stopping_reference_loss": early_stopping_reference_loss,
                  "stale_epochs": stale_epochs,
                  "history": history, "protocol_sha256": protocol_hash,
                  "target_max_epochs": max_epochs,
                  "effective_early_stopping_patience": early_stopping_patience}
-        if improved:
+        if new_best:
             save_checkpoint(best_path, state)
         save_checkpoint(last_path, state)
         save_json(run_dir / "training_log.json", history)
@@ -434,6 +446,7 @@ def main():
                "effective_early_stopping_patience": early_stopping_patience,
                "best_validation_loss": best_loss,
                "best_epoch": best_epoch,
+               "early_stopping_reference_loss": early_stopping_reference_loss,
                "manifest_sha256": config["expected_manifest_sha256"],
                "protocol_sha256": protocol_hash, "test_evaluation_performed": False})
 

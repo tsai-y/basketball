@@ -3,10 +3,10 @@
 ## Current Status
 
 Current phase:
-Reference C3D training protocol and short feasibility tests completed; full training pending
+Experiment B formal training completed; Experiment C implementation and short validation completed, full training pending
 
 Current model:
-Modified C3D-style Experiment A (trained); reference C3D adaptation (implemented, untrained)
+Modified C3D-style A1/A2 and Reference C3D B (trained); continuous-clip Modified C3D-style C (implemented, untrained)
 
 Latest test accuracy:
 74.79%
@@ -15,10 +15,10 @@ Current reference:
 C3D - Tran et al., ICCV 2015
 
 Next planned task:
-Full Reference C3D training in terminal/tmux
+Experiment C full training
 
 Last updated:
-2026-09-30
+2026-10-01
 
 
 ## 2026-09-27 - Dataset Inspection
@@ -229,3 +229,44 @@ A2 `last.pt` 已到 epoch 15，保存模型、AdamW state、四種 RNG state、1
 
 ### Next Step
 待確認後在終端執行 A2 resume command；test 仍封存。
+
+
+## 2026-09-30 - Experiment B Early-Stopping Extension Audit
+
+### Confirmed State
+Experiment B 仍停在 epoch 13：`last.pt` 有 model/head、AdamW、ReduceLROnPlateau、四種 RNG state、13 筆歷史，best epoch 10／validation loss `0.6015637946479461`、counter 3、optimizer LR `5e-5`。`best.pt` 仍是 epoch 10，test 尚未使用。程式於 epoch 12 validation 後才降 LR，故只在 epoch 13 以 `5e-5` 訓練一輪；counter 在 epoch 10–13 為 0、1、2、3，符合原 patience 3 的 early stop。
+
+### Decision and Changes
+研究判斷：原 patience 3 可能讓降 LR 後的觀察期過短，無法保證延長必有改善。以 resume-only CLI 建議 max epochs **30**、patience **7**；保留 epoch-13 optimizer/scheduler/LR、best、RNG、歷史 counter 3 和原 config。先前 20/6 建議未執行，本次 30/7 取代它。發現舊程式將 `min_delta=0.001` 同時用於 best checkpoint；已小幅修正為 `best.pt` 依嚴格較低的 validation loss 更新，early-stopping counter 仍以原 `0.001` 門檻判斷，新增獨立 reference loss 供後續 checkpoint 保存。這是專案訓練策略澄清，不是 C3D 論文設定。
+
+### Files / Checks
+更新 `scripts/run_c3d_reference_train.py` 與 `docs/c3d_training_protocol.md`，本紀錄只追加。唯讀 `--resume --check --max-epochs 30 --early-stopping-patience 7` 確認 next epoch 14、LR `5e-5`、best epoch 10、counter 3；未跑 epoch 14，未讀取 test。`last.pt`、`best.pt`、`training_log.json` 前後 SHA-256 一致。
+
+### Next Step
+待確認後續跑 Experiment B；test set 保持封存。
+
+
+## 2026-10-01 - Experiment B Training Finalized / Experiment C Pipeline Validation
+
+### Goal
+依最新正式 run 檔案更新 B 狀態；建立 Experiment C 的 Modified C3D-style backbone＋B continuous clip 管線，只做 config、接線、shape、smoke 與極小 train/validation dry-run，不做 C 正式訓練或任何新 test 評估。
+
+### Experiment B Confirmed Final State
+- `runs/full_video_c3d_reference_train_v1/training_status.json` 為 `COMPLETE`，`epochs_completed=32`、`target_max_epochs=50`、effective early-stopping patience 7，因未改善而在 epoch 32 停止。
+- 32 筆 `training_log.json` 中最佳 epoch 25：validation loss `0.5345329800506291`、validation accuracy `0.7504848093083387`；status 的最佳 epoch/loss 與 log 相符。
+- `test_evaluation_performed=false`。A2/B/C test 都未因本輪被讀取或評估；歷史段落反映當時狀態，目前狀態以本段及 run 檔案為準。
+
+### Experiment C Design and Files
+- 研究 C vs A2 的稀疏抽樣與連續 clips、C vs B 的 Modified/Reference backbone；C vs A2 同時有 96→112 解析度、crop/head、初始化差異，不是單變因 ablation。
+- 新增 `configs/c3d_style_continuous.yaml`、`experiment_c/__init__.py`、`experiment_c/model.py`、`experiment_c/aggregate.py`、`scripts/run_c3d_style_continuous.py`、`docs/c3d_style_continuous_protocol.md`；更新 `readme.md` 與本 progress log。A1/A2/B 模型、config、checkpoint 與正式 run 未修改。
+- 直接重用 B 的 `ContinuousClipSampler`、`C3DVideoDataset` 和前處理；重用 A1/A2 模型的 `features`/GAP，不引入原分類 head。256-D clip 特徵 mean→L2→新 `Linear(256,2)`，只計算影片級 CrossEntropyLoss。
+- C 擬從零訓練；初始 PROJECT_ADAPTATION 設定為 AdamW LR `1e-4`、ReduceLROnPlateau、最多 50 epochs、patience 7，以最低 validation loss 選 checkpoint。尚未執行完整 epoch。
+
+### Checks and Remaining Limits
+- Config/hash 與 B preprocessing equality check **PASS**；C run 目錄尚不存在。40-frame 索引檢查得到 `[0..15]`、`[8..23]`、`[16..31]`、`[24..39]`，stride/overlap 均 8。
+- CPU shape audit **PASS**：`[2,3,16,112,112]`→feature map `[2,256,1,3,3]`→GAP `[2,256,1,1,1]`→clip `[2,256]`→影片 `[256]`→logits `[2]`；總／可訓練參數均為 **6,919,234**。
+- CPU synthetic smoke **PASS**：有限 loss、有限非零梯度；CPU 真實資料 dry-run **PASS**：一支 train 與一支 validation 影片各 146 frames／17 clips，train 完成一次 optimizer step，validation loss 有限。這些不是正式準確率；沒有寫入 C run 或讀取 test 影片。
+- 本執行環境的 PyTorch 選到 CPU，C 的 CUDA VRAM/throughput、完整 epoch 穩定性尚未確認。A2 vs C 存在 spatial/head/initialization 混雜因素，game ID 與 near duplicate 問題仍未解決。
+
+### Next Step
+Experiment C full training（需在正式環境監控 VRAM/throughput，test 仍封存）。

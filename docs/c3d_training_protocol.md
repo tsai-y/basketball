@@ -237,3 +237,63 @@ Proposed resume command, **not executed during this audit**:
 ```bash
 conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --max-epochs 20 --early-stopping-patience 6
 ```
+
+## B Early-Stopping Extension Audit
+
+**2026-09-30; PROJECT_ADAPTATION; before Experiment B test evaluation.**
+This audit revisits the 20/6 proposal above, which was **not executed**. The
+current `last.pt` remains at epoch 13: best epoch 10 and validation loss
+`0.6015637946479461`, with stale counter 3. `best.pt` is epoch 10. The
+checkpoint saves model/head, AdamW, ReduceLROnPlateau, Python/NumPy/PyTorch/CUDA
+RNG states and all 13 history records. No new model or optimizer is created
+for the proposed continuation.
+
+The original early-stopping patience is **3**. Epochs 11–13 had validation
+losses `0.6138866176008793`, `0.6028682707622888`, and
+`0.6149046720663578`; none improved on epoch 10. The counter therefore
+progressed **0 → 1 → 2 → 3**, triggering early stop after epoch 13.
+ReduceLROnPlateau has factor `0.5` and patience `1`: it lowered AdamW's LR
+from `1e-4` to `5e-5` **after epoch 12 validation**. The per-epoch log records
+post-scheduler LR, so epoch 12's `5e-5` entry does not mean its training used
+that rate. Only epoch 13 trained at `5e-5` before the stop. The saved
+scheduler has `last_epoch=13`, `best=0.6015637946479461`,
+`num_bad_epochs=1`, and `_last_lr=[5e-5]`.
+
+**Research assessment:** patience 3 may give too little time after the first
+LR reduction. This does not establish that more training will improve
+validation loss. The conservative extension selected here is **maximum 30
+epochs, early-stopping patience 7**, with the same scheduler and optimizer
+states. The original config remains 10/3; these are resume-only CLI
+overrides. The historical counter stays **3**, not zero. With no significant
+validation improvement, four more non-improving epochs would stop at epoch
+17. The scheduler may lower LR again during that interval.
+
+The original script used `early_stopping_min_delta=0.001` for both the stop
+counter and `best.pt`. That could skip a validation loss that was strictly
+lower but improved by less than `0.001`. Before this continuation, checkpoint
+selection was separated from the counter: **`best.pt` updates for any
+strictly lower validation loss**, while a decrease greater than `0.001`
+resets the early-stopping counter. An independent
+`early_stopping_reference_loss` is saved in future checkpoints; for the
+unchanged epoch-13 checkpoint it is reconstructed as the saved best loss.
+The existing best epoch/loss and counter are unchanged. This is a documented
+Basketball-51 training-policy clarification, not a C3D paper setting.
+
+The read-only preflight confirms next epoch 14, LR `5e-5`, best epoch 10,
+best loss `0.6015637946479461`, patience 7, maximum 30, and
+`test_evaluation_performed=false`. Existing 13 log records are retained in
+the checkpoint history; after each future completed epoch the JSON log is
+atomically rewritten with the old records plus the new one. No test videos
+or test metrics were accessed in this audit.
+
+Read-only check:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --check --max-epochs 30 --early-stopping-patience 7
+```
+
+Formal resume command, **not executed in this audit**:
+
+```bash
+conda run -n yolo11 python -B scripts/run_c3d_reference_train.py --config configs/c3d_reference_train.yaml --resume --max-epochs 30 --early-stopping-patience 7
+```
