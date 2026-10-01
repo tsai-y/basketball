@@ -31,3 +31,5 @@ env/
 
 # Large checkpoints inside experiment runs
 runs/**/best.pt
+runs/**/dataset_manifest.csv
+runs/**/.training_started

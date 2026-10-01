@@ -2,7 +2,8 @@
 """Experiment C checks and future train/validation-only full training.
 
 No test Dataset or test evaluation path exists here. Check, shape, smoke and
-dry-run stages write no run artifacts. The train stage requires a new run dir.
+dry-run stages write no run artifacts. Training accepts an absent run directory
+or an exact, verified metadata-only directory; started runs are protected.
 """
 
 import argparse
@@ -81,12 +82,70 @@ def verify(config, config_path):
     for key, value in expected.items():
         if config[key] != value:
             raise ValueError(f"Unsupported {key}: {config[key]}")
-    run_dir = path(config["run_dir"]).resolve()
+    run_dir = path(config["run_dir"])
+    if run_dir.is_symlink():
+        raise RuntimeError("Experiment C run directory must not be a symlink")
+    run_dir = run_dir.resolve()
     if run_dir != (ROOT / "runs/full_video_c3d_style_continuous_v1").resolve():
         raise ValueError("Experiment C must use its independent run directory")
     if config["early_stopping_min_delta"] != 0.0:
         raise ValueError("Strict minimum validation loss requires min_delta=0")
     return run_dir
+
+
+METADATA_FILES = frozenset({"config.yaml", "dataset_manifest.csv",
+                            "split_summary.json", "environment.json"})
+TRAINING_FILES = frozenset({"best.pt", "last.pt", "training_log.json",
+                            "training_status.json"})
+
+
+def environment_metadata(device):
+    """Reproducibility snapshot; source and package fields also validate migration."""
+    return {"python": platform.python_version(), "torch": torch.__version__,
+            "cuda_runtime": torch.version.cuda, "device": str(device),
+            "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None,
+            "opencv": cv2.__version__, "numpy": np.__version__, "pyyaml": yaml.__version__,
+            "model_source_sha256": sha256(ROOT / "baseline/model.py"),
+            "data_source_sha256": sha256(ROOT / "reference_c3d/data.py"),
+            "experiment_c_model_sha256": sha256(ROOT / "experiment_c/model.py"),
+            "experiment_c_aggregate_sha256": sha256(ROOT / "experiment_c/aggregate.py")}
+
+
+def inspect_run_directory(run_dir, config, config_path, device=None):
+    """Read-only preflight. Never interpret a partial/started run as new."""
+    if not run_dir.exists():
+        return "absent"
+    if not run_dir.is_dir() or run_dir.is_symlink():
+        raise RuntimeError(f"Run path is not a regular directory: {run_dir}")
+    entries = {entry.name: entry for entry in run_dir.iterdir()}
+    present_training = sorted(TRAINING_FILES.intersection(entries))
+    if present_training:
+        raise FileExistsError(f"Training run already started; refusing overwrite: {present_training}")
+    if set(entries) != METADATA_FILES:
+        raise FileExistsError(
+            f"Run directory is neither empty/new nor exact metadata-only: {sorted(entries)}")
+    if any(not entry.is_file() or entry.is_symlink() for entry in entries.values()):
+        raise RuntimeError("Metadata-only run contains a non-regular file or symlink")
+    expected_files = {"config.yaml": config_path,
+                      "dataset_manifest.csv": path(config["manifest_path"]),
+                      "split_summary.json": path(config["split_summary_path"])}
+    for name, source in expected_files.items():
+        if sha256(entries[name]) != sha256(source):
+            raise RuntimeError(f"Metadata-only run differs from current {name}; refusing reuse")
+    saved_environment = json.loads(entries["environment.json"].read_text())
+    current_environment = environment_metadata(torch.device("cpu"))
+    for name in current_environment.keys() - {"device", "gpu"}:
+        if saved_environment.get(name) != current_environment[name]:
+            raise RuntimeError(f"Metadata-only run environment/source differs: {name}")
+    if set(saved_environment) != set(current_environment):
+        raise RuntimeError("Metadata-only run environment fields differ")
+    # The read-only check can run without GPU access. Formal training must
+    # use the same device and GPU recorded by the pre-created metadata.
+    if device is not None:
+        expected_environment = environment_metadata(device)
+        if saved_environment != expected_environment:
+            raise RuntimeError("Metadata-only run device/GPU differs from training environment")
+    return "metadata_only"
 
 
 def preprocessing(config, split):
@@ -280,19 +339,19 @@ def atomic_checkpoint(file_path, value):
 
 def train(model, config, config_path, run_dir, device):
     # This function is intentionally unreachable from check/smoke/dry-run.
-    run_dir.mkdir(parents=True, exist_ok=False)
-    (run_dir / "config.yaml").write_bytes(config_path.read_bytes())
-    (run_dir / "dataset_manifest.csv").write_bytes(path(config["manifest_path"]).read_bytes())
-    (run_dir / "split_summary.json").write_bytes(path(config["split_summary_path"]).read_bytes())
-    atomic_json(run_dir / "environment.json", {
-        "python": platform.python_version(), "torch": torch.__version__,
-        "cuda_runtime": torch.version.cuda, "device": str(device),
-        "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None,
-        "opencv": cv2.__version__, "numpy": np.__version__, "pyyaml": yaml.__version__,
-        "model_source_sha256": sha256(ROOT / "baseline/model.py"),
-        "data_source_sha256": sha256(ROOT / "reference_c3d/data.py"),
-        "experiment_c_model_sha256": sha256(ROOT / "experiment_c/model.py"),
-        "experiment_c_aggregate_sha256": sha256(ROOT / "experiment_c/aggregate.py")})
+    run_state = inspect_run_directory(run_dir, config, config_path, device=device)
+    if run_state == "absent":
+        run_dir.mkdir(parents=True, exist_ok=False)
+        (run_dir / "config.yaml").write_bytes(config_path.read_bytes())
+        (run_dir / "dataset_manifest.csv").write_bytes(path(config["manifest_path"]).read_bytes())
+        (run_dir / "split_summary.json").write_bytes(path(config["split_summary_path"]).read_bytes())
+        atomic_json(run_dir / "environment.json", environment_metadata(device))
+    # metadata_only: preserve all four existing snapshots byte-for-byte.
+    # Exclusive creation also prevents two processes from starting the same
+    # metadata-only run between preflight and the first checkpoint.
+    with os.fdopen(os.open(run_dir / ".training_started", os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+                          0o644), "w") as marker:
+        marker.write(f"pid={os.getpid()}\n")
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"],
                                   weight_decay=config["weight_decay"])
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -353,12 +412,12 @@ def main():
     config_path = path(args.config)
     config = yaml.safe_load(config_path.read_text())
     run_dir = verify(config, config_path)
-    if run_dir.exists():
-        raise FileExistsError(f"Experiment C run directory already exists: {run_dir}")
+    run_state = inspect_run_directory(run_dir, config, config_path)
     if args.stage == "check":
         print(json.dumps({"status": "PASS", "manifest_and_split": "fixed SHA-256 matched",
                           "temporal_and_spatial_preprocessing": "matches Experiment B",
-                          "new_run_path_available": True, "test_accessed": False}, indent=2))
+                          "run_directory_state": run_state,
+                          "new_training_allowed": True, "test_accessed": False}, indent=2))
         return
     seed_all(config["seed"])
     device = choose_device(config, args.stage)

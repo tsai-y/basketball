@@ -3,10 +3,10 @@
 ## Current Status
 
 Current phase:
-Experiment B formal training completed; Experiment C implementation and short validation completed, full training pending
+Experiment B and Experiment C formal training completed; A2/B/C test not evaluated
 
 Current model:
-Modified C3D-style A1/A2 and Reference C3D B (trained); continuous-clip Modified C3D-style C (implemented, untrained)
+Modified C3D-style A1/A2, Reference C3D B, and continuous-clip Modified C3D-style C (all trained)
 
 Latest test accuracy:
 74.79%
@@ -15,7 +15,7 @@ Current reference:
 C3D - Tran et al., ICCV 2015
 
 Next planned task:
-Experiment C full training
+待確認下一步；A2/B/C test 尚未評估
 
 Last updated:
 2026-10-01
@@ -270,3 +270,20 @@ Experiment B 仍停在 epoch 13：`last.pt` 有 model/head、AdamW、ReduceLROnP
 
 ### Next Step
 Experiment C full training（需在正式環境監控 VRAM/throughput，test 仍封存）。
+
+
+## 2026-10-01 - Experiment C Formal Training Completed
+
+### Goal
+依現有 C run 的正式狀態與 log，同步 README 和目前進度；不重新訓練或評估 test。上一節描述的是 C 實作與 dry-run 當時的狀態。
+
+### Confirmed Training State
+- `runs/full_video_c3d_style_continuous_v1/training_status.json` 為 `EARLY_STOPPED`，完成 **11 epochs**，最佳 epoch **4**，最佳 validation loss **0.6593953967287067**，停止時未改善 counter **7**。
+- `training_log.json` 有連續的 epoch 1–11 共 11 筆；epoch 4 validation accuracy **0.6153846153846154**。`last.pt` 記錄 epoch 11／best epoch 4；`best.pt` 為 epoch 4，與 status 和 log 相符。
+- `test_evaluation_performed=false`。本次只讀取 C 的 status、log 與 checkpoint metadata；沒有讀取或評估 test 影片。
+
+### Files Changed
+僅更新 `readme.md` 與本進度紀錄，將 C 標示為訓練完成、epoch 11 early stop、最佳 epoch 4；未修改模型、config、checkpoint 或 run 輸出。
+
+### Next Step
+待研究者確認下一步；A2/B/C test 仍未評估。

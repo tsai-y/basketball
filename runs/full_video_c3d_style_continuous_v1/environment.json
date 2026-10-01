@@ -1,0 +1,14 @@
+{
+  "python": "3.10.20",
+  "torch": "2.11.0+cu128",
+  "cuda_runtime": "12.8",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "opencv": "4.13.0",
+  "numpy": "2.1.3",
+  "pyyaml": "6.0.3",
+  "model_source_sha256": "ef95cab8ff51eacc0b6ec2eca052aaafc5e38d1073c26338efc4c9cc836a0372",
+  "data_source_sha256": "108993d2e14680649733eb59796f8d18b9d19fe7774bf7042aa9b53cb7529db6",
+  "experiment_c_model_sha256": "32f95db79648dd9e395957864f823c92785e7096ff27688d37f9a4a03c4f1c70",
+  "experiment_c_aggregate_sha256": "970e2e416650b48484f408d20abb57fc70bc9d5361e5acb30c8dd522c1d880c9"
+}

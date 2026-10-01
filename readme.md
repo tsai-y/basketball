@@ -1,6 +1,6 @@
 # Basketball-51 籃球影片研究專案
 
-本專案使用 Basketball-51 研究 **full-video Make/Miss classification**。長期目標是只用**球離手前**畫面預測結果，但目前 A1、A2、B 與新建立的 C 流程都取用完整影片，可能看到球飛行、碰框與進球畫面；它們都**不是 pre-release prediction**。Experiment B 是 Basketball-51 上的 Reference C3D adaptation，並非原論文 benchmark 的完整重現。以下狀態依 **2026-10-01** 讀到的本地 run 檔案及 C 驗證結果整理。
+本專案使用 Basketball-51 研究 **full-video Make/Miss classification**。長期目標是只用**球離手前**畫面預測結果，但目前 A1、A2、B、C 都取用完整影片，可能看到球飛行、碰框與進球畫面；它們都**不是 pre-release prediction**。Experiment B 是 Basketball-51 上的 Reference C3D adaptation，並非原論文 benchmark 的完整重現。以下狀態依 **2026-10-01** 讀到的本地 run 檔案整理。
 
 ## Research Status
 
@@ -13,7 +13,7 @@
 | Experiment B 架構、continuous clip pipeline、smoke／diagnostic gates | ✅ 已完成 |
 | Experiment B 正式訓練 | ✅ epoch 32 early stop；最佳 checkpoint 為 epoch 25（上限 50、effective patience 7） |
 | Experiment B test | **Not evaluated yet** |
-| Experiment C continuous clip 實作與 smoke／dry-run | ✅ 已通過 CPU 驗證；正式訓練尚未開始 |
+| Experiment C continuous clip 正式訓練 | ✅ epoch 11 early stop；最佳 checkpoint 為 epoch 4 |
 | Experiment C test | **Not evaluated yet** |
 | Pre-release pipeline、YOLO、SPL skeleton stage | 尚未實作 |
 
@@ -21,7 +21,7 @@
 
 ## Experiments Overview
 
-**Experiment A1** 是 Modified C3D-style initial baseline；**Experiment A2** 使用**完全相同的模型架構與前處理**，由 A1 最佳模型權重 warm-start，作為 extended-training follow-up，並非新 architecture，也不是 A1 optimizer 的 true resume。**Experiment B** 改用 Reference C3D adaptation 與連續重疊 clip／fc6 影片描述子流程。**Experiment C** 保留 A1/A2 的卷積特徵骨幹，改接 B 的連續 clip 資料流與影片級特徵聚合；C 尚未正式訓練。四者使用同一固定清理後的 Basketball-51 split，任務仍是完整影片 Make/Miss 分類。
+**Experiment A1** 是 Modified C3D-style initial baseline；**Experiment A2** 使用**完全相同的模型架構與前處理**，由 A1 最佳模型權重 warm-start，作為 extended-training follow-up，並非新 architecture，也不是 A1 optimizer 的 true resume。**Experiment B** 改用 Reference C3D adaptation 與連續重疊 clip／fc6 影片描述子流程。**Experiment C** 保留 A1/A2 的卷積特徵骨幹，改接 B 的連續 clip 資料流與影片級特徵聚合；C 已完成正式訓練，尚未評估 test。四者使用同一固定清理後的 Basketball-51 split，任務仍是完整影片 Make/Miss 分類。
 
 | Item | Experiment A1 | Experiment A2 | Experiment B | Experiment C |
 | --- | --- | --- | --- | --- |
@@ -39,11 +39,11 @@
 | Video aggregation | 無多 clip 聚合 | 同 A1 | 平均 fc6、L2 normalization | 平均 256-D GAP 特徵、L2 normalization |
 | Classifier | `Linear(128,2)` | 同 A1 | `Linear(4096,2)` | `Linear(256,2)` |
 | Parameters | 6,951,874 | 6,951,874 | reference model 78,003,970；加影片 head 共 78,012,164，實際訓練路徑 61,222,658 | 6,919,234；全數可訓練 |
-| Training | 從零訓練 5 epochs | A1 權重 warm-start；到 epoch 28 | 從零訓練；epoch 32 early stop | **Not trained yet**；僅 smoke/dry-run |
-| Best criterion | 最低 validation loss | 最低 validation loss | 最低 validation loss | 擬用最低 validation loss |
-| Best epoch | 5 | 21 | 25 | **Not trained yet** |
-| Best validation loss | 0.5254383027630617 | 0.4401281460416494 | 0.5345329800506291 | **Not trained yet** |
-| Validation accuracy at best | 0.7601809954751131 | 0.7970265029088559 | 0.7504848093083387 | **Not trained yet** |
+| Training | 從零訓練 5 epochs | A1 權重 warm-start；到 epoch 28 | 從零訓練；epoch 32 early stop | 從零訓練；epoch 11 early stop |
+| Best criterion | 最低 validation loss | 最低 validation loss | 最低 validation loss | 最低 validation loss |
+| Best epoch | 5 | 21 | 25 | 4 |
+| Best validation loss | 0.5254383027630617 | 0.4401281460416494 | 0.5345329800506291 | 0.6593953967287067 |
+| Validation accuracy at best | 0.7601809954751131 | 0.7970265029088559 | 0.7504848093083387 | 0.6153846153846154 |
 | Test status | 一次評估：accuracy **0.747888**（約 74.79%） | **Not evaluated yet** | **Not evaluated yet** | **Not evaluated yet** |
 
 ### Experiment A1 — Modified C3D-style Initial Baseline
@@ -99,13 +99,13 @@ Full video → overlapping continuous 16-frame clips（stride 8）
 → 平均 clip 特徵 → L2 normalize → Linear(256,2) → Make/Miss
 ```
 
-**Status.** **Implementation / validation completed, full training not yet started.** 固定 manifest／split 的 config check、`[B,3,16,112,112]` shape audit、CPU smoke，以及一支 train＋一支 validation 影片的 dry-run 均通過；尚無正式 validation 指標或 test 結果。C 的完整規格與驗證紀錄見 [Experiment C protocol](docs/c3d_style_continuous_protocol.md)。
+**Training / status.** 固定 manifest／split 的 config check、`[B,3,16,112,112]` shape audit、smoke 與小型 train／validation dry-run 先前均通過。正式訓練**已完成**：`training_status.json` 記錄在 **epoch 11** 因 early stopping 結束，未改善 counter 為 **7**；11 筆 log 與 checkpoint metadata 一致。最佳 checkpoint 為 **epoch 4**，validation loss **0.6593953967287067**、accuracy **0.6153846153846154**。C test：**Not evaluated yet**（`test_evaluation_performed=false`）。架構與原定訓練規格見 [Experiment C protocol](docs/c3d_style_continuous_protocol.md)。
 
 ## Architecture Differences
 
 Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣、BatchNorm、Global Average Pooling 與小型二分類 head。Experiment B 使用較大的 Reference C3D：連續重疊 clips、沒有 BatchNorm／GAP，並以 fc6 聚合形成影片描述子。Experiment C 重用 A2 的卷積骨幹，接上 B 的 continuous clip 管線，但換成影片級 256-D GAP 特徵聚合。
 
-**A2 vs C** 可研究 sparse full-video frames 與 continuous overlapping clips；但 C 也從 96×96 letterbox 改成 112×112 crop，並改用影片級聚合與 classifier，且 A2 是 warm-start、C 擬從零訓練，**不是純粹的單變因比較**。**C vs B** 共用 16-frame、stride 8、112×112、影片級 mean＋L2 流程，但 backbone、特徵維度（256 vs 4096）和 classifier 輸入不同。任何未來結果都不能簡化解讀為只有模型大小的影響。
+**A2 vs C** 可研究 sparse full-video frames 與 continuous overlapping clips；但 C 也從 96×96 letterbox 改成 112×112 crop，並改用影片級聚合與 classifier，且 A2 是 warm-start、C 從零訓練，**不是純粹的單變因比較**。**C vs B** 共用 16-frame、stride 8、112×112、影片級 mean＋L2 流程，但 backbone、特徵維度（256 vs 4096）和 classifier 輸入不同。任何未來結果都不能簡化解讀為只有模型大小的影響。
 
 ## 專案目錄與檔案
 
@@ -191,8 +191,8 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | --- | --- |
 | [`configs/c3d_style_continuous.yaml`](configs/c3d_style_continuous.yaml) | C 獨立設定與固定 manifest/split SHA-256；空間與時間前處理需與 B config 相符。 |
 | [`experiment_c/model.py`](experiment_c/model.py)、[`experiment_c/aggregate.py`](experiment_c/aggregate.py) | 重用 A1/A2 卷積骨幹與 GAP，產生 256-D clip 特徵，再做 mean＋L2＋獨立二分類 head。 |
-| [`scripts/run_c3d_style_continuous.py`](scripts/run_c3d_style_continuous.py) | `check`、`shape`、`smoke`、`dry-run` 與尚未執行的 `train`；僅建立 train/validation Dataset，不提供 test 評估。 |
-| `runs/full_video_c3d_style_continuous_v1/` | C 預定的獨立正式 run 位置；目前**尚未建立**。 |
+| [`scripts/run_c3d_style_continuous.py`](scripts/run_c3d_style_continuous.py) | `check`、`shape`、`smoke`、`dry-run` 與 `train`；僅建立 train/validation Dataset，不提供 test 評估。 |
+| [`runs/full_video_c3d_style_continuous_v1/`](runs/full_video_c3d_style_continuous_v1/) | C 的正式 checkpoint、11-epoch log 與 `EARLY_STOPPED` 狀態；最佳 epoch 4，沒有 test 評估產物。 |
 
 ### 研究與實驗文件
 
@@ -258,7 +258,7 @@ conda run -n yolo11 python -B scripts/run_baseline.py --stage train
 conda run -n yolo11 python -B scripts/run_baseline.py --stage evaluate
 ```
 
-A2 的獨立訓練／resume 指令與歷史設定見 [A2 protocol](docs/c3d_style_extended_protocol.md)；B 的影片級訓練與 resume 指令見 [B training protocol](docs/c3d_training_protocol.md)。C 的 config、check／smoke／dry-run 與下一階段正式訓練指令見 [C protocol](docs/c3d_style_continuous_protocol.md)。A1/A2/B run 已完成訓練；C 尚未訓練。**不要因 README 的指令而重跑已完成實驗或提前評估 A2/B/C test**。
+A2 的獨立訓練／resume 指令與歷史設定見 [A2 protocol](docs/c3d_style_extended_protocol.md)；B 的影片級訓練與 resume 指令見 [B training protocol](docs/c3d_training_protocol.md)。C 的原定訓練流程與檢查指令見 [C protocol](docs/c3d_style_continuous_protocol.md)；該文件的「尚未訓練」段落為準備階段的歷史紀錄，現況以本 README 及 C run 狀態為準。A1/A2/B/C 均已完成訓練；**不要因 README 的指令而重跑已完成實驗或提前評估 A2/B/C test**。
 
 ## 解讀結果時的限制
 

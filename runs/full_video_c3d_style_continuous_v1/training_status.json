@@ -1,0 +1,8 @@
+{
+  "status": "EARLY_STOPPED",
+  "epochs_completed": 11,
+  "best_epoch": 4,
+  "best_validation_loss": 0.6593953967287067,
+  "early_stopping_counter": 7,
+  "test_evaluation_performed": false
+}
