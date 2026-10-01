@@ -1,0 +1,31 @@
+{
+  "experiment": "a2",
+  "checkpoint": "best.pt",
+  "best_epoch": 21,
+  "checkpoint_sha256": "2c657da41f1a8cc99cd9228241dcbcf9382aaef5b93dd3588a61bc510f57b06f",
+  "manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "split_summary_sha256": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+  "test_id_sha256": "2c6c37cc846179aea27e1b2a0726a4210c50a184357792202791ddd9752d3eba",
+  "positive_class": "Make=1",
+  "prediction_rule": "argmax(logits)",
+  "test_loss": 0.5014848665729446,
+  "accuracy": 0.7738791423001949,
+  "precision_make": 0.7572706935123042,
+  "recall_make": 0.8378712871287128,
+  "f1_make": 0.7955346650998824,
+  "confusion_matrix_rows_true_miss_make": [
+    [
+      514,
+      217
+    ],
+    [
+      131,
+      677
+    ]
+  ],
+  "total_test_count": 1539,
+  "true_miss_count": 731,
+  "true_make_count": 808,
+  "predicted_miss_count": 645,
+  "predicted_make_count": 894
+}

@@ -3,19 +3,19 @@
 ## Current Status
 
 Current phase:
-Experiment B and Experiment C formal training completed; A2/B/C test not evaluated
+A1/A2/B/C full-video training and one-time formal test evaluation completed
 
 Current model:
 Modified C3D-style A1/A2, Reference C3D B, and continuous-clip Modified C3D-style C (all trained)
 
-Latest test accuracy:
-74.79%
+Formal test accuracy (A1 / A2 / B / C):
+0.7478882391163093 / 0.7738791423001949 / 0.7342430149447693 / 0.6049382716049383
 
 Current reference:
 C3D - Tran et al., ICCV 2015
 
 Next planned task:
-待確認下一步；A2/B/C test 尚未評估
+整理完整影片階段結論；後續另定 pre-release protocol
 
 Last updated:
 2026-10-01
@@ -287,3 +287,47 @@ Experiment C full training（需在正式環境監控 VRAM/throughput，test 仍
 
 ### Next Step
 待研究者確認下一步；A2/B/C test 仍未評估。
+
+
+## 2026-10-01 - Formal A2/B/C Test Evaluator Prepared
+
+### Goal
+建立只讀取 validation 選出的 `best.pt` 的一次性正式 test evaluator，先完成唯讀稽核；本輪不執行 A2/B/C test。
+
+### Frozen Training State and Dataset Audit
+- A2/B/C 均已完成訓練；預期 `best.pt` epoch 分別為 **21／25／4**。三個 checkpoint 的 metadata 與 training status、最佳 validation log 相符，模型 state 嚴格載入成功。B checkpoint 未直接保存 manifest hash，另核對其 run manifest/split 快照、config 及 status。
+- 只使用 manifest／Dataset row metadata 比對三組 test IDs；每組都是相同的 **1,539** 個唯一影片（Miss **731**、Make **808**），與 train/validation ID 不重疊。排序後 test ID SHA-256 為 `2c6c37cc846179aea27e1b2a0726a4210c50a184357792202791ddd9752d3eba`。
+
+### Implementation and Checks
+- 新增 `scripts/evaluate_full_video_experiments.py` 與 `docs/formal_test_evaluation_protocol.md`。A2 使用固定 bin center/96×96；B/C 使用固定 16-frame、stride 8、112×112 center crop，各自載入 frozen best model/head。正式路徑使用 `eval()` 與 `inference_mode()`，以 argmax 產生預測，計算影片級 test loss、accuracy、Make precision/recall/F1、混淆矩陣與類別數量；CSV 只含相對 video ID 與預測欄位。
+- 三個指定的 `--experiment a2|b|c --check` 均 **PASS**，確認 source/config/manifest/split、test 身份、checkpoint epoch/state 與輸出路徑可用。Check 不呼叫 test Dataset `__getitem__`，不解碼影片、不計算 test metrics、不寫 test output。
+- 一次性輸出保護拒絕既有 `test_metrics.json`、`test_predictions.csv` 或 `.test_evaluation_claim`；正式路徑才會獨占建立 claim 與結果檔，沒有 `--force`。中斷後須人工 audit，不能自動重跑。
+
+### Test Status / Next Step
+**Formal test executed: NO.** A2/B/C test metrics 仍未知。下一步是人工審閱 evaluator 與凍結 protocol，確認後才各執行一次正式 A2/B/C test。
+
+
+## 2026-10-01 - Full-Video Formal Test Stage Finalized
+
+### Goal and authoritative sources
+依已完成的一次性正式 test，將 A1/A2/B/C 全片分類結果同步到 README 與 `docs/formal_test_evaluation_protocol.md`。本次文件整理只讀取四個 run 既有 `test_metrics.json`，未執行訓練或評估，也未修改任何 checkpoint、split、`test_metrics.json` 或 `test_predictions.csv`。上一節「尚未評估」記錄的是正式 test 前的歷史狀態。
+
+### Final Results
+正類為 Make=1；混淆矩陣列是真值 `[Miss, Make]`、欄是預測 `[Miss, Make]`。
+
+| Experiment | Best epoch | Test loss | Accuracy | Precision Make | Recall Make | F1 Make | Confusion matrix |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| A1 | 5 | 未記錄 | 0.7478882391163093 | 0.7116935483870968 | 0.8737623762376238 | 0.7844444444444445 | `[[445,286],[102,706]]` |
+| A2 | 21 | 0.5014848665729446 | 0.7738791423001949 | 0.7572706935123042 | 0.8378712871287128 | 0.7955346650998824 | `[[514,217],[131,677]]` |
+| B | 25 | 0.5671578797525675 | 0.7342430149447693 | 0.7484433374844334 | 0.7438118811881188 | 0.7461204220980757 | `[[529,202],[207,601]]` |
+| C | 4 | 0.6629814902747738 | 0.6049382716049383 | 0.6265822784810127 | 0.6126237623762376 | 0.6195244055068836 | `[[436,295],[313,495]]` |
+
+A1 的舊版正式 metrics 沒有 test loss 欄位；不能將 A1 validation loss 當成 test loss。
+
+### Frozen Test Identity and Decisions
+- A2/B/C 的正式結果均記錄同一 **1,539** 支 test 影片（Miss **731**、Make **808**），相同 manifest SHA-256 `e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6`、split-summary SHA-256 `953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5`、排序後 test-ID SHA-256 `2c6c37cc846179aea27e1b2a0726a4210c50a184357792202791ddd9752d3eba`。A1 舊版 metrics 僅保存同一 manifest hash 與 test count，未保存後兩項 hash。
+- A2/B/C 是**完整實驗流程**比較，不是單變因 ablation。A2/C 的解析度、crop、head、初始化也不同；B/C 的 backbone、特徵維度及訓練歷程不同。不能據此斷言稀疏取樣本質上優於連續取樣，或 Modified C3D 本質上優於 Reference C3D。
+- 四個模型均使用**完整影片**，可能看到球離手後球路、碰框、籃網與後續反應；本階段結果不證明 pre-release prediction。A2/B/C 不得根據 test 表現重新調整模型、訓練或閾值。既有 `test_metrics.json` 和 `test_predictions.csv` 視為不可變的正式結果產物，不重新評估。
+
+### Files Changed / Next Step
+本次只更新 `readme.md`、`docs/formal_test_evaluation_protocol.md` 與本進度紀錄。完整影片階段結論已封存；後續需另行制定 pre-release 資料與評估 protocol。

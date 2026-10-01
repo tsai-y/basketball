@@ -9,19 +9,19 @@
 | Dataset inspection、清理、固定 train/validation/test split | ✅ 已完成；原始影片未修改 |
 | Experiment A1 訓練與一次 test 評估 | ✅ 已完成 |
 | Experiment A2 extended training | ✅ epoch 28 early stop；最佳 checkpoint 為 epoch 21 |
-| Experiment A2 test | **Not evaluated yet** |
+| Experiment A2 formal test | ✅ 已完成一次；accuracy 0.7738791423001949 |
 | Experiment B 架構、continuous clip pipeline、smoke／diagnostic gates | ✅ 已完成 |
 | Experiment B 正式訓練 | ✅ epoch 32 early stop；最佳 checkpoint 為 epoch 25（上限 50、effective patience 7） |
-| Experiment B test | **Not evaluated yet** |
+| Experiment B formal test | ✅ 已完成一次；accuracy 0.7342430149447693 |
 | Experiment C continuous clip 正式訓練 | ✅ epoch 11 early stop；最佳 checkpoint 為 epoch 4 |
-| Experiment C test | **Not evaluated yet** |
+| Experiment C formal test | ✅ 已完成一次；accuracy 0.6049382716049383 |
 | Pre-release pipeline、YOLO、SPL skeleton stage | 尚未實作 |
 
 原始 **10,311** 支影片中，排除 **6** 支結果標籤衝突影片及 **26** 支一致標籤的重複複本，留下 **10,279** 支。可用資料分為 train **7,193**、validation **1,547**、test **1,539**。split 依固定來源代碼分組，**尚未核實為真正的 game-level split**。
 
 ## Experiments Overview
 
-**Experiment A1** 是 Modified C3D-style initial baseline；**Experiment A2** 使用**完全相同的模型架構與前處理**，由 A1 最佳模型權重 warm-start，作為 extended-training follow-up，並非新 architecture，也不是 A1 optimizer 的 true resume。**Experiment B** 改用 Reference C3D adaptation 與連續重疊 clip／fc6 影片描述子流程。**Experiment C** 保留 A1/A2 的卷積特徵骨幹，改接 B 的連續 clip 資料流與影片級特徵聚合；C 已完成正式訓練，尚未評估 test。四者使用同一固定清理後的 Basketball-51 split，任務仍是完整影片 Make/Miss 分類。
+**Experiment A1** 是 Modified C3D-style initial baseline；**Experiment A2** 使用**完全相同的模型架構與前處理**，由 A1 最佳模型權重 warm-start，作為 extended-training follow-up，並非新 architecture，也不是 A1 optimizer 的 true resume。**Experiment B** 改用 Reference C3D adaptation 與連續重疊 clip／fc6 影片描述子流程。**Experiment C** 保留 A1/A2 的卷積特徵骨幹，改接 B 的連續 clip 資料流與影片級特徵聚合。四者均已完成正式 test，任務仍是完整影片 Make/Miss 分類。
 
 | Item | Experiment A1 | Experiment A2 | Experiment B | Experiment C |
 | --- | --- | --- | --- | --- |
@@ -44,7 +44,26 @@
 | Best epoch | 5 | 21 | 25 | 4 |
 | Best validation loss | 0.5254383027630617 | 0.4401281460416494 | 0.5345329800506291 | 0.6593953967287067 |
 | Validation accuracy at best | 0.7601809954751131 | 0.7970265029088559 | 0.7504848093083387 | 0.6153846153846154 |
-| Test status | 一次評估：accuracy **0.747888**（約 74.79%） | **Not evaluated yet** | **Not evaluated yet** | **Not evaluated yet** |
+| Test status | 已完成一次 | 已完成一次 | 已完成一次 | 已完成一次 |
+
+## Final Full-Video Test Comparison
+
+以下數值來自各 run 的正式 `test_metrics.json`；A1 使用先前保存的正式結果，A2/B/C 使用各自 validation 選出的 frozen `best.pt`。正類為 **Make=1**。混淆矩陣的列是真值 `[Miss, Make]`、欄是預測 `[Miss, Make]`。
+
+| Metric | A1 | A2 | B | C |
+| --- | ---: | ---: | ---: | ---: |
+| Best epoch | 5 | 21 | 25 | 4 |
+| Test loss | 未記錄 | 0.5014848665729446 | 0.5671578797525675 | 0.6629814902747738 |
+| Accuracy | 0.7478882391163093 | 0.7738791423001949 | 0.7342430149447693 | 0.6049382716049383 |
+| Precision Make | 0.7116935483870968 | 0.7572706935123042 | 0.7484433374844334 | 0.6265822784810127 |
+| Recall Make | 0.8737623762376238 | 0.8378712871287128 | 0.7438118811881188 | 0.6126237623762376 |
+| F1 Make | 0.7844444444444445 | 0.7955346650998824 | 0.7461204220980757 | 0.6195244055068836 |
+| Confusion matrix | `[[445,286],[102,706]]` | `[[514,217],[131,677]]` | `[[529,202],[207,601]]` | `[[436,295],[313,495]]` |
+| Test videos | 1,539 | 1,539 | 1,539 | 1,539 |
+
+A2/B/C 的正式結果各記錄同一組 **1,539** 個 frozen test ID（Miss **731**、Make **808**），且三者的 manifest SHA-256 `e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6`、split-summary SHA-256 `953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5`、排序後 test-ID SHA-256 `2c6c37cc846179aea27e1b2a0726a4210c50a184357792202791ddd9752d3eba` **完全相同**。A1 的既有結果記錄了相同 manifest SHA-256 與 1,539 支 test 數量，但其舊版 metrics 沒保存 split-summary／test-ID SHA-256。A1 的 **validation loss 0.5254383027630617 不是 test loss**。
+
+這些是**完整實驗流程**的比較，並非單變因 ablation。A2 與 C 除時間取樣外，還有空間解析度、裁切、影片級 head、初始化等差異；C 與 B 的 backbone、特徵維度及訓練歷程不同。因此不能由此宣稱稀疏取樣本質上優於連續取樣，或 Modified C3D 本質上優於 Reference C3D。所有模型都使用**完整影片**，可能包含球離手後的球路、碰框、籃網或後續反應；這些結果**不能證明 pre-release prediction 能力**。A2/B/C 的 checkpoint、前處理、split 與決策均已凍結，不得依 test 表現重新調整。正式 `test_metrics.json`／`test_predictions.csv` 是不可覆寫的結果產物。
 
 ### Experiment A1 — Modified C3D-style Initial Baseline
 
@@ -64,7 +83,7 @@ Full video → 16 temporal bins → 16 sparse RGB frames → [3,16,96,96]
 
 **Architecture and preprocessing are identical to A1.** A1 到 epoch 5 時 validation loss 仍持續下降、accuracy 仍上升，因此建立獨立 extended-training follow-up。A2 載入 A1 `best.pt` 的模型權重，但 A1 沒保存 optimizer／RNG 等完整續訓 state；A1→A2 屬於 **WARM_START_ONLY**，A2 新建 AdamW，不是 true resume。A2 自己的 `last.pt` 則保存可續訓 state。
 
-原始 A2 上限是總 epoch 標籤 **15**、patience **5**；之後以 resume-only override 設上限 **50**、patience **7**。LR 持續 `0.001`，沒有 scheduler，以**最低 validation loss** 選最佳 checkpoint。實際在 **epoch 28** 停止（`last.pt` 的未改善 counter 為 7），最佳 epoch **21**，validation loss **0.4401281460416494**、accuracy **0.7970265029088559**。A2 test：**Not evaluated yet**；不得沿用 A1 的 test accuracy。
+原始 A2 上限是總 epoch 標籤 **15**、patience **5**；之後以 resume-only override 設上限 **50**、patience **7**。LR 持續 `0.001`，沒有 scheduler，以**最低 validation loss** 選最佳 checkpoint。實際在 **epoch 28** 停止（`last.pt` 的未改善 counter 為 7），最佳 epoch **21**，validation loss **0.4401281460416494**、accuracy **0.7970265029088559**。A2 已完成一次正式 test；結果見上表，不沿用 A1 的 test accuracy。
 
 ```text
 Full video → 16 temporal bins → 16 sparse RGB frames → [3,16,96,96]
@@ -85,7 +104,7 @@ Full video → overlapping continuous 16-frame clips（stride 8）
 → Linear(4096,2) → Make/Miss
 ```
 
-**Training / status.** 從零初始化、影片級 CrossEntropyLoss、AdamW（初始 LR `1e-4`）、ReduceLROnPlateau 與 validation-based early stopping；原 config 為上限 10 epochs、patience 3，後續以 resume-only 設定延長至上限 **50**、effective patience **7**。正式訓練**已完成**，在 **epoch 32** 因連續未改善而 early stop；最佳 checkpoint 為 epoch **25**（validation loss **0.5345329800506291**、accuracy **0.7504848093083387**）。`training_status.json` 與 32 筆 log 已核對。B test：**Not evaluated yet**。
+**Training / status.** 從零初始化、影片級 CrossEntropyLoss、AdamW（初始 LR `1e-4`）、ReduceLROnPlateau 與 validation-based early stopping；原 config 為上限 10 epochs、patience 3，後續以 resume-only 設定延長至上限 **50**、effective patience **7**。正式訓練**已完成**，在 **epoch 32** 因連續未改善而 early stop；最佳 checkpoint 為 epoch **25**（validation loss **0.5345329800506291**、accuracy **0.7504848093083387**）。`training_status.json` 與 32 筆 log 已核對。B 已完成一次正式 test；結果見上表。
 
 ## Experiment C — Modified C3D-style + Continuous Clips
 
@@ -99,7 +118,7 @@ Full video → overlapping continuous 16-frame clips（stride 8）
 → 平均 clip 特徵 → L2 normalize → Linear(256,2) → Make/Miss
 ```
 
-**Training / status.** 固定 manifest／split 的 config check、`[B,3,16,112,112]` shape audit、smoke 與小型 train／validation dry-run 先前均通過。正式訓練**已完成**：`training_status.json` 記錄在 **epoch 11** 因 early stopping 結束，未改善 counter 為 **7**；11 筆 log 與 checkpoint metadata 一致。最佳 checkpoint 為 **epoch 4**，validation loss **0.6593953967287067**、accuracy **0.6153846153846154**。C test：**Not evaluated yet**（`test_evaluation_performed=false`）。架構與原定訓練規格見 [Experiment C protocol](docs/c3d_style_continuous_protocol.md)。
+**Training / status.** 固定 manifest／split 的 config check、`[B,3,16,112,112]` shape audit、smoke 與小型 train／validation dry-run 先前均通過。正式訓練**已完成**：`training_status.json` 記錄在 **epoch 11** 因 early stopping 結束，未改善 counter 為 **7**；11 筆 log 與 checkpoint metadata 一致。最佳 checkpoint 為 **epoch 4**，validation loss **0.6593953967287067**、accuracy **0.6153846153846154**。C 已完成一次正式 test；結果見上表。架構與原定訓練規格見 [Experiment C protocol](docs/c3d_style_continuous_protocol.md)。
 
 ## Architecture Differences
 
@@ -167,7 +186,7 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | [`baseline/model.py`](baseline/model.py) | 修改版 C3D-style 3D CNN；含八層 3D 卷積、BatchNorm3d、五層 pooling 及二分類 head。**不是原始 C3D 的完全相同架構。** |
 | [`scripts/run_baseline.py`](scripts/run_baseline.py) | 四個執行階段：`smoke`、`overfit`、`train`、`evaluate`。只有前兩個 gate 通過且 manifest/protocol hash 相符，才能進入訓練；評估載入 validation loss 最低的 checkpoint。 |
 | [`scripts/run_c3d_style_extended.py`](scripts/run_c3d_style_extended.py) | Experiment A2 的獨立訓練與 resume 腳本；只用 train/validation，保存 A2 `last.pt`、`best.pt` 與 log；沒有 test evaluation 階段。 |
-| [`runs/full_video_c3d_style_extended_v1/`](runs/full_video_c3d_style_extended_v1/) | A2 config/data 快照、checkpoint、訓練紀錄與狀態；沒有 test 評估產物。 |
+| [`runs/full_video_c3d_style_extended_v1/`](runs/full_video_c3d_style_extended_v1/) | A2 config/data 快照、checkpoint、訓練紀錄，以及一次正式 test 的 metrics／predictions。 |
 
 ### Experiment B：Reference C3D adaptation
 
@@ -183,7 +202,7 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | [`configs/c3d_reference_benchmark.yaml`](configs/c3d_reference_benchmark.yaml)、[`scripts/benchmark_c3d_reference.py`](scripts/benchmark_c3d_reference.py) | 短時 train-only GPU／資料載入可行性測試設定與程式；沒有完整 epoch。 |
 | [`scripts/audit_c3d_shape.py`](scripts/audit_c3d_shape.py) | 以作者 Caffe pooling shape 公式與 PyTorch 實際輸出核對 pool5、flatten 和 fc6。 |
 | [`configs/c3d_reference_train.yaml`](configs/c3d_reference_train.yaml)、[`scripts/run_c3d_reference_train.py`](scripts/run_c3d_reference_train.py) | B 的原始 10／patience 3 設定與正式影片級 fc6 訓練腳本；後續以 resume-only CLI 延長上限／patience。 |
-| [`runs/full_video_c3d_reference_train_v1/`](runs/full_video_c3d_reference_train_v1/) | B 的正式 checkpoint、32-epoch log 與 COMPLETE 狀態；epoch 32 early stop，最佳 epoch 25；沒有 test 評估產物。 |
+| [`runs/full_video_c3d_reference_train_v1/`](runs/full_video_c3d_reference_train_v1/) | B 的正式 checkpoint、32-epoch log、COMPLETE 狀態及一次正式 test 的 metrics／predictions；最佳 epoch 25。 |
 
 ### Experiment C：Modified C3D-style + continuous clips
 
@@ -192,7 +211,7 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | [`configs/c3d_style_continuous.yaml`](configs/c3d_style_continuous.yaml) | C 獨立設定與固定 manifest/split SHA-256；空間與時間前處理需與 B config 相符。 |
 | [`experiment_c/model.py`](experiment_c/model.py)、[`experiment_c/aggregate.py`](experiment_c/aggregate.py) | 重用 A1/A2 卷積骨幹與 GAP，產生 256-D clip 特徵，再做 mean＋L2＋獨立二分類 head。 |
 | [`scripts/run_c3d_style_continuous.py`](scripts/run_c3d_style_continuous.py) | `check`、`shape`、`smoke`、`dry-run` 與 `train`；僅建立 train/validation Dataset，不提供 test 評估。 |
-| [`runs/full_video_c3d_style_continuous_v1/`](runs/full_video_c3d_style_continuous_v1/) | C 的正式 checkpoint、11-epoch log 與 `EARLY_STOPPED` 狀態；最佳 epoch 4，沒有 test 評估產物。 |
+| [`runs/full_video_c3d_style_continuous_v1/`](runs/full_video_c3d_style_continuous_v1/) | C 的正式 checkpoint、11-epoch log、`EARLY_STOPPED` 狀態及一次正式 test 的 metrics／predictions；最佳 epoch 4。 |
 
 ### 研究與實驗文件
 
@@ -204,6 +223,8 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | [`docs/c3d_training_protocol.md`](docs/c3d_training_protocol.md) | 初始化與訓練層級決策、影片級 loss／分類器比較、pretrained 相容性門檻、實測 VRAM／吞吐／DataLoader、下一階段正式設定與命令。 |
 | [`docs/c3d_style_extended_protocol.md`](docs/c3d_style_extended_protocol.md) | A2 與 A1 的 warm-start 關係、延長訓練與 resume protocol。 |
 | [`docs/c3d_style_continuous_protocol.md`](docs/c3d_style_continuous_protocol.md) | C 的比較目的、共用 clip pipeline、模型／loss 接線、訓練規劃與短測結果。 |
+| [`docs/formal_test_evaluation_protocol.md`](docs/formal_test_evaluation_protocol.md) | A2/B/C frozen best checkpoint、固定 test 身份、一次性評估規則與正式結果。 |
+| [`scripts/evaluate_full_video_experiments.py`](scripts/evaluate_full_video_experiments.py) | A2/B/C 共用的正式 test evaluator；一次性結果已產生，請勿重跑或覆寫。 |
 | [`docs/baseline_protocol.md`](docs/baseline_protocol.md) | 本輪研究問題、清理與 split 規則、前處理、模型、訓練、評估及限制。 |
 | [`docs/baseline_results.md`](docs/baseline_results.md) | 實際 smoke/overfit、五個 epoch、test 指標、混淆矩陣和環境紀錄。 |
 | [`docs/progress_log.md`](docs/progress_log.md) | 階段性進度與各次 audit 的歷史紀錄；較早的「尚未訓練」敘述屬當時狀態，現況以上方 run 檔案為準。 |
@@ -258,7 +279,7 @@ conda run -n yolo11 python -B scripts/run_baseline.py --stage train
 conda run -n yolo11 python -B scripts/run_baseline.py --stage evaluate
 ```
 
-A2 的獨立訓練／resume 指令與歷史設定見 [A2 protocol](docs/c3d_style_extended_protocol.md)；B 的影片級訓練與 resume 指令見 [B training protocol](docs/c3d_training_protocol.md)。C 的原定訓練流程與檢查指令見 [C protocol](docs/c3d_style_continuous_protocol.md)；該文件的「尚未訓練」段落為準備階段的歷史紀錄，現況以本 README 及 C run 狀態為準。A1/A2/B/C 均已完成訓練；**不要因 README 的指令而重跑已完成實驗或提前評估 A2/B/C test**。
+A2 的獨立訓練／resume 指令與歷史設定見 [A2 protocol](docs/c3d_style_extended_protocol.md)；B 的影片級訓練與 resume 指令見 [B training protocol](docs/c3d_training_protocol.md)。C 的原定訓練流程見 [C protocol](docs/c3d_style_continuous_protocol.md)；其中「尚未訓練」段落是準備階段的歷史紀錄。A1/A2/B/C 均已完成訓練與正式 test；正式結果以上方比較表及各 run 的 `test_metrics.json` 為準。**不要重跑訓練或 test evaluation，也不要覆寫 metrics／predictions。**
 
 ## 解讀結果時的限制
 
