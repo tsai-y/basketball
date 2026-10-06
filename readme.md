@@ -2,6 +2,8 @@
 
 本專案使用 Basketball-51 研究 **full-video Make/Miss classification**。長期目標是只用**球離手前**畫面預測結果，但目前 A1、A2、B、C 都取用完整影片，可能看到球飛行、碰框與進球畫面；它們都**不是 pre-release prediction**。Experiment B 是 Basketball-51 上的 Reference C3D adaptation，並非原論文 benchmark 的完整重現。以下狀態依 **2026-10-01** 讀到的本地 run 檔案整理。
 
+研究統整入口為 [Research Baseline v1.3](docs/research_baseline_v1.3.md)，狀態為 **Documentation Baseline Frozen**，來源結果日期 **2026-10-01**、文件審閱日期 **2026-10-07**。文件彙整已完成實驗、C3D／I3D 論文、研究限制及 Experiment D 前置研究清單；文件凍結不代表 Experiment D protocol 已定案。
+
 ## Research Status
 
 | 工作 | 目前狀態 |
@@ -15,6 +17,8 @@
 | Experiment B formal test | ✅ 已完成一次；accuracy 0.7342430149447693 |
 | Experiment C continuous clip 正式訓練 | ✅ epoch 11 early stop；最佳 checkpoint 為 epoch 4 |
 | Experiment C formal test | ✅ 已完成一次；accuracy 0.6049382716049383 |
+| Research Baseline v1.3 | ✅ 已入庫；研究統整文件已凍結（Reviewed: 2026-10-07） |
+| Experiment D — I3D on Basketball-51 | 待研究與 protocol 設計；尚未實作、訓練或產生結果 |
 | Pre-release pipeline、YOLO、SPL skeleton stage | 尚未實作 |
 
 原始 **10,311** 支影片中，排除 **6** 支結果標籤衝突影片及 **26** 支一致標籤的重複複本，留下 **10,279** 支。可用資料分為 train **7,193**、validation **1,547**、test **1,539**。split 依固定來源代碼分組，**尚未核實為真正的 game-level split**。
@@ -126,6 +130,18 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 
 **A2 vs C** 可研究 sparse full-video frames 與 continuous overlapping clips；但 C 也從 96×96 letterbox 改成 112×112 crop，並改用影片級聚合與 classifier，且 A2 是 warm-start、C 從零訓練，**不是純粹的單變因比較**。**C vs B** 共用 16-frame、stride 8、112×112、影片級 mean＋L2 流程，但 backbone、特徵維度（256 vs 4096）和 classifier 輸入不同。任何未來結果都不能簡化解讀為只有模型大小的影響。
 
+## Experiment D — 前置研究與設計狀態
+
+下一階段預定研究 **I3D on Basketball-51**。依既有 handoff，D 以 full-video classification 為研究方向，pre-release 屬後續延伸；[Research Baseline v1.3 第 8–9 節](docs/research_baseline_v1.3.md)仍將 temporal scope 與 pre-release 邊界列為待正式寫入並凍結的 protocol 項目。目前尚未決定 RGB-only／Flow-only／Two-Stream、初始化與預訓練來源、時間長度與 FPS、空間前處理、影片級聚合、分類器、fine-tuning 範圍及訓練超參數；論文設定不能直接視為 D 的既定設定。
+
+v1.3 提出的研究順序如下，這些是**待執行的研究項目**：
+
+1. **Gate 1：共同前置稽核。** 僅使用 **8,740** 支 train／validation 影片，檢查 FPS、frame count、duration 與短於 64 frames 的比例；稽核候選 I3D 權重來源與前處理規格，評估 RGB-I3D shape、VRAM 與吞吐量，再形成範疇、預訓練與 modality 決策。
+2. **Gate 2：Flow 仍為候選時執行。** 進行 TV-L1 樣本 benchmark、儲存估算、Flow／Two-Stream 資源評估，以及 RGB／Flow 時間對齊研究。
+3. **Protocol 凍結後進入實作。** 完成適用的 Gate 後，才制定正式 protocol 與 implementation plan，再進入 D 的實作、訓練及依 protocol 執行的一次性 formal test。
+
+前置研究不得使用 **1,539** 支 test 影片的內容或分布制定 D；A1/A2/B/C 的 checkpoints、metrics、predictions、manifest 與 split 保持凍結，不重新訓練或評估。完整未決事項與研究清單見 [Research Baseline v1.3](docs/research_baseline_v1.3.md)。
+
 ## 專案目錄與檔案
 
 ### 原始資料與研究背景
@@ -135,6 +151,7 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 | [`archive/Basketball_51 dataset/`](archive/Basketball_51%20dataset/) | 原始 Basketball-51 RGB 影片，約 6.1 GB。八個子目錄直接存放 MP4；請勿刪除、搬移、重新命名或覆寫。 |
 | [`TOPIC 1.pdf`](TOPIC%201.pdf) | 教授的研究題目說明。YOLO、I3D/MixNet、RL 選影格、SpinalNet 等是後續方向；PDF 內的 `XXXX`、`XX.X%` 是占位文字，不是本專案實驗結果。 |
 | [`papers/c3d_tran_2015.pdf`](papers/c3d_tran_2015.pdf) | Tran 等人 ICCV 2015 的完整 C3D 論文與補充資料，是 C3D 稽核的主要來源。 |
+| [`papers/1705.07750v3.pdf`](papers/1705.07750v3.pdf) | Carreira 與 Zisserman 的 I3D 論文《Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset》本機副本，供 Experiment D 前置研究參考。 |
 
 原始資料的類別與本地影片數：
 
@@ -217,6 +234,7 @@ Experiment A1/A2 是較輕量的 Modified C3D-style：完整影片稀疏取樣�
 
 | 路徑 | 用途 |
 | --- | --- |
+| [`docs/research_baseline_v1.3.md`](docs/research_baseline_v1.3.md) | 已凍結的研究統整入口：A1/A2/B/C 結果與限制、C3D／I3D 文獻、教授方向與專案目標區分、D 未決事項及兩階段研究 Gate。來源結果 2026-10-01；審閱 2026-10-07。 |
 | [`docs/references.md`](docs/references.md) | Basketball-51、C3D、I3D 的文獻資訊、各篇在本專案中的角色及與論文實作的差異。I3D 尚未實作。 |
 | [`docs/c3d_reproduction_spec.md`](docs/c3d_reproduction_spec.md) | C3D 實作稽核：逐項區分論文確認、作者官方實作確認、Basketball-51 適配選項與尚未確認事項，並比較目前 modified baseline。 |
 | [`docs/c3d_reference_implementation.md`](docs/c3d_reference_implementation.md) | 新 reference C3D adaptation 的實作細節、PROJECT_ADAPTATION、實際 clip 索引、tensor shapes、失敗與通過的 gate 紀錄及限制。 |
