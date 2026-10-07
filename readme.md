@@ -2,7 +2,7 @@
 
 本專案使用 Basketball-51 研究 **full-video Make/Miss classification**。長期目標是只用**球離手前**畫面預測結果，但目前 A1、A2、B、C 都取用完整影片，可能看到球飛行、碰框與進球畫面；它們都**不是 pre-release prediction**。Experiment B 是 Basketball-51 上的 Reference C3D adaptation，並非原論文 benchmark 的完整重現。以下狀態依 **2026-10-01** 讀到的本地 run 檔案整理。
 
-研究統整入口為 [Research Baseline v1.3](docs/research_baseline_v1.3.md)，狀態為 **Documentation Baseline Frozen**，來源結果日期 **2026-10-01**、文件審閱日期 **2026-10-07**。文件彙整已完成實驗、C3D／I3D 論文、研究限制及 Experiment D 前置研究清單；文件凍結不代表 Experiment D protocol 已定案。
+文件導覽請見 [`docs/README.md`](docs/README.md)。研究統整入口為 [Research Baseline v1.3](docs/research_baseline_v1.3.md)，狀態為 **Documentation Baseline Frozen**，來源結果日期 **2026-10-01**、文件審閱日期 **2026-10-07**。文件彙整已完成實驗、C3D／I3D 論文、研究限制及 Experiment D 前置研究清單；文件凍結不代表 Experiment D protocol 已定案。
 
 ## Research Status
 
