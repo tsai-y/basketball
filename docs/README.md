@@ -2,7 +2,11 @@
 
 本目錄收錄 Basketball-51 專案的研究統整、資料稽核、實驗 protocol、結果與參考文獻。若是第一次閱讀，請從下方的「建議閱讀順序」開始；若要查特定實驗，則直接使用分類索引。
 
-> 根目錄的 [`readme.md`](../readme.md) 負責專案概覽、目前狀態與程式入口；本頁只負責文件導航。各實驗的詳細設定與限制應以其專屬 protocol、實作紀錄及凍結產物為準。
+> 根目錄的 [`README.md`](../README.md) 負責專案概覽、目前狀態與程式入口；本頁只負責文件導航。各實驗的詳細設定與限制應以其專屬 protocol、實作紀錄及凍結產物為準。
+
+## 2026-10-07 團隊入口
+
+先讀 [目前研究方向](current_research_direction.md)、[repository map](repository_map.md) 與 [整理紀錄](reorganization_log.md)。目前優先規劃 full-video 自動品質篩檢與影像增強；A1/A2/B/C frozen，Gate 1A／1B completed，Gate 1C 與原 Experiment D paused。以下既有文件的 D／pre-release 規劃保留其歷史語境，不代表目前工作排程。Research Baseline 與 Gate 報告內容及路徑均未改動。
 
 ## 建議閱讀順序
 

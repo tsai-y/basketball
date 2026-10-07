@@ -331,3 +331,26 @@ A1 的舊版正式 metrics 沒有 test loss 欄位；不能將 A1 validation los
 
 ### Files Changed / Next Step
 本次只更新 `readme.md`、`docs/formal_test_evaluation_protocol.md` 與本進度紀錄。完整影片階段結論已封存；後續需另行制定 pre-release 資料與評估 protocol。
+
+
+## 2026-10-07 - Repository Structure and Team Documentation
+
+### Scope and current direction
+
+本輪只整理 repository、必要路徑與團隊文件，沒有開始資料清洗、模型實作或訓練。目前仍為 full-video Make/Miss classification，優先規劃自動品質篩檢與影像增強，之後研究特徵擷取、多模型互補／融合；具體策略、組合及融合方式尚未決定。A1/A2/B/C frozen；Gate 1A／1B completed，Gate 1C 與原 Experiment D paused。Pre-release 不在目前範圍；SPL 指 Sport Performance Lab 的 SPL Open Data，是最後才考慮的資料集延伸，不是模型模組。本檔頂部 Current Status 保留 2026-10-01 的歷史內容，目前排程見 [current_research_direction.md](current_research_direction.md)。
+
+### Structure and preservation
+
+- 根目錄 README 改為繁體中文團隊入口；小寫 `readme.md` 為指向 `README.md` 的相容 symlink，維持 Gate 1B 既有連結。
+- `scripts/audit_c3d_shape.py`、`scripts/benchmark_c3d_reference.py` 搬至 `baseline/scripts/`，各只將 ROOT 的 `parents[1]` 改為 `parents[2]`，仍定位相同 root 及歷史輸出。
+- 建立 baseline、development、data_quality 說明，以及目前研究方向、repository map、reorganization log；docs 索引補充目前工作入口。
+- 核心模型／資料程式、六份 configs、訓練／評估入口因 frozen hash／protocol 相依保留原位；共用資料工具不複製。原始資料、固定 manifest／split、全部 runs／checkpoints／logs／test 產物與 Research Baseline、Gate 報告保留原文原位。
+- 開始時 tracked 工作樹乾淨，無非 ignored untracked；沒有使用者未提交變更衝突。本紀錄只追加，舊段落及其中舊路徑未改寫。
+
+### Lightweight validation and limits
+
+21 份 Python syntax、12 個模組 import、11 個 CLI `--help`、六份 YAML 及 29 個 root-relative 資源路徑檢查通過。Gate 1A `--mode check` 僅讀固定 manifest／split metadata，回報 PASS、video opens／probes／test video accesses 均為 0。最終本機連結與保護檔案比對結果見 [reorganization_log.md](reorganization_log.md)。沒有訓練、evaluation、benchmark、checkpoint 載入、模型下載或影片掃描／probe／解碼；不宣稱模型數值等價已驗證。未 git add、commit 或 push。
+
+### Team entry and follow-up
+
+先讀 root README，再讀 [repository_map.md](repository_map.md) 與 development 規則。後續品質篩檢尚無演算法或門檻。保留原位元件的全面搬移、ignored 資料分發、symlink／大小寫跨平台 checkout 與疑似過時產物審核，均列於整理紀錄；未刪除任何歷史產物。

@@ -16,7 +16,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 import yaml
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from reference_c3d.aggregate import aggregate_fc6
 from reference_c3d.data import C3DVideoDataset, ContinuousClipSampler
