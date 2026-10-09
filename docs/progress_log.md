@@ -439,3 +439,12 @@ Scanner implementation complete；完整 train 執行等待使用者在主機啟
 Scanner 可進入主機全量候選掃描準備；操作者仍須完成 runbook checklist，確認已 push 的版本、乾淨工作樹、config hash、主機 dry-run 與新 output／有效 resume。Dry-run 不檢查影片可讀性、環境工具齊備或 output/resume 可用性，不能取代正式主機 preflight。
 
 實際 publisher 只接受固定 20 支 smoke 並拒絕覆寫既有 smoke 報告，沒有 full-train publish CLI。本輪不改程式，故 checklist 的全量 publish 明列待辦；全量完成先 verify、保存 run／runtime logs，發表流程另行實作。此缺口不阻擋候選掃描，但「scan → verify → publish」尚未全部具備。Candidate 不等於確認模糊或排除名單，不直接刪除任何 candidate 資料；正式清理政策仍未完成。
+
+## 2026-10-09 — Blur Screening v3.1 publisher／verification／runbook
+
+- 擴充 `publish_blur_train_v3.py` 為 smoke/full-train 共用 publisher：精確 ID 集合核對、四種完整度狀態、artifact hashes、bounded-memory aggregate rebuild、candidate 分布、同源 Markdown／JSON 與 exclusive-create 輸出。
+- `verify_blur_train_v3.py` 改為共用同一份 fail-closed verification core；full train 預設要求 `COMPLETE`，`COMPLETE_WITH_FAILURES`／`PARTIAL` 非零，`INVALID` 永不發表。
+- 新增 13 個 derived-only publisher fixtures，涵蓋 complete、missing completion、duplicate、unexpected、held-out、config mismatch、corrupt hash、partial、unresolved failure、aggregate mismatch、拒絕覆寫、Markdown/JSON 一致性與既有 smoke 相容性。
+- 既有 smoke 核心值保持 20 支、3,055 幀、54 candidate frames、1.7676%、5 candidate segments、0 decode failure；沒有重新開啟或 decode 影片。
+- 更新 Ubuntu/tmux runbook 為 dry-run → scan → resume → retry → rebuild → verify COMPLETE → ignored runtime publish → Markdown/JSON/hash 核對的實際命令。
+- 本輪未執行 smoke/full-train scanner、未開啟影片、未更改 v2/v3 偵測參數、未修改資料或 A1/A2/B/C，亦未 git add/commit/push。

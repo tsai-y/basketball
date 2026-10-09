@@ -14,8 +14,9 @@
 - [ ] 確認 output directory 不存在；若已存在，須是相同 context 的有效 resume，保留原目錄並依第 7 節處理。
 - [ ] 建立 tmux session，從 repository root 執行第 4 節正式命令。
 - [ ] 保存 runtime log、exit code、commit/config hash 與起訖時間。
-- [ ] 完成後 verify PASS；有失敗先處理原因，依需要 retry／rebuild 再 verify。
-- [ ] 完成後 publish：**full-train publisher 尚未實作，此項保持待辦**；先保存完整 run／runtime logs，依第 9 節區分 smoke publication，不宣稱全量已發表。
+- [ ] 完成後 verifier 明確回報 `run_status: COMPLETE`；有失敗先處理原因，依需要 retry／rebuild 再 verify。
+- [ ] 只有 `COMPLETE` 才用 `--require-complete` 正式 publish；`PARTIAL`／`COMPLETE_WITH_FAILURES`／`INVALID` 絕不冒充完整報告。
+- [ ] Markdown／JSON 先輸出至 ignored runtime publication 目錄並獨立核對；是否複製到 tracked `docs/data_quality/` 另行 review 決定。
 - [ ] 不直接刪除 candidate 資料；任何清理政策另行制定。
 
 ## CLI 與固定路徑對照
@@ -31,8 +32,8 @@
 | Resume | `--resume`；相同 config/code/environment/seed/scope/selection/input hashes |
 | Retry failures | `--resume --retry-failures`；新 attempt，保留舊 attempt |
 | Rebuild summary | `--resume --rebuild-summary`；只讀 derived outputs，不 stat/open/probe/decode 影片 |
-| Verify | [verify_blur_train_v3.py](../scripts/verify_blur_train_v3.py) `--output-dir`；可選 `--trace`、`--write-report` |
-| Publish | [publish_blur_train_v3.py](../scripts/publish_blur_train_v3.py) 僅限固定 20 支 smoke；full-train 未支援（第 9 節） |
+| Verify | [verify_blur_train_v3.py](../scripts/verify_blur_train_v3.py)；full train 使用 `--run-dir ... --scope full-train --require-complete --verify-artifacts` |
+| Publish | [publish_blur_train_v3.py](../scripts/publish_blur_train_v3.py)；同時支援 `smoke`／`full-train`，輸出 Markdown 與 JSON，拒絕覆寫 |
 
 Output 與 runtime 目錄皆由 [.gitignore](../../../.gitignore) 的 `development/data_quality/artifacts/` 排除，不位於原資料、baseline 或歷史 runs。
 
@@ -190,7 +191,7 @@ printf 'retry exit=%s\n' "$retry_exit" | tee -a development/data_quality/artifac
 
 不同 config/code/selection 不允許在同一 run 續跑。不要改 config 來消除錯誤，也不要拿已完成 smoke 目錄當 full-train resume 目錄。
 
-## 8. 重建 aggregate、驗證、保存結果
+## 8. 重建 aggregate、驗證完整度、保存結果
 
 停止 scanner 後執行；重建只讀 derived outputs，不存取影片，保留所有旧 aggregate：
 
@@ -203,7 +204,11 @@ set -o pipefail
   --output-dir development/data_quality/artifacts/blur_train_v3_full_train \
   --scope full-train --confirm-full-train --seed 20261009 --resume --rebuild-summary
 /home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/verify_blur_train_v3.py \
-  --output-dir development/data_quality/artifacts/blur_train_v3_full_train \
+  --run-dir development/data_quality/artifacts/blur_train_v3_full_train \
+  --manifest data/processed/dataset_manifest.csv \
+  --config development/data_quality/configs/blur_train_v3.yaml \
+  --scope full-train --require-complete --verify-artifacts \
+  --write-report development/data_quality/artifacts/blur_train_v3_full_train_runtime/verification-v3.1.json \
   | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/verification.log
 verify_exit=${PIPESTATUS[0]}
 printf 'verify exit=%s\n' "$verify_exit" | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/exit_codes.log
@@ -213,24 +218,82 @@ date -u --iso-8601=seconds | tee -a development/data_quality/artifacts/blur_trai
 git status --short
 ```
 
-確認 `verify_exit=0` 且 JSON `status: PASS`，否則不得宣稱驗證完成。Verifier PASS 要求所有所選影片 completion/output 有效、獨立重算一致；只依 access ledger 時不宣稱獨立 syscall 證據。Full-run 預設不用 strace，以免額外 I/O；如需同等 syscall 證據，可由主機操作者用本次 smoke 的 strace flags 包住 scanner，trace 必須另存在 runtime 目錄，再傳 `--trace` 給 verifier。續跑多次的 trace 必須涵蓋全部存取，不能以單次 trace 比對累積 ledger。
+`--write-report` 使用 exclusive create；已有同名檔時先保留，不覆寫，另由操作者 review 後選新檔名。確認 `verify_exit=0`、stdout 與 `verification-v3.1.json` 都是 `run_status: COMPLETE`，並檢查 `expected_videos=successful_videos=7193`、`unresolved_failures=0`、`incomplete_videos=0`、`corrupt_videos=0`、held-out／unexpected／duplicate 均空、artifact hashes 通過且 aggregate rebuilt equal。任何其他狀態都不得進入完整 publish。
 
-## 9. Publish 的支援範圍與全量交付
+Verifier 與 publisher 只讀 manifest/split metadata、run metadata、per-video CSV/JSON、completion、attempts、ledgers、aggregate、config/code/artifact hashes；不讀或 stat 影片。兩者會回報影片 opens/probes/decodes 與 validation/test access 均為 0。Scanner 的正式影片存取證據仍以 `access.jsonl` 及主機另行保存的完整 syscall trace 為準；publisher/verify 不以單次 trace 代替跨多次 scanner resume 的累積證據。
 
-**目前沒有 full-train publish 命令。** `publish_blur_train_v3.py` 的 `publish()` 強制 `scope == smoke`、固定 20 支選樣，輸出固定的既有 smoke Markdown／JSON，且拒絕覆寫。`--output-dir` 不是通用 publication 介面，不能指定 full-train；`--check-only` 只核對既有 smoke 報告與證據，不能發表全量結果。
+## 9. Full-train publish、Markdown／JSON 核對及保存
 
-以下只顯示 publisher 支援的 CLI，適合核對入口：
-
-```bash
-/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/publish_blur_train_v3.py --help
-```
-
-既有 smoke 已完成發表；若日後需要唯讀核對其 publication，可用下列命令（依賴原 smoke/repeat/recovery 及 validation evidence；不是本輪文件驗證步驟）：
+先做 publisher dry-run；它完整檢查輸入結構、精確 ID 集合、hash 與 aggregate 規劃，但不寫報告：
 
 ```bash
-/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/publish_blur_train_v3.py --check-only
+/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/publish_blur_train_v3.py \
+  --run-dir development/data_quality/artifacts/blur_train_v3_full_train \
+  --manifest data/processed/dataset_manifest.csv \
+  --config development/data_quality/configs/blur_train_v3.yaml \
+  --scope full-train --require-complete --verify-artifacts --dry-run \
+  --output-md development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.md \
+  --output-json development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.json \
+  | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/publish-dry-run.log
 ```
 
-全量完成後先保存整個 run（含 `run.json`、所有 attempts、ledgers、invocations、aggregates）及 runtime logs／verify 結果。Full-train Markdown／JSON publisher 與發表流程留待後續任務實作、審閱；checklist 的 publish 保持待辦，不以 verify 或保存 logs 代替。這不阻擋已有 scanner 的主機候選掃描，但不能宣稱全量「scan → verify → publish」流程已全部具備。
+只有 dry-run 與第 8 節 verifier 都是 `COMPLETE` 才執行正式 publish：
+
+```bash
+/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/publish_blur_train_v3.py \
+  --run-dir development/data_quality/artifacts/blur_train_v3_full_train \
+  --manifest data/processed/dataset_manifest.csv \
+  --config development/data_quality/configs/blur_train_v3.yaml \
+  --scope full-train --require-complete --verify-artifacts \
+  --output-md development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.md \
+  --output-json development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.json \
+  | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/publish.log
+publish_exit=${PIPESTATUS[0]}
+printf 'publish exit=%s\n' "$publish_exit" | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/exit_codes.log
+test "$publish_exit" -eq 0
+```
+
+輸出存在時 publisher 一律拒絕覆寫。不要刪掉舊報告重跑；保留現場，review 後使用新 publication 目錄。以下只讀核對 JSON schema/status/核心值，並由 publisher 的獨立 parser 再核對 Markdown 核心表格與 JSON 同源：
+
+```bash
+/home/tsai/miniconda3/envs/yolo11/bin/python -B - <<'PY'
+import json
+from pathlib import Path
+root = Path('development/data_quality/artifacts/blur_train_v3_full_train_publication')
+report = json.loads((root / 'blur_screening_full_train_v3_1.json').read_text())
+assert report['schema_version'] == 'basketball.blur-screening-report.v3.1'
+assert report['run_status'] == 'COMPLETE'
+assert report['coverage']['expected_videos'] == 7193
+assert report['coverage']['successful_videos'] == 7193
+assert report['coverage']['unresolved_failures'] == 0
+assert report['integrity']['held_out'] == []
+assert report['integrity']['aggregate_rebuilt_equal'] is True
+assert report['verification']['markdown_json_consistent'] is True
+print('REPORT_JSON_PASS')
+PY
+/home/tsai/miniconda3/envs/yolo11/bin/python -B - <<'PY'
+import json, sys
+from pathlib import Path
+sys.path.insert(0, 'development/data_quality/scripts')
+import publish_blur_train_v3 as p
+root = Path('development/data_quality/artifacts/blur_train_v3_full_train_publication')
+report = json.loads((root / 'blur_screening_full_train_v3_1.json').read_text())
+markdown = (root / 'blur_screening_full_train_v3_1.md').read_text()
+p.verify_markdown_json(markdown, report)
+print('MARKDOWN_JSON_PASS')
+PY
+sha256sum \
+  development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.md \
+  development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.json \
+  | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/publication_hashes.log
+git rev-parse HEAD | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/commits.log
+sha256sum development/data_quality/configs/blur_train_v3.yaml data/processed/dataset_manifest.csv \
+  | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/config_manifest_hashes.log
+date -u --iso-8601=seconds | tee -a development/data_quality/artifacts/blur_train_v3_full_train_runtime/times.log
+```
+
+`COMPLETE_WITH_FAILURES` 代表全部 train ID 已進 terminal state，但仍有 unresolved decode／processing failures；`PARTIAL` 代表缺 completion、尚未處理完或 aggregate 未完成；`INVALID` 代表 held-out/unknown ID、混合 run/config identity、duplicate successful completion、artifact hash 損壞、非法紀錄或 aggregate 不一致。三者都會讓 `--require-complete` 非零退出。只有為除錯而明確使用 `--allow-partial` 時才會產生標題與 JSON status 均清楚標為非完整的報告；`INVALID` 永遠不發表。
+
+上述 Markdown／JSON 留在 Git ignored artifacts，先由人工／Codex review。是否複製到 tracked `docs/data_quality/` 是另一個明確決策；本手冊不自動複製、不 git add/commit/push。既有 tracked smoke 報告仍可用 `publish_blur_train_v3.py --check-only` 做向後相容核心數值核對。
 
 正式品質／清理政策另行制定；不得直接刪除 candidate 資料，本手冊沒有資料刪除或排除步驟。

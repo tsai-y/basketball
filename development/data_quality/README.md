@@ -6,7 +6,7 @@
 | --- | --- | --- | --- | --- |
 | v1 | 絕對清晰度探索 | Complete | 不可作刪除規則 | [v1 報告](../../docs/data_quality/blur_screening_pilot_v1.md) |
 | v2 | 合成模糊與時間校準 | Complete | 提供 v3 凍結參數 | [v2 報告](../../docs/data_quality/blur_screening_pilot_v2.md) |
-| v3 | 完整 train 候選掃描器 | Scanner complete | 可於主機執行候選掃描 | [v3 runbook](runbooks/blur_train_v3_tmux.md) |
+| v3／v3.1 | 完整 train 候選掃描器與 publisher | Scanner／publisher complete | 可於主機執行 scan → verify → publish | [v3 runbook](runbooks/blur_train_v3_tmux.md) |
 
 **v1、v2 是研究證據與歷史重現文件，不是正式執行入口；v3 是目前唯一的完整 train scanner。** Scanner complete 表示掃描器及既有 smoke 工程驗證完成，不表示全量已執行或資料已清理。
 
@@ -43,7 +43,7 @@ v3 原封沿用 v2 凍結規則：primary 為 Laplacian local z ≤ −2.0，log
 
 正式輸出為 ignored 的 `development/data_quality/artifacts/blur_train_v3_full_train/`，runtime logs 另存相鄰 `blur_train_v3_full_train_runtime/`。不放進原始資料、baseline、歷史 runs 或既有 v1/v2/smoke 目錄。每影片 immutable attempts；`--resume` 跳過有效完成項，`--resume --retry-failures` 才重試失敗／partial，`--resume --rebuild-summary` 只重建 derived aggregate，舊產物保留。
 
-**Publish 限制：**現有 [publisher](scripts/publish_blur_train_v3.py) 只支援固定 20 支 smoke，且拒絕覆寫既有報告；沒有 full-train publish CLI。全量完成後先 verify 並保存 run／runtime logs，全量 Markdown／JSON 發表仍待另行實作。不得將 smoke publisher 指向 full-train，也不能將 verify 稱為 publish。
+v3.1 [publisher](scripts/publish_blur_train_v3.py) 同時支援固定 smoke 與 full train，會精確比較 manifest/selection/completion/attempt/ledger/aggregate ID 集合、驗證 artifact hashes、逐影片串流重建 aggregate，並從同一份 summary 產生 Markdown／JSON。正式 full-train 預設 `--require-complete`；`PARTIAL`／`COMPLETE_WITH_FAILURES` 不會冒充完整，`INVALID` 永遠拒絕發表，既有輸出也拒絕覆寫。完整命令及 ignored runtime 報告路徑見 [runbook](runbooks/blur_train_v3_tmux.md)。本 repository 尚未執行完整 train scan 或 publication。
 
 ## v1 歷史重現文件（非正式入口）
 

@@ -1,6 +1,6 @@
 # Basketball-51 Data Quality 研究文件索引
 
-組員的唯一技術入口是 [development/data_quality/README.md](../../development/data_quality/README.md)；本頁說明研究脈絡與證據，不另建立執行流程。v1／v2／v3 均已完成並提交；v3 的完成範圍是 scanner 與固定 smoke 驗證，全量執行仍由組員在 Ubuntu／tmux 啟動。
+組員的唯一技術入口是 [development/data_quality/README.md](../../development/data_quality/README.md)；本頁說明研究脈絡與證據，不另建立執行流程。v1／v2／v3 已完成並提交；v3.1 補齊 full-train verify/publish 流程但本輪不提交。Scanner、固定 smoke 與 publisher 工程驗證完成；全量 scan／publication 仍由組員在 Ubuntu／tmux 啟動。
 
 ## 建議閱讀順序
 
@@ -8,7 +8,8 @@
 2. [v3 method](blur_screening_method_v3.md)：凍結規則、train 防護、輸出與恢復契約。
 3. [v3 smoke report](blur_screening_smoke_v3.md)／[JSON](blur_screening_smoke_v3.json)：已完成的工程驗證、容量外推及其限制。
 4. [v3 tmux runbook](../../development/data_quality/runbooks/blur_train_v3_tmux.md)：主機 checklist、正式命令與完成後處理。
-5. 需要研究背景時，再讀下列 v1／v2 方法與報告；重現命令不代表需要再次執行。
+5. [v3.1 publisher contract](blur_screening_publisher_v3_1.md)：完整度狀態、報告 schema 與 fail-closed 規則。
+6. 需要研究背景時，再讀下列 v1／v2 方法與報告；重現命令不代表需要再次執行。
 
 ## 三版研究問題、輸入與結果
 
@@ -38,7 +39,7 @@ v3 核對已提交 v2 config、JSON、方法與評分程式的 frozen hashes，�
 
 只有固定 manifest 的 train 可進入影片 opener；validation/test 影片不得存取。原始影片、label、manifest、split、baseline 及歷史 runs 保持不變。完整掃描依 [runbook](../../development/data_quality/runbooks/blur_train_v3_tmux.md) 在 Ubuntu／tmux 執行，輸出至獨立 ignored artifacts，失敗與候選分開記錄；resume／retry 不覆寫舊 attempts。
 
-全量完成後應 verify 並保存 run 與 runtime logs。現有 publisher 只支援固定 smoke，**full-train Markdown／JSON publication 尚未實作**，不可將 smoke publisher 當全量 publish 命令；詳見 runbook 的 publish 限制。
+全量完成後必須先 verify 為 `COMPLETE`，再由 v3.1 publisher 將同一份 machine-readable summary 產生 Markdown／JSON，先保存在 ignored runtime artifacts。Publisher 支援 smoke/full-train、artifact hash 與 aggregate 重建，並區分 `COMPLETE`、`COMPLETE_WITH_FAILURES`、`PARTIAL`、`INVALID`；詳見 [publisher contract](blur_screening_publisher_v3_1.md) 與 runbook。本輪沒有執行完整 train scan，也沒有建立全量報告。
 
 ## 尚未完成的正式清理政策
 
