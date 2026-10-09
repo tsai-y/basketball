@@ -1,0 +1,19 @@
+version: blur_train_v3
+seed: 20261009
+smoke_size: 20
+smoke_manifest: development/data_quality/smoke_manifest_v3.csv
+output_dir: development/data_quality/artifacts/blur_train_v3_smoke
+primary_metric: laplacian_variance
+rolling_seconds: 3.0
+mad_scale_floor: 0.05
+log_floor: 1.0e-12
+z_threshold: -2.0
+minimum_seconds: 0.16
+windows: [16, 32, 64]
+# Engineering memory guard, not a quality/exclusion threshold.
+max_frames_per_video: 10000
+frozen_evidence:
+  development/data_quality/configs/blur_pilot_v2.yaml: 80fe9ad128d284777eb51a428ec9eabc9a6c3d4c0256637a522b1aa44d607473
+  docs/data_quality/blur_screening_pilot_v2.json: 95f95463ccf1cbb0e5b24e73dca60e375c71be7fcc0261bdd15cd40cf96e341f
+  docs/data_quality/blur_screening_method_v2.md: ac1c75ebaa967282ab24e994fc7ea6bbf8f266dbd41b137e9cea9ee2385e0582
+  development/data_quality/scripts/audit_blur_pilot_v2.py: d86e91472c010d99a02b4c97c4dd96da95262c6468de81bcd5e8d76ce671407b

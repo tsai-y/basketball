@@ -1,3 +1,38 @@
+# Basketball-51 自動品質篩檢：v1／v2／v3 入口
+
+目前為 full-video Make/Miss classification 的資料品質準備。v1 探索、v2 合成校準、v3 scanner 工程驗證已完成；**完整 7,193 支 train 尚未由 Codex 執行，沒有正式資料清理**。A1/A2/B/C frozen；Gate 1C、原 Experiment D paused。
+
+| 階段 | 範圍與狀態 | 文件 |
+| --- | --- | --- |
+| Pilot v1 | 30 支 train，兩指標探索與候選影響；歷史 frozen | 下方保留 v1 重現文件；[v1 報告](../../docs/data_quality/blur_screening_pilot_v1.md) |
+| Pilot v2 | 48 支 train，合成模糊／local z 校準；已提交 frozen | [README_v2](README_v2.md)、[v2 方法](../../docs/data_quality/blur_screening_method_v2.md) |
+| Scanner v3 | 固定 20 支 smoke；完整 train CLI、resume/recovery 工程驗證 | [方法](../../docs/data_quality/blur_screening_method_v3.md)、[smoke 報告](../../docs/data_quality/blur_screening_smoke_v3.md)／[JSON](../../docs/data_quality/blur_screening_smoke_v3.json) |
+| 正式全量執行 | 待使用者先 commit/push v3，再於主機執行 | [Ubuntu/tmux runbook](runbooks/blur_train_v3_tmux.md) |
+
+v3 僅使用 v2 凍結的 Laplacian local z ≤ −2、中心 3 秒 median/MAD、minimum 0.16 秒；Tenengrad 保留診斷，不加入 AND/OR。中心窗是離線品質篩檢。16/32/64 window 只是資訊，不是模型輸入決策；低絕對分數與候選都不是正式排除規則。
+
+## v3 安全入口
+
+在 repository root 使用現有 `yolo11`：
+
+```bash
+conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_train_v3.py --help
+conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_train_v3.py --dry-run
+conda run --no-capture-output -n yolo11 python -B development/data_quality/tests/test_blur_train_v3.py
+conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/verify_blur_train_v3.py
+conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/publish_blur_train_v3.py --check-only
+```
+
+這些入口不開資料集影片。預設 smoke manifest 固定 20 支且不能以 `--video-id` 換入其他影片；初次評分的預設 artifacts 已存在，再跑不帶 resume 會拒絕。原始資料、固定 manifest/split 及 v1/v2 產物不可修改。
+
+v3 每影片 immutable attempts、temporary file＋atomic rename、completion/output hashes、append-only access/error/decode-failure ledgers。`--resume` 只跳過完整一致項目；失敗或 partial 需 `--resume --retry-failures`，另寫新 attempt。`--resume --rebuild-summary` 從 derived outputs 建立新 aggregate snapshot。詳細命令、退出碼、scope/選樣一致性、input identity 與資料保護限制見方法及 runbook。
+
+Ignored outputs：`development/data_quality/artifacts/blur_train_v3_smoke/`、同 20 支的 `_repeat/`、`_recovery/`，及 `blur_train_v3_validation/` 的 tests、trace、CSV；早期未開影片的失敗尝試保留為 `_smoke_preflight_failed/`。未來 full run 使用獨立 `blur_train_v3_full_train/`。沒有覆寫 v1/v2 artifacts。
+
+以下保留 v1 當時的說明；其「本次」與數字僅指 Pilot v1。
+
+---
+
 # 自動品質篩檢 — train-only Pilot v1
 
 Pilot v1 已完成 30 支 train 影片、4,617 幀自動評分與候選影響分析。**這不是正式清理**：沒有排除影片、刪格、拼接或生成清理後影片；原始資料、固定 manifest/split、baseline 與歷史 runs 保持不變。沒有開始影像增強、特徵擷取、融合、訓練或評估。

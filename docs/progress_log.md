@@ -385,3 +385,32 @@ Python syntax/import、CLI help/dry-run、全選樣 train 正向 guard、所有 
 沒有修改原始影片、固定 manifest/label/split、frozen artifacts、Research Baseline 或 Gate 報告；沒有刪格、拼接、排除影片、清理後影片、增強、特徵擷取、融合、訓練、評估或 checkpoint loading。A1/A2/B/C frozen；Gate 1C/原 Experiment D paused，Pre-release/SPL 延伸仍不在範圍。
 
 Pilot 證明此小樣本評分/防護/影響報告流程可運作；完整 train 尚需分批/記憶體容量規劃與另行授權。正式品質定義、主體範圍、來源校準、門檻/持續時間、錯誤成本與任何保留/排除政策仍待決定。本輪完成後停止，不擴展完整 train；未 git add、commit 或 push。
+
+
+## 2026-10-09 - Basketball-51 Blur Train Scanner v3 and Bounded Smoke
+
+### Scope and provenance
+
+Pilot v2 已由使用者提交至 `dab6c46`；本輪開始 `git status --short` 為空，讀取既有規範、v1/v2 configs/scripts/tests/manifests/報告、Gate 1A 與固定 manifest/split。125 個初始 tracked 檔案建立 SHA-256 snapshot；僅本進度紀錄追加與 data_quality README 統一入口為預期修改，v1/v2、baseline、原始 manifest/split 及 frozen evidence 保留。沒有 git add、commit、push。
+
+### Scanner and frozen rule
+
+新增 v3 scanner、independent verifier、exclusive publisher、config、固定 smoke CSV、unit tests、方法／smoke 報告與 Ubuntu/tmux runbook。一次一支、一張解碼畫面、單影片分數，10,000-frame 工程上限；temporary file＋fsync＋atomic rename、flock、immutable attempts、completion/config/code/output hashes、input stat identity、append-only access/error/decode-failure ledgers。支援 resume、明確 retry failures、derived-only aggregate 重建；可疑或部分輸出不當成完成，舊檔不覆寫。Full-train CLI 必須確認旗標，smoke 固定最多 20 IDs。
+
+已提交 v2 config SHA-256 `80fe9ad128d284777eb51a428ec9eabc9a6c3d4c0256637a522b1aa44d607473`，JSON SHA-256 `95f95463ccf1cbb0e5b24e73dca60e375c71be7fcc0261bdd15cd40cf96e341f`。凍結 primary Laplacian local z ≤ −2.0、中心 3 秒 log-score median/MAD、MAD scale floor 0.05、log floor 1e-12、minimum 0.16 秒；Prompt 與 repository 證據一致，沒有重新調參。Tenengrad 僅診斷，不加 AND/OR。中心窗屬離線篩檢；16/32/64 非候選連續窗未選定模型輸入長度。
+
+### Smoke and recovery
+
+seed=20261009，固定 20 支 train、20 來源、Make/Miss 各 10；依 label/source 與既有 train FPS metadata 選樣，沒有品質分數導向選樣或失敗替換。實際 23.976 FPS×16、29.97 FPS×4，共 3,055 幀。54 候選幀（1.7676%）、5 區段、涉及 5 支；實際 decode failures=0。這不是 full train 盛行率或清理結果。初次 scanner wall time 5.784127 秒，scanner peak RSS 131,768 KiB；RSS 父／子各自峰值相加只提供保守總上界，不宣稱同步 process-tree 峰值。
+
+普通 resume 跳過 20/20、無新增影片存取；相同設定另目錄重跑相同 20 支，frames CSV bytes 完全一致，summary 排除耗時後一致。恢復 fixture 複製 18 支完成輸出、模擬 1 支 partial 與 1 支空 decoder failure；fixture 建置不開影片，普通 resume exit 2，retry 僅重算原 smoke 中 2 支、保留舊 attempts／獨立 failure ledger，最終 20/20。實際不同 config bytes hash 拒絕續跑且 ledger 不增加影片存取。Aggregate 獨立重建、local z／segments/windows 重算與原始影片 stat identity 比對通過。
+
+15 個 v3、10 個 v2、6 個 v1 tests 通過；涵蓋 train 正向 guard、全部 held-out ID/path 字串拒絕、seed 重現、凍結 hashes、KeyboardInterrupt、corruption、atomic write failure、input identity、concurrent lock、單支 failure 後繼續／retry。Syntax/import/CLI help、smoke dry-run 通過。JSON／Markdown／CSV 一致性與最終保護檔／diff 檢查見 smoke 報告及 ignored validation logs。
+
+### Access evidence and remaining work
+
+每次實際評分皆有 durable ledger 與獨立 strace：初次 20、同樣本重跑 20、恢復重試 2，共 42 probes、42 decodes，含 FD reopen 共 168 次唯讀 dataset open syscall，唯一 IDs 仍為固定 20 個。validation/test opens/probes/decodes 全為 0，無 encoder 或原資料寫入。最初 ptrace capability test 受 sandbox 限制，取得允許後成功；第一個 smoke 嘗試因 ledger 參數命名錯誤在開影片前失敗，已修正、補測試，原 partial 目錄／零影片存取 trace 保留。
+
+[Smoke 報告](data_quality/blur_screening_smoke_v3.md)／[JSON](data_quality/blur_screening_smoke_v3.json) 提供逐支耗時、容量、候選、分布、resume overhead 與 7,193 支 smoke extrapolation；[tmux runbook](../development/data_quality/runbooks/blur_train_v3_tmux.md) 提供主機正式命令、進度、detach/attach、中斷／resume／retry／rebuild／verify 及版本記錄。全量前需由使用者 review、commit/push v3；本輪未使用 `--confirm-full-train`，未執行 full-train dry-run 或掃描。
+
+Scanner implementation complete；完整 train 執行等待使用者在主機啟動。沒有資料刪除、排除、cleaned dataset、增強、特徵擷取、訓練、評估或 checkpoint loading。持續低品質只是診斷；人工真值、來源混雜、主體品質、錯誤成本與清理政策未決。A1/A2/B/C frozen，Gate 1C／原 Experiment D paused。
