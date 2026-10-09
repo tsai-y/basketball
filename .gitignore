@@ -34,3 +34,6 @@ runs/**/best.pt
 runs/**/dataset_manifest.csv
 runs/**/.training_started
 runs/**/.test_evaluation_claim
+
+# Train-only quality pilot: scores, images and runtime evidence stay local
+development/data_quality/artifacts/

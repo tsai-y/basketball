@@ -1,0 +1,30 @@
+version: blur_pilot_v1
+threshold_version: pilot_train_q10_s025_d020_v1
+seed: 20261008
+sample_size: 30
+selection_rule: balanced_label_unique_source_sha256_v1
+dataset_root: archive/Basketball_51 dataset
+gate1a_cache: /tmp/basketball51_gate1a_metadata.json
+output_dir: development/data_quality/artifacts/blur_pilot_v1
+scoring:
+  decoder: opencv_CAP_FFMPEG
+  resolution: original
+  grayscale: COLOR_BGR2GRAY_uint8_then_float64
+  border: BORDER_REFLECT_101
+  laplacian_ksize: 1
+  sobel_ksize: 3
+  scale: 1.0
+  delta: 0.0
+thresholds:
+  quantile: 0.10
+  quantile_method: linear
+  comparison: less_equal
+  smoothing_seconds: 0.25
+  smoothing: centered_median_truncated_edges
+  minimum_segment_seconds: 0.20
+  primary_candidate: both_low
+windows: [16, 32, 64]
+contact_sheets:
+  examples_per_band: 3
+  bands: {low: 0.05, middle: 0.50, high: 0.95}
+  preview_jpeg_quality: 92

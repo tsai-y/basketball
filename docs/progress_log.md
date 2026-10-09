@@ -354,3 +354,34 @@ A1 的舊版正式 metrics 沒有 test loss 欄位；不能將 A1 validation los
 ### Team entry and follow-up
 
 先讀 root README，再讀 [repository_map.md](repository_map.md) 與 development 規則。後續品質篩檢尚無演算法或門檻。保留原位元件的全面搬移、ignored 資料分發、symlink／大小寫跨平台 checkout 與疑似過時產物審核，均列於整理紀錄；未刪除任何歷史產物。
+
+
+## 2026-10-08 - Basketball-51 Train-only Blur Screening Pilot v1
+
+### Scope and input state
+
+實作並完成約 30 支 train 的自動品質評分、candidate flags、時間區段與影響報告，不是正式資料清理。開始時 `main` / `cafe04b62bb6ac4719a6c05131ded13b3d467024`，`git status --short` 為空；repository 整理結果已存在，沒有既有未提交變更。閱讀 README、baseline/development/data_quality 說明、目前研究方向、repository map/reorganization/progress log、Gate 1A/1B 及固定 manifest/split；適用 repository/上層未找到 AGENTS.md。
+
+重用 Gate 1A 的 manifest/split hash、allowlist 與唯讀 opener。原 per-video `/tmp` cache 已不存在，僅對先選定的 30 支 train probe；沒有重新掃描資料集或計算 validation/test metadata。Gate 1A train 彙總提供 FPS 覆蓋對照。
+
+### Pilot and findings
+
+固定 seed **20261008**，交替 Make/Miss、優先來源群組分散、SHA-256(seed:video_id) 破同分；Make/Miss 各 **15** 支、**30** 個 source groups，23.976 FPS **23** 支、29.97 FPS **7** 支。全片原始 320×240、BGR→uint8 gray→float64 計算 Laplacian variance 與 Sobel gradient energy，共 **4,617** 幀，30 支 frame count 與 metadata 一致，decode failures **0**。
+
+Pilot train P10：Laplacian **2052.339911**、Tenengrad **26513.657885**；Pearson **0.836563**、Spearman **0.840420**。Laplacian/ Tenengrad 單低各 **462** 幀（10.0065%），分別 **52/54** 區段、**15/16** 影片；雙低 **327** 幀（7.0825%）、**47** 區段、**14** 影片；0.25s median 平滑加至少 0.20s 持續條件後 **314** 幀（6.8010%）、**15** 區段、**11** 影片。全部是探索性候選，沒有選定正式清理門檻。
+
+雙低比例 Make **6.11%**、Miss **8.01%**；23.976 FPS **9.20%**、29.97 FPS **1.43%**；各來源 **0–58.90%**。每來源僅一支，類別/來源/FPS 互有混雜，不能外推完整 train 或作因果解釋。兩張 contact sheets、18 tiles 只是檢查演算法反應，不是 ground-truth labels。
+
+### Files and verification
+
+新增 `development/data_quality/scripts/audit_blur_pilot.py`、`verify_blur_pilot.py`、`configs/blur_pilot_v1.yaml`、`tests/test_blur_pilot.py`、`pilot_manifest_v1.csv`、`docs/data_quality/blur_screening_method_v1.md`、`blur_screening_pilot_v1.md/.json`；更新 data_quality README 與 `.gitignore`，本進度紀錄只追加。大量 CSV/圖片/metadata/logs 位於 ignored `development/data_quality/artifacts/blur_pilot_v1/`。
+
+Python syntax/import、CLI help/dry-run、全選樣 train 正向 guard、所有 validation/test/excluded ID 和對應錯配 path 拒絕、未知/absolute/traversal path 拒絕、same-seed/輸入順序重現、解碼失敗分離測試通過。原始解碼記錄、逐幀 CSV、JSON/Markdown 數字、四策略 flags、區段、窗口與分組摘要均重算一致；拒絕既有輸出覆寫。
+
+初次 sandbox ptrace 受限，程式尚未啟動；獲准後以 strace 執行 Pilot。獨立 trace 核對 **120** 個唯讀 dataset open syscalls（**60** guarded opens＋**60** descriptor reopens），唯一影片均為那 **30** 支 train；**30** probes、**30** decoder sessions；validation/test opens/probes/decodes 全部 **0**。未執行 ffmpeg 影片輸出。受保護 tracked 文字檔與開始時 SHA-256 比對不變，沒有影片/checkpoint hash 或全資料集掃描；最終 `git diff --check` 通過。
+
+### Boundary and next step
+
+沒有修改原始影片、固定 manifest/label/split、frozen artifacts、Research Baseline 或 Gate 報告；沒有刪格、拼接、排除影片、清理後影片、增強、特徵擷取、融合、訓練、評估或 checkpoint loading。A1/A2/B/C frozen；Gate 1C/原 Experiment D paused，Pre-release/SPL 延伸仍不在範圍。
+
+Pilot 證明此小樣本評分/防護/影響報告流程可運作；完整 train 尚需分批/記憶體容量規劃與另行授權。正式品質定義、主體範圍、來源校準、門檻/持續時間、錯誤成本與任何保留/排除政策仍待決定。本輪完成後停止，不擴展完整 train；未 git add、commit 或 push。
