@@ -1,0 +1,26 @@
+version: blur_pilot_v2
+seed: 20261009
+selection_rule: v1_band_fps_source_disjoint_sha256_v2
+sources_per_band: 4
+videos_per_source: 4
+required_source: v184
+output_dir: development/data_quality/artifacts/blur_pilot_v2
+frame_positions: [0.1, 0.3, 0.5, 0.7, 0.9]
+gaussian_sigmas: [0, 0.5, 1.0, 1.5, 2.0, 3.0]
+motion_lengths: [3, 5, 9, 13]
+motion_angles: [0, 45, 90, 135]
+score_epsilon: 1.0e-12
+monotonic_relative_tolerance: 1.0e-10
+absolute_control_quantile: 0.10
+temporal:
+  durations_seconds: [0.25, 0.5, 1.0]
+  center_positions: [0.3, 0.7]
+  gaussian_sigmas: [0.5, 1.5, 3.0]
+  motion_lengths: [5, 13]
+  motion_angles: [0, 45, 90, 135]
+  rolling_seconds: 3.0
+  mad_epsilon: 0.05
+  z_thresholds: [-1.0, -1.5, -2.0, -2.5, -3.0, -4.0, -6.0]
+  minimum_seconds_grid: [0.0, 0.08, 0.16]
+  max_calibration_control_flag_rate: 0.05
+  event_iou_threshold: 0.5
