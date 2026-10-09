@@ -1,35 +1,53 @@
-# Basketball-51 自動品質篩檢：v1／v2／v3 入口
+# Basketball-51 Data Quality：組員唯一技術入口
 
-目前為 full-video Make/Miss classification 的資料品質準備。v1 探索、v2 合成校準、v3 scanner 工程驗證已完成；**完整 7,193 支 train 尚未由 Codex 執行，沒有正式資料清理**。A1/A2/B/C frozen；Gate 1C、原 Experiment D paused。
+本頁統一 v1／v2／v3 的定位、研究連結與主機執行入口。目前研究仍為 full-video Make/Miss classification；A1/A2/B/C frozen，Gate 1C／原 Experiment D paused。
 
-| 階段 | 範圍與狀態 | 文件 |
-| --- | --- | --- |
-| Pilot v1 | 30 支 train，兩指標探索與候選影響；歷史 frozen | 下方保留 v1 重現文件；[v1 報告](../../docs/data_quality/blur_screening_pilot_v1.md) |
-| Pilot v2 | 48 支 train，合成模糊／local z 校準；已提交 frozen | [README_v2](README_v2.md)、[v2 方法](../../docs/data_quality/blur_screening_method_v2.md) |
-| Scanner v3 | 固定 20 支 smoke；完整 train CLI、resume/recovery 工程驗證 | [方法](../../docs/data_quality/blur_screening_method_v3.md)、[smoke 報告](../../docs/data_quality/blur_screening_smoke_v3.md)／[JSON](../../docs/data_quality/blur_screening_smoke_v3.json) |
-| 正式全量執行 | 待使用者先 commit/push v3，再於主機執行 | [Ubuntu/tmux runbook](runbooks/blur_train_v3_tmux.md) |
+| 版本 | 用途 | 狀態 | 可否正式使用 | 主要入口 |
+| --- | --- | --- | --- | --- |
+| v1 | 絕對清晰度探索 | Complete | 不可作刪除規則 | [v1 報告](../../docs/data_quality/blur_screening_pilot_v1.md) |
+| v2 | 合成模糊與時間校準 | Complete | 提供 v3 凍結參數 | [v2 報告](../../docs/data_quality/blur_screening_pilot_v2.md) |
+| v3 | 完整 train 候選掃描器 | Scanner complete | 可於主機執行候選掃描 | [v3 runbook](runbooks/blur_train_v3_tmux.md) |
 
-v3 僅使用 v2 凍結的 Laplacian local z ≤ −2、中心 3 秒 median/MAD、minimum 0.16 秒；Tenengrad 保留診斷，不加入 AND/OR。中心窗是離線品質篩檢。16/32/64 window 只是資訊，不是模型輸入決策；低絕對分數與候選都不是正式排除規則。
+**v1、v2 是研究證據與歷史重現文件，不是正式執行入口；v3 是目前唯一的完整 train scanner。** Scanner complete 表示掃描器及既有 smoke 工程驗證完成，不表示全量已執行或資料已清理。
 
-## v3 安全入口
+v3 只產生 candidate flags；**candidate 不等於確認模糊，也不是排除名單**，未標記也不等於清晰。原始影片保持不變，不刪格、拼接、重編碼或刪除 candidate 資料。validation/test 影片不得存取、probe 或 decode；固定 manifest 中的 split 字串只供身分與 denylist 核對。完整掃描由組員依 runbook 在 **Ubuntu／tmux** 執行。
 
-在 repository root 使用現有 `yolo11`：
+## 閱讀與研究證據
+
+建議依序讀 [研究索引](../../docs/data_quality/README.md) → [v3 方法](../../docs/data_quality/blur_screening_method_v3.md) → [v3 smoke 報告](../../docs/data_quality/blur_screening_smoke_v3.md) → [v3 tmux runbook](runbooks/blur_train_v3_tmux.md)，需要背景時再讀 v1／v2。
+
+| 版本 | 方法 | Markdown 報告 | JSON | 設定與樣本 |
+| --- | --- | --- | --- | --- |
+| v1 | [方法](../../docs/data_quality/blur_screening_method_v1.md) | [Pilot](../../docs/data_quality/blur_screening_pilot_v1.md) | [JSON](../../docs/data_quality/blur_screening_pilot_v1.json) | [config](configs/blur_pilot_v1.yaml)、[manifest](pilot_manifest_v1.csv) |
+| v2 | [方法](../../docs/data_quality/blur_screening_method_v2.md) | [Pilot](../../docs/data_quality/blur_screening_pilot_v2.md) | [JSON](../../docs/data_quality/blur_screening_pilot_v2.json) | [config](configs/blur_pilot_v2.yaml)、[manifest](pilot_manifest_v2.csv)、[來源庫存](source_inventory_v2.csv)、[歷史重現](README_v2.md) |
+| v3 | [方法](../../docs/data_quality/blur_screening_method_v3.md) | [Smoke](../../docs/data_quality/blur_screening_smoke_v3.md) | [JSON](../../docs/data_quality/blur_screening_smoke_v3.json) | [config](configs/blur_train_v3.yaml)、[smoke manifest](smoke_manifest_v3.csv)、[runbook](runbooks/blur_train_v3_tmux.md) |
+
+方法與報告中的「本輪／尚未提交／尚未執行」保留原交付時點的語境；目前操作流程以本頁及 runbook 為準，歷史數值不重寫。[進度紀錄](../../docs/progress_log.md) 追加各輪查核。
+
+## v3 主機執行流程
+
+v3 原封沿用 v2 凍結規則：primary 為 Laplacian local z ≤ −2.0，log-score 中心 3 秒 median/MAD，scale floor 0.05、log floor 1e-12，minimum duration 0.16 秒。Tenengrad 僅診斷，不加 AND/OR；16/32/64 windows 僅為資訊。中心窗是離線篩檢，正式清理政策尚未制定。
+
+正式 scan、resume、retry、rebuild、verify 命令集中在 [Ubuntu／tmux runbook](runbooks/blur_train_v3_tmux.md)，執行前完成其中 checklist。由 repository root 可先執行下列零影片存取檢查：
 
 ```bash
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_train_v3.py --help
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_train_v3.py --dry-run
-conda run --no-capture-output -n yolo11 python -B development/data_quality/tests/test_blur_train_v3.py
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/verify_blur_train_v3.py
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/publish_blur_train_v3.py --check-only
+/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/audit_blur_train_v3.py --help
+/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/audit_blur_train_v3.py \
+  --config development/data_quality/configs/blur_train_v3.yaml \
+  --manifest data/processed/dataset_manifest.csv \
+  --output-dir development/data_quality/artifacts/blur_train_v3_full_train \
+  --scope full-train --confirm-full-train --seed 20261009 --dry-run
 ```
 
-這些入口不開資料集影片。預設 smoke manifest 固定 20 支且不能以 `--video-id` 換入其他影片；初次評分的預設 artifacts 已存在，再跑不帶 resume 會拒絕。原始資料、固定 manifest/split 及 v1/v2 產物不可修改。
+`--dry-run` 只讀 metadata／凍結證據，不 stat/open/probe/decode 影片，也不建立 run；預期 `DRY_RUN_PASS`、`selected: 7193`、opens/probes/decodes 全為 0。它會在 output 檢查之前返回，故不能代替輸出目錄與有效 resume 的確認。不可省略 `--dry-run` 來做文件驗證。
 
-v3 每影片 immutable attempts、temporary file＋atomic rename、completion/output hashes、append-only access/error/decode-failure ledgers。`--resume` 只跳過完整一致項目；失敗或 partial 需 `--resume --retry-failures`，另寫新 attempt。`--resume --rebuild-summary` 從 derived outputs 建立新 aggregate snapshot。詳細命令、退出碼、scope/選樣一致性、input identity 與資料保護限制見方法及 runbook。
+正式輸出為 ignored 的 `development/data_quality/artifacts/blur_train_v3_full_train/`，runtime logs 另存相鄰 `blur_train_v3_full_train_runtime/`。不放進原始資料、baseline、歷史 runs 或既有 v1/v2/smoke 目錄。每影片 immutable attempts；`--resume` 跳過有效完成項，`--resume --retry-failures` 才重試失敗／partial，`--resume --rebuild-summary` 只重建 derived aggregate，舊產物保留。
 
-Ignored outputs：`development/data_quality/artifacts/blur_train_v3_smoke/`、同 20 支的 `_repeat/`、`_recovery/`，及 `blur_train_v3_validation/` 的 tests、trace、CSV；早期未開影片的失敗尝試保留為 `_smoke_preflight_failed/`。未來 full run 使用獨立 `blur_train_v3_full_train/`。沒有覆寫 v1/v2 artifacts。
+**Publish 限制：**現有 [publisher](scripts/publish_blur_train_v3.py) 只支援固定 20 支 smoke，且拒絕覆寫既有報告；沒有 full-train publish CLI。全量完成後先 verify 並保存 run／runtime logs，全量 Markdown／JSON 發表仍待另行實作。不得將 smoke publisher 指向 full-train，也不能將 verify 稱為 publish。
 
-以下保留 v1 當時的說明；其「本次」與數字僅指 Pilot v1。
+## v1 歷史重現文件（非正式入口）
+
+以下原文保留 v1 當時的重現命令與結果語境，不是本輪要執行的步驟。v2 歷史重現另見 [README_v2.md](README_v2.md)，不重新命名或搬移。
 
 ---
 

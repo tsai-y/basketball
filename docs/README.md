@@ -41,6 +41,10 @@
 | [`dataset_analysis.md`](dataset_analysis.md) | **Current** | 資料結構、標籤、異常與重複影片、split 風險，以及 pre-release annotation 缺口。 |
 | [`dataset_summary.json`](dataset_summary.json) | **Generated** | 資料掃描的機器可讀摘要，包括影片格式、數量與完全重複群組。 |
 
+## Data Quality v1／v2／v3
+
+[唯一技術入口](../development/data_quality/README.md) 統整版本定位與主機流程；[研究文件索引](data_quality/README.md) 連結三版方法、Markdown 報告及 JSON。v1／v2 是已完成研究證據，v3 是目前唯一的完整 train 候選掃描器；candidate 不是確認模糊或排除名單。正式執行依 [Ubuntu／tmux runbook](../development/data_quality/runbooks/blur_train_v3_tmux.md)，清理政策與 full-train publication 尚未完成。
+
 ## Experiment A1／A2：Modified C3D-style
 
 | 文件 | 狀態 | 用途 |

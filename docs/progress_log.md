@@ -414,3 +414,28 @@ seed=20261009，固定 20 支 train、20 來源、Make/Miss 各 10；依 label/s
 [Smoke 報告](data_quality/blur_screening_smoke_v3.md)／[JSON](data_quality/blur_screening_smoke_v3.json) 提供逐支耗時、容量、候選、分布、resume overhead 與 7,193 支 smoke extrapolation；[tmux runbook](../development/data_quality/runbooks/blur_train_v3_tmux.md) 提供主機正式命令、進度、detach/attach、中斷／resume／retry／rebuild／verify 及版本記錄。全量前需由使用者 review、commit/push v3；本輪未使用 `--confirm-full-train`，未執行 full-train dry-run 或掃描。
 
 Scanner implementation complete；完整 train 執行等待使用者在主機啟動。沒有資料刪除、排除、cleaned dataset、增強、特徵擷取、訓練、評估或 checkpoint loading。持續低品質只是診斷；人工真值、來源混雜、主體品質、錯誤成本與清理政策未決。A1/A2/B/C frozen，Gate 1C／原 Experiment D paused。
+
+
+## 2026-10-09 - Data Quality v1／v2／v3 Documentation and Host Workflow
+
+### Scope and entry points
+
+本輪開始於 `main` / `76500256cd424b766db49116acebeae03c5a92cc`，工作樹乾淨；本機 `origin/main` 指向相同 commit（未連線更新遠端）。v1／v2／v3 已提交，只整理文件、索引、連結及主機說明，不修改演算法、設定、manifest、報告數值或歷史結果。
+
+- [唯一技術入口](../development/data_quality/README.md)：統一三版定位、研究證據、train-only 邊界及 v3 執行流程；v1 原重現段落保留。
+- [研究文件索引](data_quality/README.md)：新增三版研究問題、輸入／方法／產出／結論、凍結規則來源、未決政策及閱讀順序；docs 總索引補上入口。
+- README_v2 原位保留，頂端標示歷史重現並連回統一入口。[v3 runbook](../development/data_quality/runbooks/blur_train_v3_tmux.md) 增加主機 checklist、CLI 對照、config hash、dry-run 邊界、verify exit 紀錄與 publish 限制；正式 scan／resume／retry／rebuild 命令參數與原版相同。
+
+### Allowed verification and preservation
+
+執行三個 v3 CLI 的 `--help`，解析全部三份 YAML，核對固定 manifest／split 路徑存在、output／runtime 由既有 `.gitignore` 排除且位於獨立 artifacts。Full-train dry-run 使用固定 config／manifest、明示全量 output、`--scope full-train --confirm-full-train --seed 20261009 --dry-run`，exit 0、`DRY_RUN_PASS`、selected=7,193；video opens/probes/decodes 全為 0，validation/test opens/probes/decodes 亦為 0，未建立 full-train output。依據為 CLI 回報及 dry-run 在 output／context／run 前返回、guard 只讀 metadata 的靜態核對；本輪未產生獨立 syscall trace，也未檢查原影片存在性或 identity。
+
+本機 Markdown 連結與三版文件可達性通過；runbook 的 9 條 v3 CLI 命令與 argparse 選項核對通過。正式 scan／resume／retry／rebuild 的 script 路徑、config、manifest、output、seed 及旗標與 HEAD 原文一致。沒有執行 tests、smoke、掃描、verify 重算、publish、訓練、評估、清理或資料刪除。
+
+開始時全部 135 個 tracked files（含 31 個 Data Quality 檔案）記錄 SHA-256，本機快照為 `/tmp/basketball-dq-before-sha256.json`。最終只允許 5 份既有文件變更：development/data_quality/README.md、README_v2.md、runbooks/blur_train_v3_tmux.md、docs/README.md、本進度紀錄；其餘 130 個 tracked files／28 個 Data Quality 檔案 hash 不變。新增 docs/data_quality/README.md；三版方法、Markdown 報告、JSON、scripts、configs、manifests 及 frozen evidence 均未改。進度舊內容保持前綴不變，`git diff --check` 通過。Dry-run JSON 保存在 `/tmp/basketball-dq-full-train-dry-run.json`；未 git add、commit 或 push。
+
+### Host readiness and publish gap
+
+Scanner 可進入主機全量候選掃描準備；操作者仍須完成 runbook checklist，確認已 push 的版本、乾淨工作樹、config hash、主機 dry-run 與新 output／有效 resume。Dry-run 不檢查影片可讀性、環境工具齊備或 output/resume 可用性，不能取代正式主機 preflight。
+
+實際 publisher 只接受固定 20 支 smoke 並拒絕覆寫既有 smoke 報告，沒有 full-train publish CLI。本輪不改程式，故 checklist 的全量 publish 明列待辦；全量完成先 verify、保存 run／runtime logs，發表流程另行實作。此缺口不阻擋候選掃描，但「scan → verify → publish」尚未全部具備。Candidate 不等於確認模糊或排除名單，不直接刪除任何 candidate 資料；正式清理政策仍未完成。
