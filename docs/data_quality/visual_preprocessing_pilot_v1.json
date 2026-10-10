@@ -1,0 +1,661 @@
+{
+  "all_same_seed_equal": true,
+  "all_sources_unchanged": true,
+  "all_timestamps_match_indices": true,
+  "artifact_directory": "development/data_quality/artifacts/visual_preprocessing_pilot_v1",
+  "candidate_overlap": 20,
+  "categories": {
+    "affected_clean": 22,
+    "fallback": 5,
+    "unaffected": 21
+  },
+  "clips": 48,
+  "command": [
+    "python",
+    "-B",
+    "development/data_quality/scripts/audit_visual_preprocessing_pilot_v1.py"
+  ],
+  "config": {
+    "clip_length": 64,
+    "epoch": 0,
+    "sample_size": 48,
+    "sampler_seed": 20261009,
+    "seed": 20261010,
+    "selection_rule": "balanced_label_fps_category_source_sha256_v1",
+    "strategies": [
+      "reference",
+      "photometric",
+      "spatial",
+      "horizontal_flip",
+      "gamma_enhancement"
+    ],
+    "transform": {
+      "brightness": [
+        0.95,
+        1.05
+      ],
+      "clip_length": 64,
+      "contrast": [
+        0.95,
+        1.05
+      ],
+      "enhancement_gamma": 0.95,
+      "output_height": 192,
+      "output_width": 256,
+      "saturation": [
+        0.95,
+        1.05
+      ],
+      "spatial_scale": [
+        0.92,
+        1.0
+      ],
+      "version": "video_clip_transforms_v1"
+    },
+    "version": "visual_preprocessing_pilot_v1"
+  },
+  "contact_sheets": [
+    "contact_sheets/2p0__2p0_v115_002211_x264.png",
+    "contact_sheets/2p0__2p0_v118_005152_x264.png",
+    "contact_sheets/2p0__2p0_v131_002500_x264.png",
+    "contact_sheets/2p0__2p0_v159_003146_x264.png",
+    "contact_sheets/ft0__ft0_v166_002702_x264.png",
+    "contact_sheets/ft0__ft0_v181_002018_x264.png",
+    "contact_sheets/ft1__ft1_v111_005842_x264.png",
+    "contact_sheets/ft1__ft1_v133_011206_x264.png",
+    "contact_sheets/ft1__ft1_v169_004222_x264.png"
+  ],
+  "decoder_read_frames": 5930,
+  "diagnostics": {
+    "gamma_enhancement": {
+      "aspect_ratio_relative_error": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "brightness": {
+        "max": 0.6477356553077698,
+        "mean": 0.4116684893767039,
+        "min": 0.2262987196445465
+      },
+      "brightness_delta_residual_mae_vs_reference": {
+        "max": 0.0002220765018137172,
+        "mean": 4.561149376058893e-05,
+        "min": 2.668963588803308e-06
+      },
+      "brightness_delta_residual_max_vs_reference": {
+        "max": 0.0037594735622406006,
+        "mean": 0.0008615454037984213,
+        "min": 1.2606382369995117e-05
+      },
+      "contrast": {
+        "max": 0.314441442489624,
+        "mean": 0.2648067381232977,
+        "min": 0.20833802223205566
+      },
+      "endpoint_channel_fraction": {
+        "max": 0.2665610843234592,
+        "mean": 0.027878807650672067,
+        "min": 0.000503328111436632
+      },
+      "frame_brightness_abs_delta": {
+        "max": 0.013132259249687195,
+        "mean": 0.0028647493836615467,
+        "min": 0.00015360400720965117
+      },
+      "laplacian_variance": {
+        "max": 3306.37515076429,
+        "mean": 2326.483883432423,
+        "min": 1367.1382130658797
+      },
+      "mean": {
+        "max": 0.6429082751274109,
+        "mean": 0.4221692591284712,
+        "min": 0.2231868952512741
+      },
+      "newly_clipped_channel_fraction": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "retained_area_fraction": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "saturation": {
+        "max": 0.6690928936004639,
+        "mean": 0.36189238137255114,
+        "min": 0.20255181193351746
+      },
+      "std": {
+        "max": 0.3593893051147461,
+        "mean": 0.27916135018070537,
+        "min": 0.22181573510169983
+      },
+      "tenengrad": {
+        "max": 47334.134603500366,
+        "mean": 33217.46614240275,
+        "min": 19280.80534235636
+      },
+      "value_max": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "value_min": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      }
+    },
+    "horizontal_flip": {
+      "aspect_ratio_relative_error": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "brightness": {
+        "max": 0.6360747814178467,
+        "mean": 0.3985501614709695,
+        "min": 0.2157561182975769
+      },
+      "brightness_delta_residual_mae_vs_reference": {
+        "max": 2.2706531765948057e-08,
+        "mean": 9.441344483995806e-09,
+        "min": 1.8922110545105397e-09
+      },
+      "brightness_delta_residual_max_vs_reference": {
+        "max": 1.7881393432617188e-07,
+        "mean": 6.984919309616089e-08,
+        "min": 2.9802322387695312e-08
+      },
+      "contrast": {
+        "max": 0.31201666593551636,
+        "mean": 0.2657707277685404,
+        "min": 0.20598357915878296
+      },
+      "endpoint_channel_fraction": {
+        "max": 0.2665610843234592,
+        "mean": 0.027878807650672067,
+        "min": 0.000503328111436632
+      },
+      "frame_brightness_abs_delta": {
+        "max": 0.013292457908391953,
+        "mean": 0.002884272518410095,
+        "min": 0.00015256046026479453
+      },
+      "laplacian_variance": {
+        "max": 3331.04285360561,
+        "mean": 2340.174127002955,
+        "min": 1362.4432337336602
+      },
+      "mean": {
+        "max": 0.6313866376876831,
+        "mean": 0.4089905380581816,
+        "min": 0.21270711719989777
+      },
+      "newly_clipped_channel_fraction": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "retained_area_fraction": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "saturation": {
+        "max": 0.6819852590560913,
+        "mean": 0.37407994860162336,
+        "min": 0.2098739892244339
+      },
+      "std": {
+        "max": 0.35872748494148254,
+        "mean": 0.2807692702238758,
+        "min": 0.2197350263595581
+      },
+      "tenengrad": {
+        "max": 47664.54306920369,
+        "mean": 33307.339100811216,
+        "min": 19112.335958480835
+      },
+      "value_max": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "value_min": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      }
+    },
+    "photometric": {
+      "aspect_ratio_relative_error": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "brightness": {
+        "max": 0.6410636901855469,
+        "mean": 0.3982271996016304,
+        "min": 0.22238613665103912
+      },
+      "brightness_delta_residual_mae_vs_reference": {
+        "max": 0.0010891660349443555,
+        "mean": 0.00012098642916313906,
+        "min": 6.722079319843033e-07
+      },
+      "brightness_delta_residual_max_vs_reference": {
+        "max": 0.017784863710403442,
+        "mean": 0.0027047370870908103,
+        "min": 1.9669532775878906e-06
+      },
+      "contrast": {
+        "max": 0.32845112681388855,
+        "mean": 0.2643063301220536,
+        "min": 0.202384352684021
+      },
+      "endpoint_channel_fraction": {
+        "max": 0.36737749311659074,
+        "mean": 0.026103536287943523,
+        "min": 0.0
+      },
+      "frame_brightness_abs_delta": {
+        "max": 0.012663797475397587,
+        "mean": 0.0028289243812954132,
+        "min": 0.00014108940376900136
+      },
+      "laplacian_variance": {
+        "max": 3346.5209656440293,
+        "mean": 2325.8851298140357,
+        "min": 1324.2182406750442
+      },
+      "mean": {
+        "max": 0.6364932656288147,
+        "mean": 0.4084396141891678,
+        "min": 0.21948890388011932
+      },
+      "newly_clipped_channel_fraction": {
+        "max": 0.36737749311659074,
+        "mean": 0.026103527457625775,
+        "min": 0.0
+      },
+      "retained_area_fraction": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "saturation": {
+        "max": 0.696915864944458,
+        "mean": 0.36440606135874987,
+        "min": 0.17577515542507172
+      },
+      "std": {
+        "max": 0.3729378283023834,
+        "mean": 0.27898707675437134,
+        "min": 0.2287105768918991
+      },
+      "tenengrad": {
+        "max": 47791.28761418661,
+        "mean": 32974.78852485286,
+        "min": 21316.911502838135
+      },
+      "value_max": {
+        "max": 1.0,
+        "mean": 0.9840599683423837,
+        "min": 0.9383664131164551
+      },
+      "value_min": {
+        "max": 0.022163625806570053,
+        "mean": 0.005866309123424192,
+        "min": 0.0
+      }
+    },
+    "reference": {
+      "aspect_ratio_relative_error": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "brightness": {
+        "max": 0.6360747814178467,
+        "mean": 0.39855016271273297,
+        "min": 0.2157561182975769
+      },
+      "brightness_delta_residual_mae_vs_reference": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "brightness_delta_residual_max_vs_reference": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "contrast": {
+        "max": 0.31201666593551636,
+        "mean": 0.2657707277685404,
+        "min": 0.20598357915878296
+      },
+      "endpoint_channel_fraction": {
+        "max": 0.2665610843234592,
+        "mean": 0.027878807650672067,
+        "min": 0.000503328111436632
+      },
+      "frame_brightness_abs_delta": {
+        "max": 0.013292459771037102,
+        "mean": 0.0028842724726321953,
+        "min": 0.00015255760808940977
+      },
+      "laplacian_variance": {
+        "max": 3331.0428536056097,
+        "mean": 2340.174127002955,
+        "min": 1362.4432337336602
+      },
+      "mean": {
+        "max": 0.6313866376876831,
+        "mean": 0.40899053526421386,
+        "min": 0.21270710229873657
+      },
+      "newly_clipped_channel_fraction": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "retained_area_fraction": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "saturation": {
+        "max": 0.6819852590560913,
+        "mean": 0.37407995108515024,
+        "min": 0.2098739892244339
+      },
+      "std": {
+        "max": 0.35872748494148254,
+        "mean": 0.28076927084475756,
+        "min": 0.2197350263595581
+      },
+      "tenengrad": {
+        "max": 47664.54306920369,
+        "mean": 33307.339100811216,
+        "min": 19112.335958480835
+      },
+      "value_max": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "value_min": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      }
+    },
+    "spatial": {
+      "aspect_ratio_relative_error": {
+        "max": 0.0033333333333334103,
+        "mean": 0.0012867544417741277,
+        "min": 0.0
+      },
+      "brightness": {
+        "max": 0.6421822309494019,
+        "mean": 0.404702117977043,
+        "min": 0.2158852368593216
+      },
+      "brightness_delta_residual_mae_vs_reference": {
+        "max": 0.0006177836912684143,
+        "mean": 0.0001691757328217136,
+        "min": 9.372593922307715e-06
+      },
+      "brightness_delta_residual_max_vs_reference": {
+        "max": 0.021640032529830933,
+        "mean": 0.0018502188225587208,
+        "min": 2.4318695068359375e-05
+      },
+      "contrast": {
+        "max": 0.3030264377593994,
+        "mean": 0.26366886030882597,
+        "min": 0.20461545884609222
+      },
+      "endpoint_channel_fraction": {
+        "max": 0.20857365926106772,
+        "mean": 0.02156124733112477,
+        "min": 0.00024827321370442707
+      },
+      "frame_brightness_abs_delta": {
+        "max": 0.013403235003352165,
+        "mean": 0.0029456594132473888,
+        "min": 0.00015594231081195176
+      },
+      "laplacian_variance": {
+        "max": 3072.3803104048193,
+        "mean": 2147.756281307592,
+        "min": 1222.4800002331676
+      },
+      "mean": {
+        "max": 0.6366429328918457,
+        "mean": 0.4152411259710789,
+        "min": 0.21270233392715454
+      },
+      "newly_clipped_channel_fraction": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      },
+      "retained_area_fraction": {
+        "max": 0.9927213541666666,
+        "mean": 0.9273668077256945,
+        "min": 0.8488932291666667
+      },
+      "saturation": {
+        "max": 0.6913002729415894,
+        "mean": 0.37513584829866886,
+        "min": 0.19739191234111786
+      },
+      "std": {
+        "max": 0.3560592532157898,
+        "mean": 0.27959198877215385,
+        "min": 0.2188062071800232
+      },
+      "tenengrad": {
+        "max": 46852.70292854309,
+        "mean": 32795.312595023046,
+        "min": 18499.758111953735
+      },
+      "value_max": {
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "value_min": {
+        "max": 0.0,
+        "mean": 0.0,
+        "min": 0.0
+      }
+    }
+  },
+  "environment": {
+    "numpy": "2.1.3",
+    "opencv": "4.13.0",
+    "pillow": "12.2.0",
+    "python": "3.10.20",
+    "pyyaml": "6.0.3"
+  },
+  "fallback_clips": 5,
+  "fps": {
+    "2997/100": 24,
+    "2997/125": 24
+  },
+  "label_fps": {
+    "Make / 2997/100": 12,
+    "Make / 2997/125": 12,
+    "Miss / 2997/100": 12,
+    "Miss / 2997/125": 12
+  },
+  "labels": {
+    "Make": 24,
+    "Miss": 24
+  },
+  "limitations": [
+    "Quota cohort is not representative of full train prevalence.",
+    "Source groups are not verified game IDs.",
+    "Frame deltas include real scene motion/cuts.",
+    "Contact sheets are sparse spatial review, not continuous human playback.",
+    "Higher sharpness is not proof of quality or classification benefit."
+  ],
+  "prefix_frames": 2858,
+  "provenance": {
+    "data/processed/dataset_manifest.csv": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "development/data_quality/configs/quality_aware_sampler_v1.yaml": "86cd23900b3673def08c0b5d6654fe11c4576d3b65b1d777071bb1517c1f5d74",
+    "development/data_quality/configs/visual_preprocessing_pilot_v1.yaml": "c10fe6cd5709ffe6b6d54fb193a2a491141c2e570e6d98d3605959b6e8f956e0",
+    "development/data_quality/manifests/visual_preprocessing_pilot_manifest_v1.csv": "021056df003aaf2ff1f0679366dbe8779c1940bae7e04553fb0857ee29952529",
+    "development/data_quality/samplers/quality_aware_clip_sampler.py": "35720e6e761078e0344b7802dace3190c91e8b5171ed2240e210653d5e2d268f",
+    "development/data_quality/scripts/audit_blur_pilot.py": "50d5bc64726b809f0f8a2dfb98b8a208b9b3096932793990a601a8727254e147",
+    "development/data_quality/scripts/audit_blur_train_v3.py": "6b6e3b0e54416630cb51d033ba0bc87710f044c0f51a82fe186032602495b17d",
+    "development/data_quality/scripts/audit_quality_aware_sampler_v1.py": "14c8d0eaf3a14f926d5160e2c1e103a5381d34a88490eb16d3e14d39a5cecc51",
+    "development/data_quality/scripts/audit_visual_preprocessing_pilot_v1.py": "4bcb3bc251dda70d53aab19a949d6e32aad3ba27d7ca7800cf5fcba70436bde9",
+    "development/data_quality/sidecars/blur_candidate_segments_v3_1.csv": "ddd295cc61c72d52e687addc40e3ef444791288497918868227042903cd10834",
+    "development/data_quality/sidecars/blur_quality_sidecar_v3_1.json": "64b7b1ab07065a80536eb4f52045c2c077435d0c6a9d138cad6ef51034822779",
+    "development/data_quality/sidecars/blur_video_summary_v3_1.csv": "68bb51486e71a45e8bb500e545ff4300b181eb25655bf19749c9a49d9430decf",
+    "development/data_quality/transforms/video_clip_transforms.py": "e5fe0b1a834cabfbe10dd2c4153b6c9d44e8dba4b1fec8f3b603e230096ce002",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998"
+  },
+  "retained_frames": 3072,
+  "review_sha256": "5feb69dda13cf7162a8322dc49899cca60f653b0bf068a6871584092d578bf23",
+  "same_seed_checks": 240,
+  "samples_sha256": "669a407ac705900438ce4cd2ed32938ec80192b21267d4c90136cede117e3f2b",
+  "schema_version": "basketball.visual-preprocessing-pilot.v1",
+  "sidecar_run_identity": "19372422e554779a09d54ca93e4927bf91d5665af5e6c127904727d4b5edc02a",
+  "source_counts": {
+    "v108": 1,
+    "v111": 3,
+    "v115": 1,
+    "v116": 3,
+    "v117": 1,
+    "v118": 1,
+    "v119": 1,
+    "v120": 1,
+    "v122": 1,
+    "v124": 1,
+    "v127": 3,
+    "v128": 1,
+    "v130": 1,
+    "v131": 3,
+    "v133": 1,
+    "v147": 1,
+    "v155": 1,
+    "v156": 1,
+    "v157": 1,
+    "v158": 3,
+    "v159": 3,
+    "v160_v166": 1,
+    "v163": 1,
+    "v164": 3,
+    "v167": 1,
+    "v169": 1,
+    "v174": 1,
+    "v175": 3,
+    "v181": 1,
+    "v182": 1,
+    "v183": 1,
+    "v184": 1
+  },
+  "sources": 32,
+  "status": "PILOT_COMPLETE",
+  "validation": {
+    "checks_log": "development/data_quality/artifacts/visual_preprocessing_pilot_v1_runtime/checks.log",
+    "checks_log_sha256": "b751ed93acd230a72ae7adbc4392b62b3da32ab5e65941afbf58a470c34c426f",
+    "cli_help_pass": true,
+    "dry_run_pass": true,
+    "git_add_commit_push": false,
+    "git_diff_check_pass": true,
+    "git_head": "a6dd46d82577984773961e17539caa3ef724203f",
+    "import_pass": true,
+    "initial_git_status": "clean",
+    "new_files": [
+      "development/data_quality/configs/visual_preprocessing_pilot_v1.yaml",
+      "development/data_quality/manifests/visual_preprocessing_pilot_manifest_v1.csv",
+      "development/data_quality/scripts/audit_visual_preprocessing_pilot_v1.py",
+      "development/data_quality/scripts/verify_visual_preprocessing_pilot_v1.py",
+      "development/data_quality/transforms/video_clip_transforms.py",
+      "development/data_quality/tests/test_video_clip_transforms_v1.py",
+      "docs/data_quality/visual_preprocessing_method_v1.md",
+      "docs/data_quality/visual_preprocessing_pilot_v1.json",
+      "docs/data_quality/visual_preprocessing_pilot_v1.md"
+    ],
+    "non_decoding_checks_trace": {
+      "non_pilot_video_access": 0,
+      "sha256": "64b94a1bc50eade27e19f2812d3071238ef3af30ffb00c2fe05c37d46e6729b8",
+      "test_video_access": 0,
+      "trace": "development/data_quality/artifacts/visual_preprocessing_pilot_v1_runtime/checks.strace",
+      "trace_scope": "strace -f -yy -e trace=%file; all path attempts; descriptor paths annotated",
+      "unique_video_paths": 0,
+      "validation_video_access": 0,
+      "video_open_syscalls": 0,
+      "video_path_syscalls": 0,
+      "video_write_attempts": 0
+    },
+    "original_tracked_files_changed": [
+      "development/data_quality/README.md",
+      "docs/data_quality/README.md"
+    ],
+    "original_tracked_hashes_sha256": "6d8656fb52d458988ec7fc2e3ea32a3ef0ef8279e82d3ea232ab7d6ca3f96c97",
+    "protected_tracked_files_unchanged": true,
+    "summary": "Python syntax（4 檔）、import、兩個 CLI help、dry-run、39 個 unit/regression tests 均通過；測試／dry-run trace 零影片存取；既有 tracked 檔案僅兩份導覽更新。",
+    "syntax_files": 4,
+    "unit_failures": 0,
+    "unit_skipped": 0,
+    "unit_test_source_sha256": "94f4731b20f642a89235b0ecba75f2b512be8d31a41c85ffa6913468feb09d9a",
+    "unit_tests": 39
+  },
+  "validation_sha256": "5200fe678fc36ed9144f53e898c96729154639e90c01c3a89efdf7a97054a6d8",
+  "verification": {
+    "non_pilot_video_access": 0,
+    "sha256": "c041d53f4fadfd5bc8ddf3dba10b59409ab90862c0bb3925b0e70704fdcec31f",
+    "test_video_access": 0,
+    "trace": "development/data_quality/artifacts/visual_preprocessing_pilot_v1_runtime/run.strace",
+    "trace_scope": "strace -f -yy -e trace=%file; all path attempts; descriptor paths annotated",
+    "unique_video_paths": 48,
+    "validation_video_access": 0,
+    "video_open_syscalls": 96,
+    "video_path_syscalls": 768,
+    "video_write_attempts": 0
+  },
+  "verifier_sha256": "3efef3d651f1b757d8013a0efa987fff2cfa5dd4080a80282ce11dd04b64280a",
+  "videos": 48,
+  "visual_review": {
+    "continuous_human_playback": false,
+    "observations": [
+      "由 Codex 逐張檢查 9 張 contact sheets（36 個時間點 × source/reference/4 candidates），不是人工標註或連續播放審查。",
+      "Reference 保留 320×240 的全幅 4:3 語義；抽查未見新增 padding、嚴重拉伸、色彩通道顛倒或明顯 halo。原片 v111 自帶上下黑邊，不能將其誤記為 transform 新增空白邊。",
+      "Spatial 平均保留原面積 92.74%，最少 84.89%，最大比例 rounding 誤差 0.333%；抽查主要投籃人物仍可見，但部分邊緣人物、看板與比分區變緊，不能保證未檢查幀的球／籃框不被裁切。",
+      "Photometric 平均 clamp 前超界 RGB 元素比例 2.6104%，最高 36.7377% 出現在 ft1_v111_005842；該片 reference endpoint 原已有 26.6561%，且帶原生黑邊。超界比例不能直接稱為新損失像素比例，但當前參數仍暫緩作預設。",
+      "v111 的 photometric 亮部與黃色場地更亮；gamma=0.95 整體略提亮，未見明顯新 halo，gamma 新增 clamp 為 0，但看不出可據以定案的資訊恢復。",
+      "水平翻轉可見比分文字反轉，亦改變球場方向與慣用手；保持 Make/Miss 語義只是待驗證假設。",
+      "v166、v111、v169 的抽樣畫面包含原生鏡頭切換；64 格連續 index 與共用 crop/色彩參數已驗證，靜態 contact sheets 不能排除所有感知 flicker。"
+    ],
+    "reviewed_contact_sheets": [
+      "2p0__2p0_v115_002211_x264.png",
+      "2p0__2p0_v118_005152_x264.png",
+      "2p0__2p0_v131_002500_x264.png",
+      "2p0__2p0_v159_003146_x264.png",
+      "ft0__ft0_v166_002702_x264.png",
+      "ft0__ft0_v181_002018_x264.png",
+      "ft1__ft1_v111_005842_x264.png",
+      "ft1__ft1_v133_011206_x264.png",
+      "ft1__ft1_v169_004222_x264.png"
+    ],
+    "reviewer": "Codex visual inspection; not human annotation",
+    "temporal_positions": [
+      0,
+      21,
+      42,
+      63
+    ]
+  }
+}

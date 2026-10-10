@@ -1,8 +1,8 @@
 # Basketball-51 資料品質研究產物中文索引
 
-本頁是一般組員理解 Basketball-51 資料品質研究的中文主索引；實際程式入口集中在[技術使用入口](../../development/data_quality/README.md)。本索引盤點 `docs/data_quality/` 與 `development/data_quality/` 內全部 48 份 tracked 文件、JSON、CSV、YAML、Python 程式與測試，並分組記錄本機 ignored runtime artifacts。核心英文檔名與程式路徑維持不變。
+本頁是一般組員理解 Basketball-51 資料品質研究的中文主索引；實際程式入口集中在[技術使用入口](../../development/data_quality/README.md)。本索引盤點 `docs/data_quality/` 與 `development/data_quality/` 內既有 48 份 tracked 文件、JSON、CSV、YAML、Python 程式與測試，並分組記錄本機 ignored runtime artifacts。核心英文檔名與程式路徑維持不變。
 
-本輪只整理文件與導覽，沒有修改演算法、設定、sidecar 數值、研究結果或歷史紀錄；沒有執行影片解碼、掃描、訓練或評估，也沒有存取 validation/test 影片或修改 A1/A2/B/C frozen experiments。
+前次索引整理只涉及文件與導覽，沒有修改演算法、設定、sidecar 數值、研究結果或歷史紀錄；沒有執行影片解碼、掃描、訓練或評估，也沒有存取 validation/test 影片或修改 A1/A2/B/C frozen experiments。
 
 ## 組員最短閱讀路徑
 
@@ -21,7 +21,7 @@
 | 模糊指標校準 | Quality Screening v2 | 指標校準 | **完成，提供 v3 凍結參數** | 合成模糊與時間規則校準；見 [v2 方法](blur_screening_method_v2.md) 與 [v2 報告](blur_screening_pilot_v2.md) |
 | 完整 train 品質掃描 | Quality Screening v3/v3.1 | 完整品質掃描 | **完成** | 全量 scan、verify、publication 均完成；見 [v3 方法](blur_screening_method_v3.md) 與 [v3.1 publisher contract](blur_screening_publisher_v3_1.md) |
 | 品質感知連續片段取樣 | Quality-aware Clip Sampler v1 | 品質感知取樣 | **完成** | 以 tracked sidecar 選擇 train clips；見 [sampler 方法](quality_aware_clip_sampler_v1.md) |
-| 影像增強 | Image Enhancement | 後續研究 | **尚未開始** | 未建立或選定增強策略 |
+| 視覺前處理與增強 | Visual Preprocessing Pilot v1 | Train-only Pilot | **Pilot 完成，正式政策未定案** | [方法](visual_preprocessing_method_v1.md)／[報告](visual_preprocessing_pilot_v1.md)／[JSON](visual_preprocessing_pilot_v1.json) |
 | I3D 特徵擷取 | I3D Feature Extraction | 後續研究 | **尚未開始** | 既有 Gate 1A/1B 不代表已啟動特徵擷取 |
 | YOLO 特徵／ROI | YOLO Features / ROI | 後續研究 | **尚未開始** | 未建立特徵或 ROI pipeline |
 | 多模型融合 | Multi-model Fusion | 後續研究 | **尚未開始** | 未決定模型組合或融合方式 |
@@ -138,4 +138,13 @@
 - v3/v3.1 與 sampler v1 均已完成；本輪不要求重跑任何 scan、verify、publish 或 test 命令。
 - 原始影片、固定 manifest／split、A1/A2/B/C、歷史 runs、設定、sidecar 與報告數值均不可由索引整理回寫。
 - validation/test 影片不得存取、probe 或 decode；表中名稱含 `validation` 的 ignored 目錄是程式驗證工作目錄，不是資料集 validation split。
-- 影像增強、I3D 特徵擷取、YOLO 特徵／ROI 與多模型融合都尚未開始。
+- 視覺前處理與增強只完成小規模 train Pilot；I3D 特徵擷取、YOLO 特徵／ROI 與多模型融合尚未開始。
+
+## 視覺前處理／增強 Pilot v1（2026-10-10 新增）
+
+48 支 train、每支連續 64 格，含全部 5 支 fallback。此輪新增 9 份小型程式／設定／manifest／報告，沒有改寫上述歷史品質結果；正式 enhancement／augmentation 政策未定案，沒有模型訓練或 accuracy 結論。
+
+- [方法與重現](visual_preprocessing_method_v1.md)、[報告](visual_preprocessing_pilot_v1.md)、[JSON](visual_preprocessing_pilot_v1.json)。
+- [設定](../../development/data_quality/configs/visual_preprocessing_pilot_v1.yaml)、[固定 Pilot manifest](../../development/data_quality/manifests/visual_preprocessing_pilot_manifest_v1.csv)。
+- [Transform 介面](../../development/data_quality/transforms/video_clip_transforms.py)、[Pilot runner](../../development/data_quality/scripts/audit_visual_preprocessing_pilot_v1.py)、[Verifier](../../development/data_quality/scripts/verify_visual_preprocessing_pilot_v1.py)、[測試](../../development/data_quality/tests/test_video_clip_transforms_v1.py)。
+- Ignored artifacts：`development/data_quality/artifacts/visual_preprocessing_pilot_v1/`（含 contact sheets）及 `visual_preprocessing_pilot_v1_runtime/`（trace／logs）。

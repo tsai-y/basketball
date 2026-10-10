@@ -8,9 +8,10 @@
 - 模糊指標校準 v2：**完成，提供 v3 凍結參數**。
 - 完整 train 品質掃描 v3/v3.1：**完成**。
 - Quality-aware Clip Sampler v1：**完成**。
-- 影像增強、I3D 特徵擷取、YOLO 特徵／ROI、多模型融合：**尚未開始**。
+- 視覺前處理／增強 Pilot v1：**train-only Pilot 完成，正式政策未定案**。
+- I3D 特徵擷取、YOLO 特徵／ROI、多模型融合：**尚未開始**。
 
-本輪只整理文件。下列入口不代表需要重跑：沒有執行影片解碼、掃描、訓練或評估，也沒有存取 validation/test 影片。A1/A2/B/C、設定、sidecar、研究數值與歷史 artifacts 均維持原狀。
+前次索引整理只涉及文件。歷史入口不代表需要重跑；本次新增視覺 Pilot 僅解碼固定 48 支 train 的連續窗口，沒有模型訓練／評估或 validation/test 影片存取。A1/A2/B/C、設定、sidecar、研究數值與歷史 artifacts 均維持原狀。
 
 ## 技術使用原則
 
@@ -154,3 +155,18 @@ Quality-aware Clip Sampler v1 已完成。它從原影片選擇連續半開 `[st
 | `tests/__pycache__/` | 多階段 | Python bytecode（2 檔） | ignored，不可提交 |
 
 Ignored artifacts 是本機執行證據，不是缺少待補的 tracked 檔案；不得用 `git add -f` 納入版本控制。
+
+## 視覺前處理／增強 Pilot v1
+
+結果與限制見 [Pilot 報告](../../docs/data_quality/visual_preprocessing_pilot_v1.md)／[JSON](../../docs/data_quality/visual_preprocessing_pilot_v1.json)，責任區分與重現命令見 [方法](../../docs/data_quality/visual_preprocessing_method_v1.md)。
+
+| 入口 | 用途 |
+| --- | --- |
+| [設定](configs/visual_preprocessing_pilot_v1.yaml) | seed、48 支／64 格硬限制與保守候選參數 |
+| [固定名單](manifests/visual_preprocessing_pilot_manifest_v1.csv) | train-only 衍生名單及完整 sampler metadata |
+| [Transform](transforms/video_clip_transforms.py) | RGB clip 共用 spatial／photometric 參數，與 normalization 分離 |
+| [Runner](scripts/audit_visual_preprocessing_pilot_v1.py) | dry-run、名單驗證、有界解碼、診斷與 contact sheets |
+| [Verifier](scripts/verify_visual_preprocessing_pilot_v1.py) | 僅讀 derived evidence，核對 provenance、syscall scope、JSON／Markdown |
+| [測試](tests/test_video_clip_transforms_v1.py) | synthetic clips、拒絕 held-out/non-pilot、seed／geometry／normalization |
+
+Ignored `artifacts/visual_preprocessing_pilot_v1/` 保存詳細 metadata、9 張 contact sheets、review／validation；`artifacts/visual_preprocessing_pilot_v1_runtime/` 保存 trace／logs。Runner 拒絕覆寫既有目錄。新 manifest 依此次需求放在 `manifests/`，不搬動歷史名單。輸出為 NumPy float32 CTHW [0,1]，供後續 DataLoader 接入；本輪不實作 I3D 或正式訓練。

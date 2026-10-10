@@ -1,0 +1,18 @@
+version: visual_preprocessing_pilot_v1
+seed: 20261010
+sampler_seed: 20261009
+epoch: 0
+sample_size: 48
+clip_length: 64
+selection_rule: balanced_label_fps_category_source_sha256_v1
+transform:
+  version: video_clip_transforms_v1
+  clip_length: 64
+  output_height: 192
+  output_width: 256
+  brightness: [0.95, 1.05]
+  contrast: [0.95, 1.05]
+  saturation: [0.95, 1.05]
+  spatial_scale: [0.92, 1.0]
+  enhancement_gamma: 0.95
+strategies: [reference, photometric, spatial, horizontal_flip, gamma_enhancement]
