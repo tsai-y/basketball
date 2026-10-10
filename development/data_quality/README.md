@@ -8,7 +8,7 @@
 | v2 | 合成模糊與時間校準 | Complete | 提供 v3 凍結參數 | [v2 報告](../../docs/data_quality/blur_screening_pilot_v2.md) |
 | v3／v3.1 | 完整 train 候選掃描器與 publisher | Scanner／publisher complete | 可於主機執行 scan → verify → publish | [v3 runbook](runbooks/blur_train_v3_tmux.md) |
 
-**v1、v2 是研究證據與歷史重現文件，不是正式執行入口；v3 是目前唯一的完整 train scanner。** Scanner complete 表示掃描器及既有 smoke 工程驗證完成，不表示全量已執行或資料已清理。
+**v1、v2 是研究證據與歷史重現文件，不是正式執行入口；v3 是完整 train scanner。** 完整 train v3.1 掃描與 publication 已於 2026-10-09 驗證為 `COMPLETE`；這不表示資料已清理。
 
 v3 只產生 candidate flags；**candidate 不等於確認模糊，也不是排除名單**，未標記也不等於清晰。原始影片保持不變，不刪格、拼接、重編碼或刪除 candidate 資料。validation/test 影片不得存取、probe 或 decode；固定 manifest 中的 split 字串只供身分與 denylist 核對。完整掃描由組員依 runbook 在 **Ubuntu／tmux** 執行。
 
@@ -43,7 +43,20 @@ v3 原封沿用 v2 凍結規則：primary 為 Laplacian local z ≤ −2.0，log
 
 正式輸出為 ignored 的 `development/data_quality/artifacts/blur_train_v3_full_train/`，runtime logs 另存相鄰 `blur_train_v3_full_train_runtime/`。不放進原始資料、baseline、歷史 runs 或既有 v1/v2/smoke 目錄。每影片 immutable attempts；`--resume` 跳過有效完成項，`--resume --retry-failures` 才重試失敗／partial，`--resume --rebuild-summary` 只重建 derived aggregate，舊產物保留。
 
-v3.1 [publisher](scripts/publish_blur_train_v3.py) 同時支援固定 smoke 與 full train，會精確比較 manifest/selection/completion/attempt/ledger/aggregate ID 集合、驗證 artifact hashes、逐影片串流重建 aggregate，並從同一份 summary 產生 Markdown／JSON。正式 full-train 預設 `--require-complete`；`PARTIAL`／`COMPLETE_WITH_FAILURES` 不會冒充完整，`INVALID` 永遠拒絕發表，既有輸出也拒絕覆寫。完整命令及 ignored runtime 報告路徑見 [runbook](runbooks/blur_train_v3_tmux.md)。本 repository 尚未執行完整 train scan 或 publication。
+v3.1 [publisher](scripts/publish_blur_train_v3.py) 同時支援固定 smoke 與 full train，會精確比較 manifest/selection/completion/attempt/ledger/aggregate ID 集合、驗證 artifact hashes、逐影片串流重建 aggregate，並從同一份 summary 產生 Markdown／JSON。正式 full-train 預設 `--require-complete`；`PARTIAL`／`COMPLETE_WITH_FAILURES` 不會冒充完整，`INVALID` 永遠拒絕發表，既有輸出也拒絕覆寫。完整命令及 ignored runtime 報告路徑見 [runbook](runbooks/blur_train_v3_tmux.md)。本機完整結果為 7,193/7,193 成功、18,390 candidate frames、1,798 segments、0 failure。
+
+## Quality-aware Clip Sampler v1（train-only）
+
+完整 v3.1 metadata 已匯出為 tracked compact [sidecars](sidecars/)，並由 [quality-aware sampler 方法](../../docs/data_quality/quality_aware_clip_sampler_v1.md) 接到連續 clip start 選擇。64-frame 全 train audit 有 7,188 支零 overlap、5 支 minimum-overlap fallback；16/32/64 clean availability 為 7,193／7,193／7,188。固定 [20 支 smoke manifest](smoke_manifest_quality_sampler_v1.csv) 與 [報告](../../docs/data_quality/quality_aware_clip_sampler_smoke_v1.md) 已完成。
+
+```bash
+python3 -B development/data_quality/scripts/export_blur_quality_sidecar_v3_1.py --check-only
+python3 -B development/data_quality/scripts/audit_quality_aware_sampler_v1.py --dry-run
+python3 -B development/data_quality/scripts/publish_quality_aware_sampler_smoke_v1.py --check-only
+python3 -B -m unittest development/data_quality/tests/test_quality_aware_clip_sampler_v1.py
+```
+
+所有入口只讀 manifest/sidecar/scanner metadata；validation/test quality mode disabled。Sampler 回傳原影片中連續半開 `[start,end)`，不刪格、不拼接。Ignored runtime output 為 `development/data_quality/artifacts/quality_aware_sampler_v1/`；本輪未做 augmentation、I3D/YOLO、訓練或評估。
 
 ## v1 歷史重現文件（非正式入口）
 

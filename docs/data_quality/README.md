@@ -1,6 +1,6 @@
 # Basketball-51 Data Quality 研究文件索引
 
-組員的唯一技術入口是 [development/data_quality/README.md](../../development/data_quality/README.md)；本頁說明研究脈絡與證據，不另建立執行流程。v1／v2／v3 已完成並提交；v3.1 補齊 full-train verify/publish 流程但本輪不提交。Scanner、固定 smoke 與 publisher 工程驗證完成；全量 scan／publication 仍由組員在 Ubuntu／tmux 啟動。
+組員的唯一技術入口是 [development/data_quality/README.md](../../development/data_quality/README.md)；本頁說明研究脈絡與證據，不另建立執行流程。v1／v2／v3 已完成；v3.1 full-train scan／verify／publication 為 `COMPLETE`，quality-aware sampler v1 已將精簡 train sidecar 接到連續 clip 選擇。
 
 ## 建議閱讀順序
 
@@ -9,7 +9,8 @@
 3. [v3 smoke report](blur_screening_smoke_v3.md)／[JSON](blur_screening_smoke_v3.json)：已完成的工程驗證、容量外推及其限制。
 4. [v3 tmux runbook](../../development/data_quality/runbooks/blur_train_v3_tmux.md)：主機 checklist、正式命令與完成後處理。
 5. [v3.1 publisher contract](blur_screening_publisher_v3_1.md)：完整度狀態、報告 schema 與 fail-closed 規則。
-6. 需要研究背景時，再讀下列 v1／v2 方法與報告；重現命令不代表需要再次執行。
+6. [Quality-aware sampler v1](quality_aware_clip_sampler_v1.md) 與 [20 支 metadata smoke](quality_aware_clip_sampler_smoke_v1.md)：train-only 下游 clip 選擇。
+7. 需要研究背景時，再讀下列 v1／v2 方法與報告；重現命令不代表需要再次執行。
 
 ## 三版研究問題、輸入與結果
 
@@ -39,7 +40,9 @@ v3 核對已提交 v2 config、JSON、方法與評分程式的 frozen hashes，�
 
 只有固定 manifest 的 train 可進入影片 opener；validation/test 影片不得存取。原始影片、label、manifest、split、baseline 及歷史 runs 保持不變。完整掃描依 [runbook](../../development/data_quality/runbooks/blur_train_v3_tmux.md) 在 Ubuntu／tmux 執行，輸出至獨立 ignored artifacts，失敗與候選分開記錄；resume／retry 不覆寫舊 attempts。
 
-全量完成後必須先 verify 為 `COMPLETE`，再由 v3.1 publisher 將同一份 machine-readable summary 產生 Markdown／JSON，先保存在 ignored runtime artifacts。Publisher 支援 smoke/full-train、artifact hash 與 aggregate 重建，並區分 `COMPLETE`、`COMPLETE_WITH_FAILURES`、`PARTIAL`、`INVALID`；詳見 [publisher contract](blur_screening_publisher_v3_1.md) 與 runbook。本輪沒有執行完整 train scan，也沒有建立全量報告。
+全量已 verify 為 `COMPLETE`，並由 v3.1 publisher 產生同源 Markdown／JSON（本機 ignored runtime artifacts）。結果為 7,193/7,193 成功、1,105,146 frames、18,390 candidate frames、1,798 segments、1,698 affected、5,495 unaffected、0 failure。Publisher 狀態與 fail-closed 契約詳見 [publisher contract](blur_screening_publisher_v3_1.md) 與 runbook。
+
+完整 train 結果另匯出為精簡 tracked sidecar，並用於 [quality-aware sampler v1](quality_aware_clip_sampler_v1.md)：64-frame 時 7,188 支可選零 overlap 連續窗口，5 支使用可追蹤 minimum-overlap fallback。Validation/test 未建立 sidecar且規則停用。
 
 ## 尚未完成的正式清理政策
 
@@ -57,5 +60,6 @@ v3 核對已提交 v2 config、JSON、方法與評分程式的 frozen hashes，�
 | v1 | [method v1](blur_screening_method_v1.md) | [pilot v1](blur_screening_pilot_v1.md) | [pilot v1 JSON](blur_screening_pilot_v1.json) | [統一入口內歷史重現](../../development/data_quality/README.md)、[config](../../development/data_quality/configs/blur_pilot_v1.yaml)、[manifest](../../development/data_quality/pilot_manifest_v1.csv) |
 | v2 | [method v2](blur_screening_method_v2.md) | [pilot v2](blur_screening_pilot_v2.md) | [pilot v2 JSON](blur_screening_pilot_v2.json) | [README_v2](../../development/data_quality/README_v2.md)、[config](../../development/data_quality/configs/blur_pilot_v2.yaml)、[manifest](../../development/data_quality/pilot_manifest_v2.csv)、[來源庫存](../../development/data_quality/source_inventory_v2.csv) |
 | v3 | [method v3](blur_screening_method_v3.md) | [smoke v3](blur_screening_smoke_v3.md) | [smoke v3 JSON](blur_screening_smoke_v3.json) | [tmux runbook](../../development/data_quality/runbooks/blur_train_v3_tmux.md)、[config](../../development/data_quality/configs/blur_train_v3.yaml)、[smoke manifest](../../development/data_quality/smoke_manifest_v3.csv) |
+| sampler v1 | [quality-aware sampler](quality_aware_clip_sampler_v1.md) | [metadata smoke](quality_aware_clip_sampler_smoke_v1.md) | [smoke JSON](quality_aware_clip_sampler_smoke_v1.json) | [config](../../development/data_quality/configs/quality_aware_sampler_v1.yaml)、[smoke manifest](../../development/data_quality/smoke_manifest_quality_sampler_v1.csv)、[sidecars](../../development/data_quality/sidecars/) |
 
 詳細分數、圖像與 runtime evidence 留在本機 ignored artifacts；clone 不會取得這些產物。歷史紀錄見 [progress log](../progress_log.md)，目前操作一律從 [唯一技術入口](../../development/data_quality/README.md) 開始。

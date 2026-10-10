@@ -1,0 +1,741 @@
+{
+  "clip_length": 64,
+  "epoch": 0,
+  "limitations": [
+    "Candidates are low-local-Laplacian flags, not confirmed blur or an exclusion list.",
+    "Local-z normalization may miss an entire video with persistently low quality.",
+    "The centered three-second scanner uses future frames and is offline-only.",
+    "No validation/test quality sidecar exists; quality-aware selection is train-only.",
+    "The export reads scanner metadata only and performs no video access."
+  ],
+  "num_clips_per_video": 1,
+  "policy_version": "quality_aware_sampler_v1",
+  "schema_version": "basketball.quality-aware-sampler-smoke.v1",
+  "seed": 20261009,
+  "selections": [
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 120,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v115",
+      "start_frame": 56,
+      "video_id": "2p0/2p0_v115_003225_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 136,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v116",
+      "start_frame": 72,
+      "video_id": "2p0/2p0_v116_012904_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 97,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v128",
+      "start_frame": 33,
+      "video_id": "2p0/2p0_v128_002950_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 130,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v174",
+      "start_frame": 66,
+      "video_id": "2p0/2p0_v174_000256_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 130,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v150",
+      "start_frame": 66,
+      "video_id": "2p1/2p1_v150_000903_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 64,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v163",
+      "start_frame": 0,
+      "video_id": "2p1/2p1_v163_001335_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 150,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v175",
+      "start_frame": 86,
+      "video_id": "2p1/2p1_v175_005517_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 142,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v108",
+      "start_frame": 78,
+      "video_id": "3p0/3p0_v108_003858_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 134,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v120",
+      "start_frame": 70,
+      "video_id": "3p1/3p1_v120_004108_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 78,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v122",
+      "start_frame": 14,
+      "video_id": "3p1/3p1_v122_012723_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 121,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v127",
+      "start_frame": 57,
+      "video_id": "ft0/ft0_v127_002040_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 177,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v159",
+      "start_frame": 113,
+      "video_id": "ft0/ft0_v159_011506_x264.mp4"
+    },
+    {
+      "candidate_overlap": 1,
+      "clip_index": 0,
+      "end_frame_exclusive": 64,
+      "epoch": 0,
+      "fallback": true,
+      "fallback_reason": "no_zero_candidate_overlap_window",
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v160_v166",
+      "start_frame": 0,
+      "video_id": "ft0/ft0_v166_002702_x264.mp4"
+    },
+    {
+      "candidate_overlap": 8,
+      "clip_index": 0,
+      "end_frame_exclusive": 129,
+      "epoch": 0,
+      "fallback": true,
+      "fallback_reason": "no_zero_candidate_overlap_window",
+      "fps_rational": "2997/125",
+      "frame_count": 145,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v181",
+      "start_frame": 65,
+      "video_id": "ft0/ft0_v181_002018_x264.mp4"
+    },
+    {
+      "candidate_overlap": 5,
+      "clip_index": 0,
+      "end_frame_exclusive": 86,
+      "epoch": 0,
+      "fallback": true,
+      "fallback_reason": "no_zero_candidate_overlap_window",
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v111",
+      "start_frame": 22,
+      "video_id": "ft1/ft1_v111_005842_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 112,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/100",
+      "frame_count": 180,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v131",
+      "start_frame": 48,
+      "video_id": "ft1/ft1_v131_001017_x264.mp4"
+    },
+    {
+      "candidate_overlap": 5,
+      "clip_index": 0,
+      "end_frame_exclusive": 64,
+      "epoch": 0,
+      "fallback": true,
+      "fallback_reason": "no_zero_candidate_overlap_window",
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v133",
+      "start_frame": 0,
+      "video_id": "ft1/ft1_v133_011206_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 117,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v155",
+      "start_frame": 53,
+      "video_id": "ft1/ft1_v155_011026_x264.mp4"
+    },
+    {
+      "candidate_overlap": 1,
+      "clip_index": 0,
+      "end_frame_exclusive": 146,
+      "epoch": 0,
+      "fallback": true,
+      "fallback_reason": "no_zero_candidate_overlap_window",
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Make",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v169",
+      "start_frame": 82,
+      "video_id": "ft1/ft1_v169_004222_x264.mp4"
+    },
+    {
+      "candidate_overlap": 0,
+      "clip_index": 0,
+      "end_frame_exclusive": 128,
+      "epoch": 0,
+      "fallback": false,
+      "fallback_reason": null,
+      "fps_rational": "2997/125",
+      "frame_count": 146,
+      "label": "Miss",
+      "policy_version": "quality_aware_sampler_v1",
+      "seed": 20261009,
+      "selection_mode": "seeded_random",
+      "source_group": "v184",
+      "start_frame": 64,
+      "video_id": "mp0/mp0_v184_000641_x264.mp4"
+    }
+  ],
+  "sidecar_config_hash": "ef73aea0b9cdd6656d8d017a90552b8737207fd7ee58a925b7d0dca45e5f9e20",
+  "sidecar_run_identity": "19372422e554779a09d54ca93e4927bf91d5665af5e6c127904727d4b5edc02a",
+  "smoke_manifest": [
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v115",
+      "split": "train",
+      "video_id": "2p0/2p0_v115_003225_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v116",
+      "split": "train",
+      "video_id": "2p0/2p0_v116_012904_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v128",
+      "split": "train",
+      "video_id": "2p0/2p0_v128_002950_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v174",
+      "split": "train",
+      "video_id": "2p0/2p0_v174_000256_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v150",
+      "split": "train",
+      "video_id": "2p1/2p1_v150_000903_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v163",
+      "split": "train",
+      "video_id": "2p1/2p1_v163_001335_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v175",
+      "split": "train",
+      "video_id": "2p1/2p1_v175_005517_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v108",
+      "split": "train",
+      "video_id": "3p0/3p0_v108_003858_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v120",
+      "split": "train",
+      "video_id": "3p1/3p1_v120_004108_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v122",
+      "split": "train",
+      "video_id": "3p1/3p1_v122_012723_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v127",
+      "split": "train",
+      "video_id": "ft0/ft0_v127_002040_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v159",
+      "split": "train",
+      "video_id": "ft0/ft0_v159_011506_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "fallback",
+      "selection_seed": 20261009,
+      "source_group": "v160_v166",
+      "split": "train",
+      "video_id": "ft0/ft0_v166_002702_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "145",
+      "label": "Miss",
+      "quality_category": "fallback",
+      "selection_seed": 20261009,
+      "source_group": "v181",
+      "split": "train",
+      "video_id": "ft0/ft0_v181_002018_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Make",
+      "quality_category": "fallback",
+      "selection_seed": 20261009,
+      "source_group": "v111",
+      "split": "train",
+      "video_id": "ft1/ft1_v111_005842_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/100",
+      "frame_count": "180",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v131",
+      "split": "train",
+      "video_id": "ft1/ft1_v131_001017_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "fallback",
+      "selection_seed": 20261009,
+      "source_group": "v133",
+      "split": "train",
+      "video_id": "ft1/ft1_v133_011206_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "unaffected",
+      "selection_seed": 20261009,
+      "source_group": "v155",
+      "split": "train",
+      "video_id": "ft1/ft1_v155_011026_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Make",
+      "quality_category": "fallback",
+      "selection_seed": 20261009,
+      "source_group": "v169",
+      "split": "train",
+      "video_id": "ft1/ft1_v169_004222_x264.mp4"
+    },
+    {
+      "fps_rational": "2997/125",
+      "frame_count": "146",
+      "label": "Miss",
+      "quality_category": "affected_clean",
+      "selection_seed": 20261009,
+      "source_group": "v184",
+      "split": "train",
+      "video_id": "mp0/mp0_v184_000641_x264.mp4"
+    }
+  ],
+  "smoke_manifest_sha256": "68a349645f92d89c400ba0e49e9a10e375e96ec4b9e568de1c8d263963cc3c04",
+  "summary": {
+    "candidate_free_clips": 15,
+    "clean_window_availability": {
+      "16": 20,
+      "32": 20,
+      "64": 15
+    },
+    "clip_length": 64,
+    "clips": 20,
+    "epoch": 0,
+    "fallback_clips": 5,
+    "fallback_videos": 5,
+    "groups": {
+      "fps_rational": {
+        "2997/100": {
+          "candidate_overlap": 5,
+          "clips": 6,
+          "fallback": 1,
+          "videos": 6
+        },
+        "2997/125": {
+          "candidate_overlap": 15,
+          "clips": 14,
+          "fallback": 4,
+          "videos": 14
+        }
+      },
+      "label": {
+        "Make": {
+          "candidate_overlap": 11,
+          "clips": 10,
+          "fallback": 3,
+          "videos": 10
+        },
+        "Miss": {
+          "candidate_overlap": 9,
+          "clips": 10,
+          "fallback": 2,
+          "videos": 10
+        }
+      },
+      "source_group": {
+        "v108": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v111": {
+          "candidate_overlap": 5,
+          "clips": 1,
+          "fallback": 1,
+          "videos": 1
+        },
+        "v115": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v116": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v120": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v122": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v127": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v128": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v131": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v133": {
+          "candidate_overlap": 5,
+          "clips": 1,
+          "fallback": 1,
+          "videos": 1
+        },
+        "v150": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v155": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v159": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v160_v166": {
+          "candidate_overlap": 1,
+          "clips": 1,
+          "fallback": 1,
+          "videos": 1
+        },
+        "v163": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v169": {
+          "candidate_overlap": 1,
+          "clips": 1,
+          "fallback": 1,
+          "videos": 1
+        },
+        "v174": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v175": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        },
+        "v181": {
+          "candidate_overlap": 8,
+          "clips": 1,
+          "fallback": 1,
+          "videos": 1
+        },
+        "v184": {
+          "candidate_overlap": 0,
+          "clips": 1,
+          "fallback": 0,
+          "videos": 1
+        }
+      }
+    },
+    "num_clips_per_video": 1,
+    "policy_version": "quality_aware_sampler_v1",
+    "schema_version": "basketball.quality-aware-sampler-audit.v1",
+    "seed": 20261009,
+    "total_candidate_overlap": 20,
+    "video_access": {
+      "decodes": 0,
+      "opens": 0,
+      "probes": 0,
+      "test": 0,
+      "validation": 0
+    },
+    "videos": 20
+  },
+  "timelines": "## 2p0/2p0_v115_003225_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                  ███                                          █████████ \nSelected:                              [──────────────────────────────]             \nOverlap: 0\nFallback: false\n\n## 2p0/2p0_v116_012904_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates:                                                                      ███\nSelected:                               [─────────────────────────]                 \nOverlap: 0\nFallback: false\n\n## 2p0/2p0_v128_002950_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                    █████\nSelected:                   [──────────────────────────────]                        \nOverlap: 0\nFallback: false\n\n## 2p0/2p0_v174_000256_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                  ███████\nSelected:                                   [──────────────────────────────]        \nOverlap: 0\nFallback: false\n\n## 2p1/2p1_v150_000903_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                         \nSelected:                                   [──────────────────────────────]        \nOverlap: 0\nFallback: false\n\n## 2p1/2p1_v163_001335_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                         \nSelected:   [──────────────────────────────]                                        \nOverlap: 0\nFallback: false\n\n## 2p1/2p1_v175_005517_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates:                                                                         \nSelected:                                     [────────────────────────]            \nOverlap: 0\nFallback: false\n\n## 3p0/3p0_v108_003858_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates: ████                                                                    \nSelected:                                         [──────────────────────────────]  \nOverlap: 0\nFallback: false\n\n## 3p1/3p1_v120_004108_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                         \nSelected:                                     [──────────────────────────────]      \nOverlap: 0\nFallback: false\n\n## 3p1/3p1_v122_012723_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                         \nSelected:         [──────────────────────────────]                                  \nOverlap: 0\nFallback: false\n\n## ft0/ft0_v127_002040_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates: ███                                                             ████████\nSelected:                         [─────────────────────────]                       \nOverlap: 0\nFallback: false\n\n## ft0/ft0_v159_011506_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates:             ███                       █████                             \nSelected:                                                [────────────────────────] \nOverlap: 0\nFallback: false\n\n## ft0/ft0_v166_002702_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                ██████████                 ██████        \nSelected:   [──────────────────────────────]                                        \nOverlap: 1\nFallback: true\n\n## ft0/ft0_v181_002018_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────145\nCandidates:     ███████               ████████                            ██████    \nSelected:                                   [──────────────────────────────]        \nOverlap: 8\nFallback: true\n\n## ft1/ft1_v111_005842_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates:                      ██               █████████                 ████████\nSelected:           [─────────────────────────]                                     \nOverlap: 5\nFallback: true\n\n## ft1/ft1_v131_001017_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────180\nCandidates:                                                                         \nSelected:                      [────────────────────────]                           \nOverlap: 0\nFallback: false\n\n## ft1/ft1_v133_011206_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                             ███   ██████                       █████████\nSelected:   [──────────────────────────────]                                        \nOverlap: 5\nFallback: true\n\n## ft1/ft1_v155_011026_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                         \nSelected:                             [──────────────────────────────]              \nOverlap: 0\nFallback: false\n\n## ft1/ft1_v169_004222_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:         █████                        ████                               \nSelected:                                           [──────────────────────────────]\nOverlap: 1\nFallback: true\n\n## mp0/mp0_v184_000641_x264.mp4 clip 0\nFrames:     0──────────────────────────────────────────────────────────────146\nCandidates:                                                                      ███\nSelected:                                  [──────────────────────────────]         \nOverlap: 0\nFallback: false\n"
+}

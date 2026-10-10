@@ -1,0 +1,12 @@
+policy_version: quality_aware_sampler_v1
+quality_source: blur_screening_v3_1
+clip_length: 64
+num_clips_per_video: 1
+candidate_margin_frames: 0
+primary_rule: zero_candidate_overlap
+fallback_rule: minimum_candidate_overlap
+train_selection: seeded_random
+global_seed: 20261009
+validation_quality_mode: disabled
+# No validation/test quality sidecar exists. Applying quality-aware selection to
+# held-out data requires a separately designed and frozen policy.

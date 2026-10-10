@@ -1,0 +1,63 @@
+{
+  "config": {
+    "path": "development/data_quality/configs/blur_train_v3.yaml",
+    "sha256": "ef73aea0b9cdd6656d8d017a90552b8737207fd7ee58a925b7d0dca45e5f9e20"
+  },
+  "coverage": {
+    "affected_videos": 1698,
+    "candidate_frames": 18390,
+    "candidate_segments": 1798,
+    "clean_window_availability": {
+      "16": 7193,
+      "32": 7193,
+      "64": 7188
+    },
+    "decoded_frames_from_source_metadata": 1105146,
+    "test_ids": 0,
+    "train_videos": 7193,
+    "unaffected_videos": 5495,
+    "validation_ids": 0
+  },
+  "csv_files": {
+    "blur_candidate_segments_v3_1.csv": {
+      "rows": 1798,
+      "sha256": "ddd295cc61c72d52e687addc40e3ef444791288497918868227042903cd10834"
+    },
+    "blur_video_summary_v3_1.csv": {
+      "rows": 7193,
+      "sha256": "68bb51486e71a45e8bb500e545ff4300b181eb25655bf19749c9a49d9430decf"
+    }
+  },
+  "export_timestamp": "2026-10-09T15:30:50.662151+00:00",
+  "export_timestamp_basis": "source_publication_finished_utc_for_reproducible_export",
+  "limitations": [
+    "Candidates are low-local-Laplacian flags, not confirmed blur or an exclusion list.",
+    "Local-z normalization may miss an entire video with persistently low quality.",
+    "The centered three-second scanner uses future frames and is offline-only.",
+    "No validation/test quality sidecar exists; quality-aware selection is train-only.",
+    "The export reads scanner metadata only and performs no video access."
+  ],
+  "manifest": {
+    "path": "data/processed/dataset_manifest.csv",
+    "sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6"
+  },
+  "policy_version": "blur_screening_v3_1",
+  "publisher_commit": "f9989c07c3148aad3c053bcfcccbba2087811743",
+  "quality_source": "blur_screening_v3_1",
+  "run_identity": "19372422e554779a09d54ca93e4927bf91d5665af5e6c127904727d4b5edc02a",
+  "scanner_commit": "f9989c07c3148aad3c053bcfcccbba2087811743",
+  "schema_version": "basketball.blur-quality-sidecar.v3.1",
+  "seed": 20261009,
+  "source_full_json": {
+    "path": "development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.json",
+    "sha256": "f4e0388b99800168458660acef84c4fb6139bb4b2f54fe4ea97abd8c39416a89"
+  },
+  "source_report": {
+    "path": "development/data_quality/artifacts/blur_train_v3_full_train_publication/blur_screening_full_train_v3_1.md",
+    "sha256": "b1338f51a7cf36dec71064bf9fd15528d9495ca747fcff6966d0d0e1296ac067"
+  },
+  "verification": {
+    "path": "development/data_quality/artifacts/blur_train_v3_full_train_runtime/verification-v3.1.json",
+    "sha256": "293480878871e2af5cd4d393ec6bbd87758dcabb2acf9d4b3a95a57545be0d1a"
+  }
+}

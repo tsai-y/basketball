@@ -448,3 +448,25 @@ Scanner 可進入主機全量候選掃描準備；操作者仍須完成 runbook 
 - 既有 smoke 核心值保持 20 支、3,055 幀、54 candidate frames、1.7676%、5 candidate segments、0 decode failure；沒有重新開啟或 decode 影片。
 - 更新 Ubuntu/tmux runbook 為 dry-run → scan → resume → retry → rebuild → verify COMPLETE → ignored runtime publish → Markdown/JSON/hash 核對的實際命令。
 - 本輪未執行 smoke/full-train scanner、未開啟影片、未更改 v2/v3 偵測參數、未修改資料或 A1/A2/B/C，亦未 git add/commit/push。
+
+## 2026-10-10 — Quality-aware Clip Sampler v1
+
+### Sidecar 與 provenance
+
+由 v3.1 `COMPLETE` full-train scanner metadata 匯出精簡 tracked sidecar；沒有讀取影片。Candidate segment CSV 共 1,798 列／18,390 candidate frames，video summary 共 7,193 列，ID 集合精確等於固定 train、validation/test ID 為 0。1,105,146 source frames、1,698 affected、5,495 unaffected；16/32/64 zero-overlap availability 獨立重算為 7,193／7,193／7,188。
+
+Metadata JSON 記錄來源 Markdown/full JSON/verification/config/manifest SHA-256、scanner/publisher commit `f9989c0`、run identity `19372422e554779a09d54ca93e4927bf91d5665af5e6c127904727d4b5edc02a`、seed 與 CSV hashes；tracked sidecar 不含本機絕對路徑。Exporter 從 ignored runtime artifacts 重生並以 `--check-only` byte-for-byte 通過；5.3 MB source/verification JSON 未加入 Git。
+
+### Sampler 與 smoke
+
+新增 train-only `quality_aware_sampler_v1`：列舉合法連續 `[start,start+clip_length)`，優先 cost=0；沒有乾淨窗口時只從 minimum candidate-overlap starts 選擇並記錄 fallback/reason/overlap。SHA-256 seed material 包含 global seed、video ID、epoch、clip index、policy version 與 start；不使用 Python `hash()`。多 clip 優先 unique start 並最大化時間距離，candidate margin v1 固定為 0；越界、非法／重疊 segments 與 clip 長於影片均 fail closed。
+
+全 7,193 支、64-frame、epoch 0 audit：7,188 candidate-free clips、5 fallback videos/clips，fallback overlap 分別 1、8、5、5、1，合計 20 frames。固定 20 支 smoke 為 Make/Miss 各 10、20 sources，含 8 affected-clean、7 unaffected、全部 5 fallback；15 clips overlap=0，smoke fallback overlap 合計同為 20。Tracked smoke manifest、JSON、Markdown/timeline 由 publisher 重生核對一致；timeline 僅由 frame index 生成。
+
+### 驗證與邊界
+
+Canonical `yolo11` 環境的全部 data-quality tests 為 65/65 PASS，其中新 sampler 21 tests 涵蓋需求的 20 類 edge/safety cases。Python syntax/import、CLI help/dry-run、export/publish check-only、sidecar coverage/totals、16/32/64 availability、完整 selection overlap 獨立重算、smoke 重現、CSV/JSON/Markdown、tracked absolute-path、Markdown links 與 `git diff --check` 均通過。
+
+Full metadata dry-run 的獨立 strace 位於 ignored `development/data_quality/artifacts/quality_aware_sampler_v1/syscalls-dry-run.log`，SHA-256 `3d8e7053b2dffe5b9ffa7072150ea84068346839c8265275b7d847fbacce1088`；122 行 syscall 中 dataset/archive/`.mp4` path matches=0，ffprobe/ffmpeg/cv2/VideoCapture matches=0，唯一 exec 為 Python audit CLI。因此 video opens/probes/decodes=0，validation/test video access=0。
+
+沒有修改原始影片、label、manifest、split、v2/v3 門檻或 frozen baseline；沒有刪格、拼接、augmentation、I3D/YOLO、訓練或評估。下一輪 I3D DataLoader 可依 `video_id` 查 sidecar、呼叫 sampler 取得連續 `[start,end)`，再由既有 decoder 載入並傳遞 fallback/overlap metadata；本輪到此停止。沒有 git add、commit 或 push。
