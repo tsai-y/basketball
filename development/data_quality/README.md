@@ -1,117 +1,156 @@
-# Basketball-51 Data Quality：組員唯一技術入口
+# Basketball-51 資料品質技術使用入口
 
-本頁統一 v1／v2／v3 的定位、研究連結與主機執行入口。目前研究仍為 full-video Make/Miss classification；A1/A2/B/C frozen，Gate 1C／原 Experiment D paused。
+本頁是 `development/data_quality/` 的技術導覽；研究脈絡、一般組員閱讀順序與完整中文產物表見[資料品質研究產物中文索引](../../docs/data_quality/README.md)。
 
-| 版本 | 用途 | 狀態 | 可否正式使用 | 主要入口 |
-| --- | --- | --- | --- | --- |
-| v1 | 絕對清晰度探索 | Complete | 不可作刪除規則 | [v1 報告](../../docs/data_quality/blur_screening_pilot_v1.md) |
-| v2 | 合成模糊與時間校準 | Complete | 提供 v3 凍結參數 | [v2 報告](../../docs/data_quality/blur_screening_pilot_v2.md) |
-| v3／v3.1 | 完整 train 候選掃描器與 publisher | Scanner／publisher complete | 可於主機執行 scan → verify → publish | [v3 runbook](runbooks/blur_train_v3_tmux.md) |
+目前完成狀態：
 
-**v1、v2 是研究證據與歷史重現文件，不是正式執行入口；v3 是完整 train scanner。** 完整 train v3.1 掃描與 publication 已於 2026-10-09 驗證為 `COMPLETE`；這不表示資料已清理。
+- 模糊候選探索 v1：**完成，只供歷史理解**。
+- 模糊指標校準 v2：**完成，提供 v3 凍結參數**。
+- 完整 train 品質掃描 v3/v3.1：**完成**。
+- Quality-aware Clip Sampler v1：**完成**。
+- 影像增強、I3D 特徵擷取、YOLO 特徵／ROI、多模型融合：**尚未開始**。
 
-v3 只產生 candidate flags；**candidate 不等於確認模糊，也不是排除名單**，未標記也不等於清晰。原始影片保持不變，不刪格、拼接、重編碼或刪除 candidate 資料。validation/test 影片不得存取、probe 或 decode；固定 manifest 中的 split 字串只供身分與 denylist 核對。完整掃描由組員依 runbook 在 **Ubuntu／tmux** 執行。
+本輪只整理文件。下列入口不代表需要重跑：沒有執行影片解碼、掃描、訓練或評估，也沒有存取 validation/test 影片。A1/A2/B/C、設定、sidecar、研究數值與歷史 artifacts 均維持原狀。
 
-## 閱讀與研究證據
+## 技術使用原則
 
-建議依序讀 [研究索引](../../docs/data_quality/README.md) → [v3 方法](../../docs/data_quality/blur_screening_method_v3.md) → [v3 smoke 報告](../../docs/data_quality/blur_screening_smoke_v3.md) → [v3 tmux runbook](runbooks/blur_train_v3_tmux.md)，需要背景時再讀 v1／v2。
+- 所有相對路徑都以 repository root `/home/tsai/projects/basketball` 為基準。
+- v1／v2 是歷史研究與稽核入口，不是新一輪正式掃描入口。
+- v3/v3.1 的 scan／resume／verify／publish 細節只以 [tmux runbook](runbooks/blur_train_v3_tmux.md) 與 [publisher contract](../../docs/data_quality/blur_screening_publisher_v3_1.md) 為準。
+- Sidecar 是 train-only、tracked、machine-readable 介面，不得手工改值；validation/test quality mode disabled。
+- `candidate` 不是確認模糊、排除名單或刪除授權；原始影片保持不變。
+- `artifacts/` 與 `__pycache__/` 是 ignored 本機產物，不得加入 Git。
 
-| 版本 | 方法 | Markdown 報告 | JSON | 設定與樣本 |
-| --- | --- | --- | --- | --- |
-| v1 | [方法](../../docs/data_quality/blur_screening_method_v1.md) | [Pilot](../../docs/data_quality/blur_screening_pilot_v1.md) | [JSON](../../docs/data_quality/blur_screening_pilot_v1.json) | [config](configs/blur_pilot_v1.yaml)、[manifest](pilot_manifest_v1.csv) |
-| v2 | [方法](../../docs/data_quality/blur_screening_method_v2.md) | [Pilot](../../docs/data_quality/blur_screening_pilot_v2.md) | [JSON](../../docs/data_quality/blur_screening_pilot_v2.json) | [config](configs/blur_pilot_v2.yaml)、[manifest](pilot_manifest_v2.csv)、[來源庫存](source_inventory_v2.csv)、[歷史重現](README_v2.md) |
-| v3 | [方法](../../docs/data_quality/blur_screening_method_v3.md) | [Smoke](../../docs/data_quality/blur_screening_smoke_v3.md) | [JSON](../../docs/data_quality/blur_screening_smoke_v3.json) | [config](configs/blur_train_v3.yaml)、[smoke manifest](smoke_manifest_v3.csv)、[runbook](runbooks/blur_train_v3_tmux.md) |
+## 指標探索與校準
 
-方法與報告中的「本輪／尚未提交／尚未執行」保留原交付時點的語境；目前操作流程以本頁及 runbook 為準，歷史數值不重寫。[進度紀錄](../../docs/progress_log.md) 追加各輪查核。
+### v1：模糊候選探索
 
-## v3 主機執行流程
+狀態為完成，只供歷史理解。v1 回答全畫面清晰度指標與候選分布問題，不能直接制定刪除門檻。
 
-v3 原封沿用 v2 凍結規則：primary 為 Laplacian local z ≤ −2.0，log-score 中心 3 秒 median/MAD，scale floor 0.05、log floor 1e-12，minimum duration 0.16 秒。Tenengrad 僅診斷，不加 AND/OR；16/32/64 windows 僅為資訊。中心窗是離線篩檢，正式清理政策尚未制定。
+| 中文入口 | 英文檔名 | 技術用途 |
+| --- | --- | --- |
+| v1 方法 | [`blur_screening_method_v1.md`](../../docs/data_quality/blur_screening_method_v1.md) | 指標、取樣、防護與限制 |
+| v1 報告／JSON | [`blur_screening_pilot_v1.md`](../../docs/data_quality/blur_screening_pilot_v1.md)／[`blur_screening_pilot_v1.json`](../../docs/data_quality/blur_screening_pilot_v1.json) | 人讀報告與結構化證據 |
+| v1 設定 | [`configs/blur_pilot_v1.yaml`](configs/blur_pilot_v1.yaml) | 凍結的取樣、指標與門檻契約 |
+| v1 樣本清單 | [`pilot_manifest_v1.csv`](pilot_manifest_v1.csv) | 30 支 train pilot 選樣 |
+| v1 執行器 | [`scripts/audit_blur_pilot.py`](scripts/audit_blur_pilot.py) | 歷史 train-only pilot 重現 |
+| v1 驗證器 | [`scripts/verify_blur_pilot.py`](scripts/verify_blur_pilot.py) | 僅以 derived CSV／JSON 檢查一致性 |
 
-正式 scan、resume、retry、rebuild、verify 命令集中在 [Ubuntu／tmux runbook](runbooks/blur_train_v3_tmux.md)，執行前完成其中 checklist。由 repository root 可先執行下列零影片存取檢查：
+### v2：模糊指標校準
 
-```bash
-/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/audit_blur_train_v3.py --help
-/home/tsai/miniconda3/envs/yolo11/bin/python -B development/data_quality/scripts/audit_blur_train_v3.py \
-  --config development/data_quality/configs/blur_train_v3.yaml \
-  --manifest data/processed/dataset_manifest.csv \
-  --output-dir development/data_quality/artifacts/blur_train_v3_full_train \
-  --scope full-train --confirm-full-train --seed 20261009 --dry-run
-```
+狀態為完成，提供 v3 凍結參數。v2 的 calibration／verification 都是 train 內部研究子集，不是資料集 validation/test split。
 
-`--dry-run` 只讀 metadata／凍結證據，不 stat/open/probe/decode 影片，也不建立 run；預期 `DRY_RUN_PASS`、`selected: 7193`、opens/probes/decodes 全為 0。它會在 output 檢查之前返回，故不能代替輸出目錄與有效 resume 的確認。不可省略 `--dry-run` 來做文件驗證。
+| 中文入口 | 英文檔名 | 技術用途 |
+| --- | --- | --- |
+| v2 方法 | [`blur_screening_method_v2.md`](../../docs/data_quality/blur_screening_method_v2.md) | 合成模糊、來源分離與門檻凍結 |
+| v2 報告／JSON | [`blur_screening_pilot_v2.md`](../../docs/data_quality/blur_screening_pilot_v2.md)／[`blur_screening_pilot_v2.json`](../../docs/data_quality/blur_screening_pilot_v2.json) | 人讀報告與結構化證據 |
+| v2 歷史重現 | [`README_v2.md`](README_v2.md) | 保存當時命令與交付語境 |
+| v2 設定 | [`configs/blur_pilot_v2.yaml`](configs/blur_pilot_v2.yaml) | 凍結的合成與 temporal calibration 契約 |
+| v2 樣本／來源 | [`pilot_manifest_v2.csv`](pilot_manifest_v2.csv)／[`source_inventory_v2.csv`](source_inventory_v2.csv) | 48 支 train 選樣與來源覆蓋 |
+| v2 執行器 | [`scripts/audit_blur_pilot_v2.py`](scripts/audit_blur_pilot_v2.py) | paired synthetic calibration |
+| v2 分析器 | [`scripts/analyze_blur_pilot_v2.py`](scripts/analyze_blur_pilot_v2.py) | derived scores 與 calibration-only fitting |
+| v2 驗證器 | [`scripts/verify_blur_pilot_v2.py`](scripts/verify_blur_pilot_v2.py) | derived artifacts 與 syscall 證據 |
+| v2 發布器 | [`scripts/publish_blur_pilot_v2.py`](scripts/publish_blur_pilot_v2.py) | 從已驗證產物建立新報告／manifest |
 
-正式輸出為 ignored 的 `development/data_quality/artifacts/blur_train_v3_full_train/`，runtime logs 另存相鄰 `blur_train_v3_full_train_runtime/`。不放進原始資料、baseline、歷史 runs 或既有 v1/v2/smoke 目錄。每影片 immutable attempts；`--resume` 跳過有效完成項，`--resume --retry-failures` 才重試失敗／partial，`--resume --rebuild-summary` 只重建 derived aggregate，舊產物保留。
+## 完整品質掃描
 
-v3.1 [publisher](scripts/publish_blur_train_v3.py) 同時支援固定 smoke 與 full train，會精確比較 manifest/selection/completion/attempt/ledger/aggregate ID 集合、驗證 artifact hashes、逐影片串流重建 aggregate，並從同一份 summary 產生 Markdown／JSON。正式 full-train 預設 `--require-complete`；`PARTIAL`／`COMPLETE_WITH_FAILURES` 不會冒充完整，`INVALID` 永遠拒絕發表，既有輸出也拒絕覆寫。完整命令及 ignored runtime 報告路徑見 [runbook](runbooks/blur_train_v3_tmux.md)。本機完整結果為 7,193/7,193 成功、18,390 candidate frames、1,798 segments、0 failure。
+完整 train 品質掃描 v3/v3.1 已完成；scanner、verifier、publisher 與完整 train publication 都有既有產物。本區只提供維護入口，不要求重新執行。
 
-## Quality-aware Clip Sampler v1（train-only）
+| 中文入口 | 英文檔名 | 技術用途 |
+| --- | --- | --- |
+| v3 方法 | [`blur_screening_method_v3.md`](../../docs/data_quality/blur_screening_method_v3.md) | train-only scanner、immutable attempt、resume／retry 契約 |
+| v3 smoke 報告／JSON | [`blur_screening_smoke_v3.md`](../../docs/data_quality/blur_screening_smoke_v3.md)／[`blur_screening_smoke_v3.json`](../../docs/data_quality/blur_screening_smoke_v3.json) | 固定 20 支工程驗證 |
+| v3.1 publisher contract | [`blur_screening_publisher_v3_1.md`](../../docs/data_quality/blur_screening_publisher_v3_1.md) | 完整度狀態、schema 與 fail-closed 規則 |
+| v3 設定 | [`configs/blur_train_v3.yaml`](configs/blur_train_v3.yaml) | v2 凍結規則與 evidence hashes |
+| v3 smoke 清單 | [`smoke_manifest_v3.csv`](smoke_manifest_v3.csv) | 固定 20 支 train smoke 選樣 |
+| v3/v3.1 掃描器 | [`scripts/audit_blur_train_v3.py`](scripts/audit_blur_train_v3.py) | scan、resume、retry、derived aggregate rebuild |
+| v3 驗證器 | [`scripts/verify_blur_train_v3.py`](scripts/verify_blur_train_v3.py) | 不開影片驗證 smoke／full-train derived outputs |
+| v3.1 發布器 | [`scripts/publish_blur_train_v3.py`](scripts/publish_blur_train_v3.py) | fail-closed 驗證及 Markdown／JSON publication |
+| 主機操作手冊 | [`runbooks/blur_train_v3_tmux.md`](runbooks/blur_train_v3_tmux.md) | Ubuntu／tmux checklist 與正式命令 |
 
-完整 v3.1 metadata 已匯出為 tracked compact [sidecars](sidecars/)，並由 [quality-aware sampler 方法](../../docs/data_quality/quality_aware_clip_sampler_v1.md) 接到連續 clip start 選擇。64-frame 全 train audit 有 7,188 支零 overlap、5 支 minimum-overlap fallback；16/32/64 clean availability 為 7,193／7,193／7,188。固定 [20 支 smoke manifest](smoke_manifest_quality_sampler_v1.csv) 與 [報告](../../docs/data_quality/quality_aware_clip_sampler_smoke_v1.md) 已完成。
+全量既有結果為 7,193/7,193 成功、1,105,146 frames、18,390 candidate frames、1,798 segments、1,698 affected、5,495 unaffected、0 failure；這些數值只引用既有報告，本輪沒有重算或修改。
 
-```bash
-python3 -B development/data_quality/scripts/export_blur_quality_sidecar_v3_1.py --check-only
-python3 -B development/data_quality/scripts/audit_quality_aware_sampler_v1.py --dry-run
-python3 -B development/data_quality/scripts/publish_quality_aware_sampler_smoke_v1.py --check-only
-python3 -B -m unittest development/data_quality/tests/test_quality_aware_clip_sampler_v1.py
-```
+## Sidecar
 
-所有入口只讀 manifest/sidecar/scanner metadata；validation/test quality mode disabled。Sampler 回傳原影片中連續半開 `[start,end)`，不刪格、不拼接。Ignored runtime output 為 `development/data_quality/artifacts/quality_aware_sampler_v1/`；本輪未做 augmentation、I3D/YOLO、訓練或評估。
+Sidecar 是 v3.1 完整掃描到 sampler v1 的唯一精簡介面。三份檔案都已 tracked，內容由匯出器產生，不應手工維護。
 
-## v1 歷史重現文件（非正式入口）
+| 中文入口 | 英文檔名 | 技術用途 |
+| --- | --- | --- |
+| Sidecar 中繼資料 | [`sidecars/blur_quality_sidecar_v3_1.json`](sidecars/blur_quality_sidecar_v3_1.json) | policy、來源、hash、schema 與統計 |
+| 每影片品質摘要 | [`sidecars/blur_video_summary_v3_1.csv`](sidecars/blur_video_summary_v3_1.csv) | train 每影片 frame count、候選與 clean-window 摘要 |
+| 候選區段表 | [`sidecars/blur_candidate_segments_v3_1.csv`](sidecars/blur_candidate_segments_v3_1.csv) | 半開 frame／timestamp candidate segments |
+| Sidecar 匯出器 | [`scripts/export_blur_quality_sidecar_v3_1.py`](scripts/export_blur_quality_sidecar_v3_1.py) | 從 verified v3.1 metadata 匯出／check compact sidecars |
+| 使用契約 | [`quality_aware_clip_sampler_v1.md`](../../docs/data_quality/quality_aware_clip_sampler_v1.md) | schema、防護與 sampler 整合規則 |
 
-以下原文保留 v1 當時的重現命令與結果語境，不是本輪要執行的步驟。v2 歷史重現另見 [README_v2.md](README_v2.md)，不重新命名或搬移。
+validation/test 沒有品質 sidecar，不得以缺少 sidecar 為由讀取或建立 held-out 品質資料。
 
----
+## 品質感知取樣
 
-# 自動品質篩檢 — train-only Pilot v1
+Quality-aware Clip Sampler v1 已完成。它從原影片選擇連續半開 `[start, end)` clip，不刪格、不拼接；優先 zero candidate overlap，無可行窗口時才使用可追蹤 minimum-overlap fallback。
 
-Pilot v1 已完成 30 支 train 影片、4,617 幀自動評分與候選影響分析。**這不是正式清理**：沒有排除影片、刪格、拼接或生成清理後影片；原始資料、固定 manifest/split、baseline 與歷史 runs 保持不變。沒有開始影像增強、特徵擷取、融合、訓練或評估。
+| 中文入口 | 英文檔名 | 技術用途 |
+| --- | --- | --- |
+| 方法與契約 | [`quality_aware_clip_sampler_v1.md`](../../docs/data_quality/quality_aware_clip_sampler_v1.md) | 演算法、sidecar 契約與 train-only 邊界 |
+| Sampler package | [`samplers/__init__.py`](samplers/__init__.py) | metadata-only package 入口 |
+| Clip 選擇器 | [`samplers/quality_aware_clip_sampler.py`](samplers/quality_aware_clip_sampler.py) | deterministic continuous clip selection |
+| Sampler 設定 | [`configs/quality_aware_sampler_v1.yaml`](configs/quality_aware_sampler_v1.yaml) | clip length、seed、zero-overlap、fallback |
+| Sampler audit | [`scripts/audit_quality_aware_sampler_v1.py`](scripts/audit_quality_aware_sampler_v1.py) | 讀取 sidecar 的 train-only metadata audit |
+| Smoke 發布器 | [`scripts/publish_quality_aware_sampler_smoke_v1.py`](scripts/publish_quality_aware_sampler_smoke_v1.py) | 固定 20 支 smoke 報告發布 |
+| Smoke 清單 | [`smoke_manifest_quality_sampler_v1.csv`](smoke_manifest_quality_sampler_v1.csv) | 固定 metadata-only smoke 選樣 |
+| Smoke 報告／JSON | [`quality_aware_clip_sampler_smoke_v1.md`](../../docs/data_quality/quality_aware_clip_sampler_smoke_v1.md)／[`quality_aware_clip_sampler_smoke_v1.json`](../../docs/data_quality/quality_aware_clip_sampler_smoke_v1.json) | 人讀與結構化 smoke evidence |
 
-- [方法及限制](../../docs/data_quality/blur_screening_method_v1.md)
-- [Pilot 報告](../../docs/data_quality/blur_screening_pilot_v1.md)／[JSON](../../docs/data_quality/blur_screening_pilot_v1.json)
-- [Pilot manifest](pilot_manifest_v1.csv)：以既有 video ID 關聯，不取代原始 manifest。
-- [設定](configs/blur_pilot_v1.yaml)：取樣 seed、兩指標契約、P10、平滑與持續時間、contact sheet 規則。
+## 設定
 
-## 從 repository root 執行
+| 階段 | 設定檔 | 狀態 | 維護規則 |
+| --- | --- | --- | --- |
+| v1 指標探索 | [`configs/blur_pilot_v1.yaml`](configs/blur_pilot_v1.yaml) | 已凍結／歷史 | 不為索引整理改值 |
+| v2 指標校準 | [`configs/blur_pilot_v2.yaml`](configs/blur_pilot_v2.yaml) | 已凍結／歷史 | 提供 v3 參數依據 |
+| v3/v3.1 完整掃描 | [`configs/blur_train_v3.yaml`](configs/blur_train_v3.yaml) | 已凍結 | 受 frozen evidence hashes 約束 |
+| Sampler v1 | [`configs/quality_aware_sampler_v1.yaml`](configs/quality_aware_sampler_v1.yaml) | 已凍結 | validation quality mode disabled |
 
-使用現有 Conda `yolo11`；沒有新增套件。先查看說明與零影片存取的 dry-run：
+## 測試
 
-```bash
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_pilot.py --help
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_pilot.py --config development/data_quality/configs/blur_pilot_v1.yaml --dry-run --seed 20261008
-conda run --no-capture-output -n yolo11 python -B development/data_quality/tests/test_blur_pilot.py
-```
+這些測試的設計契約都是不讀取資料集影片；本輪文件整理沒有執行它們。
 
-重算評分會只開啟選定 train 影片。**本次已完成，不需再次執行**；以下保留可重現入口，預設目錄存在時直接拒絕：
+| 中文測試 | 英文檔名 | 覆蓋範圍 |
+| --- | --- | --- |
+| v1 安全性與決定性 | [`tests/test_blur_pilot.py`](tests/test_blur_pilot.py) | guard 與 deterministic selection |
+| v2 數值與來源分離 | [`tests/test_blur_pilot_v2.py`](tests/test_blur_pilot_v2.py) | numeric PSF、source separation、temporal regressions |
+| v3 掃描器 | [`tests/test_blur_train_v3.py`](tests/test_blur_train_v3.py) | 數學、access guard、atomic commit、recovery |
+| v3.1 發布器 | [`tests/test_blur_train_publisher_v3.py`](tests/test_blur_train_publisher_v3.py) | metadata fixture、完整度、fail-closed |
+| Sampler v1 | [`tests/test_quality_aware_clip_sampler_v1.py`](tests/test_quality_aware_clip_sampler_v1.py) | zero-overlap、fallback、seed、邊界 |
 
-```bash
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/audit_blur_pilot.py --config development/data_quality/configs/blur_pilot_v1.yaml --output-dir development/data_quality/artifacts/blur_pilot_v1 --seed 20261008
-```
+## Runbook
 
-`--output-dir` 必須是 ignored artifacts 下的新目錄，無 force/覆寫功能；需要另次重跑時用新的 run 名稱並保留舊輸出。`--check-video-id ID --check-video-path RELATIVE_PATH` 只驗證固定 train allowlist，未知、非 train ID/path 或兩者不相符皆 exit 2，無影片開啟。CLI 僅限 2–40 支的偶數 Pilot，不能以更改 sample_size 擴展完整 train。
+[`runbooks/blur_train_v3_tmux.md`](runbooks/blur_train_v3_tmux.md) 是唯一完整 train 主機操作手冊，包含：
 
-本次獨立 syscall trace 已保留。下列重算只讀 derived CSV/JSON/trace，不開啟資料集影片：
+- 執行前 frozen hashes、manifest 與 train-only checklist。
+- dry-run、scan、resume、retry、rebuild、verify、publish 命令。
+- ignored output、runtime log 與 publication 位置。
+- COMPLETE／PARTIAL／COMPLETE_WITH_FAILURES／INVALID 的處理方式。
 
-```bash
-conda run --no-capture-output -n yolo11 python -B development/data_quality/scripts/verify_blur_pilot.py --trace development/data_quality/artifacts/blur_pilot_v1/runtime_logs/syscalls.log
-```
+本輪不要依 runbook 啟動工作；它保留給未來需要稽核或在新目錄重現時使用。
 
-驗證器的 `--publish` 僅供本次首次建立 report/manifest，遇到既有檔即拒絕，不應當成更新歷史報告的指令。一般驗證不加 `--publish`。若另次重新評分並需要同等零存取證據，依方法文件用 `strace -f -qq -yy -e trace=openat,execve,rename,renameat,renameat2,unlink,unlinkat` 包住正式評分命令，將 trace 存在本機 ignored 目錄；某些 sandbox 需要允許 ptrace，未成功追蹤不能宣稱具備獨立 syscall 證據。
+## 本機 ignored artifacts
 
-## 產物
+`.gitignore` 排除整個 `development/data_quality/artifacts/`，也排除各 Python `__pycache__/`。以下為 2026-10-10 的目錄級盤點；完整說明與「是否可提交 Git」欄位見[中文主索引](../../docs/data_quality/README.md#本機-ignored-runtime-artifacts)。
 
-Tracked 候選檔包括 scripts、configs、tests、Pilot manifest 與 docs/data_quality 報告。沒有 git add/commit。
+| 目錄 | 階段 | 主要內容 | Git |
+| --- | --- | --- | --- |
+| `artifacts/blur_pilot_v1/` | v1 | frame scores、segments、contact sheets、runtime logs（53 檔） | ignored，不可提交 |
+| `artifacts/blur_pilot_v2/` | v2 | streams、analysis、runtime logs（78 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_smoke/` | v3 smoke | 20 支 attempts、ledger、aggregates（70 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_smoke_preflight_failed/` | v3 fixture | fail-closed preflight（2 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_smoke_recovery/` | v3 fixture | recovery／retry（75 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_smoke_repeat/` | v3 fixture | repeat／determinism（65 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_validation/` | v3 工程驗證 | logs、JSON、fixture（26 檔）；不是 dataset validation split | ignored，不可提交 |
+| `artifacts/blur_train_v3_full_train/` | v3/v3.1 full train | 7,193 組 attempts 與 aggregate（21,586 檔） | ignored，大型，不可提交 |
+| `artifacts/blur_train_v3_full_train_runtime/` | v3/v3.1 full train | scan／verify／publish logs（12 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_full_train_publication/` | v3.1 | Markdown／JSON publication（2 檔） | ignored，不可提交 |
+| `artifacts/blur_train_v3_publisher_validation/` | v3.1 工程驗證 | test／syscall logs（2 檔）；不是 dataset validation split | ignored，不可提交 |
+| `artifacts/quality_aware_sampler_v1/` | Sampler v1 | selections、summary、timelines、log（5 檔） | ignored，不可提交 |
+| `samplers/__pycache__/` | Sampler v1 | Python bytecode（1 檔） | ignored，不可提交 |
+| `scripts/__pycache__/` | 多階段 | Python bytecode（7 檔） | ignored，不可提交 |
+| `tests/__pycache__/` | 多階段 | Python bytecode（2 檔） | ignored，不可提交 |
 
-本機 ignored 根目錄：`development/data_quality/artifacts/blur_pilot_v1/`。
-
-| 位置 | 內容 |
-| --- | --- |
-| `frame_scores/` | 30 份逐影片 CSV，共 4,617 rows；位置、兩分數、decode status、四策略 flags/reasons |
-| `segments.csv` | 各策略所有候選及未標記區段起訖 frame/timestamp、幀數/秒數 |
-| `video_summary.json` | 影片低分比例、最長候選區段、未標記區段與 16/32/64 連續窗口摘要 |
-| `contact_sheets/` | 每指標低/中/高三組、每組三影片，共兩張 PNG/18 tiles；附 index.csv |
-| `runtime_logs/` | 設定、metadata、decode status、ledger、版本、syscall trace、CLI/統計/保護檔驗證 |
-| 根目錄 JSON/MD/CSV | 執行時原始報告與 Pilot manifest；tracked 報告另附驗證結果 |
-
-Gate 1A per-video cache 不存在，因此此次只 probe 30 支已選定 train；未掃描其他影片。Source group 不是已核實 game ID。兩指標只能反映全画面局部強度變化，候選旗標與 contact sheets 都不是人工模糊真值。完整 train 評分、正式清理政策及後續影像增強仍待另外決定；本次完成後停止。
+Ignored artifacts 是本機執行證據，不是缺少待補的 tracked 檔案；不得用 `git add -f` 納入版本控制。
