@@ -1,0 +1,41 @@
+[Unit]
+Description=Basketball-51 Discord project assistant
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=basketball-bot
+Group=basketball-bot
+WorkingDirectory=/home/tsai/projects/basketball/discord_project_assistant
+EnvironmentFile=/etc/basketball-project-bot.env
+ExecStart=/opt/basketball-project-bot-venv/bin/python -m project_assistant_bot
+Restart=on-failure
+RestartSec=5s
+StateDirectory=basketball-project-bot
+Environment=BOT_DATA_DIR=/var/lib/basketball-project-bot
+Environment=CODEX_HOME=/var/lib/basketball-project-bot/codex-home
+Environment=CODEX_BINARY=/usr/local/bin/codex
+Environment=AI_PROVIDER=codex
+Environment=CODEX_AUTH_MODE=chatgpt_login
+Environment=PROJECT_ROOT=/home/tsai/projects/basketball
+Environment=SOURCES_CONFIG=/home/tsai/projects/basketball/discord_project_assistant/config/project_sources.yaml
+ReadOnlyPaths=/home/tsai/projects/basketball
+ReadWritePaths=/var/lib/basketball-project-bot
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+# Bubblewrap needs AF_NETLINK to configure the isolated network namespace and
+# loopback device. The Codex permission profile still disables command network.
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target

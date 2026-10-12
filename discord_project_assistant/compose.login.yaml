@@ -1,0 +1,7 @@
+# One-off Linux override for the Codex browser OAuth callback.
+# The CLI listens on 127.0.0.1 inside its network namespace. Host networking
+# lets the browser callback reach it while reusing the normal /data volume.
+services:
+  project-assistant-bot:
+    network_mode: host
+

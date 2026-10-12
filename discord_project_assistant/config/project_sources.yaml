@@ -1,0 +1,42 @@
+version: 1
+
+# Only these repository files can enter the local index. Runtime code rejects
+# symlinks, traversal, secret-like names/content, binary data, and oversized files.
+allow:
+  exact:
+    - README.md
+    - baseline/README.md
+    - development/README.md
+    - development/data_quality/README.md
+    - docs/current_research_direction.md
+    - docs/progress_log.md
+    - docs/research_baseline_v1.3.md
+    - docs/formal_test_evaluation_protocol.md
+    - docs/baseline_results.md
+    - docs/repository_map.md
+    - docs/dataset_analysis.md
+    - docs/dataset_summary.json
+    - baseline/data.py
+    - baseline/model.py
+    - reference_c3d/aggregate.py
+    - reference_c3d/data.py
+    - reference_c3d/model.py
+    - experiment_c/aggregate.py
+    - experiment_c/model.py
+  globs:
+    - docs/*.md
+    - docs/data_quality/*.md
+    - development/data_quality/configs/*.yaml
+    - development/data_quality/samplers/*.py
+    - development/data_quality/transforms/*.py
+    - runs/full_video_c3d_*/test_metrics.json
+    - runs/full_video_c3d_*/training_status.json
+
+# Operational documentation and templates must not be mistaken for research facts.
+deny:
+  - discord_project_assistant/**
+
+limits:
+  max_file_bytes: 1000000
+  max_total_bytes: 12000000
+  max_files: 250
