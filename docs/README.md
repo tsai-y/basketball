@@ -8,6 +8,8 @@
 
 先讀 [目前研究方向](current_research_direction.md)、[repository map](repository_map.md) 與 [整理紀錄](reorganization_log.md)。目前優先規劃 full-video 自動品質篩檢與影像增強；A1/A2/B/C frozen，Gate 1A／1B completed，Gate 1C 與原 Experiment D paused。以下既有文件的 D／pre-release 規劃保留其歷史語境，不代表目前工作排程。Research Baseline 與 Gate 報告內容及路徑均未改動。
 
+2026-10-12 的跨階段未決事項、建議方向與會議決議欄位集中在[目前待討論與決策事項](current_discussion_items.md)。
+
 ## 建議閱讀順序
 
 1. [`research_baseline_v1.3.md`](research_baseline_v1.3.md)：目前最完整、已凍結的研究統整入口。
@@ -29,6 +31,7 @@
 
 | 文件 | 狀態 | 用途 |
 | --- | --- | --- |
+| [`current_discussion_items.md`](current_discussion_items.md) | **Current** | 2026-10-12 的跨階段狀態、未決研究／治理問題、建議方向與會議決議紀錄。 |
 | [`research_baseline_v1.3.md`](research_baseline_v1.3.md) | **Frozen** | A1／A2／B／C 結果、研究限制、C3D／I3D 證據與 Experiment D 前置研究的整體統整；為目前研究脈絡的主要入口。 |
 | [`formal_test_evaluation_protocol.md`](formal_test_evaluation_protocol.md) | **Frozen** | A2／B／C 的 frozen inputs、正式 test 流程、產物與一次性評估紀錄。 |
 | [`references.md`](references.md) | **Current** | Basketball-51、C3D、I3D 與教授題目文件的來源及其在本專案中的角色。 |
