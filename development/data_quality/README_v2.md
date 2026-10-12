@@ -1,6 +1,12 @@
 # 自動模糊篩檢 Pilot v2
 
-> **v2 歷史重現文件，非正式執行入口。** 組員請先讀 [統一技術入口](README.md)；完整 train 候選掃描只使用 [v3 runbook](runbooks/blur_train_v3_tmux.md)。以下「本輪／本次」均指 v2 研究交付時點。
+> - **給誰看：** 需要追溯 v2 當時命令與交付語境的維護者。
+> - **回答什麼：** v2 Pilot 的歷史重現、安全檢查與 derived-only 發布流程。
+> - **不包含：** 現行完整 train 掃描流程或一般組員研究導覽。
+> - **上一層入口：** [資料品質技術入口](README.md)。
+> - **建議下一份：** [v2 方法](../../docs/data_quality/blur_screening_method_v2.md)。
+
+**這是歷史相容附錄，不是第二個現行入口。** 既有 publisher 與 frozen 研究文件直接引用本路徑，因此目前不能在不修改 Python 與 frozen 證據的情況下安全改名或移除。完整 train 候選掃描只使用 [v3 runbook](runbooks/blur_train_v3_tmux.md)。以下「本輪／本次」均指 v2 研究交付時點。
 
 Pilot v2完成48支train影片、12個來源的合成模糊與時間偵測校準。這不是正式清理，不產生排除名單或重編碼影片。所有Pilot v1檔案、報告及原始資料保持不變；本頁保留v2重現步驟，版本定位與目前執行流程見統一README。
 

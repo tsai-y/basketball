@@ -1,5 +1,11 @@
 # Discord 專案助理 Bot
 
+> - **給誰看：** 要審查、部署或維護 Discord 專案助理的工程人員。
+> - **回答什麼：** Bot 的功能、信任邊界、部署、登入、額度與疑難排解。
+> - **不包含：** Basketball-51 研究結論、模型實作或一般組員閱讀路徑。
+> - **上一層入口：** [專案 README](../README.md)。
+> - **建議下一份：** 先讀下方「資料流與信任邊界」，再依部署方式選 Docker 或 systemd。
+
 本 Bot 以唯讀方式索引 Basketball-51 repository 內的可信文字文件，提供繁體中文 slash commands。它不執行文件或使用者提供的命令／程式碼，不開啟影片、不載入 checkpoint，也不執行訓練、資料清理或 evaluation。
 
 ## 功能與命令

@@ -1,100 +1,68 @@
-# 文件目錄
+# 研究文件索引
 
-本目錄收錄 Basketball-51 專案的研究統整、資料稽核、實驗 protocol、結果與參考文獻。若是第一次閱讀，請從下方的「建議閱讀順序」開始；若要查特定實驗，則直接使用分類索引。
+> - **給誰看：** 要尋找研究方向、baseline、資料品質、I3D 或歷史文件的組員。
+> - **回答什麼：** 每類研究文件的權威入口與狀態。
+> - **不包含：** 完整研究內容、執行命令或重複的結果表。
+> - **上一層入口：** [專案 README](../README.md)。
+> - **建議下一份：** [目前研究方向](current_research_direction.md)。
 
-> 根目錄的 [`README.md`](../README.md) 負責專案概覽、目前狀態與程式入口；本頁只負責文件導航。各實驗的詳細設定與限制應以其專屬 protocol、實作紀錄及凍結產物為準。
+本頁只負責分類導航。查目前排程時以[目前研究方向](current_research_direction.md)為準；查研究數值與結論時使用對應的 frozen report、method 或 protocol；查歷史變更時使用 [progress log](progress_log.md)。
 
-## 2026-10-07 團隊入口
+## 目前狀態與 repository 治理
 
-先讀 [目前研究方向](current_research_direction.md)、[repository map](repository_map.md) 與 [整理紀錄](reorganization_log.md)。目前優先規劃 full-video 自動品質篩檢與影像增強；A1/A2/B/C frozen，Gate 1A／1B completed，Gate 1C 與原 Experiment D paused。以下既有文件的 D／pre-release 規劃保留其歷史語境，不代表目前工作排程。Research Baseline 與 Gate 報告內容及路徑均未改動。
-
-2026-10-12 的跨階段未決事項、建議方向與會議決議欄位集中在[目前待討論與決策事項](current_discussion_items.md)。
-
-## 建議閱讀順序
-
-1. [`research_baseline_v1.3.md`](research_baseline_v1.3.md)：目前最完整、已凍結的研究統整入口。
-2. [`dataset_analysis.md`](dataset_analysis.md)：了解資料內容、標籤、重複影片與 pre-release 缺口。
-3. [`formal_test_evaluation_protocol.md`](formal_test_evaluation_protocol.md)：了解 A2／B／C 的正式測試規則與不可覆寫原則。
-4. 依關注的實驗閱讀下方專屬 protocol 與實作紀錄。
-5. 若準備 Experiment D，再閱讀兩份 I3D 前置稽核。
-
-## 狀態標記
-
-| 標記 | 意義 |
+| 文件 | 用途 |
 | --- | --- |
-| **Frozen** | 已完成審閱或正式執行，不應因後續 test 表現回頭修改。 |
-| **Current** | 目前仍適用的 protocol、分析或實作說明。 |
-| **Historical** | 保留研究與執行歷程；不一定代表目前的最終設定。 |
-| **Generated** | 由腳本產生的機器可讀資料；通常應搭配同名 Markdown 摘要閱讀。 |
+| [目前研究方向](current_research_direction.md) | 唯一跨階段 current 狀態、優先順序、暫停與範圍外項目 |
+| [目前待討論事項](current_discussion_items.md) | 下一輪研究與治理決策清單；保留 2026-10-12 的討論語境 |
+| [Repository map](repository_map.md) | 目錄責任、原位保留理由與主要入口 |
+| [Development 規則](../development/README.md) | 新研究元件的放置與紀錄要求 |
+| [整理紀錄](reorganization_log.md) | 先前目錄與連結整理的歷史查核紀錄 |
 
-## 研究總覽與共用規範
+## Research Baseline 與正式測試
 
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`current_discussion_items.md`](current_discussion_items.md) | **Current** | 2026-10-12 的跨階段狀態、未決研究／治理問題、建議方向與會議決議紀錄。 |
-| [`research_baseline_v1.3.md`](research_baseline_v1.3.md) | **Frozen** | A1／A2／B／C 結果、研究限制、C3D／I3D 證據與 Experiment D 前置研究的整體統整；為目前研究脈絡的主要入口。 |
-| [`formal_test_evaluation_protocol.md`](formal_test_evaluation_protocol.md) | **Frozen** | A2／B／C 的 frozen inputs、正式 test 流程、產物與一次性評估紀錄。 |
-| [`references.md`](references.md) | **Current** | Basketball-51、C3D、I3D 與教授題目文件的來源及其在本專案中的角色。 |
-| [`progress_log.md`](progress_log.md) | **Historical** | 按時間保留專案進度、決策與執行紀錄；查最新結論時優先使用研究統整及專屬文件。 |
+| 文件 | 狀態與用途 |
+| --- | --- |
+| [Research Baseline v1.3](research_baseline_v1.3.md) | **Frozen**；A1/A2/B/C 結果、限制與研究脈絡的權威統整 |
+| [Baseline 入口](../baseline/README.md) | A1/A2/B/C 定義、程式、設定與歷史產物導航 |
+| [正式 test protocol](formal_test_evaluation_protocol.md) | **Frozen**；A2/B/C 一次性正式 test 規則與產物 |
+| [資料集分析](dataset_analysis.md) | 資料結構、標籤、重複影片、split 風險與 pre-release 缺口 |
+| [參考文獻](references.md) | Basketball-51、C3D、I3D 與題目文件來源 |
 
-## 資料集與前處理
+## A1/A2/B/C 專屬文件
 
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`dataset_analysis.md`](dataset_analysis.md) | **Current** | 資料結構、標籤、異常與重複影片、split 風險，以及 pre-release annotation 缺口。 |
-| [`dataset_summary.json`](dataset_summary.json) | **Generated** | 資料掃描的機器可讀摘要，包括影片格式、數量與完全重複群組。 |
+| 實驗 | 文件 |
+| --- | --- |
+| A1 | [Baseline protocol](baseline_protocol.md)、[Baseline results](baseline_results.md) |
+| A2 | [C3D-style extended protocol](c3d_style_extended_protocol.md) |
+| B | [C3D reproduction spec](c3d_reproduction_spec.md)、[reference implementation](c3d_reference_implementation.md)、[training protocol](c3d_training_protocol.md) |
+| C | [C3D-style continuous protocol](c3d_style_continuous_protocol.md) |
 
-## Data Quality v1／v2／v3
+## 資料品質研究
 
-[唯一技術入口](../development/data_quality/README.md) 統整版本定位與主機流程；[研究文件索引](data_quality/README.md) 連結三版方法、Markdown 報告及 JSON。v1／v2 是已完成研究證據，v3 是目前唯一的完整 train 候選掃描器；candidate 不是確認模糊或排除名單。正式執行依 [Ubuntu／tmux runbook](../development/data_quality/runbooks/blur_train_v3_tmux.md)，清理政策與 full-train publication 尚未完成。
+- [資料品質研究中文索引](data_quality/README.md)：一般組員從此理解 v1、v2、v3/v3.1、Sampler v1 與 Visual Preprocessing Pilot。
+- [資料品質技術入口](../development/data_quality/README.md)：實作者查 configs、scripts、samplers、transforms、tests、sidecars、CLI 與 runbooks。
+- 各版 method、pilot report、smoke report 與結構化 evidence 由上述兩個入口導覽；本頁不重複完整清單。
 
-## Experiment A1／A2：Modified C3D-style
+## I3D 前置文件
 
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`baseline_protocol.md`](baseline_protocol.md) | **Frozen** | Experiment A1 的研究問題、資料切分、取樣、模型、訓練與評估規格。 |
-| [`baseline_results.md`](baseline_results.md) | **Frozen** | Experiment A1 的 gate、訓練與一次性 test 結果。 |
-| [`c3d_style_extended_protocol.md`](c3d_style_extended_protocol.md) | **Frozen** | Experiment A2 的 warm-start、延長訓練、early stopping、resume 與重現資訊。 |
+Gate 1A／1B 已完成，但 Gate 1C 與原 Experiment D 仍 paused；這些稽核不代表已選定 I3D。
 
-## Experiment B：Reference C3D adaptation
+| 文件 | 用途 |
+| --- | --- |
+| [Temporal feasibility audit](i3d_temporal_feasibility_audit.md) | Gate 1A 的時間可行性摘要；完整統計在同名 JSON |
+| [Pretrained artifact provenance audit](i3d_pretrained_artifact_provenance_audit.md) | Gate 1B 的來源、license、介面與風險摘要；完整候選在同名 JSON |
 
-建議依序閱讀規格、實作，再閱讀正式訓練 protocol。
+## 歷史紀錄
 
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`c3d_reproduction_spec.md`](c3d_reproduction_spec.md) | **Current** | 區分原論文、作者官方實作、未決細節及 Basketball-51 adaptation；也比較目前 modified baseline。 |
-| [`c3d_reference_implementation.md`](c3d_reference_implementation.md) | **Frozen** | 實際 Reference C3D adaptation、clip 索引、tensor shape、PROJECT_ADAPTATION 與 gates。 |
-| [`c3d_training_protocol.md`](c3d_training_protocol.md) | **Frozen** | Experiment B 的初始化、fine-tuning、影片級 objective、記憶體／吞吐 gate 與訓練決策。 |
-
-## Experiment C：Modified C3D-style + continuous clips
-
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`c3d_style_continuous_protocol.md`](c3d_style_continuous_protocol.md) | **Frozen** | Experiment C 的 continuous clip pipeline、影片級聚合、訓練流程、檢查與 run-directory lifecycle。 |
-
-## Experiment D：I3D 前置研究
-
-Experiment D 尚未完成正式 protocol、實作或訓練。以下文件是 protocol 凍結前的證據與可行性稽核，不應解讀為已決定的訓練設定。
-
-| 文件 | 狀態 | 用途 |
-| --- | --- | --- |
-| [`i3d_temporal_feasibility_audit.md`](i3d_temporal_feasibility_audit.md) | **Current** | Gate 1A：只使用 train／validation，稽核 FPS、frame count、duration、短片比例及 looping exposure。 |
-| [`i3d_temporal_feasibility_audit.json`](i3d_temporal_feasibility_audit.json) | **Generated** | Gate 1A 的完整機器可讀統計；一般閱讀以同名 Markdown 摘要為主。 |
-| [`i3d_pretrained_artifact_provenance_audit.md`](i3d_pretrained_artifact_provenance_audit.md) | **Current** | Gate 1B：候選 pretrained artifacts 的來源、可用性、license、介面與風險稽核。 |
-| [`i3d_pretrained_artifact_provenance_audit.json`](i3d_pretrained_artifact_provenance_audit.json) | **Generated** | Gate 1B 的完整候選與 provenance 紀錄；一般閱讀以同名 Markdown 摘要為主。 |
-
-## Source of truth
-
-- 專案現況與跨實驗比較：[`research_baseline_v1.3.md`](research_baseline_v1.3.md)。
-- 各實驗的模型、訓練與限制：對應的 experiment protocol／implementation 文件。
-- A2／B／C 正式 test 規則：[`formal_test_evaluation_protocol.md`](formal_test_evaluation_protocol.md)。
-- 資料清理與 split 的實際輸入：根目錄 README 所列的 manifest、split summary 與 run snapshots；本目錄文件是其說明，不取代凍結產物。
-- I3D 稽核的完整數值：同名 JSON；Markdown 提供可讀摘要與結論。
+| 文件 | 用途 |
+| --- | --- |
+| [Progress log](progress_log.md) | 按時間保留研究執行與決策；不是目前狀態入口 |
+| [Reorganization log](reorganization_log.md) | 目錄移動、相容路徑與先前驗證紀錄 |
 
 ## 維護原則
 
-- 新增文件時，同步加入本目錄並標示狀態與用途。
-- 不在本頁複製完整結果表或 protocol，避免與來源文件產生版本分歧。
-- 自動產生的大型 JSON 應保留對應的人類可讀 Markdown 摘要。
-- 歷史決策保留在 `progress_log.md`；目前結論寫入對應的 current／frozen 文件。
+- 同一資訊只保留一個權威來源；其他 README 放摘要與連結。
+- 新研究文件加入對應分類並標示 current、frozen、historical 或 generated。
+- 技術命令放 `development/` 技術入口或 runbook，研究結果放 method／report，不新增 `README_v3.md`、`README_v4.md`。
+- 歷史決策保留在 `progress_log.md`；目前狀態只更新 `current_research_direction.md`。
 - 正式 test 產物與 frozen protocol 不因觀察 test 表現而回頭修改。
