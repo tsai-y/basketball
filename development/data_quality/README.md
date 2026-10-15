@@ -25,6 +25,7 @@
 | v2 指標校準 | [method](../../docs/data_quality/blur_screening_method_v2.md)／[report](../../docs/data_quality/blur_screening_pilot_v2.md) | [blur_pilot_v2.yaml](configs/blur_pilot_v2.yaml) | [audit](scripts/audit_blur_pilot_v2.py)、[analyze](scripts/analyze_blur_pilot_v2.py)、[verify](scripts/verify_blur_pilot_v2.py)、[publish](scripts/publish_blur_pilot_v2.py) | [歷史相容附錄](README_v2.md) |
 | v3/v3.1 完整掃描 | [method](../../docs/data_quality/blur_screening_method_v3.md)／[publisher contract](../../docs/data_quality/blur_screening_publisher_v3_1.md) | [blur_train_v3.yaml](configs/blur_train_v3.yaml) | [scan](scripts/audit_blur_train_v3.py)、[verify](scripts/verify_blur_train_v3.py)、[publish](scripts/publish_blur_train_v3.py) | [唯一完整 runbook](runbooks/blur_train_v3_tmux.md) |
 | Sampler v1 | [method](../../docs/data_quality/quality_aware_clip_sampler_v1.md)／[smoke](../../docs/data_quality/quality_aware_clip_sampler_smoke_v1.md) | [quality_aware_sampler_v1.yaml](configs/quality_aware_sampler_v1.yaml) | [sampler](samplers/quality_aware_clip_sampler.py)、[audit](scripts/audit_quality_aware_sampler_v1.py)、[publish smoke](scripts/publish_quality_aware_sampler_smoke_v1.py) | method 與 tests |
+| Train-only 關聯 audit | [report](../../docs/data_quality/train_quality_associations_v1.md)／[JSON](../../docs/data_quality/train_quality_associations_v1.json) | 沿用 frozen v3.1 sidecar 與 Sampler v1 config | [derived-only audit](scripts/audit_train_quality_associations_v1.py) | `--check-only`；不讀影片 |
 | Visual Preprocessing Pilot v1 | [method](../../docs/data_quality/visual_preprocessing_method_v1.md)／[report](../../docs/data_quality/visual_preprocessing_pilot_v1.md) | [config](configs/visual_preprocessing_pilot_v1.yaml) | [transforms](transforms/video_clip_transforms.py)、[runner](scripts/audit_visual_preprocessing_pilot_v1.py)、[verifier](scripts/verify_visual_preprocessing_pilot_v1.py) | method；Pilot 已完成 |
 
 固定研究清單依階段保留在 [v1 Pilot manifest](pilot_manifest_v1.csv)、[v2 Pilot manifest](pilot_manifest_v2.csv)、[v2 source inventory](source_inventory_v2.csv)、[v3 smoke manifest](smoke_manifest_v3.csv)、[Sampler smoke manifest](smoke_manifest_quality_sampler_v1.csv) 與 [Visual Pilot manifest](manifests/visual_preprocessing_pilot_manifest_v1.csv)。它們是既有輸入或選樣證據，不由 README 維護內容。
@@ -53,6 +54,10 @@ Sampler v1 從原影片選擇連續半開 `[start, end)` clip，不刪格、不�
 - Smoke manifest：[smoke_manifest_quality_sampler_v1.csv](smoke_manifest_quality_sampler_v1.csv)
 - 契約與限制：[Quality-aware Clip Sampler v1](../../docs/data_quality/quality_aware_clip_sampler_v1.md)
 
+## Train-only derived 關聯 audit
+
+[audit_train_quality_associations_v1.py](scripts/audit_train_quality_associations_v1.py) 只讀固定 manifest、split summary、v3.1 sidecar、Sampler v1 config 與既有 epoch=0 selections；若 ignored selections 不存在，會從相同 metadata/config 重建 byte-identical 結果。它以每影片為 Candidate–label 統計單位，做 source-group cluster bootstrap、source×shot 分層、candidate／selected-window 正規化位置、20-epoch quality-aware 對 unrestricted 反事實敏感度與 split 檢查。完整結果見[繁中報告](../../docs/data_quality/train_quality_associations_v1.md)與[機器摘要](../../docs/data_quality/train_quality_associations_v1.json)；中間 CSV 留在 ignored `artifacts/train_quality_associations_v1/`。乾淨 checkout 的 `--check-only` 不要求 ignored CSV 已存在；`--refresh-artifacts` 可在 tracked 報告驗證通過後重建它們。
+
 ## 視覺前處理／增強 Pilot v1
 
 Pilot 使用固定 train-only manifest；正式 enhancement／augmentation 政策尚未定案。整合時保持 transform、normalization 與 metadata 責任分離。
@@ -71,9 +76,10 @@ Pilot 使用固定 train-only manifest；正式 enhancement／augmentation 政�
 | v3 scanner | [test_blur_train_v3.py](tests/test_blur_train_v3.py) |
 | v3.1 publisher | [test_blur_train_publisher_v3.py](tests/test_blur_train_publisher_v3.py) |
 | Sampler v1 | [test_quality_aware_clip_sampler_v1.py](tests/test_quality_aware_clip_sampler_v1.py) |
+| Train-only 關聯 audit | [test_train_quality_associations_v1.py](tests/test_train_quality_associations_v1.py) |
 | Visual transforms | [test_video_clip_transforms_v1.py](tests/test_video_clip_transforms_v1.py) |
 
-這些測試設計為不讀取資料集影片；本次文件整理不執行測試、掃描、verify、publish、訓練或評估。
+這些測試設計為不讀取資料集影片；執行 unit tests 不會啟動掃描、verify、publish、訓練或評估。
 
 ## CLI 與重現方式
 

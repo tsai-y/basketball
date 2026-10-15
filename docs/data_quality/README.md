@@ -15,6 +15,7 @@
 1. [目前研究方向](../current_research_direction.md)
 2. 本頁
 3. [Quality-aware Clip Sampler v1](quality_aware_clip_sampler_v1.md)
+4. [Train-only v3.1 Candidate／Sampler 資料品質 Audit](train_quality_associations_v1.md)
 
 依工作選讀：
 
@@ -31,6 +32,7 @@
 | Quality Screening v2 | 完成／歷史 | 合成模糊與 temporal calibration 如何提供 v3 凍結參數 | [方法](blur_screening_method_v2.md)、[Pilot 報告](blur_screening_pilot_v2.md) |
 | Quality Screening v3/v3.1 | 完成 | train-only 完整掃描、恢復、驗證與發布契約 | [方法](blur_screening_method_v3.md)、[smoke 報告](blur_screening_smoke_v3.md)、[publisher contract](blur_screening_publisher_v3_1.md) |
 | Quality-aware Clip Sampler v1 | 完成 | 如何用 tracked sidecar 選擇連續 train clips，並記錄 fallback | [方法](quality_aware_clip_sampler_v1.md)、[smoke 報告](quality_aware_clip_sampler_smoke_v1.md) |
+| Train-only 關聯 audit v1 | 完成 | Candidate 是否與 label/source/shot/FPS 相關，以及 sampler 在 epoch 0／20-epoch 反事實敏感度中是否造成 label 時間位移 | [繁中報告](train_quality_associations_v1.md)、[JSON](train_quality_associations_v1.json) |
 | Visual Preprocessing Pilot v1 | Pilot 完成；正式政策未定案 | 候選 transform 的介面、決定性與有限 train 樣本診斷 | [方法](visual_preprocessing_method_v1.md)、[Pilot 報告](visual_preprocessing_pilot_v1.md) |
 
 ## 版本關係
@@ -41,6 +43,7 @@ v1 指標探索
         └─> v3/v3.1 完整 train 掃描與 publication
               └─> tracked train-only sidecar
                     └─> Quality-aware Clip Sampler v1
+                          ├─> Train-only Candidate／Sampler 關聯 audit
                           └─> Visual Preprocessing Pilot v1
 ```
 
