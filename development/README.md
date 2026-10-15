@@ -1,24 +1,29 @@
 # 新研究工作區
 
-本階段仍是 **full-video Make/Miss classification**。優先工作為 [自動品質篩檢](data_quality/README.md) 與影像增強；再研究特徵擷取、多模型互補／融合。影像增強策略、模型組合與融合方式尚未定案。本輪只建立目錄和文件，沒有新演算法、模型或訓練入口。
+> - **給誰看：** 要建立非 frozen 研究元件的實作者。
+> - **回答什麼：** 新工作放在哪裡、需記錄哪些資訊、哪些路徑不可改。
+> - **不包含：** A1/A2/B/C 細節或資料品質 CLI；後者集中在專屬技術入口。
+> - **上一層入口：** [專案 README](../README.md)。
+> - **建議下一份：** [資料品質技術入口](data_quality/README.md)。
+
+本目錄承接與 frozen baseline 分離的新研究。現有模組為 `data_quality/`；完整 train 品質掃描與品質感知取樣已完成，視覺前處理／增強完成 train-only Pilot，正式政策與下一個受控實驗仍待團隊決定。
 
 ## 放置規則
 
-- 新研究放在 `development/<研究主題>/`，每個主題先有 README 記錄問題、範圍、輸入與輸出；目前只建立 `data_quality/`，其他目錄等工作定案再建。
-- 不修改 [baseline](../baseline/README.md)，也不修改原位保留的 `reference_c3d/`、`experiment_c/`、`configs/` 及 frozen 執行入口。不能藉由修改其共用函式改變既有基準行為。
-- 直接引用唯一的 [固定 manifest](../data/processed/dataset_manifest.csv)、[split](../data/processed/split_summary.json) 與 [原始資料](../archive/Basketball_51%20dataset/)，不再複製一套。需要品質註記時以 video ID 關聯衍生表，不覆寫原 manifest／split，不更改 split 指派。
-- 確認已有共用功能時直接引用；不要複製 decoder、sampler 或其他共用程式。需要不同前處理行為時另立具名、可追溯的研究版本。
-- 新輸出不得寫入 `baseline/` 或任何歷史 `runs/`。預計採 `development/outputs/<實驗識別碼>/` 等獨立路徑，建立前先在實驗紀錄中指定；此路徑目前尚未建立，也未設為 ignored，未來加入大型產物前應先審查版本管理方式。
+- 新研究放在 `development/<研究主題>/`，先記錄問題、範圍、輸入、輸出及狀態；不要預先建立尚未定案的主題目錄。
+- 不修改 [baseline](../baseline/README.md)、`reference_c3d/`、`experiment_c/`、其設定、歷史入口或 `runs/`。
+- 共用[固定 manifest](../data/processed/dataset_manifest.csv)與[固定 split](../data/processed/split_summary.json)，不複製、不重抽、不依 test 結果回寫。
+- 衍生品質資料以 video ID 關聯，不覆寫原始影片、manifest 或 split；validation/test 保持封存。
+- 新輸出使用事前指定的獨立位置，不寫入 baseline 或歷史 runs；大型產物的版本管理方式需先審查。
 
 ## 每個實驗的必要紀錄
 
-| 項目 | 必須記錄 |
+| 類別 | 必須記錄 |
 | --- | --- |
-| 問題與狀態 | 研究目的、負責人、日期、planned／running／completed 等狀態 |
-| 資料 manifest | 原 manifest 路徑及版本／hash；衍生品質表或候選清單的路徑與版本 |
-| Split | 固定 split 路徑及版本／hash、使用的 split 範圍；不重抽 split |
-| 前處理 | 版本、具體步驟、程式來源；若有影像增強，另記其策略與參數 |
-| 設定 | 設定檔、seed、環境與程式版本、實際執行命令及 override |
-| 輸出 | 唯一輸出目錄、scores／report／模型等檔案位置與產生狀態 |
+| 問題與狀態 | 研究問題、範圍、負責人、日期、planned／running／completed |
+| 資料與 split | manifest／split 路徑、版本或 hash、實際使用範圍 |
+| 前處理 | 版本、參數、程式來源、train／validation／test 行為 |
+| 設定與環境 | config、seed、環境、程式版本、實際命令與 override |
+| 輸出 | 唯一輸出目錄、產物清單、完成狀態與不可覆寫規則 |
 
-品質政策、門檻及模型設計只能依可用 train／validation 研究證據制定，test 保持封存。候選清單不是已核准的排除結果。Gate 1C 與原 Experiment D paused，不因建立此工作區自動恢復；Pre-release 與 SPL 資料延伸不在目前實作範圍。完整決策見 [目前研究方向](../docs/current_research_direction.md)。
+目前跨階段狀態見[目前研究方向](../docs/current_research_direction.md)。資料品質的 configs、scripts、samplers、transforms、tests、sidecars、CLI 與 runbooks 只由[資料品質技術入口](data_quality/README.md)導覽。

@@ -1,12 +1,12 @@
 # Repository map
 
-更新日期：2026-10-07。路徑均相對於 repository root；**檔案歸屬依用途與實際引用判定，不依目錄名稱猜測**。先讀 [root README](../README.md) 與 [目前研究方向](current_research_direction.md)。
+更新日期：2026-10-13。路徑均相對於 repository root；**檔案歸屬依用途與實際引用判定，不依目錄名稱猜測**。先讀 [root README](../README.md) 與 [目前研究方向](current_research_direction.md)。
 
 ## 目錄、用途與組員使用方式
 
 | 目錄／檔案 | 用途 | 狀態 | 組員使用方式 |
 | --- | --- | --- | --- |
-| [README.md](../README.md) | 團隊入口、root 指令與現況 | Current | 新組員第一份文件；取代舊 root `readme.md` |
+| [README.md](../README.md) | 團隊入口、目前範圍與最短閱讀路徑 | Current | 新組員第一份文件；取代舊 root `readme.md` |
 | [readme.md](../readme.md) | 指向 `README.md` 的相容 symlink | Alias | 保留 Gate 1B 的小寫路徑連結，內容只有一份；跨平台限制見整理紀錄 |
 | [baseline/](../baseline/README.md) | A1/A2 資料與模型；A1/A2/B/C 統一索引 | Frozen | 查基準程式與產物，不開發新方法 |
 | [baseline/scripts/](../baseline/scripts/) | B 歷史 shape audit、benchmark | Frozen | 僅供追溯；新位置可用 `--help`，正常模式仍會寫歷史 feasibility |
@@ -14,8 +14,8 @@
 | [experiment_c/](../experiment_c/) | C 的模型及 GAP 特徵聚合 | Frozen、原位 | 實際匯入 `baseline.model` 與自身 aggregate；不是新研究目錄 |
 | [configs/](../configs/) | 六份 A1/A2/B/C 與 B gate／benchmark 設定 | Frozen、原位 | 含固定 hash、原始 epoch／patience 及 root-relative 路徑；不以最終訓練狀態回寫 |
 | [scripts/](../scripts/) | 訓練／評估入口、共用資料工具及 Gate 1A | 混合、原位 | 依下表區分責任；不是任意新增研究的預設位置 |
-| [development/](../development/README.md) | 新方法的研究工作區 | Planned | 新主題放此處，記錄實驗輸入、版本、設定與獨立輸出位置 |
-| [development/data_quality/](../development/data_quality/README.md) | 自動品質篩檢 | Planned、僅 README | 先規劃品質分數、候選排除清單、報告；尚無演算法或門檻 |
+| [development/](../development/README.md) | 與 frozen baseline 分離的新研究工作區 | Active | 新主題放此處，記錄實驗輸入、版本、設定與獨立輸出位置 |
+| [development/data_quality/](../development/data_quality/README.md) | 資料品質技術入口與既有實作 | Current | 完整掃描、sampler 與視覺 Pilot 的 configs、scripts、tests、sidecars、runbooks 導航 |
 | [archive/Basketball_51 dataset/](../archive/Basketball_51%20dataset/) | 原始 RGB 影片 | Protected、ignored | 原位原內容保留；本輪未開啟影片，沒有掃描／probe／解碼 |
 | [data/processed/](../data/processed/) | `dataset_manifest.csv`、`split_summary.json` | Fixed、共用 | 唯一主輸入；影片路徑相對於資料根目錄，不另複製或重抽 split |
 | [runs/](../runs/) | config／manifest／split 快照、checkpoint、training logs、metrics／predictions、gates | Historical、protected | 唯讀追溯；tracked／ignored 產物皆保留，不作為新研究輸出位置 |

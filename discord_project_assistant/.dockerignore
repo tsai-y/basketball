@@ -1,0 +1,15 @@
+.git
+.env
+.venv
+__pycache__
+*.pyc
+archive
+data
+development/data_quality/artifacts
+papers
+runs
+*.pt
+*.pth
+*.ckpt
+*.mp4
+TOPIC 1.pdf

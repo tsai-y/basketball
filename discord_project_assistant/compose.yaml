@@ -1,0 +1,44 @@
+services:
+  project-assistant-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN:?set DISCORD_TOKEN in .env}
+      AI_PROVIDER: ${AI_PROVIDER:-codex}
+      CODEX_AUTH_MODE: chatgpt_login
+      CODEX_BINARY: /usr/local/bin/codex
+      CODEX_HOME: /data/codex-home
+      DISCORD_GUILD_IDS: ${DISCORD_GUILD_IDS:?set DISCORD_GUILD_IDS in .env}
+      DISCORD_CHANNEL_IDS: ${DISCORD_CHANNEL_IDS:?set DISCORD_CHANNEL_IDS in .env}
+      DISCORD_ALLOWED_ROLE_IDS: ${DISCORD_ALLOWED_ROLE_IDS:?set DISCORD_ALLOWED_ROLE_IDS in .env}
+      DISCORD_ADMIN_ROLE_IDS: ${DISCORD_ADMIN_ROLE_IDS:?set DISCORD_ADMIN_ROLE_IDS in .env}
+      DISCORD_SYNC_COMMANDS: ${DISCORD_SYNC_COMMANDS:-true}
+      PROJECT_ROOT: /repo
+      BOT_DATA_DIR: /data
+      SOURCES_CONFIG: /app/config/project_sources.yaml
+      CODEX_MODEL: ${CODEX_MODEL:-gpt-6-luna}
+      CODEX_REASONING_EFFORT: ${CODEX_REASONING_EFFORT:-low}
+      CODEX_TIMEOUT_SECONDS: ${CODEX_TIMEOUT_SECONDS:-45}
+      AI_MAX_ANSWER_CHARS: ${AI_MAX_ANSWER_CHARS:-3500}
+      MAX_CONTEXT_CHUNKS: ${MAX_CONTEXT_CHUNKS:-8}
+      MAX_CONTEXT_CHARS: ${MAX_CONTEXT_CHARS:-16000}
+      DAILY_AI_REQUEST_LIMIT: ${DAILY_AI_REQUEST_LIMIT:-40}
+      PER_USER_DAILY_AI_REQUEST_LIMIT: ${PER_USER_DAILY_AI_REQUEST_LIMIT:-5}
+      PER_USER_MINUTE_COMMAND_LIMIT: ${PER_USER_MINUTE_COMMAND_LIMIT:-12}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ../:/repo:ro
+      - bot-data:/data
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+
+volumes:
+  bot-data:
