@@ -1,0 +1,48 @@
+version: data_pipeline_integration_gate_v1
+seed: 20261016
+allowed_splits: [train, validation]
+paths:
+  manifest: data/processed/dataset_manifest.csv
+  split_summary: data/processed/split_summary.json
+  sampler_config: development/data_quality/configs/quality_aware_sampler_v1.yaml
+  sidecar_metadata: development/data_quality/sidecars/blur_quality_sidecar_v3_1.json
+  sidecar_segments: development/data_quality/sidecars/blur_candidate_segments_v3_1.csv
+  sidecar_video_summary: development/data_quality/sidecars/blur_video_summary_v3_1.csv
+identities:
+  manifest_sha256: e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6
+  split_summary_sha256: 953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5
+  sampler_config_sha256: 86cd23900b3673def08c0b5d6654fe11c4576d3b65b1d777071bb1517c1f5d74
+  sidecar_metadata_sha256: 64b7b1ab07065a80536eb4f52045c2c077435d0c6a9d138cad6ef51034822779
+  sidecar_segments_sha256: ddd295cc61c72d52e687addc40e3ef444791288497918868227042903cd10834
+  sidecar_video_summary_sha256: 68bb51486e71a45e8bb500e545ff4300b181eb25655bf19749c9a49d9430decf
+  sidecar_run_identity: 19372422e554779a09d54ca93e4927bf91d5665af5e6c127904727d4b5edc02a
+clip:
+  length: 64
+  clips_per_video: 1
+train_sampling:
+  policy_version: quality_aware_sampler_v1
+  selection_mode: seeded_random
+  global_seed: 20261009
+  candidate_margin_frames: 0
+  fallback_rule: minimum_candidate_overlap
+validation_sampling:
+  policy_version: validation_temporal_center_contiguous_v1
+  rule: floor((frame_count-clip_length)/2)
+  quality_aware_mode: disabled
+transform:
+  policy: reference
+  version: video_clip_transforms_v1
+  clip_length: 64
+  output_height: 192
+  output_width: 256
+  brightness: [0.95, 1.05]
+  contrast: [0.95, 1.05]
+  saturation: [0.95, 1.05]
+  spatial_scale: [0.92, 1.0]
+  enhancement_gamma: 0.95
+normalization:
+  mode: identity
+access_policy:
+  test: reject_before_path_access
+  decoder: sequential_read_no_seek
+  source: read_only_guarded_descriptor
