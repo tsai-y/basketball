@@ -1,0 +1,520 @@
+{
+  "artifact_sha256": {
+    "converted/model_rgb.pth": "9729d6f029170c682ffe8d57ddda2ead49cf232297db7b7bdec0fa316fe6764a",
+    "official_raw/checkpoint": "642bdb899ccd0655219ec352324b8f4c65e153b2ee847104691c1aee153c7398",
+    "official_raw/model.ckpt.data-00000-of-00001": "f703e980b577f39ad69125cbb2ad5cc59f72b3f7606634ddb02db5bd45f786c0",
+    "official_raw/model.ckpt.index": "f4bfd6f4af485f276c68333d3eca3697b691bb647f0167a03fe021147ca7f8eb",
+    "official_raw/model.ckpt.meta": "a2049468749ceb21b84db071d4918e396cd802f622ebb65b6e5eb20fa25598d2",
+    "source/google_deepmind/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "source/google_deepmind/i3d.py": "6331381918f0472d6cac693da688b546918070d19f6ab0f7cda59b3abf43183b",
+    "source/hassony2/LICENSE": "d813f5741355ee7e33a134facf25e6e1f34f939fcdf69799e0d6768c8935a3e9",
+    "source/hassony2/i3d_tf_to_pt.py": "87d24173680304cadc3e41c83fee49db1d892912e0bbdf56ff61b66d35036e15",
+    "source/hassony2/i3dpt.py": "8f6f3c47ecae454bddac48d009285976c8337296834a4de4ab112fc0e32b3a3a"
+  },
+  "candidate": {
+    "architecture": "Inception-v1 Inflated 3D ConvNet",
+    "gate_1b_id": "C03",
+    "implementation_commit": "786fbae06a6fd5df419e1961cd32e32fbe8b396d",
+    "upstream_commit": "0667e889a5904b4dc122e0ded4c332f49f8df42c",
+    "upstream_gate_1b_id": "A01"
+  },
+  "completed_at_utc": "2026-10-16T17:09:15.453797+00:00",
+  "config_identity": {
+    "path": "development/i3d_gate/configs/i3d_gate_1c.yaml",
+    "sha256": "7eac72a0cf362e52436ae23d03f78f3990d8114ae99ee3203cdb4b4c10b32c65",
+    "version": "i3d_checkpoint_compatibility_gate_1c"
+  },
+  "cross_framework_numerical_parity": {
+    "absolute_tolerance_predeclared": 0.0001,
+    "conversion_tensor_value_mapping": "PASS_EXACT",
+    "endpoints_predeclared": [
+      "Conv3d_1a_7x7",
+      "Mixed_5c"
+    ],
+    "reason": "Pinned official Sonnet 1.x runtime is unavailable; installed TensorFlow 2.19 alone is not the historical reference runtime.",
+    "relative_tolerance_predeclared": 0.001,
+    "status": "NOT_RUN"
+  },
+  "execution_contract": {
+    "backward_calls": 0,
+    "batch_norm_running_statistics_unchanged": true,
+    "dropout_disabled": true,
+    "gradient_accumulation_steps": 0,
+    "inference_mode": true,
+    "model_eval": true,
+    "optimizer_created": false,
+    "optimizer_steps": 0,
+    "training_samples": 0
+  },
+  "normalization_contract": {
+    "bias": -1.0,
+    "dtype_preserved": true,
+    "in_place": false,
+    "operation": "affine",
+    "output_range_contract": [
+      -1.0,
+      1.0
+    ],
+    "scale": 2.0,
+    "shape_preserved": true,
+    "source_range_contract": [
+      0.0,
+      1.0
+    ],
+    "source_unmodified": true,
+    "version": "i3d_rgb_minus1_plus1_v1"
+  },
+  "real_smoke": [
+    {
+      "feature_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 74516.86794425586,
+        "l2_norm": 344.32152002135314,
+        "max": 10.98137092590332,
+        "mean": 0.1895061949265947,
+        "min": 0.0,
+        "name": "Mixed_5c",
+        "sha256_float32_le": "a3730d427d64f06ceb1805cb5eeb207d360227cae26737d7acd0e76ed0656afb",
+        "shape": [
+          1,
+          1024,
+          8,
+          6,
+          8
+        ],
+        "std_population": 0.5153583518035546
+      },
+      "model_input_range": [
+        -1.0,
+        1.0
+      ],
+      "model_input_shape": [
+        1,
+        3,
+        64,
+        192,
+        256
+      ],
+      "normalization": {
+        "bias": -1.0,
+        "dtype_preserved": true,
+        "in_place": false,
+        "operation": "affine",
+        "output_range_contract": [
+          -1.0,
+          1.0
+        ],
+        "scale": 2.0,
+        "shape_preserved": true,
+        "source_range_contract": [
+          0.0,
+          1.0
+        ],
+        "source_unmodified": true,
+        "version": "i3d_rgb_minus1_plus1_v1"
+      },
+      "pooled": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 194.05434385923581,
+        "l2_norm": 9.589467278530055,
+        "max": 1.6745973825454712,
+        "mean": 0.18950619517503497,
+        "min": 0.0,
+        "sha256_float32_le": "65873a09222045c44a85dd6e0f4f0248b78719cbd771ac8fe3d5790c8be7ef25",
+        "shape": [
+          1,
+          1024
+        ],
+        "std_population": 0.2321422447570178
+      },
+      "sampling": {
+        "end_frame_exclusive": 64,
+        "fallback": true,
+        "sampler_policy": "quality_aware_sampler_v1",
+        "start_frame": 0
+      },
+      "source_range": [
+        0.0,
+        1.0
+      ],
+      "source_shape": [
+        3,
+        64,
+        192,
+        256
+      ],
+      "split": "train",
+      "transform": {
+        "pipeline_normalization": {
+          "mean": null,
+          "mode": "identity",
+          "offset": null,
+          "output_range": [
+            0.0,
+            1.0
+          ],
+          "scale": null,
+          "std": null
+        },
+        "policy": "reference",
+        "version": "video_clip_transforms_v1"
+      },
+      "video_id": "ft0/ft0_v166_002702_x264.mp4"
+    },
+    {
+      "feature_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 82403.38235301062,
+        "l2_norm": 396.08991182096685,
+        "max": 17.494915008544922,
+        "mean": 0.20956263822685398,
+        "min": 0.0,
+        "name": "Mixed_5c",
+        "sha256_float32_le": "0b779d76ebe00aecac6c9085970f16c74c49c15a651e322d63fa05d27233fdbb",
+        "shape": [
+          1,
+          1024,
+          8,
+          6,
+          8
+        ],
+        "std_population": 0.5958761020248753
+      },
+      "model_input_range": [
+        -1.0,
+        1.0
+      ],
+      "model_input_shape": [
+        1,
+        3,
+        64,
+        192,
+        256
+      ],
+      "normalization": {
+        "bias": -1.0,
+        "dtype_preserved": true,
+        "in_place": false,
+        "operation": "affine",
+        "output_range_contract": [
+          -1.0,
+          1.0
+        ],
+        "scale": 2.0,
+        "shape_preserved": true,
+        "source_range_contract": [
+          0.0,
+          1.0
+        ],
+        "source_unmodified": true,
+        "version": "i3d_rgb_minus1_plus1_v1"
+      },
+      "pooled": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 214.59214177530885,
+        "l2_norm": 10.708059016707773,
+        "max": 2.23775315284729,
+        "mean": 0.20956263845245005,
+        "min": 0.0,
+        "sha256_float32_le": "412b3cdfa224d798a1f19c78a88304557dcb5f05146f1463ea1118085a88fecc",
+        "shape": [
+          1,
+          1024
+        ],
+        "std_population": 0.2608804812023391
+      },
+      "sampling": {
+        "end_frame_exclusive": 105,
+        "fallback": false,
+        "sampler_policy": "validation_temporal_center_contiguous_v1",
+        "start_frame": 41
+      },
+      "source_range": [
+        0.0,
+        1.0
+      ],
+      "source_shape": [
+        3,
+        64,
+        192,
+        256
+      ],
+      "split": "validation",
+      "transform": {
+        "pipeline_normalization": {
+          "mean": null,
+          "mode": "identity",
+          "offset": null,
+          "output_range": [
+            0.0,
+            1.0
+          ],
+          "scale": null,
+          "std": null
+        },
+        "policy": "reference",
+        "version": "video_clip_transforms_v1"
+      },
+      "video_id": "3p0/3p0_v153_011559_x264.mp4"
+    }
+  ],
+  "runtime": {
+    "cuda_available": false,
+    "deterministic_algorithms": true,
+    "device": "cpu",
+    "numpy": "2.1.3",
+    "opencv": "4.13.0",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+    "torch": "2.11.0+cu128",
+    "torch_num_threads": 1
+  },
+  "schema_version": "basketball.i3d-gate-1c.forward-smoke.v1",
+  "split_access_statistics": {
+    "test": {
+      "decodes": 0,
+      "opens": 0
+    },
+    "train": {
+      "decodes": 1,
+      "opens": 1
+    },
+    "validation": {
+      "decodes": 1,
+      "opens": 1
+    }
+  },
+  "status": "PASS",
+  "strict_load": {
+    "missing_keys": [],
+    "model_slot_count": 287,
+    "shape_mismatches": [],
+    "source_tensor_count": 287,
+    "strict": true,
+    "success": true,
+    "unexpected_keys": [],
+    "unused_source_tensors": []
+  },
+  "synthetic": {
+    "basketball51_project": {
+      "channels": 1024,
+      "early_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 35202611.588456586,
+        "l2_norm": 10267.38146249896,
+        "max": 14.547709465026855,
+        "mean": 1.3988261059306695,
+        "min": 0.0,
+        "name": "Conv3d_1a_7x7",
+        "sha256_float32_le": "ab7c251aa2064d5d9d36282e28cf38503c3aa3659ba8e847a0b6f4cd73bfdc73",
+        "shape": [
+          1,
+          64,
+          32,
+          96,
+          128
+        ],
+        "std_population": 1.4940766631042783
+      },
+      "feature_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 29337.158402382403,
+        "l2_norm": 231.61978907800804,
+        "max": 15.828615188598633,
+        "mean": 0.07460825195918376,
+        "min": 0.0,
+        "name": "Mixed_5c",
+        "sha256_float32_le": "2c1cee5f86d6c31f70fa603aa4f8d071744920169ade7ddd1214087f3e319aa5",
+        "shape": [
+          1,
+          1024,
+          8,
+          6,
+          8
+        ],
+        "std_population": 0.36175521136779304
+      },
+      "forward_seconds": [
+        2.5789517309985968,
+        2.5265253279994795
+      ],
+      "input": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 4718212.3457968235,
+        "l2_norm": 1773.4893045869085,
+        "max": 0.9999997615814209,
+        "mean": 0.00018813698013925913,
+        "min": -0.9999995231628418,
+        "sha256_float32_le": "1486ea47921adbfbf1e8281c7dc4a8b9ea60c7d7c6b31e9c7f2953f1c3e9638b",
+        "shape": [
+          1,
+          3,
+          64,
+          192,
+          256
+        ],
+        "std_population": 0.5773076856808885
+      },
+      "name": "basketball51_project",
+      "normalization": {
+        "bias": -1.0,
+        "dtype_preserved": true,
+        "in_place": false,
+        "operation": "affine",
+        "output_range_contract": [
+          -1.0,
+          1.0
+        ],
+        "scale": 2.0,
+        "shape_preserved": true,
+        "source_range_contract": [
+          0.0,
+          1.0
+        ],
+        "source_unmodified": true,
+        "version": "i3d_rgb_minus1_plus1_v1"
+      },
+      "pooled": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 76.39884964025805,
+        "l2_norm": 4.455336907929322,
+        "max": 0.847987949848175,
+        "mean": 0.0746082516018145,
+        "min": 0.0,
+        "sha256_float32_le": "5a273b2d8f4ded5cb091651cdf0f5dea107367f5e6c7a3b224b711e8dc4d4e27",
+        "shape": [
+          1,
+          1024
+        ],
+        "std_population": 0.1175516939441051
+      },
+      "repeated_forward_bitwise_equal": {
+        "Conv3d_1a_7x7": true,
+        "GAP": true,
+        "Mixed_5c": true
+      },
+      "source_before_adapter": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 4719479.741649389,
+        "l2_norm": 1773.8375968564048,
+        "max": 0.9999998807907104,
+        "mean": 0.5000940684900697,
+        "min": 2.384185791015625e-07,
+        "sha256_float32_le": "223cf833bbd9f874251609b2e4afb8b3d319c3043f8d89f0549b8f9743ce7b5c",
+        "shape": [
+          1,
+          3,
+          64,
+          192,
+          256
+        ],
+        "std_population": 0.28865384284044426
+      },
+      "spatial_stride": [
+        32,
+        32
+      ],
+      "temporal_stride": 8
+    },
+    "official_reference": {
+      "channels": 1024,
+      "early_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 35932991.241893396,
+        "l2_norm": 10374.126835132176,
+        "max": 15.57105541229248,
+        "mean": 1.3987090146548755,
+        "min": 0.0,
+        "name": "Conv3d_1a_7x7",
+        "sha256_float32_le": "03f98b05bad399a610065e54a6821a8f07ab5ab08ca4e7865211735b3db1648e",
+        "shape": [
+          1,
+          64,
+          32,
+          112,
+          112
+        ],
+        "std_population": 1.4942794608660643
+      },
+      "feature_endpoint": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 29755.824696830205,
+        "l2_norm": 239.69681369770177,
+        "max": 16.030696868896484,
+        "mean": 0.07412862896810778,
+        "min": 0.0,
+        "name": "Mixed_5c",
+        "sha256_float32_le": "1dd2400838dce8d81eb94c0556b85fd98b23745f4eb32754789e7c640fbec006",
+        "shape": [
+          1,
+          1024,
+          8,
+          7,
+          7
+        ],
+        "std_population": 0.3709953179371239
+      },
+      "forward_seconds": [
+        2.6834748900000704,
+        2.6505620990010357
+      ],
+      "input": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 4816821.24977839,
+        "l2_norm": 1791.9513136329874,
+        "max": 0.9999996423721313,
+        "mean": -1.8578665588881828e-05,
+        "min": -0.9999998807907104,
+        "sha256_float32_le": "d0a592d1082132fb02b05915d7591af61a81df9bbb3588fbf6cc693f40173724",
+        "shape": [
+          1,
+          3,
+          64,
+          224,
+          224
+        ],
+        "std_population": 0.577334583015837
+      },
+      "name": "official_reference",
+      "pooled": {
+        "dtype": "torch.float32",
+        "finite": true,
+        "l1_norm": 75.90771587983909,
+        "l2_norm": 4.559117510878687,
+        "max": 0.8478384017944336,
+        "mean": 0.07412862878890536,
+        "min": 0.0,
+        "sha256_float32_le": "fef5bec7e8e80ddea7a65e1609353f4177f16e8e451233421a62e8b233382956",
+        "shape": [
+          1,
+          1024
+        ],
+        "std_population": 0.12166896681436164
+      },
+      "repeated_forward_bitwise_equal": {
+        "Conv3d_1a_7x7": true,
+        "GAP": true,
+        "Mixed_5c": true
+      },
+      "spatial_stride": [
+        32,
+        32
+      ],
+      "temporal_stride": 8
+    }
+  },
+  "test_video_decode_count": 0,
+  "test_video_open_count": 0
+}

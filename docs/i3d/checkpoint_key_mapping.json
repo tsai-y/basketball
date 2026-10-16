@@ -1,0 +1,3808 @@
+{
+  "all_exact": true,
+  "converted_target_tensor_count": 287,
+  "derived_constant_gamma_count": 57,
+  "duplicate_official_tensor_uses": [],
+  "generated_at_utc": "2026-10-16T17:04:52.871784+00:00",
+  "mapping": [
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Conv3d_1a_7x7/conv_3d/w",
+      "source_shape": [
+        7,
+        7,
+        7,
+        3,
+        64
+      ],
+      "target_key": "conv3d_1a_7x7.conv3d.weight",
+      "target_shape": [
+        64,
+        3,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "conv3d_1a_7x7.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_1a_7x7/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_1a_7x7.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_1a_7x7/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_1a_7x7.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_1a_7x7/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_1a_7x7.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Conv3d_2b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        64,
+        64
+      ],
+      "target_key": "conv3d_2b_1x1.conv3d.weight",
+      "target_shape": [
+        64,
+        64,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "conv3d_2b_1x1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_2b_1x1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_2b_1x1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "conv3d_2b_1x1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Conv3d_2c_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        64,
+        192
+      ],
+      "target_key": "conv3d_2c_3x3.conv3d.weight",
+      "target_shape": [
+        192,
+        64,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "conv3d_2c_3x3.batch3d.weight",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2c_3x3/batch_norm/beta",
+      "source_shape": [
+        192
+      ],
+      "target_key": "conv3d_2c_3x3.batch3d.bias",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2c_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        192
+      ],
+      "target_key": "conv3d_2c_3x3.batch3d.running_mean",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Conv3d_2c_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        192
+      ],
+      "target_key": "conv3d_2c_3x3.batch3d.running_var",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        192,
+        64
+      ],
+      "target_key": "mixed_3b.branch_0.conv3d.weight",
+      "target_shape": [
+        64,
+        192,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_0.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3b.branch_0.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3b.branch_0.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3b.branch_0.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        192,
+        96
+      ],
+      "target_key": "mixed_3b.branch_1.0.conv3d.weight",
+      "target_shape": [
+        96,
+        192,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_1.0.batch3d.weight",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3b.branch_1.0.batch3d.bias",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3b.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3b.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        96,
+        128
+      ],
+      "target_key": "mixed_3b.branch_1.1.conv3d.weight",
+      "target_shape": [
+        128,
+        96,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_1.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3b.branch_1.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3b.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3b.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        192,
+        16
+      ],
+      "target_key": "mixed_3b.branch_2.0.conv3d.weight",
+      "target_shape": [
+        16,
+        192,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_2.0.batch3d.weight",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_3b.branch_2.0.batch3d.bias",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_3b.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_3b.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        16,
+        32
+      ],
+      "target_key": "mixed_3b.branch_2.1.conv3d.weight",
+      "target_shape": [
+        32,
+        16,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_2.1.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_2.1.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        192,
+        32
+      ],
+      "target_key": "mixed_3b.branch_3.1.conv3d.weight",
+      "target_shape": [
+        32,
+        192,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3b.branch_3.1.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_3.1.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3b.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        256,
+        128
+      ],
+      "target_key": "mixed_3c.branch_0.conv3d.weight",
+      "target_shape": [
+        128,
+        256,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_0.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_0.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_0.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_0.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        256,
+        128
+      ],
+      "target_key": "mixed_3c.branch_1.0.conv3d.weight",
+      "target_shape": [
+        128,
+        256,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_1.0.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_1.0.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_3c.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        128,
+        192
+      ],
+      "target_key": "mixed_3c.branch_1.1.conv3d.weight",
+      "target_shape": [
+        192,
+        128,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_1.1.batch3d.weight",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_3c.branch_1.1.batch3d.bias",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_3c.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_3c.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        256,
+        32
+      ],
+      "target_key": "mixed_3c.branch_2.0.conv3d.weight",
+      "target_shape": [
+        32,
+        256,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_2.0.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3c.branch_2.0.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3c.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_3c.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        32,
+        96
+      ],
+      "target_key": "mixed_3c.branch_2.1.conv3d.weight",
+      "target_shape": [
+        96,
+        32,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_2.1.batch3d.weight",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3c.branch_2.1.batch3d.bias",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3c.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_3c.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        256,
+        64
+      ],
+      "target_key": "mixed_3c.branch_3.1.conv3d.weight",
+      "target_shape": [
+        64,
+        256,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_3c.branch_3.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3c.branch_3.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3c.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_3c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_3c.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        480,
+        192
+      ],
+      "target_key": "mixed_4b.branch_0.conv3d.weight",
+      "target_shape": [
+        192,
+        480,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_0.batch3d.weight",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_4b.branch_0.batch3d.bias",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_4b.branch_0.batch3d.running_mean",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_4b.branch_0.batch3d.running_var",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        480,
+        96
+      ],
+      "target_key": "mixed_4b.branch_1.0.conv3d.weight",
+      "target_shape": [
+        96,
+        480,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_1.0.batch3d.weight",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_4b.branch_1.0.batch3d.bias",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_4b.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        96
+      ],
+      "target_key": "mixed_4b.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        96
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        96,
+        208
+      ],
+      "target_key": "mixed_4b.branch_1.1.conv3d.weight",
+      "target_shape": [
+        208,
+        96,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_1.1.batch3d.weight",
+      "target_shape": [
+        208
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        208
+      ],
+      "target_key": "mixed_4b.branch_1.1.batch3d.bias",
+      "target_shape": [
+        208
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        208
+      ],
+      "target_key": "mixed_4b.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        208
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        208
+      ],
+      "target_key": "mixed_4b.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        208
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        480,
+        16
+      ],
+      "target_key": "mixed_4b.branch_2.0.conv3d.weight",
+      "target_shape": [
+        16,
+        480,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_2.0.batch3d.weight",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_4b.branch_2.0.batch3d.bias",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_4b.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        16
+      ],
+      "target_key": "mixed_4b.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        16
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        16,
+        48
+      ],
+      "target_key": "mixed_4b.branch_2.1.conv3d.weight",
+      "target_shape": [
+        48,
+        16,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_2.1.batch3d.weight",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_4b.branch_2.1.batch3d.bias",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_4b.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_4b.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        480,
+        64
+      ],
+      "target_key": "mixed_4b.branch_3.1.conv3d.weight",
+      "target_shape": [
+        64,
+        480,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4b.branch_3.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4b.branch_3.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4b.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4b.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        160
+      ],
+      "target_key": "mixed_4c.branch_0.conv3d.weight",
+      "target_shape": [
+        160,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_0.batch3d.weight",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4c.branch_0.batch3d.bias",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4c.branch_0.batch3d.running_mean",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4c.branch_0.batch3d.running_var",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        112
+      ],
+      "target_key": "mixed_4c.branch_1.0.conv3d.weight",
+      "target_shape": [
+        112,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_1.0.batch3d.weight",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4c.branch_1.0.batch3d.bias",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4c.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4c.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        112,
+        224
+      ],
+      "target_key": "mixed_4c.branch_1.1.conv3d.weight",
+      "target_shape": [
+        224,
+        112,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_1.1.batch3d.weight",
+      "target_shape": [
+        224
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        224
+      ],
+      "target_key": "mixed_4c.branch_1.1.batch3d.bias",
+      "target_shape": [
+        224
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        224
+      ],
+      "target_key": "mixed_4c.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        224
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        224
+      ],
+      "target_key": "mixed_4c.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        224
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        24
+      ],
+      "target_key": "mixed_4c.branch_2.0.conv3d.weight",
+      "target_shape": [
+        24,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_2.0.batch3d.weight",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4c.branch_2.0.batch3d.bias",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4c.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4c.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        24,
+        64
+      ],
+      "target_key": "mixed_4c.branch_2.1.conv3d.weight",
+      "target_shape": [
+        64,
+        24,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_2.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_2.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        64
+      ],
+      "target_key": "mixed_4c.branch_3.1.conv3d.weight",
+      "target_shape": [
+        64,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4c.branch_3.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_3.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4c.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        128
+      ],
+      "target_key": "mixed_4d.branch_0.conv3d.weight",
+      "target_shape": [
+        128,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_0.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_0.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_0.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_0.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        128
+      ],
+      "target_key": "mixed_4d.branch_1.0.conv3d.weight",
+      "target_shape": [
+        128,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_1.0.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_1.0.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4d.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        128,
+        256
+      ],
+      "target_key": "mixed_4d.branch_1.1.conv3d.weight",
+      "target_shape": [
+        256,
+        128,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_1.1.batch3d.weight",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4d.branch_1.1.batch3d.bias",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4d.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4d.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        24
+      ],
+      "target_key": "mixed_4d.branch_2.0.conv3d.weight",
+      "target_shape": [
+        24,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_2.0.batch3d.weight",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4d.branch_2.0.batch3d.bias",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4d.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        24
+      ],
+      "target_key": "mixed_4d.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        24
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        24,
+        64
+      ],
+      "target_key": "mixed_4d.branch_2.1.conv3d.weight",
+      "target_shape": [
+        64,
+        24,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_2.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_2.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        64
+      ],
+      "target_key": "mixed_4d.branch_3.1.conv3d.weight",
+      "target_shape": [
+        64,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4d.branch_3.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_3.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4d/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4d.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        112
+      ],
+      "target_key": "mixed_4e.branch_0.conv3d.weight",
+      "target_shape": [
+        112,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_0.batch3d.weight",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4e.branch_0.batch3d.bias",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4e.branch_0.batch3d.running_mean",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        112
+      ],
+      "target_key": "mixed_4e.branch_0.batch3d.running_var",
+      "target_shape": [
+        112
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        144
+      ],
+      "target_key": "mixed_4e.branch_1.0.conv3d.weight",
+      "target_shape": [
+        144,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_1.0.batch3d.weight",
+      "target_shape": [
+        144
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        144
+      ],
+      "target_key": "mixed_4e.branch_1.0.batch3d.bias",
+      "target_shape": [
+        144
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        144
+      ],
+      "target_key": "mixed_4e.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        144
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        144
+      ],
+      "target_key": "mixed_4e.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        144
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        144,
+        288
+      ],
+      "target_key": "mixed_4e.branch_1.1.conv3d.weight",
+      "target_shape": [
+        288,
+        144,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_1.1.batch3d.weight",
+      "target_shape": [
+        288
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        288
+      ],
+      "target_key": "mixed_4e.branch_1.1.batch3d.bias",
+      "target_shape": [
+        288
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        288
+      ],
+      "target_key": "mixed_4e.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        288
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        288
+      ],
+      "target_key": "mixed_4e.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        288
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        32
+      ],
+      "target_key": "mixed_4e.branch_2.0.conv3d.weight",
+      "target_shape": [
+        32,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_2.0.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4e.branch_2.0.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4e.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4e.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        32,
+        64
+      ],
+      "target_key": "mixed_4e.branch_2.1.conv3d.weight",
+      "target_shape": [
+        64,
+        32,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_2.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_2.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        512,
+        64
+      ],
+      "target_key": "mixed_4e.branch_3.1.conv3d.weight",
+      "target_shape": [
+        64,
+        512,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4e.branch_3.1.batch3d.weight",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_3.1.batch3d.bias",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4e/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        64
+      ],
+      "target_key": "mixed_4e.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        64
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        528,
+        256
+      ],
+      "target_key": "mixed_4f.branch_0.conv3d.weight",
+      "target_shape": [
+        256,
+        528,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_0.batch3d.weight",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4f.branch_0.batch3d.bias",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4f.branch_0.batch3d.running_mean",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_4f.branch_0.batch3d.running_var",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        528,
+        160
+      ],
+      "target_key": "mixed_4f.branch_1.0.conv3d.weight",
+      "target_shape": [
+        160,
+        528,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_1.0.batch3d.weight",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4f.branch_1.0.batch3d.bias",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4f.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_4f.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        160,
+        320
+      ],
+      "target_key": "mixed_4f.branch_1.1.conv3d.weight",
+      "target_shape": [
+        320,
+        160,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_1.1.batch3d.weight",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_4f.branch_1.1.batch3d.bias",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_4f.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_4f.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        528,
+        32
+      ],
+      "target_key": "mixed_4f.branch_2.0.conv3d.weight",
+      "target_shape": [
+        32,
+        528,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_2.0.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4f.branch_2.0.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4f.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_4f.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        32,
+        128
+      ],
+      "target_key": "mixed_4f.branch_2.1.conv3d.weight",
+      "target_shape": [
+        128,
+        32,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_2.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_2.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        528,
+        128
+      ],
+      "target_key": "mixed_4f.branch_3.1.conv3d.weight",
+      "target_shape": [
+        128,
+        528,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_4f.branch_3.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_3.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_4f/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_4f.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        256
+      ],
+      "target_key": "mixed_5b.branch_0.conv3d.weight",
+      "target_shape": [
+        256,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_0.batch3d.weight",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_5b.branch_0.batch3d.bias",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_5b.branch_0.batch3d.running_mean",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        256
+      ],
+      "target_key": "mixed_5b.branch_0.batch3d.running_var",
+      "target_shape": [
+        256
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        160
+      ],
+      "target_key": "mixed_5b.branch_1.0.conv3d.weight",
+      "target_shape": [
+        160,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_1.0.batch3d.weight",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_5b.branch_1.0.batch3d.bias",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_5b.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        160
+      ],
+      "target_key": "mixed_5b.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        160
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        160,
+        320
+      ],
+      "target_key": "mixed_5b.branch_1.1.conv3d.weight",
+      "target_shape": [
+        320,
+        160,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_1.1.batch3d.weight",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_5b.branch_1.1.batch3d.bias",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_5b.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        320
+      ],
+      "target_key": "mixed_5b.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        320
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        32
+      ],
+      "target_key": "mixed_5b.branch_2.0.conv3d.weight",
+      "target_shape": [
+        32,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_2.0.batch3d.weight",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_5b.branch_2.0.batch3d.bias",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_5b.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        32
+      ],
+      "target_key": "mixed_5b.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        32
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        32,
+        128
+      ],
+      "target_key": "mixed_5b.branch_2.1.conv3d.weight",
+      "target_shape": [
+        128,
+        32,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_2.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_3x3/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_2.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_2/Conv3d_0a_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        128
+      ],
+      "target_key": "mixed_5b.branch_3.1.conv3d.weight",
+      "target_shape": [
+        128,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5b.branch_3.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_3.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5b/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5b.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_0/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        384
+      ],
+      "target_key": "mixed_5c.branch_0.conv3d.weight",
+      "target_shape": [
+        384,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_0.batch3d.weight",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_0/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_0.batch3d.bias",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_0.batch3d.running_mean",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_0/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_0.batch3d.running_var",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        192
+      ],
+      "target_key": "mixed_5c.branch_1.0.conv3d.weight",
+      "target_shape": [
+        192,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_1.0.batch3d.weight",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_5c.branch_1.0.batch3d.bias",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_5c.branch_1.0.batch3d.running_mean",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        192
+      ],
+      "target_key": "mixed_5c.branch_1.0.batch3d.running_var",
+      "target_shape": [
+        192
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        192,
+        384
+      ],
+      "target_key": "mixed_5c.branch_1.1.conv3d.weight",
+      "target_shape": [
+        384,
+        192,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_1.1.batch3d.weight",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_1.1.batch3d.bias",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_1.1.batch3d.running_mean",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_1/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        384
+      ],
+      "target_key": "mixed_5c.branch_1.1.batch3d.running_var",
+      "target_shape": [
+        384
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0a_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        48
+      ],
+      "target_key": "mixed_5c.branch_2.0.conv3d.weight",
+      "target_shape": [
+        48,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_2.0.batch3d.weight",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0a_1x1/batch_norm/beta",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_5c.branch_2.0.batch3d.bias",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_5c.branch_2.0.batch3d.running_mean",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0a_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        48
+      ],
+      "target_key": "mixed_5c.branch_2.0.batch3d.running_var",
+      "target_shape": [
+        48
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0b_3x3/conv_3d/w",
+      "source_shape": [
+        3,
+        3,
+        3,
+        48,
+        128
+      ],
+      "target_key": "mixed_5c.branch_2.1.conv3d.weight",
+      "target_shape": [
+        128,
+        48,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_2.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0b_3x3/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_2.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_2.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_2/Conv3d_0b_3x3/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_2.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_3/Conv3d_0b_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        832,
+        128
+      ],
+      "target_key": "mixed_5c.branch_3.1.conv3d.weight",
+      "target_shape": [
+        128,
+        832,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "derived_constant_ones_sonnet_scale_false",
+      "source_key": null,
+      "source_shape": null,
+      "target_key": "mixed_5c.branch_3.1.batch3d.weight",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_3/Conv3d_0b_1x1/batch_norm/beta",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_3.1.batch3d.bias",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_mean",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_3.1.batch3d.running_mean",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Mixed_5c/Branch_3/Conv3d_0b_1x1/batch_norm/moving_variance",
+      "source_shape": [
+        128
+      ],
+      "target_key": "mixed_5c.branch_3.1.batch3d.running_var",
+      "target_shape": [
+        128
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "transpose_4_3_0_1_2",
+      "source_key": "RGB/inception_i3d/Logits/Conv3d_0c_1x1/conv_3d/w",
+      "source_shape": [
+        1,
+        1,
+        1,
+        1024,
+        400
+      ],
+      "target_key": "conv3d_0c_1x1.conv3d.weight",
+      "target_shape": [
+        400,
+        1024,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "exact_value_match": true,
+      "rule": "identity",
+      "source_key": "RGB/inception_i3d/Logits/Conv3d_0c_1x1/conv_3d/b",
+      "source_shape": [
+        400
+      ],
+      "target_key": "conv3d_0c_1x1.conv3d.bias",
+      "target_shape": [
+        400
+      ]
+    }
+  ],
+  "official_source_tensor_count": 230,
+  "official_tensors_used_once": 230,
+  "schema_version": "basketball.i3d-gate-1c.key-mapping.v1",
+  "unused_official_tensors": [],
+  "value_mismatches": []
+}

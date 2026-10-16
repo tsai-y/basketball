@@ -1,0 +1,86 @@
+version: i3d_checkpoint_compatibility_gate_1c
+candidate:
+  gate_1b_id: C03
+  upstream_gate_1b_id: A01
+  architecture: Inception-v1 Inflated 3D ConvNet
+  modality: RGB
+  dataset: Kinetics-400
+  initialization: ImageNet-initialized then Kinetics-400
+  implementation:
+    owner: hassony2
+    repository: kinetics_i3d_pytorch
+    commit: 786fbae06a6fd5df419e1961cd32e32fbe8b396d
+    framework: PyTorch
+    historical_framework_version: "0.3 (README; exact patch unspecified)"
+    tested_gate_framework_version: 2.11.0+cu128
+    model_source_url: https://raw.githubusercontent.com/hassony2/kinetics_i3d_pytorch/786fbae06a6fd5df419e1961cd32e32fbe8b396d/src/i3dpt.py
+    model_source_filename: i3dpt.py
+    model_source_expected_sha256: 8f6f3c47ecae454bddac48d009285976c8337296834a4de4ab112fc0e32b3a3a
+    conversion_source_url: https://raw.githubusercontent.com/hassony2/kinetics_i3d_pytorch/786fbae06a6fd5df419e1961cd32e32fbe8b396d/i3d_tf_to_pt.py
+    conversion_source_filename: i3d_tf_to_pt.py
+    conversion_source_expected_sha256: 87d24173680304cadc3e41c83fee49db1d892912e0bbdf56ff61b66d35036e15
+    license_url: https://raw.githubusercontent.com/hassony2/kinetics_i3d_pytorch/786fbae06a6fd5df419e1961cd32e32fbe8b396d/LICENSE
+    license_expected_sha256: d813f5741355ee7e33a134facf25e6e1f34f939fcdf69799e0d6768c8935a3e9
+    license: MIT
+  converted_checkpoint:
+    canonical_url: https://raw.githubusercontent.com/hassony2/kinetics_i3d_pytorch/786fbae06a6fd5df419e1961cd32e32fbe8b396d/model/model_rgb.pth
+    filename: model_rgb.pth
+    expected_bytes: 50887222
+    format: torch state_dict
+  official_upstream:
+    owner: google-deepmind
+    repository: kinetics-i3d
+    commit: 0667e889a5904b4dc122e0ded4c332f49f8df42c
+    framework: TensorFlow 1.x plus Sonnet 1.x API family
+    exact_historical_runtime: unspecified
+    license: Apache-2.0 at repository root; weight-specific grant unspecified
+    model_source_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/i3d.py
+    model_source_expected_sha256: 6331381918f0472d6cac693da688b546918070d19f6ab0f7cda59b3abf43183b
+    license_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/LICENSE
+    license_expected_sha256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+    files:
+      - filename: checkpoint
+        expected_bytes: 173
+        canonical_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/data/checkpoints/rgb_imagenet/checkpoint
+      - filename: model.ckpt.data-00000-of-00001
+        expected_bytes: 50818176
+        canonical_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/data/checkpoints/rgb_imagenet/model.ckpt.data-00000-of-00001
+      - filename: model.ckpt.index
+        expected_bytes: 10953
+        canonical_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/data/checkpoints/rgb_imagenet/model.ckpt.index
+      - filename: model.ckpt.meta
+        expected_bytes: 51144099
+        canonical_url: https://raw.githubusercontent.com/google-deepmind/kinetics-i3d/0667e889a5904b4dc122e0ded4c332f49f8df42c/data/checkpoints/rgb_imagenet/model.ckpt.meta
+artifact_directory: development/i3d_gate/artifacts
+input_contract:
+  official_reference:
+    layout: NCTHW
+    shape: [1, 3, 64, 224, 224]
+    color: RGB
+    dtype: float32
+    range: [-1.0, 1.0]
+  project:
+    source_layout: CTHW
+    model_layout: NCTHW
+    shape: [1, 3, 64, 192, 256]
+    source_range: [0.0, 1.0]
+    model_range: [-1.0, 1.0]
+normalization:
+  version: i3d_rgb_minus1_plus1_v1
+  expression: x * 2.0 - 1.0
+  in_place: false
+feature_endpoint: Mixed_5c
+numerical_parity:
+  absolute_tolerance: 0.0001
+  relative_tolerance: 0.001
+  endpoints: [Conv3d_1a_7x7, Mixed_5c]
+smoke:
+  seed: 20261017
+  train_samples: 1
+  validation_samples: 1
+  batch_size: 1
+  optimizer_steps: 0
+  backward_calls: 0
+access_policy:
+  allowed_splits: [train, validation]
+  test: reject_before_path_access
