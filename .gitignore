@@ -37,3 +37,6 @@ runs/**/.test_evaluation_claim
 
 # Train-only quality pilot: scores, images and runtime evidence stay local
 development/data_quality/artifacts/
+
+# I3D Gate 1C: downloaded checkpoints, pinned source snapshots and runtime evidence
+development/i3d_gate/artifacts/
