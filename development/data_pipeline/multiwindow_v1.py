@@ -19,6 +19,19 @@ def select_covering_windows(frame_count: int) -> tuple[tuple[int, int], ...]:
         raise ValueError("Three 64-frame windows cannot cover this video")
     return windows
 
+def candidate_overlap_counts(
+    windows: tuple[tuple[int, int], ...],
+    segments: list[tuple[int, int]],
+) -> tuple[int, ...]:
+    """Count candidate frames in each window; intervals are [start, end)."""
+    return tuple(
+        sum(
+            max(0, min(end, candidate_end) - max(start, candidate_start))
+            for candidate_start, candidate_end in segments
+        )
+        for start, end in windows
+    )
+
 class BasketballThreeWindowDataset(torch.utils.data.Dataset):
     """Engineering prototype: three windows, one video-level label."""
 
@@ -65,6 +78,21 @@ class BasketballThreeWindowDataset(torch.utils.data.Dataset):
             array, _ = normalize_tensor(array, mode="identity")
             tensors.append(torch.from_numpy(array))
 
+        if base.split == "train":
+            quality_index = base.quality_index
+            if quality_index is None:
+                raise RuntimeError("Missing train quality index")
+            summary = quality_index.summaries[row["video_id"]]
+            if int(summary["frame_count"]) != n:
+                raise RuntimeError("Frame count differs from quality sidecar")
+            overlaps = candidate_overlap_counts(
+                windows,
+                quality_index.segments.get(row["video_id"], []),
+            )
+            quality_available = True
+        else:
+            overlaps = (-1, -1, -1)
+            quality_available = False
         return {
             "tensor": torch.stack(tensors),
             "binary_label": int(row["binary_label"]),
@@ -75,4 +103,6 @@ class BasketballThreeWindowDataset(torch.utils.data.Dataset):
             "windows": windows,
             "policy_version": "three_window_coverage_v1",
             "quality_aware_selection_used": False,
+            "candidate_overlap_frames": torch.tensor(overlaps, dtype=torch.int64),
+            "quality_metadata_available": quality_available,
         }
