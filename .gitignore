@@ -40,3 +40,12 @@ development/data_quality/artifacts/
 
 # I3D Gate 1C: downloaded checkpoints, pinned source snapshots and runtime evidence
 development/i3d_gate/artifacts/
+
+# Frozen-feature experiments: generated checkpoints, reports, and audit sheets
+development/linear_baseline_v1/artifacts/
+development/temporal_baseline_v1/artifacts/
+development/mlp_baseline_v1/artifacts/
+development/temporal_balanced_v1/artifacts/
+development/partial_finetune_v1/artifacts/
+development/temporal_quality_v1/artifacts/
+development/yolo_audit_v1/artifacts/
