@@ -80,3 +80,97 @@ dry-run 不載入 YOLO、不開影片、不建立輸出。run 是離線推論，
 allowlist 與唯讀 descriptor 開啟，檢查來源 identity 不變；validation/test 原片不開啟。
 完成推論後以 build_annotations.mjs 使用 bundled Artifact Tool 產生 XLSX/CSV。
 人工表格需要填完，才可決定 ROI 方法是否適合接入模型。
+
+## 保留場景 ROI 小型可視化對照
+
+`roi_probe.py` 只讀取本次 audit 已產生的 Y004、Y018、Y012、Y019 診斷影片與
+逐幀 detection JSON，不重新讀原始資料集、不重跑 YOLO、不改人工標註、
+特徵快取或分類器，不啟動訓練。這是已知失敗案例的開發檢查，非獨立驗證。
+
+三欄依序為完整診斷畫面、舊 person 聯集 ROI、新的保留場景候選 ROI。
+ROI 外顯示黑色，保留區不縮放，幀號與 FPS 與來源診斷片一致。
+
+候選幾何規則（未證實有效，未以 validation accuracy 調參）：
+
+- 無人物框、框少於3個、舊 ROI 面積小於35%、寬度小於50%，或其上緣已在
+  畫面高度55%以下，退回全畫面。
+- 其他情況保留完整寬度與頂部，高度至少90%，並包含舊 ROI 底部。
+- 因此新 ROI 必然包含舊 ROI，且至少保留90%面積。它可能幾乎等同全畫面，
+  不可把「沒再裁掉資訊」宣稱為「人物偵測改善」。
+- 不區分球員與觀眾，也不辨識球、籃框、投籃或轉場。即使轉場中沒框，仍保留該幀。
+- 人工複查的位置僅供導覽，沒有作為 ROI 規則輸入；Make/Miss 標籤及品質資訊也不用。
+
+執行例（CPU，輸出自動另建在本次 audit 的 `outputs/roi_context_probe_v1_*`）：
+
+```bash
+python -B -m development.yolo_audit_v1.roi_probe --audit-run development/yolo_audit_v1/artifacts/audit_seed20261024_7_aaaj0r --dry-run
+python -B -m development.yolo_audit_v1.roi_probe --audit-run development/yolo_audit_v1/artifacts/audit_seed20261024_7_aaaj0r --run
+```
+
+輸出含4支三欄影片、24張 PNG、8張複查圖、逐幀 ROI 與備援原因 JSON、設定／來源
+SHA-256 與保留面積統計，以及可跳到指定幀和慢放的檢查頁。規則觸發備援與
+擴張後自然變成全畫面分開統計。這些是幾何／工程資訊，不能計算 mAP、
+真正球員 precision/recall 或分類模型準確率；診斷轉碼畫面也不作模糊真值。
+
+## 自訂 YOLO 三類標註可行性試驗
+
+`target_label_pilot.py` 從既有 train audit 中選8支不同 source_group，
+各投籃類型與 Make/Miss 組合各1支，排除曾用於 ROI 修正的 Y004/Y012/Y018/Y019。
+SHA-256排序與seed固定，每支取30%、50%、70%的既有無損PNG，共24張。
+影像取初始audit PNG的未畫框左半邊，保持320×240，不從H264診斷片重新抽幀。
+這仍是開發／標註可行性試驗，不是獨立效能驗證，也不足以宣稱可訓練出可靠偵測器。
+
+類別與規則版本 `active-player-ball-visible-rim-v1`：
+
+- `0 active_player`：球場比賽畫面中參與比賽球員，包含場外發球員；排除裁判、
+  觀眾、教練、板凳球員。框可辨識的可見身體範圍，不猜遮擋部位。
+- `1 ball`：可辨識的實體籃球；不猜測球的位置，不以標誌或手替代。
+- `2 rim`：可辨識的籃圈本體，不包含籃網、籃板或支架。
+- 球員特寫、轉場或無法可靠框定的影像可填原因後略過，不能直接當成負樣本。
+- 球或圈過小無法框定時記 `uncertain`，這張不得宣告訓練標註完成。
+  「沒有可見物件」與「不知道在哪」必須分開。
+
+### 選填持球角色（不改三類偵測）
+
+角色規則 `visible-hand-held-ball-v1`：只在既有 `active_player` annotation
+附加 `holding_ball`，值為 `yes/no/uncertain/null`。`null` 或舊檔缺欄位表示
+尚未判斷，不預設為 `no`；`yes` 僅指目標幀可見該球員以手持住球，`no` 指
+可確認未持球，遮擋／爭搶／運球控制關係不清楚用 `uncertain`。
+這不是投籃者身分、跨幀控球權或第四個偵測類別，也不重複畫球員框。
+
+`role_metadata.py` 的 `add_role_metadata` 是非破壞性複製：保留既有角色值，
+只為缺欄位的球員填 `null`，不從球的位置、框距離或已接受物件框推定角色。
+Python／JS均拒絕非法值及球／籃圈上的此欄位；舊進度仍可讀。
+角色未完成或不確定不使已通過的三類物件標註退回pending，兩種完整性分開。
+
+一般框編輯器可在球員列選角色；`holding_ball_editor.html/js` 是只改角色的
+專用頁模板，不提供框／類別／場景／物件完整性修改。產生專用頁時需嵌入
+當前進度和唯一暫存namespace，避免載入舊頁暫存覆蓋新進度。
+本機頁暫存不自動回寫對話中的JSON，操作後需匯出JSON再交回同步。
+角色保存在複查JSON，不會自動成為標準YOLO三類偵測訓練目標；目前不訓練。
+
+只將官方 person 框作橘色虛線提案，初始人工框全部為空、狀態全部pending。
+人工需要拒絕非球員提案、補漏框並修正邊界，再標球與籃圈。提案接受、
+全部類別的有無、完整性確認與影像複查狀態分開保存，不能盲目把預測當真值。
+
+```bash
+python -B -m development.yolo_audit_v1.target_label_pilot --audit-run development/yolo_audit_v1/artifacts/audit_seed20261024_7_aaaj0r --dry-run
+python -B -m development.yolo_audit_v1.target_label_pilot --audit-run development/yolo_audit_v1/artifacts/audit_seed20261024_7_aaaj0r --prepare
+```
+
+輸出在原audit的 `outputs/target_label_pilot_v1_*`，含24張PNG、來源manifest、
+空白人工草稿及本機標註頁。先做L001/L002校準即可，不必一次標完。
+可拖曳畫框、確認／拒絕提案、改座標、刪除框、逐類記錄有無／不確定及略過原因。
+本機暫存可能遺失，離開前請匯出進度JSON；可匯入相同批次續做。
+頁面不顯示 Make/Miss 標籤，這些標籤只用於初始抽樣分層。
+
+匯出後檢查（唯讀，例中路徑改為實際輸出與下載的JSON）：
+
+```bash
+python -B -m development.yolo_audit_v1.target_label_pilot --pilot-dir /absolute/path/to/pilot --check-review /absolute/path/to/downloaded_review.json
+```
+
+此階段沒有訓練函式、不匯出YOLO訓練labels、不產生data.yaml，也不改MixNet-I3D、
+分類器、特徵快取、品質標註或先前AI/人工複查紀錄。未讀validation/test或原始影片，
+未重跑YOLO。互動頁使用本機檔案，不上傳資料；純JS驗證可用bundled Node執行
+`tests/test_label_core.cjs`，但這不等於已驗證實際瀏覽器互動。

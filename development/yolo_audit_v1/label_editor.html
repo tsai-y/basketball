@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>自訂 YOLO 三類標註試驗</title>
+<style>
+*{box-sizing:border-box}body{margin:22px auto;padding:0 16px;max-width:1400px;font:16px system-ui;color:#243449;background:#f4f6f9}
+h1{font-size:24px}h2{font-size:18px}p{line-height:1.6}button,select,input,textarea{font:inherit}button,select{padding:6px 9px;margin:3px}button{cursor:pointer}
+.layout{display:grid;grid-template-columns:minmax(0,960px) minmax(260px,1fr);gap:16px}.panel{background:white;padding:14px;border:1px solid #d5dee7;border-radius:6px}
+canvas{display:block;width:100%;height:auto;background:#182434;touch-action:none;cursor:crosshair}textarea{width:100%;min-height:60px}
+.row{padding:8px 0;border-bottom:1px solid #dce2e9}.selected{background:#e5effa}.tiny{font-size:14px}#message{min-height:28px;color:#7e3d0c;white-space:pre-line}
+.warning{border-left:4px solid #b46c19;padding:6px 12px;background:#fff6e4}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.list{max-height:330px;overflow:auto}input[type=number]{width:78px}#progress{font-weight:600}details{margin:12px 0}summary{cursor:pointer}label{display:inline-block;margin:4px}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.list{max-height:260px}}
+</style>
+<h1>自訂 YOLO：場上球員／球／籃圈標註試驗</h1>
+<p class="warning">24張開發影像，尚未訓練。橘色虛線是官方person提案，不是球員真值。放大只方便框選，不會增加原圖細節。看不清可選不確定，特寫／轉場可填原因略過，不自動當負樣本。</p>
+<details><summary>標註規則與操作（先讀一次）</summary>
+<p><strong>0 場上球員 active_player：</strong>球場比賽畫面中參與當下比賽者，包含場外發球員；不含裁判、觀眾、教練、板凳球員。緊貼可見身體範圍，部分遮擋只框能確認的可見範圍，不猜被遮住的肢體。不知道是不是球員就選不確定。</p>
+<p><strong>1 球 ball：</strong>只框可辨認的實體籃球，不把手、標誌或猜測位置當球。<strong>2 籃圈 rim：</strong>只框可辨認的圈本體，不含籃板、籃網或支架。小到無法框定時選不確定，不硬標。</p>
+<p><strong>選填角色 holding_ball：</strong>只附在既有球員框，不新增類別或重複框。yes＝可見該球員以手持住球；no＝可確認未持球；uncertain＝遮擋、爭搶或運球控制關係不清楚；未判斷留空（JSON為null），不得預設no。這不是投籃者身分，也不是跨幀控球權；角色是否填完不改變物件標註完整性。</p>
+<p>①逐一確認／拒絕person提案。②選類別後在圖上拖曳新增漏掉的框。③點已標框可改座標或刪除；提案接受後可修框。④逐類選有／無／不確定，檢查所有可見物件均標完，勾完整性後才完成此張。⑤先做L001、L002確認規則即可，不必立刻標24張。</p>
+<p>球員特寫不能直接當成「沒有場上球員」的負樣本。這些影像先略過並記原因。所有類別／提案未解決前都不可宣告標註完成。此工具只匯出複查JSON，不輸出YOLO訓練標籤，也沒有訓練按鈕。</p>
+<p>會嘗試存本機暫存，但可能因瀏覽器限制或清除而遺失。離開前按「匯出進度JSON」，回來可匯入同批進度；匯出後把JSON交回檢查。</p>
+</details>
+<div class="toolbar panel">
+<button id="previous" type="button">上一張</button><select id="image-picker" aria-label="影像"></select><button id="next" type="button">下一張</button>
+<span id="progress"></span><button id="export" type="button">匯出進度JSON</button>
+<label>匯入同批進度 <input id="import" type="file" accept=".json,application/json"></label>
+</div>
+<p id="message" role="status" aria-live="polite"></p>
+<div class="layout">
+<main class="panel">
+<div class="toolbar"><label>新增框類別 <select id="new-class"><option value="0">0 場上球員</option><option value="1">1 球</option><option value="2">2 籃圈</option></select></label>
+<label><input id="show-proposals" type="checkbox" checked>顯示person提案</label><span id="image-info"></span></div>
+<canvas id="canvas" width="960" height="720" aria-label="320乘240原圖的三倍標註視圖；拖曳新增框，點擊選取已標框"></canvas>
+<p class="tiny">橘色虛線：未確認提案；綠：已標球員；黃：球；青：籃圈。原生座標以320×240計，未改模型輸入。</p>
+<div id="coordinate-editor" hidden>
+<span id="selected-id"></span><label>x1 <input id="x1" type="number" step="0.1"></label><label>y1 <input id="y1" type="number" step="0.1"></label>
+<label>x2 <input id="x2" type="number" step="0.1"></label><label>y2 <input id="y2" type="number" step="0.1"></label>
+<button id="apply-coordinates" type="button">套用座標</button><button id="delete-box" type="button">刪除此標註框</button>
+</div>
+<h2>人工標註框（不是橘色提案）</h2><div id="annotations" class="list"></div>
+</main>
+<aside class="panel">
+<label>畫面類型 <select id="scene"><option value="unreviewed">尚未判斷</option><option value="court_play">球場比賽畫面</option><option value="closeup">人物特寫</option><option value="transition">轉場動畫</option><option value="other">其他</option><option value="uncertain">不確定</option></select></label>
+<h2>各類是否可見</h2><div id="visibility"></div>
+<label><input id="complete" type="checkbox">已檢查所有可辨識物件，沒有漏標或重複框</label>
+<label for="notes">備註／不確定或略過原因</label><textarea id="notes"></textarea>
+<button id="reviewed" type="button">完成此張標註</button><button id="exclude" type="button">填原因後略過此張</button>
+<h2>人物提案</h2><p class="tiny">不是全收person框。裁判、觀眾或重複框請拒絕；漏掉的球員需手動畫。</p><div id="proposals" class="list"></div>
+</aside>
+</div>
+<script id="pilot-data" type="application/json">__PILOT_DATA__</script>
+<script src="label_core.js"></script><script src="label_editor.js"></script>
+</html>

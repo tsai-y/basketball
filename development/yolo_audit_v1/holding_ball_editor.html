@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>選填角色：手持球</title>
+<style>body{font:16px system-ui;max-width:1100px;margin:24px auto;padding:0 16px;color:#24364a}p{line-height:1.7}button,select{font:inherit;padding:7px;margin:4px}canvas{width:100%;height:auto;background:#14202b}.row{padding:10px;border-bottom:1px solid #ddd}.warning{padding:12px;background:#fff3d7}#message{white-space:pre-line}</style>
+<h1>選填角色：holding_ball</h1>
+<p class="warning">本頁只修改既有球員框的角色，不增刪框、不改YOLO三類、不訓練。已完成的物件標註與角色判讀分開；空白是null，不是no。你之前只接受物件框，持球角色不會自動補成yes。</p>
+<p>yes：可見球由該球員手持住。no：可確認未持球。uncertain：遮擋、爭搶或運球關係不清楚。未判斷：留空。這不是投籃者身分，也不是跨幀控球權；球出手後不因他是投籃者就標yes。</p>
+<p>畫面只列已有球員標註框的影像。框、場景與完整性在本頁唯讀；修改角色不影響原先已完成的物件複查。</p>
+<label>影像 <select id="image-picker"></select></label>
+<button id="export" type="button">匯出含角色的進度JSON</button>
+<label>匯入同批進度 <input id="import" type="file" accept=".json,application/json"></label>
+<p id="progress"></p><p id="message" role="status" aria-live="polite"></p>
+<canvas id="canvas" width="960" height="720" aria-label="唯讀物件框預覽，座標不會被修改"></canvas>
+<div id="roles"></div>
+<p>本頁本機暫存不會自動更新對話中的檔案。手動操作後請匯出JSON交回檢查，不要同時在多份頁面修改；匯入相同pilot與影像雜湊的進度才會接受。沒有新建訓練類別或訓練標籤。</p>
+<script id="pilot-data" type="application/json">__PILOT_DATA__</script>
+<script src="label_core.js"></script><script src="holding_ball_editor.js"></script></html>
