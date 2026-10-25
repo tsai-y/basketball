@@ -1,0 +1,16 @@
+{
+  "schema": "aca_resnet50_initialization_v1",
+  "enum": "torchvision.models.ResNet50_Weights.IMAGENET1K_V1",
+  "url": "https://download.pytorch.org/models/resnet50-0676ba61.pth",
+  "filename": "resnet50-0676ba61.pth",
+  "sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+  "size_bytes": 102530333,
+  "local_relative_path": "artifacts/weights/resnet50-0676ba61.pth",
+  "hash_provenance": "Official HTTPS download on 2026-10-25; filename hash prefix and measured full SHA256 pinned here",
+  "source_tensor_count": 267,
+  "missing_bn_counter_count": 53,
+  "rgb_mean": [0.485, 0.456, 0.406],
+  "rgb_std": [0.229, 0.224, 0.225],
+  "task_head": "new Linear(2048,2), Miss=0 Make=1",
+  "exact_paper_checkpoint_identity_known": false
+}
