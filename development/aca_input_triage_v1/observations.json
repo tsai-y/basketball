@@ -1,0 +1,31 @@
+{
+  "schema": "aca_assistant_input_visual_observations_v1",
+  "review_date": "2026-10-27",
+  "reviewer": "assistant_visual_screening_not_blind",
+  "cases": [
+    {"review_id":"R01","category":"limited","observation":"低角度畫面中出手、接近籃框與其後球離開的序列仍在；ACA球與框的局部細節較少，主線連續影格較容易接續追蹤。不足以單憑此認定判錯原因。"},
+    {"review_id":"R02","category":"limited","observation":"兩種輸入都保留罰球序列；原片後段記分圖由TOR94變95，與使用者再次確認投進相符，但記分圖不能代替球穿網證據。維持原標籤差異紀錄，不重新要求使用者確認進球，也不改成績。","extra_viewed_files":["original_04.png","original_05.png"]},
+    {"review_id":"R03","category":"limited","observation":"開頭球員特寫後切到罰球全景；ACA仍保留出手和籃框附近序列，但球與背景接近。主線保留更多連續位置，未見明顯整段漏抽；不能將鏡頭切換直接認定為錯誤原因。"},
+    {"review_id":"R04","category":"limited","observation":"低角度、籃框接近畫面上緣，明亮燈光與球的局部對比不佳；兩路都有相關動作，ACA細節較少。後段跳起搶球不應誤當原罰球出手，單張定位圖不足判讀。"},
+    {"review_id":"R05","category":"limited","observation":"開頭板凳特寫後切到罰球；ACA與主線均保留出手和籃下後續，球在ACA中較小。未見足以推翻使用者原判斷的新矛盾，不需要現在重看整片。"},
+    {"review_id":"R06","category":"limited","observation":"主線補看1.335–2.628秒與3.045–4.338秒連續影格；球靠近框及後續離框動作有保留。ACA較稀疏，不能僅依50張精確確認彈框次數，使用者的兩次彈框紀錄不改。","extra_viewed_files":["window1_02.png"]},
+    {"review_id":"R07","category":"clear","observation":"俯瞰序列中球相對籃框夠大，ACA約3.3–4.3秒保留接框後向上／外離開的軌跡；主線連續影格亦可追蹤。不支持把這筆錯誤單純歸因為縮圖後完全看不到結果。","assistant_outcome_hypothesis":0},
+    {"review_id":"R08","category":"limited","observation":"開頭特寫後切到全景；球接近框的序列仍在，但ACA小球與觀眾背景混雜，主線位置連續性較好。保留為細節受限案例，不宣稱解析度是已證實原因。"},
+    {"review_id":"R09","category":"limited","observation":"下方大型轉播廣告占據不少畫面，但籃框位於其上方，不能說廣告直接擋住投籃結果。ACA和主線均有罰球及籃下序列；球網細節仍有限。"},
+    {"review_id":"R10","category":"limited","observation":"全景中籃框與球偏小；兩路保留出手至籃下動作，主線較容易接續位置，但非每張都可分離球與背景。沒有新的標籤衝突證據。"},
+    {"review_id":"R11","category":"uncertain","observation":"後側視角的支架／籃板、人物及背景使球接近框與穿網的一段難以分離；原片連續影格和主線也未讓我有足夠把握，ACA更小。這是視覺初判不確定，不是宣稱使用者或標籤有誤。","question":"先只看ACA及主線輸入，不靠原片、記分板或球員反應，是否看得到球穿網？請分別回覆可判讀／不可判讀／不確定；若可，指出大約秒數。","extra_viewed_files":["original_04.png"]},
+    {"review_id":"R12","category":"clear","observation":"籃框近景夠大；ACA f59（約2.461秒）球在框口附近，後續抽樣保留穿過／離開球網的序列，主線f58–63與原片連續影格更清楚。這是輸入仍可判讀卻被模型判錯的反例。","assistant_outcome_hypothesis":1,"mainline_viewed_file":"window1_02.png","extra_viewed_files":["original_03.png"]},
+    {"review_id":"R13","category":"limited","observation":"特寫切換為全景，ACA仍涵蓋接近籃框與後續球員動作；主線可補連續位置。人工約2秒只是定位，不應把當時出手附近幾張當作完整結果。這是判對對照，亦有小球細節受限。"},
+    {"review_id":"R14","category":"uncertain","observation":"遠景使球與籃框在原320×240就很小，ACA縮小後尤其難確認接框路徑；主線256×192也未能讓我可靠分辨穿網／彈出。不是只存在於判錯案例：這筆原融合判對仍列入複查。","mainline_viewed_file":"window1_02.png","question":"ACA是否仍能辨認球的位置及離框方向？主線是否足夠？若只能從原片或球員反應判斷，請註明，不必再確認原片沒進。","extra_viewed_files":["original_03.png"]},
+    {"review_id":"R15","category":"limited","observation":"全景中出手及球到籃下後的序列有保留，ACA球較小；少數亮度閃變在原片型態中亦可見。它是判對對照，不將相同畫質限制只歸給判錯群。"},
+    {"review_id":"R16","category":"limited","observation":"特寫後切到全景；兩路保留相關時段，主線連續位置較多，ACA接框細節有限。它與相似鏡位的錯誤案例並存，不能由鏡位單獨解釋成敗。"},
+    {"review_id":"R17","category":"clear","observation":"低角度近景在約3.9–4.3秒清楚保留球經籃框／球網下落；ACA f120、f124、f127仍見關係，主線f116–127連續序列更明確。此為判對的清晰對照。","assistant_outcome_hypothesis":1,"mainline_viewed_file":"window3_01.png"},
+    {"review_id":"R18","category":"limited","observation":"開頭人物特寫約2.8秒切到罰球全景，兩路都有切換及之後籃下序列；ACA全景球小，不能把特寫中看不到手掌視為整片漏掉結果。主線仍有更多連續資訊。"},
+    {"review_id":"R19","category":"limited","observation":"兩路保留較早出手與後段籃下序列；補看主線1.710–3.003秒，避免只看人工約4秒的已結束畫面。ACA球細節較少，但不是結果時段全缺。","extra_viewed_files":["window2_01.png"]},
+    {"review_id":"R20","category":"limited","observation":"低角度的框位於上緣，附近有燈光與部分支架干擾；補看主線0–2.628秒仍有相關畫面，但不能靠約2秒三張定位圖保證穿網可辨。保留使用者進球結果，不列為已確認的縮圖致錯。","mainline_viewed_file":"window1_02.png","extra_viewed_files":["window1_01.png"]},
+    {"review_id":"R21","category":"uncertain","observation":"原片就有模糊、小球與擁擠背景，並有短暫亮度閃變；主線連續影格仍難讓我可靠逐點追球，ACA更弱。無法區分來源畫質、縮小與模型判讀各占多少，不自動否定原標籤。","question":"哪一段影格能直接看出球彈離框？ACA與主線各自可判讀／不可判讀／不確定？若原片也只能推測，請註明。","extra_viewed_files":["original_04.png"]},
+    {"review_id":"R22","category":"limited","observation":"ACA與主線均保留第一次投籃及後續籃下爭搶／準備再進攻；下方轉播文字不等於遮住籃框。保留第一次沒進的使用者判讀，不因球員未回防便改判進球或刪除。"},
+    {"review_id":"R23","category":"limited","observation":"兩路保留受碰撞後出手及籃下後續；人物姿勢彎曲與小球造成難度，但不等於標籤錯誤。ACA細節偏少，主線連續位置較多，尚不能證明哪個因素造成三模型判錯。"},
+    {"review_id":"R24","category":"limited","observation":"完整ACA50張包含前次投籃、籃下爭搶及後次投籃的脈絡；原片與主線3.420–4.713秒有後次球接近框／離框序列，約5秒定位圖偏向後段。使用者已確認標籤對應第二次且進球；沒有證據說第二次整段被抽掉。多次事件可能增加難度，但不是已證實致錯原因，不再重問目標是哪次。","mainline_viewed_file":"window3_02.png","extra_viewed_files":["window3_01.png","original_04.png","original_05.png"]}
+  ]
+}

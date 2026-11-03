@@ -1,0 +1,16 @@
+{
+  "schema": "aca_dense_resolution_feasibility_v1",
+  "model": "aca_dense_candidate",
+  "seed": 20261025,
+  "frames": 50,
+  "resolutions_height_width": [[120, 160], [192, 256]],
+  "micro_batch": 1,
+  "effective_batch": 16,
+  "engineering_updates_per_resolution": 2,
+  "lr": 0.0001,
+  "weight_decay": 0.0,
+  "clip_norm": 1.0,
+  "precision": "FP32_no_AMP_no_TF32",
+  "initialization": "same_seed_fresh_ImageNet_V1_plus_new_ACA_and_paired_head",
+  "formal_training_enabled": false
+}
