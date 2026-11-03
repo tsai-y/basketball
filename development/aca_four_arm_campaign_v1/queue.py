@@ -206,7 +206,8 @@ def prepare(source_root):
         path = ROOT / cpu['path'] / name
         require(sha(path) == expected, 'CPU preparation changed')
         pins[path.relative_to(ROOT).as_posix()] = expected
-    require(read(ROOT / cpu['path'] / 'plan.json') == campaign, 'CPU preparation plan mismatch')
+    require(digest(read(ROOT / cpu['path'] / 'plan.json')) == digest(campaign),
+            'CPU preparation plan mismatch')
     for row in evidence['gpu_readiness_reports']:
         path = ROOT / row['path']
         require(row['seed'] in SEEDS and row['seed'] not in reports and sha(path) == row['sha256'],

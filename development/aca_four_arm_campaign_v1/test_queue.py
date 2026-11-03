@@ -6,7 +6,7 @@ import signal
 import subprocess
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from . import queue as q
 
@@ -23,6 +23,43 @@ def history():
 
 
 class QueueTests(unittest.TestCase):
+    def test_prepare_accepts_json_tuple_roundtrip_but_rejects_stale_plan(self):
+        from dataclasses import asdict
+        from development.aca_four_arm_v1.experiment import ArmConfig
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            package = root / 'queue'
+            package.mkdir()
+            cpu = root / 'cpu'
+            cpu.mkdir()
+            campaign = {'arms': [asdict(ArmConfig(variant=v, seed=s))
+                                 for s in q.SEEDS for v in q.VARIANTS],
+                        'source_code_sha256': {}, 'normalization': {'mean': (.1, .2, .3)}}
+            q.atomic(cpu / 'plan.json', campaign)
+            q.atomic(cpu / 'report.json', {})
+            reports = []
+            for seed in q.SEEDS:
+                path = root / f'{seed}.json'
+                q.atomic(path, {})
+                reports.append({'seed': seed, 'path': path.name, 'sha256': q.sha(path)})
+            evidence = {'campaign_sha256': q.digest(campaign), 'configurations': campaign['arms'],
+                        'gpu_readiness_reports': reports, 'cpu_preparation': {
+                            'path': 'cpu', 'plan_sha256': q.sha(cpu / 'plan.json'),
+                            'report_sha256': q.sha(cpu / 'report.json')}}
+            q.atomic(root / 'readiness.json', evidence)
+            with patch.object(q, 'ROOT', root), patch.object(q, 'FOLDER', package), \
+                 patch.object(q, 'READINESS', root / 'readiness.json'), \
+                 patch.object(q.shutil, 'disk_usage', return_value=Mock(free=100 * 1024**3)), \
+                 patch('development.aca_four_arm_v1.experiment.assert_idle_gpu'), \
+                 patch('development.aca_four_arm_v1.experiment.campaign_plan', return_value=campaign), \
+                 patch('development.aca_four_arm_v1.experiment.verify_preflight') as gate, \
+                 patch.object(q.subprocess, 'check_output', return_value='fixture'):
+                self.assertEqual(len(q.prepare(root)['jobs']), 12)
+                self.assertEqual(gate.call_count, 12)
+                campaign['normalization']['mean'] = (.4, .2, .3)
+                with self.assertRaisesRegex(RuntimeError, 'fingerprint is stale'):
+                    q.prepare(root)
+
     def test_exact_order_all_twelve(self):
         jobs = q.ordered_jobs({seed: str(seed) for seed in q.SEEDS})
         self.assertEqual([(j['seed'], j['variant']) for j in jobs],
