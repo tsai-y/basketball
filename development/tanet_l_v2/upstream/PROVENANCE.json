@@ -1,0 +1,34 @@
+{
+  "schema": "tanet_author_source_pin_v1",
+  "repository": "https://github.com/liu-zhy/temporal-adaptive-module",
+  "commit": "5fcb46fe671ead2f7958d8ffc3321a0e274d6491",
+  "license": "Apache-2.0",
+  "files": {
+    "ops/temporal_module.py": {
+      "local_file": "temporal_module.py",
+      "sha256": "b437fe46eb69198c824e1f2ecba286e7a8bf0bc5fc46e47462d68b94b7c7fb24",
+      "size_bytes": 5169,
+      "source_url": "https://github.com/liu-zhy/temporal-adaptive-module/blob/5fcb46fe671ead2f7958d8ffc3321a0e274d6491/ops/temporal_module.py",
+      "modified": false,
+      "runtime_imported": true
+    },
+    "LICENSE": {
+      "local_file": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "size_bytes": 11357,
+      "source_url": "https://github.com/liu-zhy/temporal-adaptive-module/blob/5fcb46fe671ead2f7958d8ffc3321a0e274d6491/LICENSE",
+      "modified": false,
+      "runtime_imported": false
+    },
+    "ops/models.py": {
+      "local_file": "reference_models.py.txt",
+      "sha256": "9bb2be080a60f2f005e720d944497693a569ae604ab9c8ae0e88ce6d9d42f65f",
+      "size_bytes": 19064,
+      "source_url": "https://github.com/liu-zhy/temporal-adaptive-module/blob/5fcb46fe671ead2f7958d8ffc3321a0e274d6491/ops/models.py",
+      "modified": false,
+      "runtime_imported": false
+    }
+  },
+  "runtime_scope": "Unmodified author TAM, TemporalBottleneck, make_temporal_modeling. Reference TSN file is attribution/inspection only, not imported.",
+  "local_changes": "Separate adapter uses modern torchvision resnet50(weights=None), explicit local ImageNet loading, binary head, average-logit consensus, fixed-shape input guard. Not an ACA-Net reproduction."
+}
