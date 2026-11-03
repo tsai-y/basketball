@@ -1,0 +1,32 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>256×192 ACA：論文差異與啟動前審查</title>
+<style>body{font:17px/1.7 system-ui;max-width:1180px;margin:32px auto;padding:20px;background:#f7f9fd;color:#16263b}h1{font-size:29px}h2{margin-top:32px}table{border-collapse:collapse;width:100%;background:white}th,td{border:1px solid #d7dfeb;padding:12px;vertical-align:top;text-align:left}th{background:#edf3fa}.note{background:#fff0c7;padding:18px;border-left:5px solid #d99400}.ok{background:#dff5e9;padding:18px}code{font-size:.88em}li{margin-bottom:8px}a{color:#0757a6}</style>
+<h1>256×192 dense ACA 候選：論文差異與正式啟動前審查</h1>
+<p class="ok">狀態：入口與專用 GPU 就緒檢查完成；正式訓練尚未啟動，沒有自動啟動排程。本輪 test 影片讀取 0。</p>
+<p>核對日期：2026-10-27。以 PDF 閱讀流程重新檢視 Zhang et al. (2024) 的 Figures 1–3、Eqs.1–8、§3.3、Table 3，並與實際模型程式、參數核算、資料切分和新入口逐項對照。<a href="https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full">出版社全文</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11461453/">PMC 含公式版本</a> · <a href="artifacts/paper_reference/aca-net-2024.pdf">本次核對 PDF</a></p>
+<h2>一、已確認的差異</h2>
+<table><tr><th>項目</th><th>論文報告／位置</th><th>目前 256×192 候選</th><th>判斷</th></tr>
+<tr><th>分類任務</th><td>Basketball-51 八類；§3.1、Table 3</td><td>Make/Miss 二類；4 種投籃型態只作分組診斷</td><td>目標不同，92.05% 不能直接對照本版二分類成績。</td></tr>
+<tr><th>參數量</th><td>約 26.8M；§3.3</td><td>93,163,870（約 93.16M）</td><td>約 3.48 倍，仍是最大架構忠實度疑點；解析度提高不改參數量。</td></tr>
+<tr><th>輸入影像</th><td>50 幀，裁切後 120×160；§3.3</td><td>50 幀，全原片直接縮為寬×高 256×192，不裁切</td><td>是解析度改版，不是恢復論文前處理；較清楚的小球是待驗證假設，不保證準確率改善。</td></tr>
+<tr><th>資料切分</th><td>80/10/10；§3.3</td><td>原群組隔離約 70/15/15；7193/1547/1539，另有 32 個既有排除項</td><td>不重抽 split、不重新排除困難片；作者 split IDs 與群組規則未驗證。</td></tr>
+<tr><th>訓練預算</th><td>初始上限 30 輪、validation loss 早停；§3.3</td><td>待確認的上限 15、patience 5</td><td>沿用專案既有預算，不是論文設定完全一致；作者 patience 主文未列值。</td></tr>
+<tr><th>初始化</th><td>ImageNet；§3.3</td><td>明確鎖定 torchvision ResNet50 ImageNet V1 與 SHA，新 ACA／二類頭</td><td>來源類型相近，作者精確 checkpoint、stride 版本未驗證。不是從低解析度 best.pt 接續。</td></tr>
+<tr><th>最佳化與硬體</th><td>Adam、lr 1e-4、batch 16；8×RTX3090；§3.3</td><td>Adam、lr 1e-4、micro 1 累積至有效 16；1×RTX5070Ti；FP32</td><td>超參數名義對齊，但多卡／batch 語意與浮點累積不等於作者實現。</td></tr>
+<tr><th>BN 等訓練細節</th><td>含 BN／IN，但凍結策略未驗證</td><td>所有 BN affine/running buffers 凍結，含新 TSCI BN；IN 無 affine/running stats</td><td>屬專案明確選擇，不能假設作者相同，也不能單憑差異斷定成績原因。</td></tr>
+</table>
+<h2>二、概念拓樸有對應，但仍不等於作者程式</h2>
+<p>目前骨幹是逐幀共享的 ResNet50，16 個 bottleneck 的第一個 1×1 卷積後插入 ACA；LSTA 與 TSCI 平行後相加。TSCI 以 C/H/W 三方向池化、7×7 Conv2D、BN、Sigmoid、還原維度並平均。這些概念與論文圖示對應。256×192 輸入仍保留 50 個時間位置，四個 stage 最後輸出 <code>[B,2048,50,6,8]</code>，時空平均後經二類 Linear；末端 pooling／BN/ReLU 插入次序仍需要作者程式佐證。</p>
+<h2>三、參數爆增的實際來源</h2>
+<p>現有 dense gating 每個 ACA 含 1 個 1×1×1 與 2 個 3×3×3 的 C→C Conv3D，所以單模組卷積權重是 <code>(1+27+27)×C²=55C²</code>。四個 stage 的內部 ACA 通道已是 64、128、256、512，並非最外層輸出通道；程式已放在 bottleneck 縮減後，不能只用「移到縮減通道」解釋剩餘差異。</p>
+<table><tr><th>部分</th><th>本實作參數</th></tr><tr><td>ResNet50 骨幹（無分類頭）</td><td>23,508,032</td></tr><tr><td>LSTA 三個 dense 3D gating</td><td>69,160,960</td></tr><tr><td>LSTA 短期分支</td><td>475,564</td></tr><tr><td>動態核產生器</td><td>10,416</td></tr><tr><td>TSCI</td><td>4,800</td></tr><tr><td>二類 Linear</td><td>4,098</td></tr><tr><th>合計</th><th>93,163,870</th></tr></table>
+<p>此處需修正一個常見估法：25.56M 通常含 ImageNet 的 1000 類頭；本程式八類 ResNet50 是 23,524,424。因此不能直接用 26.8−25.56≈1.24M 推定全部 ACA 的可用參數。改用同八類頭估算，26.8M 與骨幹候選差約 3.28M；仍遠小於本 dense 額外開銷。從本版八類頭改二類僅少 12,294 個參數，不可能消除約 66M 的落差。</p>
+<p>既有 DW3D 支線只把兩個 3×3×3 改為 depthwise、保留 dense 1×1×1，二類模型為 25,464,286。它也是另一個未經作者設定驗證的假設，不因接近 26.8M 就能視為作者原版。本次高解析度入口沒有改採 DW3D。</p>
+<h2>四、仍無法確認的重建假設</h2>
+<ul><li>Figure 2 的 gating 有 Sigmoid，但 Eq.1 未顯式寫出；本版依圖加入，不宣稱已知作者實際執行方式。</li>
+<li>Eq.2 已把 G 池化成 P[C,T]，Eq.4 卻寫 P 乘上五維展開權重；本版以完整 G 乘 broadcast 權重，保持後續空間張量形狀。這是形狀一致性的重建選擇。</li>
+<li>主文未給 r、短期卷積 kernel、K、β 的具體數值。本版固定 r=16、短期 kernel=3、K=3、β=.25；動態核由 50→12→3 的共享 MLP 產生，softmax 沿 K。</li>
+<li>Conv groups/bias、IN affine/statistics、padding、ResNet stride 位置、取樣方式、裁切規則、影像正規化及末端 pooling，尚未逐項對上可驗證作者程式。不能把「未核實」寫成「作者一定沒有公開」。補充 ZIP 有列出，但內容未核實。</li></ul>
+<h2>五、這版能回答與不能回答的問題</h2>
+<p>它能在相同二分類資料協定與候選計算圖下，研究提高空間解析度的影響；它不能證明原版 ACA-Net 無法達到論文結果，不能把二分類結果當成八類復現，也不能藉升解析度宣稱已解決架構差異。若目標改成嚴格論文復現，需另外核實作者程式、26.8M 的構成、八類任務、原切分及前處理；本輪沒有擅自切換研究目標。</p>
+<p class="note">評估限制：低解析度 test 已做過。接下來只依 validation 選模，不依 test 改權重或挑版本；未來最終驗證需另行決定。本次不啟動高解析度正式訓練、不讀 test、不變更既有資料或產物。</p>
+<p><a href="README.md">入口與未執行的啟動命令</a> · <a href="artifacts/gpu_readiness_8v1g98iq/report.json">GPU readiness 證據</a> · <a href="artifacts/cpu_prepare_l92d6as2/report.json">CPU preparation 證據</a></p></html>
