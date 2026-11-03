@@ -1,0 +1,14 @@
+{
+  "schema": "aca_four_arm_protocol_v1",
+  "claim": "Project Make/Miss controlled ablation; not verified author reproduction",
+  "variants": ["baseline", "lsta", "tsci", "aca"],
+  "seeds": [20261024, 20261025, 20261026],
+  "input": {"frames": 50, "height": 120, "width": 160, "full_frame": true, "augmentation": false},
+  "reconstruction": {"gating": "dense", "r": 16, "short_kernels": [3, 3], "K": 3, "beta": 0.25, "gate_sigmoid": true},
+  "initialization": "pinned ImageNet V1 backbone; paired fresh head and per-block independent LSTA/TSCI RNG streams",
+  "training": {"max_epochs": 30, "patience": 5, "micro_batch": 1, "effective_batch": 16, "lr": 0.0001, "weight_decay": 0, "clip_norm": 1, "optimizer": "Adam", "precision": "FP32", "scheduler": null},
+  "BN": "all BatchNorm affine and buffers frozen, including new TSCI BN; not verified paper recipe",
+  "selection": "strict minimum complete validation CE; ties keep earlier epoch",
+  "test": "no test interface; preserve prior test-exposure history",
+  "queue": "not created or launched by prepare/preflight"
+}

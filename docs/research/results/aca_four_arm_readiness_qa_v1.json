@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "unit_tests_passed": 16,
+  "arm_seed_GPU_readiness_checks_passed": 12,
+  "all_12_formal_readiness_gates_pass": true,
+  "protected_historical_files_unchanged": 93,
+  "source_code_and_campaign_unchanged_after_preflight": true,
+  "formal_run_directories_created": 0,
+  "formal_training_started": false,
+  "test_executed": false,
+  "summary_sha256": "b613e66b3512190a0c550185f02ff8679d34cd1b50c62869a642763ff1c854ea"
+}

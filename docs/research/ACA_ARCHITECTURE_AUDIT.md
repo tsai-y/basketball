@@ -1,5 +1,7 @@
 # ACA 架構核對結果（2026-11-03）
 
+接續進度：共同四組設定、配對初始化與三seed十二組工程預檢已完成，見 [四組readiness](ACA_FOUR_ARM_READINESS.md)；尚未正式訓練。以下保留架構核對時的結論與草案界線。
+
 本輪已完成公開來源、圖與公式、既有實作及使用者 TAM→ACA 提案的核對。
 結論：核心拓撲相符，但作者精確設定仍無法確認；這輪不改模型、不訓練、不執行 test。
 本分支不再只是一份待辦入口。既有實驗狀態見 [ACA 實驗索引](aca_experiments.md)。
@@ -89,8 +91,8 @@ grouped conv2d 與既有 einsum 的合成最大絕對差僅 **2.22e-16**；獨�
 TANet L 當片統計屬另一個探索性改良，本輪不移植到沒有 L-BN 的既有 ACA 候選。
 
 下一步先準備 [四組共同協定草案](results/aca_controlled_comparison_draft_v1.json)，使用既有 dense 設定，三個 seed 預先固定。
-共同 trainer、配對初始化、尾批平均、checkpoint/resume、可訓練範圍與完整輸入 GPU 預檢尚需建立／核對。
-不得將已有 dense／DW3D／baseline 的不同 run 直接組成公平消融；這輪未啟動新預檢或正式訓練。
+共同 trainer、配對初始化、尾批平均、checkpoint/resume、可訓練範圍與十二組完整輸入 GPU 預檢已完成；最新狀態見上方連結。
+不得將已有 dense／DW3D／baseline 的不同 run 直接組成公平消融；架構核對階段未啟動工程預檢或正式訓練；接續的工程預檢已完成，正式訓練仍未啟動。
 
 ## 驗收與可追溯性
 

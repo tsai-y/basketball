@@ -65,3 +65,6 @@ development/aca_highres_v1/artifacts/
 
 # Read-only ACA architecture audit evidence
 development/aca_architecture_audit_v1/artifacts/
+
+# Controlled four-arm training and engineering outputs
+development/aca_four_arm_v1/artifacts/
