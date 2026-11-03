@@ -1,0 +1,66 @@
+{
+  "schema": "aca_controlled_comparison_draft_v1",
+  "status": "draft_not_launched",
+  "research_claim": "Project binary task controlled ablation, not exact author reproduction",
+  "primary_architecture_reference": "Existing dense ReconstructionConfig; no model source modifications this round",
+  "selection_basis": "Keep the existing explicitly documented figure-based candidate; not chosen by test or best validation accuracy",
+  "variants": [
+    "baseline",
+    "lsta",
+    "tsci",
+    "aca"
+  ],
+  "prospective_seeds": [
+    20261024,
+    20261025,
+    20261026
+  ],
+  "proposed_common_settings": {
+    "frames": 50,
+    "height": 120,
+    "width": 160,
+    "num_classes": 2,
+    "split": "existing source-group split; train7193 validation1547",
+    "initialization": "fresh paired ImageNet V1 backbone, paired task head; new module initialization per arm",
+    "input": "full-video uniform endpoints; full-frame INTER_AREA RGB; fixed ImageNet normalization",
+    "ACA": {
+      "gating": "dense",
+      "r": 16,
+      "short_kernels": [
+        3,
+        3
+      ],
+      "beta": 0.25,
+      "hidden_T_floor": 12,
+      "K": 3,
+      "short_long_BN": false,
+      "gate_sigmoid": true
+    },
+    "optimizer": "Adam",
+    "lr": 0.0001,
+    "weight_decay": 0,
+    "clip_norm": 1,
+    "max_epochs": 30,
+    "patience": 5,
+    "micro_batch": 1,
+    "effective_batch": 16,
+    "precision": "FP32",
+    "scheduler": null,
+    "augmentation": false,
+    "BN": "all BatchNorm affine and buffers frozen, including new TSCI; project choice, not verified paper recipe",
+    "selection": "lowest complete validation CE; ties earlier epoch",
+    "evaluation": "same frozen-BN rule for all arms; do not import TANet per-video L policy"
+  },
+  "before_any_launch": [
+    "Implement or review one common four-arm trainer and paired initialization; existing candidate/DW3D trainers are not a drop-in lsta-only trainer.",
+    "Verify loss normalization, tail batch, checkpoint/resume, trainable scope and same validation rule for every arm.",
+    "Run bounded GPU readiness including all arms and measured resource usage; do not reuse past readiness for a new trainer."
+  ],
+  "existing_pilot_extension_or_highres_runs_not_reused_as_matched_arms": true,
+  "DW3D_role": "separate efficiency hypothesis; not the author default",
+  "proposal_role": "audit-only mirror; do not silently replace the selected candidate",
+  "SpaceJam": "deferred independent ten-class study; no download or training authorized in this round",
+  "test": "No new test. The project already has prior test exposure; no globally untouched holdout claim.",
+  "training_started": false,
+  "gpu_readiness_started": false
+}

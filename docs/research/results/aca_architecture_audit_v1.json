@@ -1,0 +1,317 @@
+{
+  "schema": "aca_architecture_audit_v1",
+  "status": "completed_with_unresolved_author_settings",
+  "exact_author_reproduction_confirmed": false,
+  "proposal": {
+    "sha256": "6926117ff51e21a3b4c6ce2d9a6d85941af55d379a4cba3a524d7bf5f4699a85",
+    "class": "TAM_to_LSTA",
+    "defaults": {
+      "r": 4,
+      "beta": 2,
+      "K": 3,
+      "depthwise_gate": true,
+      "short_k2": 1,
+      "long_bn": true
+    },
+    "attachment_executed": false,
+    "mirror_scope": "manually reviewed architecture; defaults verified with AST"
+  },
+  "parameters": {
+    "rows": [
+      {
+        "variant": "baseline",
+        "classes": 2,
+        "total": 23512130,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 0,
+          "short_term": 0,
+          "dynamic_kernel": 0,
+          "tsci": 0
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": -3287870
+      },
+      {
+        "variant": "baseline",
+        "classes": 8,
+        "total": 23524424,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 0,
+          "short_term": 0,
+          "dynamic_kernel": 0,
+          "tsci": 0
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": -3275576
+      },
+      {
+        "variant": "lsta",
+        "classes": 2,
+        "total": 93159070,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 69160960,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 0
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": 66359070
+      },
+      {
+        "variant": "lsta",
+        "classes": 8,
+        "total": 93171364,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 69160960,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 0
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": 66371364
+      },
+      {
+        "variant": "tsci",
+        "classes": 2,
+        "total": 23516930,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 0,
+          "short_term": 0,
+          "dynamic_kernel": 0,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": -3283070
+      },
+      {
+        "variant": "tsci",
+        "classes": 8,
+        "total": 23529224,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 0,
+          "short_term": 0,
+          "dynamic_kernel": 0,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": -3270776
+      },
+      {
+        "variant": "aca",
+        "classes": 2,
+        "total": 93163870,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 69160960,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": 66363870
+      },
+      {
+        "variant": "aca",
+        "classes": 8,
+        "total": 93176164,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 69160960,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": 66376164
+      },
+      {
+        "variant": "dw3d_existing",
+        "classes": 2,
+        "total": 25464286,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 1461376,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": -1335714
+      },
+      {
+        "variant": "dw3d_existing",
+        "classes": 8,
+        "total": 25476580,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 1461376,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": -1323420
+      },
+      {
+        "variant": "all_gates_depthwise_diagnostic",
+        "classes": 2,
+        "total": 24210590,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 207680,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": -2589410
+      },
+      {
+        "variant": "all_gates_depthwise_diagnostic",
+        "classes": 8,
+        "total": 24222884,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 207680,
+          "short_term": 475564,
+          "dynamic_kernel": 10416,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": -2577116
+      },
+      {
+        "variant": "proposal_default_audit_only",
+        "classes": 2,
+        "total": 26330018,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 4098,
+          "gating": 1461376,
+          "short_term": 1259360,
+          "dynamic_kernel": 92352,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          2
+        ],
+        "difference_vs_paper_26_8M": -469982
+      },
+      {
+        "variant": "proposal_default_audit_only",
+        "classes": 8,
+        "total": 26342312,
+        "components": {
+          "backbone": 23508032,
+          "classifier": 16392,
+          "gating": 1461376,
+          "short_term": 1259360,
+          "dynamic_kernel": 92352,
+          "tsci": 4800
+        },
+        "meta_logits_shape": [
+          1,
+          8
+        ],
+        "difference_vs_paper_26_8M": -457688
+      }
+    ],
+    "gate_formulas": {
+      "sum_blocks_C_squared": 1257472,
+      "sum_blocks_C": 3776,
+      "dense_55_C_squared": 69160960,
+      "mixed_C_squared_plus_54_C": 1461376,
+      "all_depthwise_55_C": 207680
+    },
+    "class_head_8_minus_2": 12294,
+    "paper_count_is_approximate_not_an_identifying_constraint": true
+  },
+  "operators": {
+    "grouped_conv2d_vs_existing_einsum_max_abs": 2.220446049250313e-16,
+    "synthetic_shape": [
+      2,
+      4,
+      5,
+      3,
+      2
+    ],
+    "identical_fc_weights_but_different_BN_kernel_max_abs": 0.1577248377588143,
+    "official_G_BN_num_features": 10,
+    "proposal_G_BN_num_features": 4,
+    "official_BN_reduces_over": "N*C for each hidden temporal feature",
+    "proposal_BN_reduces_over": "N*hidden_T for each C",
+    "BN_outputs_are_not_equivalent": true,
+    "gate_sigmoid_after_ReLU_range": [
+      0.5,
+      1.0
+    ],
+    "gate_upper_bound_is_limit": true,
+    "real_model_forward": false,
+    "synthetic_toy_forward_only": true
+  },
+  "scope": {
+    "device": "meta_and_cpu",
+    "pretrained_weights_loaded": 0,
+    "train_videos_opened": 0,
+    "validation_videos_opened": 0,
+    "test_videos_opened": 0,
+    "optimizer_updates": 0,
+    "new_classification_metrics": false,
+    "hyperparameter_search": false
+  }
+}

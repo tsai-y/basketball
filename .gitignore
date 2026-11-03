@@ -62,3 +62,6 @@ development/aca_input_triage_v1/artifacts/
 development/aca_resolution_v1/artifacts/
 development/aca_test_v1/artifacts/
 development/aca_highres_v1/artifacts/
+
+# Read-only ACA architecture audit evidence
+development/aca_architecture_audit_v1/artifacts/

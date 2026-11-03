@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "new_unit_tests_passed": 5,
+  "parameter_and_full_meta_shape_cases": 14,
+  "protected_original_file_count": 89,
+  "protected_original_files_unchanged": true,
+  "source_files_sha256": {
+    "development/aca_architecture_audit_v1/__init__.py": "73749854e5cc7da085423a037dfddc53a761769aeabbe7bea2825cdca20cba4c",
+    "development/aca_architecture_audit_v1/audit.py": "eaa3eb17b974733e9eda923d3eeaf3b90c06528aa50c0dcfa633e640e04076d1",
+    "development/aca_architecture_audit_v1/test_audit.py": "2d9edf4d9f078dd7740e6be1a8e204ba4edc2dad0105f0f86417147d2cb60296"
+  },
+  "report_sha256": "d5c02eb3e910d103bff68d66b9b706f4e26720f02fed28569851be531c56fab6",
+  "sources_sha256": "fe02dca4b6eecb18a53c2bfea7a253200df6dff419b875a76ba7c164300c434a",
+  "proposal_attachment_executed": false,
+  "supplementary_archive_content_executed": false,
+  "train_videos_opened": 0,
+  "validation_videos_opened": 0,
+  "test_videos_opened": 0,
+  "checkpoint_loads": 0,
+  "optimizer_updates": 0,
+  "GPU_used": false
+}

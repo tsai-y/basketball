@@ -1,0 +1,324 @@
+{
+  "schema": "aca_architecture_sources_v1",
+  "checked_on": "2026-11-03",
+  "paper": {
+    "url": "https://public-pages-files-2025.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/pdf",
+    "final_url": "https://public-pages-files-2025.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/pdf",
+    "content_type": "application/pdf",
+    "bytes": 2512510,
+    "sha256": "737b5d770dc6cf30a01e51cb2053aa39869e4b43f0cce45dcb0ecd849c818291",
+    "pdf_magic": true,
+    "doi": "10.3389/fnbot.2024.1471327",
+    "reviewed_pdf_pages_1_based": [
+      3,
+      4,
+      5,
+      6,
+      8
+    ],
+    "figures_visually_reviewed": [
+      1,
+      2,
+      3
+    ],
+    "equations_reviewed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "license": "CC-BY; source files retained only in ignored evidence"
+  },
+  "publisher": {
+    "url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "final_url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "content_type": "text/html;charset=utf-8",
+    "bytes": 964694,
+    "sha256": "9359782e9445c35297fd7d11cd19d6449343eb5fa1e052d627240184daf89768",
+    "pdf_magic": false
+  },
+  "europe_pmc_xml": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11461453/fullTextXML",
+    "sha256": "b49622cec61875fcb890f8132f152b2199be014edb370bd82bb2344a7a452471"
+  },
+  "supplementary": {
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11461453/supplementaryFiles",
+    "outer_zip_sha256": "56793fde1bd2621f32ff118a692adb2afc5454917fd9d11d665af3d22ef74ad2",
+    "inner_archive": "Data_Sheet_1.ZIP",
+    "inner_members": [
+      {
+        "name": "Frontiers-Harvard.bst",
+        "size": 31641
+      },
+      {
+        "name": "Frontiers-Vancouver.bst",
+        "size": 34823
+      },
+      {
+        "name": "FrontiersinHarvard.cls",
+        "size": 28683
+      },
+      {
+        "name": "FrontiersinVancouver.cls",
+        "size": 28933
+      },
+      {
+        "name": "frontiers.tex",
+        "size": 66267
+      },
+      {
+        "name": "frontiers_SupplementaryMaterial.tex",
+        "size": 5550
+      },
+      {
+        "name": "frontiers_suppmat.cls",
+        "size": 27903
+      },
+      {
+        "name": "frontiersinFPHY_FAMS.cls",
+        "size": 28762
+      },
+      {
+        "name": "ref.bib",
+        "size": 18773
+      },
+      {
+        "name": "YM-logo.eps",
+        "size": 200800
+      },
+      {
+        "name": "YM-logo.pdf",
+        "size": 43307
+      },
+      {
+        "name": "logo1.eps",
+        "size": 37462
+      },
+      {
+        "name": "logo1.pdf",
+        "size": 27591
+      },
+      {
+        "name": "logo2.eps",
+        "size": 21390
+      },
+      {
+        "name": "logo2.pdf",
+        "size": 13585
+      },
+      {
+        "name": "logos.eps",
+        "size": 136782
+      },
+      {
+        "name": "logos.pdf",
+        "size": 135061
+      },
+      {
+        "name": "PDF examples/Frontiers.pdf",
+        "size": 277562
+      },
+      {
+        "name": "PDF examples/Frontiers_SupplementaryMaterial.pdf",
+        "size": 294352
+      },
+      {
+        "name": "figures/basketball-51.pdf",
+        "size": 14087
+      },
+      {
+        "name": "figures/data_distribution.pdf",
+        "size": 12201
+      },
+      {
+        "name": "figures/TSCI.pdf",
+        "size": 47432
+      },
+      {
+        "name": "figures/LSTA.pdf",
+        "size": 65483
+      },
+      {
+        "name": "figures/t_SNE_SpaceJam_30epoch.pdf",
+        "size": 75556
+      },
+      {
+        "name": "figures/overview.pdf",
+        "size": 224347
+      },
+      {
+        "name": "figures/tsne_B51_after_training.pdf",
+        "size": 23672
+      },
+      {
+        "name": "figures/tsne_SpaceJam_after_training.pdf",
+        "size": 74865
+      },
+      {
+        "name": "figures/SpaceJam_category_accuracy.pdf",
+        "size": 13757
+      },
+      {
+        "name": "figures/tsne_B51_before_training.pdf",
+        "size": 24483
+      },
+      {
+        "name": "figures/Basketball-51_confusion.pdf",
+        "size": 17598
+      },
+      {
+        "name": "figures/Basketball-51_category_accuracy.pdf",
+        "size": 14350
+      },
+      {
+        "name": "figures/SpaceJam_confusion.pdf",
+        "size": 18239
+      },
+      {
+        "name": "figures/SpaceJam.pdf",
+        "size": 12202
+      },
+      {
+        "name": "figures/tsne_SpaceJam_before_training.pdf",
+        "size": 76714
+      }
+    ],
+    "member_count": 34,
+    "model_source_extension_files_found": 0,
+    "conclusion": "This supplied ZIP contains manuscript LaTeX, templates and figures, not a model implementation.",
+    "text_members_read_without_execution": [
+      "frontiers.tex",
+      "frontiers_SupplementaryMaterial.tex"
+    ],
+    "manuscript_tex_sha256": "69fbb48fab524b0a802a0f92a28f4ceab2469358ec1dd2263860b8854660bc2e",
+    "not_proof_authors_never_published_code_elsewhere": true,
+    "executed_archive_content": false
+  },
+  "tanet_author_source": {
+    "url": "https://github.com/liu-zhy/temporal-adaptive-module/blob/5fcb46fe671ead2f7958d8ffc3321a0e274d6491/ops/temporal_module.py",
+    "sha256": "b437fe46eb69198c824e1f2ecba286e7a8bf0bc5fc46e47462d68b94b7c7fb24",
+    "repository_commit": "5fcb46fe671ead2f7958d8ffc3321a0e274d6491",
+    "license": "Apache-2.0"
+  },
+  "proposal": {
+    "sha256": "6926117ff51e21a3b4c6ce2d9a6d85941af55d379a4cba3a524d7bf5f4699a85",
+    "class": "TAM_to_LSTA",
+    "defaults": {
+      "r": 4,
+      "beta": 2,
+      "K": 3,
+      "depthwise_gate": true,
+      "short_k2": 1,
+      "long_bn": true
+    },
+    "attachment_executed": false,
+    "mirror_scope": "manually reviewed architecture; defaults verified with AST"
+  },
+  "author_code_discovery": {
+    "official_implementation_verified": false,
+    "publisher_article_explicit_github_link_found": false,
+    "searches": [
+      "site:github.com \"LSTA\" \"TSCI\"",
+      "site:github.com \"1471327\"",
+      "site:github.com \"ACA-Net\" basketball"
+    ],
+    "same_named_speaker_verification_and_cloud_removal_repositories_excluded": true,
+    "conclusion": "No verified author model implementation located in this bounded audit; this is not a claim none exists."
+  },
+  "protected_original_ACA_files": {
+    "development/aca_candidate_v1/README.md": "366d6daa0c491714c3b7dabc117f5a093d1dc8b6be39cdcd215b0aceaf03d5db",
+    "development/aca_candidate_v1/__init__.py": "3557424d32cbd7b61770b91e826e95d93e1b07be0b1cefe8649acd5c64d939a4",
+    "development/aca_candidate_v1/config.json": "e7a3af4abf9f0314d90662015b0fc372d2584761727f984454b2a9989f274a8c",
+    "development/aca_candidate_v1/engine.py": "83976720fb2cfee25563167efd1d13890aa1f8c4fcfa5725eddd9d60c54bd1a7",
+    "development/aca_candidate_v1/experiment.py": "80bdbd4b5acc4a10159a2aab70a8b3cfe6080dd1834715fee7043a51f4d134c3",
+    "development/aca_candidate_v1/pilot_config.json": "cabbf61224a777408d0cfc43c6759fcaf7fa140d2324f6edb8eb851992c2643e",
+    "development/aca_candidate_v1/preflight.py": "a95ece5656baf9388ab8a70be4f50001ab0852a0998cb66cd7f88bb6f425dea7",
+    "development/aca_candidate_v1/tests/test_candidate.py": "6f6299e88da87ad65d8c44d45af102e95e3c253d100e2f68c3c95dfd3f38f748",
+    "development/aca_candidate_v1/train.py": "44c988058296a7b9b8f416cd600c379848f1a83f76ac68d742d23ec2a55c120e",
+    "development/aca_dw3d_v1/README.md": "9322850011a79415b64569f3cebdd5aaf92921c20d132d2ba0c906a8a48e007a",
+    "development/aca_dw3d_v1/__init__.py": "a391e8ab34c9b9ef904305a1b20c7a96e8d378abbe0952f440875f316f1a38cc",
+    "development/aca_dw3d_v1/after_baseline.py": "115d203933a59e6468e30b3099348040f8c996671418054ee5f89ce0b6b6765a",
+    "development/aca_dw3d_v1/config.json": "491f46a42b951e6f2fd5503fb0065f2b0bb464a7006288544dd1b5a7f2d356dc",
+    "development/aca_dw3d_v1/engine.py": "1bfaf4cdf41bad5f85ab760f084998d6f68f80ba1ea37575bbe78390fb000d60",
+    "development/aca_dw3d_v1/experiment.py": "621967529fce95cae8f7e6b0a8e3912d4469ce526fc3f28490b6151f2aba052d",
+    "development/aca_dw3d_v1/model.py": "283fd7cfdeceb4e524d4d58602681fb79f16bd99d374b4b5352a5b2df234ab3b",
+    "development/aca_dw3d_v1/preflight.py": "6a3886efe702b7ea88f4c6c2c564d67ba1f236aea8ff58cc50bfbc5131bec866",
+    "development/aca_dw3d_v1/tests/test_after_baseline.py": "40288b9e45a5a280764a18a5c850ad0d96f44a156c494f4fa82a3ab349f4050e",
+    "development/aca_dw3d_v1/tests/test_candidate.py": "2526f638606b8c2f706a8486641f21b3eb6d58f02042a9abd41165d357102c57",
+    "development/aca_dw3d_v1/tests/test_model.py": "f99ae68f635881bfe8078b49865fd1505a69f2c7efa666de470a48584ae9bb00",
+    "development/aca_dw3d_v1/train.py": "21e447ff20cf2d8b8613a90ae1aefe4477bc0ddc1c72a47e76a4593ee21187cf",
+    "development/aca_extension_v1/README.md": "76911b6ec328eb0ea9300e8d8a53765f20fe745f3ce23b2b6f0f9ae090658458",
+    "development/aca_extension_v1/__init__.py": "17931507641fe592847c7340b76fa7d67065d2d71935f7ae5fb24a15345075b3",
+    "development/aca_extension_v1/config.json": "349c7c220c155162945fda3219b19070ccc2092ff19590a9caa0ff351c4f9fc9",
+    "development/aca_extension_v1/tests/test_extension.py": "de901bc436f8facb9bb3d6ad35c050ae4b635f0fb1916e1e19694c57f3ab61b1",
+    "development/aca_extension_v1/train.py": "4392ac4f79514eb2dad5c405af31c4f457064db637e437d454e50a6ff82ab90c",
+    "development/aca_frame_review_v1/README.md": "855a943d0bee40012a255a858ac55fff8a5273abad4c6e1144b7e0ff257554dd",
+    "development/aca_frame_review_v1/__init__.py": "91adc3f242c05b5c08d427c886749480b72220906f93ab791515ef55d33ebedc",
+    "development/aca_frame_review_v1/build.py": "213d83c5573e59d91c0133d2348fee4195acfd1147444955b3b54798d3e65a96",
+    "development/aca_frame_review_v1/mainline_worker.py": "7d4275c3a9e03a468d6d2554cceb1bb07a98aabb8d6e2e4105e6ce752f708c3b",
+    "development/aca_frame_review_v1/test_build.py": "3ae19b32f8f2bab7b8582009794ef132852544349dc3d529513bf5711dfaf082",
+    "development/aca_highres_v1/PAPER_COMPARISON.html": "71a5ab13fde6b0a27b8dcf319c915ca39fc7f623b3381f20f925149155e5b3d7",
+    "development/aca_highres_v1/README.md": "36d7e1a6bf08172fd6e097a0dc8934371d88bb4e047a3d53720e45ebcb98b810",
+    "development/aca_highres_v1/__init__.py": "63f1e8bf906a071a389c959dfbb6e51372c1a263ce256e3cc694a6053274a0f1",
+    "development/aca_highres_v1/config.json": "85b01ab84f276401cb437f359140af383f9a077dcfea8513093e09d6a5327afc",
+    "development/aca_highres_v1/engine.py": "7da0517a0ee67ad6666869a418c1bbddff49f13a1f8386add38f6717a18bb227",
+    "development/aca_highres_v1/experiment.py": "9dcb96eb984200a611357e5ca45d6ad97cc66da1e237001cacccbd97823ea248",
+    "development/aca_highres_v1/preflight.py": "4e85e984de5f9dff009fdd85afe0701a32314e0455e4e6820d54c34a9d512c81",
+    "development/aca_highres_v1/test_highres.py": "64e456b79dcbe5505a88376254a7d251fa21c801e57f30a5b18fdca989099b9f",
+    "development/aca_highres_v1/train.py": "c1711cd924422dfd6e346a197db627d55ae115b3b4fa8e46205142705eaa8258",
+    "development/aca_input_triage_v1/README.md": "fa844101a5be76fc9005fd41f69c0957040798581e1c38c1539afe54c9eaa326",
+    "development/aca_input_triage_v1/__init__.py": "cffc122fe3b0ffaa4695b975ef5299e63a6ca60d361f33bbe5eac73ce15a4f4e",
+    "development/aca_input_triage_v1/build.py": "8b1f6d2e615c428c603f3a89aa4e3f509939e38db9964f34f160c9d20c6035b1",
+    "development/aca_input_triage_v1/observations.json": "8b81efb49bd11b1dc38086a7ae621df37e5cd1f9f71100fe972b9dc970e815eb",
+    "development/aca_input_triage_v1/test_build.py": "ae0e0dd97ab9d89292063ebe8ad964be30d31c22ec3716403a0f3d67d7007aa6",
+    "development/aca_mainline_fusion_v1/README.md": "d82d8656de166f63660584746c5680ffc147927e6b0c9e347d6c28c15bdb79ba",
+    "development/aca_mainline_fusion_v1/__init__.py": "8186229276ead84b3d7031bf6aac28af767913e299442c6a363f0c65aca295e1",
+    "development/aca_mainline_fusion_v1/checkpoint.py": "57780030fb332dba14cbb7b597ce608dca199ab6cdb6705d5bb2d3a685dd29ee",
+    "development/aca_mainline_fusion_v1/freeze.mjs": "06c4ce8bdcdc310b0d5bab37a7b2dde899fc47f0d4a696c3135cd2b7ecc7db65",
+    "development/aca_mainline_fusion_v1/fuse.mjs": "e3bba684398c63dd2692e2705859f3f8cae73bddfd238dec0fb281bb0ce30137",
+    "development/aca_mainline_fusion_v1/test_checkpoint.py": "2435521512232e14a0244170d2924685252a903e6f0f0f961a0f15cd69fe4f8e",
+    "development/aca_mainline_fusion_v1/test_fuse.mjs": "774adefe9ca74e70817267db26d20f23ddeb3c253aa00bd8a271f3fa21c9daae",
+    "development/aca_net_v1/ARCHITECTURE.md": "77f5dd114577965d9ddb5b3fdb94237c3a5ffd6b23b59490a94ac8b56430aa13",
+    "development/aca_net_v1/README.md": "bbbbe26672f8d91a72c3977bf2e15e0795b76c992048f77fda870bd87cd8e0f6",
+    "development/aca_net_v1/TRAINING_RUNBOOK.md": "ce094000e340c92861ae9af02a130f38898abc14e94170e10036f9a76770481c",
+    "development/aca_net_v1/__init__.py": "9694880848f4b922ed9375b96ad3292a5ee89480f1c6b37fe0fff4247d83a263",
+    "development/aca_net_v1/audit_architecture.py": "618959f3eae35d4ff6fe2e6c36af917d4a9118154e15e44cad2548a6c04d9de2",
+    "development/aca_net_v1/baseline_config.json": "663ae1694b2e7da5f11df92e34d8924ae463cddeac68edebf60c8c72fca836fd",
+    "development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "development/aca_net_v1/pipeline_smoke.py": "89fc0bc05fef686606bc59016d6534848cb724de349943bdf3dbcce00184d6b7",
+    "development/aca_net_v1/readiness.py": "f9400ab6eade1e747c81e6d876a7c21ac486aed9bf415fa30b165c330f9af6fe",
+    "development/aca_net_v1/smoke.py": "95956afe32c1bd4a444ffd4c418dd1b3e0b223ba46dc24f5d51f9355750466bd",
+    "development/aca_net_v1/tests/test_aca.py": "b0aa2df634dffb4ab9a21e2ac31fb026d71d80dd9285a50baf81df1d0c5bfe1d",
+    "development/aca_net_v1/tests/test_data.py": "0f3659313d300c6096767d08ec0554fe343d249ab4aa3f39dfe2db03f9c5e1ce",
+    "development/aca_net_v1/tests/test_preflight.py": "459380a0b06aaf47718bde16bff2c2d4b4935dccece21a97832e9f6d47a7fc71",
+    "development/aca_net_v1/tests/test_train.py": "b4fc118cfc565fa555a015b3c66705dabe598c460e10f12c65aaf2045f6194da",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "development/aca_resolution_v1/README.md": "3cfb167c7938f4bd7871a925be96af99f4e93880ad0c7aa7dbbd078e80f5ae27",
+    "development/aca_resolution_v1/__init__.py": "3b8caa91298c90bf1f003d65ebc9fad95d9ec081a424d5c84b5b00bfcf0e1654",
+    "development/aca_resolution_v1/config.json": "b055101f4fcb91ec4473087634a5f1510f3a44fc66694697d57af2be362e96c5",
+    "development/aca_resolution_v1/data.py": "5f49fe25d36e3bf6c01a3f96e07f23b3d65c3f2ab16d638aa68982a8d34ee3c0",
+    "development/aca_resolution_v1/probe.py": "3b44ab375d7badc681c3dde87e17e02336a7213dbd9f6a60a765abe33684b820",
+    "development/aca_resolution_v1/test_resolution.py": "becab6c7108a024250161fc71bd2c39d8315aa181c87000fcb9038579c3d0d75",
+    "development/aca_review_v1/README.md": "101652a07173f7623d3a885dd10c3bc4e50e8cade92b7fb53b320538e2f6c45a",
+    "development/aca_review_v1/__init__.py": "9e3362b94449c26f81fccfb9d0f27de4b99ab6655ea7f751d75d8622c49101dd",
+    "development/aca_review_v1/build.py": "0293657b7a387f66ea24f66f1dc9141e8e93da2a4085abe5cfd5d5e5b466ba13",
+    "development/aca_review_v1/test_build.py": "c83eba789c2385e4831c06d6a078c7e30b0ed620874fbc46409131bb31e0ec59",
+    "development/aca_test_v1/README.md": "88e31cb0435c156053fa3415ba1f6ae66245bc5b566f1adc59805b7530cf5039",
+    "development/aca_test_v1/evaluate.py": "e64e2afb56ba23eea5c3a288fa72122112045dd77bbb6bef6c45a8129462c662",
+    "development/aca_test_v1/test_evaluate.py": "673b1df6381a84cb886645bf3a4bf631046ac18c2689bec5b57826a92c46acc8",
+    "development/aca_validation_v1/README.md": "31e4f2a5a0ab17f3c4220823e9bf11e6b8eab27b28ae7f4acfdeab1d8a175c54",
+    "development/aca_validation_v1/__init__.py": "fc0d6d3902822a22db46e0930c6ff01ee49730ad99a88488ae047920431f3751",
+    "development/aca_validation_v1/analyze.py": "e45f457180138caf68d592af2846c28dc6457f80f05b2d2072f636f984c22025",
+    "development/aca_validation_v1/test_analyze.py": "60ddc9d1ed8eb0db8cb415212a5b70086b303ddd3859431b3d446d893a2751f2"
+  },
+  "protected_original_files_unchanged": true
+}
