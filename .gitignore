@@ -50,3 +50,15 @@ development/partial_finetune_v1/artifacts/
 development/temporal_quality_v1/artifacts/
 development/yolo_audit_v1/artifacts/
 development/aca_net_v1/artifacts/
+development/aca_candidate_v1/artifacts/
+development/aca_dw3d_v1/artifacts/
+development/aca_extension_v1/artifacts/
+development/aca_validation_v1/artifacts/
+development/aca_mainline_fusion_v1/artifacts/
+development/aca_mainline_fusion_v1/node_modules
+development/aca_review_v1/artifacts/
+development/aca_frame_review_v1/artifacts/
+development/aca_input_triage_v1/artifacts/
+development/aca_resolution_v1/artifacts/
+development/aca_test_v1/artifacts/
+development/aca_highres_v1/artifacts/
