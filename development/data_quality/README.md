@@ -58,6 +58,16 @@ Sampler v1 從原影片選擇連續半開 `[start, end)` clip，不刪格、不�
 
 [audit_train_quality_associations_v1.py](scripts/audit_train_quality_associations_v1.py) 只讀固定 manifest、split summary、v3.1 sidecar、Sampler v1 config 與既有 epoch=0 selections；若 ignored selections 不存在，會從相同 metadata/config 重建 byte-identical 結果。它以每影片為 Candidate–label 統計單位，做 source-group cluster bootstrap、source×shot 分層、candidate／selected-window 正規化位置、20-epoch quality-aware 對 unrestricted 反事實敏感度與 split 檢查。完整結果見[繁中報告](../../docs/data_quality/train_quality_associations_v1.md)與[機器摘要](../../docs/data_quality/train_quality_associations_v1.json)；中間 CSV 留在 ignored `artifacts/train_quality_associations_v1/`。乾淨 checkout 的 `--check-only` 不要求 ignored CSV 已存在；`--refresh-artifacts` 可在 tracked 報告驗證通過後重建它們。
 
+## 人工品質真值 Pilot 抽片
+
+[prepare_human_truth_pilot_v1.py](scripts/prepare_human_truth_pilot_v1.py) 只從固定 train manifest 與 v3.1 sidecar 選樣，產出 10 段練習及 80 段正式盲測區間（正式 40 candidate、40 control）。每筆提供原始 320×240 的 FFV1 無損目標／上下文影片、匿名 `annotation_sheet.csv`，以及分開保存的 `private/sample_key.csv`。抽樣 seed 為 20261019；正式 candidate 依 label 與影片前／中／後位置分層，control 包含同影片乾淨區間與無 candidate 影片。輸出位於 ignored `artifacts/human_truth_pilot_v1_20261019/`；原始影片、manifest、sidecar 與 split 不變。這是標註 Pilot，尚無人工真值或 recall 結論。
+
+```bash
+python3 -B development/data_quality/scripts/prepare_human_truth_pilot_v1.py --dry-run
+```
+
+實際抽片要求全新的 `--output` 目錄且拒絕覆寫；重複執行前先閱讀腳本的 `--help` 與輸出目錄的 `README.txt`。
+
 ## 視覺前處理／增強 Pilot v1
 
 Pilot 使用固定 train-only manifest；正式 enhancement／augmentation 政策尚未定案。整合時保持 transform、normalization 與 metadata 責任分離。
