@@ -50,3 +50,16 @@ development/partial_finetune_v1/artifacts/
 development/temporal_quality_v1/artifacts/
 development/yolo_audit_v1/artifacts/
 development/yolo_train_probe_v1/artifacts/
+development/temporal_selection_v1/artifacts/
+
+# TANet training and repeat-seed runtime artifacts
+development/tanet_v1/artifacts/
+development/tanet_seed20261024_v1/artifacts/
+development/tanet_seed20261026_v1/artifacts/
+development/tanet_l_v2/artifacts/
+development/tanet_l_seed20261024_v2/artifacts/
+development/tanet_l_seed20261026_v2/artifacts/
+
+# Local detector previews and machine-specific campaign pointers
+runs/detect/
+development/tanet_l_v2/CURRENT_*.json
