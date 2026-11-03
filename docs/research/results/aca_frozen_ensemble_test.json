@@ -1,0 +1,403 @@
+{
+  "schema": "research_result_snapshot_v1",
+  "source_branch": "codex/aca-net-reproduction",
+  "source_artifact": "development/aca_test_v1/artifacts/three_equal_test_g62sv35q/report.json",
+  "source_sha256": "06beaa87869f9c9eed60aca70ac9bbea8a7223c3d521f8978f32ad678fb9f1f0",
+  "snapshot_only_no_new_evaluation": true,
+  "result": {
+    "status": "completed",
+    "scope": "test_not_validation",
+    "primary": "three_equal",
+    "count": 1539,
+    "metrics": {
+      "dense": {
+        "count": 1539,
+        "accuracy": 0.8070175438596491,
+        "macro_f1": 0.8059900414987073,
+        "miss_recall": 0.7729138166894665,
+        "make_recall": 0.8378712871287128,
+        "confusion_rows_true_columns_predicted": [
+          [
+            565,
+            166
+          ],
+          [
+            131,
+            677
+          ]
+        ],
+        "loss": 0.48749820716383746,
+        "by_shot_type": {
+          "2p": {
+            "count": 499,
+            "accuracy": 0.7675350701402806,
+            "macro_f1": 0.7632672425075252,
+            "miss_recall": 0.7523809523809524,
+            "make_recall": 0.7785467128027682,
+            "confusion_rows_true_columns_predicted": [
+              [
+                158,
+                52
+              ],
+              [
+                64,
+                225
+              ]
+            ]
+          },
+          "3p": {
+            "count": 518,
+            "accuracy": 0.8571428571428571,
+            "macro_f1": 0.8472220007971303,
+            "miss_recall": 0.8622754491017964,
+            "make_recall": 0.8478260869565217,
+            "confusion_rows_true_columns_predicted": [
+              [
+                288,
+                46
+              ],
+              [
+                28,
+                156
+              ]
+            ]
+          },
+          "ft": {
+            "count": 339,
+            "accuracy": 0.7610619469026548,
+            "macro_f1": 0.602763110307414,
+            "miss_recall": 0.29333333333333333,
+            "make_recall": 0.8939393939393939,
+            "confusion_rows_true_columns_predicted": [
+              [
+                22,
+                53
+              ],
+              [
+                28,
+                236
+              ]
+            ]
+          },
+          "mp": {
+            "count": 183,
+            "accuracy": 0.8579234972677595,
+            "macro_f1": 0.8518679950186799,
+            "miss_recall": 0.8660714285714286,
+            "make_recall": 0.8450704225352113,
+            "confusion_rows_true_columns_predicted": [
+              [
+                97,
+                15
+              ],
+              [
+                11,
+                60
+              ]
+            ]
+          }
+        }
+      },
+      "dw3d": {
+        "count": 1539,
+        "accuracy": 0.7979207277452891,
+        "macro_f1": 0.7975706567135773,
+        "miss_recall": 0.7961696306429549,
+        "make_recall": 0.7995049504950495,
+        "confusion_rows_true_columns_predicted": [
+          [
+            582,
+            149
+          ],
+          [
+            162,
+            646
+          ]
+        ],
+        "loss": 0.4507382318354499,
+        "by_shot_type": {
+          "2p": {
+            "count": 499,
+            "accuracy": 0.7875751503006012,
+            "macro_f1": 0.7856737657622613,
+            "miss_recall": 0.8238095238095238,
+            "make_recall": 0.7612456747404844,
+            "confusion_rows_true_columns_predicted": [
+              [
+                173,
+                37
+              ],
+              [
+                69,
+                220
+              ]
+            ]
+          },
+          "3p": {
+            "count": 518,
+            "accuracy": 0.8474903474903475,
+            "macro_f1": 0.8337335397341978,
+            "miss_recall": 0.8802395209580839,
+            "make_recall": 0.7880434782608695,
+            "confusion_rows_true_columns_predicted": [
+              [
+                294,
+                40
+              ],
+              [
+                39,
+                145
+              ]
+            ]
+          },
+          "ft": {
+            "count": 339,
+            "accuracy": 0.7256637168141593,
+            "macro_f1": 0.5650548389321929,
+            "miss_recall": 0.26666666666666666,
+            "make_recall": 0.8560606060606061,
+            "confusion_rows_true_columns_predicted": [
+              [
+                20,
+                55
+              ],
+              [
+                38,
+                226
+              ]
+            ]
+          },
+          "mp": {
+            "count": 183,
+            "accuracy": 0.819672131147541,
+            "macro_f1": 0.8106243532252502,
+            "miss_recall": 0.8482142857142857,
+            "make_recall": 0.7746478873239436,
+            "confusion_rows_true_columns_predicted": [
+              [
+                95,
+                17
+              ],
+              [
+                16,
+                55
+              ]
+            ]
+          }
+        }
+      },
+      "mainline": {
+        "count": 1539,
+        "accuracy": 0.7303443794671864,
+        "macro_f1": 0.7295386550298226,
+        "miss_recall": 0.826265389876881,
+        "make_recall": 0.6435643564356436,
+        "confusion_rows_true_columns_predicted": [
+          [
+            604,
+            127
+          ],
+          [
+            288,
+            520
+          ]
+        ],
+        "loss": 0.6204163272613943,
+        "by_shot_type": {
+          "2p": {
+            "count": 499,
+            "accuracy": 0.6593186372745491,
+            "macro_f1": 0.6584613650272169,
+            "miss_recall": 0.8428571428571429,
+            "make_recall": 0.5259515570934256,
+            "confusion_rows_true_columns_predicted": [
+              [
+                177,
+                33
+              ],
+              [
+                137,
+                152
+              ]
+            ]
+          },
+          "3p": {
+            "count": 518,
+            "accuracy": 0.7818532818532818,
+            "macro_f1": 0.7431851985100231,
+            "miss_recall": 0.907185628742515,
+            "make_recall": 0.5543478260869565,
+            "confusion_rows_true_columns_predicted": [
+              [
+                303,
+                31
+              ],
+              [
+                82,
+                102
+              ]
+            ]
+          },
+          "ft": {
+            "count": 339,
+            "accuracy": 0.7138643067846607,
+            "macro_f1": 0.5867775864885583,
+            "miss_recall": 0.36,
+            "make_recall": 0.8143939393939394,
+            "confusion_rows_true_columns_predicted": [
+              [
+                27,
+                48
+              ],
+              [
+                49,
+                215
+              ]
+            ]
+          },
+          "mp": {
+            "count": 183,
+            "accuracy": 0.8087431693989071,
+            "macro_f1": 0.7958435597488286,
+            "miss_recall": 0.8660714285714286,
+            "make_recall": 0.7183098591549296,
+            "confusion_rows_true_columns_predicted": [
+              [
+                97,
+                15
+              ],
+              [
+                20,
+                51
+              ]
+            ]
+          }
+        }
+      },
+      "three_equal": {
+        "count": 1539,
+        "accuracy": 0.8187134502923976,
+        "macro_f1": 0.8184187523285421,
+        "miss_recall": 0.8194254445964432,
+        "make_recall": 0.818069306930693,
+        "confusion_rows_true_columns_predicted": [
+          [
+            599,
+            132
+          ],
+          [
+            147,
+            661
+          ]
+        ],
+        "loss": 0.41687851655953767,
+        "by_shot_type": {
+          "2p": {
+            "count": 499,
+            "accuracy": 0.781563126252505,
+            "macro_f1": 0.77985145609455,
+            "miss_recall": 0.8238095238095238,
+            "make_recall": 0.7508650519031141,
+            "confusion_rows_true_columns_predicted": [
+              [
+                173,
+                37
+              ],
+              [
+                72,
+                217
+              ]
+            ]
+          },
+          "3p": {
+            "count": 518,
+            "accuracy": 0.8725868725868726,
+            "macro_f1": 0.8583925642427557,
+            "miss_recall": 0.9221556886227545,
+            "make_recall": 0.782608695652174,
+            "confusion_rows_true_columns_predicted": [
+              [
+                308,
+                26
+              ],
+              [
+                40,
+                144
+              ]
+            ]
+          },
+          "ft": {
+            "count": 339,
+            "accuracy": 0.7669616519174042,
+            "macro_f1": 0.5805309734513274,
+            "miss_recall": 0.22666666666666666,
+            "make_recall": 0.9204545454545454,
+            "confusion_rows_true_columns_predicted": [
+              [
+                17,
+                58
+              ],
+              [
+                21,
+                243
+              ]
+            ]
+          },
+          "mp": {
+            "count": 183,
+            "accuracy": 0.8633879781420765,
+            "macro_f1": 0.855005863150889,
+            "miss_recall": 0.9017857142857143,
+            "make_recall": 0.8028169014084507,
+            "confusion_rows_true_columns_predicted": [
+              [
+                101,
+                11
+              ],
+              [
+                14,
+                57
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "protocol_sha256": "3d3e757e0f78b4954e9913b8b8b2c04c05a091ed335dc057f8fb0850894e2ed5",
+    "protected_files_unchanged": true,
+    "optimizer_updates": 0,
+    "test_tuning": false,
+    "globally_unseen_test": false,
+    "test_history": [
+      {
+        "path": "/home/tsai/projects/basketball/runs/full_video_c3d_reference_train_v1/test_metrics.json",
+        "sha256": "e80a9c92c92e7331ee7b6fdcb78162044298b3592e2bdd253f2e1ca3375b171a",
+        "same_manifest": true,
+        "n": null
+      },
+      {
+        "path": "/home/tsai/projects/basketball/runs/full_video_c3d_style_continuous_v1/test_metrics.json",
+        "sha256": "bfd0d95871a3a00bb43193a550308b4f477c79d83e88c21206579fc16bda3bc7",
+        "same_manifest": true,
+        "n": null
+      },
+      {
+        "path": "/home/tsai/projects/basketball/runs/full_video_c3d_style_extended_v1/test_metrics.json",
+        "sha256": "f43d5bcf224c4471bd95ef08f37df8e36919e855ee05e5b25e6dad2b424dec65",
+        "same_manifest": true,
+        "n": null
+      },
+      {
+        "path": "/home/tsai/projects/basketball/runs/full_video_c3d_style_v1/test_metrics.json",
+        "sha256": "262fa95b54b23b98cfedc8459b6aa91e846530fca6e8be7379057e8fdb88cc84",
+        "same_manifest": true,
+        "n": 1539
+      }
+    ],
+    "test_video_decodes": {
+      "dense": 1539,
+      "dw3d": 1539,
+      "mainline": 4617
+    }
+  }
+}

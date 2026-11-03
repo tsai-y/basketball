@@ -1,0 +1,107 @@
+{
+  "schema": "research_result_snapshot_v1",
+  "source_branch": "codex/aca-net-reproduction",
+  "source_artifact": "development/aca_candidate_v1/artifacts/aca_train_seed20261025_hmqhr2pg/summary.json",
+  "source_sha256": "4a6f57080444b39610fc5d89ffb8c2dea793c685ca756f92e93f0a807ca50928",
+  "snapshot_only_no_new_evaluation": true,
+  "result": {
+    "status": "completed",
+    "model": "aca_dense_candidate",
+    "paper_exact_reproduction": false,
+    "output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_candidate_v1/artifacts/aca_train_seed20261025_hmqhr2pg",
+    "epochs": 5,
+    "optimizer_steps": 2250,
+    "best_epoch": 5,
+    "best_validation": {
+      "count": 1547,
+      "accuracy": 0.7912087912087912,
+      "macro_f1": 0.7893839044743607,
+      "miss_recall": 0.7297297297297297,
+      "make_recall": 0.8475836431226765,
+      "confusion_rows_true_columns_predicted": [
+        [
+          540,
+          200
+        ],
+        [
+          123,
+          684
+        ]
+      ],
+      "loss": 0.4433156471987241,
+      "by_shot_type": {
+        "2p": {
+          "count": 437,
+          "accuracy": 0.8260869565217391,
+          "macro_f1": 0.8185612516935449,
+          "miss_recall": 0.7953216374269005,
+          "make_recall": 0.8458646616541353,
+          "confusion_rows_true_columns_predicted": [
+            [
+              136,
+              35
+            ],
+            [
+              41,
+              225
+            ]
+          ]
+        },
+        "3p": {
+          "count": 529,
+          "accuracy": 0.8260869565217391,
+          "macro_f1": 0.8150911854103344,
+          "miss_recall": 0.7949438202247191,
+          "make_recall": 0.8901734104046243,
+          "confusion_rows_true_columns_predicted": [
+            [
+              283,
+              73
+            ],
+            [
+              19,
+              154
+            ]
+          ]
+        },
+        "ft": {
+          "count": 367,
+          "accuracy": 0.6811989100817438,
+          "macro_f1": 0.5426425946636844,
+          "miss_recall": 0.26666666666666666,
+          "make_recall": 0.8158844765342961,
+          "confusion_rows_true_columns_predicted": [
+            [
+              24,
+              66
+            ],
+            [
+              51,
+              226
+            ]
+          ]
+        },
+        "mp": {
+          "count": 214,
+          "accuracy": 0.822429906542056,
+          "macro_f1": 0.821164672765658,
+          "miss_recall": 0.7886178861788617,
+          "make_recall": 0.8681318681318682,
+          "confusion_rows_true_columns_predicted": [
+            [
+              97,
+              26
+            ],
+            [
+              12,
+              79
+            ]
+          ]
+        }
+      }
+    },
+    "selection": "minimum_validation_CE_not_accuracy",
+    "test_videos_opened": 0,
+    "stop_reason": "max_epochs"
+  }
+}
