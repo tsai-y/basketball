@@ -68,3 +68,6 @@ development/aca_architecture_audit_v1/artifacts/
 
 # Controlled four-arm training and engineering outputs
 development/aca_four_arm_v1/artifacts/
+
+# Sequential four-arm formal campaign runtime
+development/aca_four_arm_campaign_v1/artifacts/
