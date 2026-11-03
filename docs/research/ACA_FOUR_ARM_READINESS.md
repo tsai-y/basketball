@@ -1,6 +1,7 @@
 # ACA 四組共同協定與工程預檢（2026-11-03）
 
-**已完成三個 seed × 四組共十二組 readiness；正式訓練與佇列尚未啟動。**
+**本文件保存預檢階段快照：十二組 readiness 已完成，當時正式訓練尚未啟動。**
+後續已於 2026-11-03 啟動全新十二組正式佇列，見 [正式訓練執行狀態](ACA_FOUR_ARM_CAMPAIGN.md)。
 本輪依 [架構核對結論](ACA_ARCHITECTURE_AUDIT.md) 建立共同 trainer，沒有更改既有 ACA／TANet 的來源、權重或歷史結果。
 這是 Make/Miss 專案上的受控消融準備，作者精確設定仍未核實。
 
@@ -43,7 +44,7 @@ validation 僅測有限輸出及重載logits，沒有計算新的真實影片acc
 ## 計數與保存
 
 - 16項新CPU測試通過，包含尾批9對完整平均的FP64對照、最低CE／平手規則、validation中斷不重做train、跨seed/arm及工程checkpoint拒絕。
-- 最終指紋下12次真實工程optimizer更新、96次合成更新；補齊環境版本前的預檢另有12／96次，保留為舊指紋歷史。因此本輪合計24次真實工程更新、192次合成更新；**正式訓練更新0次**。
+- 最終指紋下12次真實工程optimizer更新、96次合成更新；補齊環境版本前的預檢另有12／96次，保留為舊指紋歷史。因此預檢階段合計24次真實工程更新、192次合成更新；**預檢結束當時正式訓練更新0次**。
 - 唯一原片為4支train＋4支validation；最終指紋解碼train12／validation12／test0次，連同舊指紋歷史，本輪合計train24／validation24／test0次。
 - 選定原片與ImageNet權重SHA、資料契約、共同程式指紋前後相同；既有93個ACA相關來源檔SHA不變。
 - 工程checkpoint、大型來源快照與完整報告位於ignored `development/aca_four_arm_v1/artifacts/`，不納入Git。
@@ -53,5 +54,5 @@ validation 僅測有限輸出及重載logits，沒有計算新的真實影片acc
 
 十二個arm/seed已各有對應GPU報告與共同plan，可安排全新正式訓練。先前五輪pilot、延長、高解析度或TANet的結果不能混入這十二組當受控成績。
 正式入口預設只列plan，必須指定arm/seed、匹配readiness及明示啟動；每個run重新載入固定ImageNet，新分類頭／模組依共同配對方式建立。
-程序不會由prepare或preflight自動接著訓練。本輪沒有建立／啟動正式佇列、沒有重啟舊工作、不讀test。
+程序不會由prepare或preflight自動接著訓練。預檢階段沒有建立／啟動正式佇列、沒有重啟舊工作、不讀test；後續正式啟動紀錄見上方連結。
 後續若新增佇列監督器，應與已驗證common trainer分開保存，並核對命令與plan SHA；更動共同模型／設定／trainer來源時，既有readiness將自動失效。

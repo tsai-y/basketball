@@ -1,10 +1,10 @@
 # ACA 候選實驗保存狀態（2026-11-03）
 
-2026-11-03 四組共同協定與十二組GPU readiness已完成，正式訓練尚未開始，見 [四組預檢狀態](ACA_FOUR_ARM_READINESS.md)。
+2026-11-03 四組 × 三 seed 正式佇列已啟動，首組為 baseline／seed20261024，見 [本輪執行狀態](ACA_FOUR_ARM_CAMPAIGN.md)。十二組全新初始化，不混用以下歷史候選成績。
 
-2026-11-03 架構核對已完成，參見 [三方對照、補充檔與參數核算](ACA_ARCHITECTURE_AUDIT.md)。四組共用設定與工程預檢的最新狀態見上方連結；正式訓練尚未啟動。
+2026-11-03 架構核對已完成，參見 [三方對照、補充檔與參數核算](ACA_ARCHITECTURE_AUDIT.md)。四組共用設定與 [十二組工程預檢](ACA_FOUR_ARM_READINESS.md) 已完成，正式訓練接續執行中。
 
-此文件依現有 run 摘要核對；本次只整理 Git，沒有新訓練、影片推論或 test。
+以下歷史候選與 Git 驗收保存前輪整理結果；本輪新增正式佇列的狀態見上方連結。
 `aca_net_v1/README.md` 的「正式訓練尚未開始」描述原型階段，不涵蓋後來獨立目錄的實驗。
 原型與實驗來源檔按原貌保留，不修改已被歷史 run 記錄的程式指紋。
 
@@ -46,9 +46,9 @@
 `codex/aca-net-reproduction` 保存既有候選程式、設定、測試與摘要；由此建立
 `codex/aca-architecture-audit` 進行下一步結構核對。
 TANet 位於 [獨立研究分支](https://github.com/tsai-y/basketball/tree/codex/tanet-experiments)，本次不整支合併。
-先釐清架構證據，再決定是否建立新的固定協定對照；SpaceJam 暫不下載或訓練。
+架構證據核對與共同預檢已完成，目前先完成新的固定協定十二組比較；SpaceJam 暫不下載或訓練。
 
-## 本次 Git 驗收
+## 初次 Git 整理驗收（歷史）
 
 既有 ACA 原型與後續套件的 177 項 Python 測試通過，Node 融合測試檔檢查通過。
 未執行任何 `--execute-validation`、`--execute-once`、訓練或續訓入口。

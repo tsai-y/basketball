@@ -1,0 +1,69 @@
+{
+  "schema": "aca_four_arm_launch_record_v1",
+  "observed_at_taiwan": "2026-11-03T16:13:31.355892+08:00",
+  "status_at_observation": "running",
+  "output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja",
+  "campaign_sha256": "12085d4b6a7a430e5faed853e028b0f7b7d997db4a05147371f054e82b949d83",
+  "plan_file_sha256": "54524f39613ec3e23a39335376337eabf5978563113d33bde97a67a5adc0ac0e",
+  "training_code_git_head": "68cb686cb263fdbe3379c215b8779d9ec8967cdf",
+  "supervisor": {
+    "pid": 43428,
+    "process_start_ticks": 1980167,
+    "boot_id": "cd570953-c000-4930-8927-e026fb067584",
+    "command_line": [
+      "/home/tsai/miniconda3/envs/yolo11/bin/python",
+      "-u",
+      "-B",
+      "-m",
+      "development.aca_four_arm_campaign_v1.queue",
+      "--supervise",
+      "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja",
+      "--lock-fd",
+      "3"
+    ],
+    "process_state": "R"
+  },
+  "active_job": "baseline_seed20261024",
+  "trainer": {
+    "pid": 43439,
+    "process_start_ticks": 1980269,
+    "boot_id": "cd570953-c000-4930-8927-e026fb067584",
+    "command_line": [
+      "/home/tsai/miniconda3/envs/yolo11/bin/python",
+      "-u",
+      "-B",
+      "-m",
+      "development.aca_four_arm_v1.train",
+      "--source-root",
+      "/home/tsai/projects/basketball",
+      "--start-training",
+      "--variant",
+      "baseline",
+      "--seed",
+      "20261024",
+      "--readiness-report",
+      "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/gpu_readiness_seed20261024_jcs_u8yr/report.json",
+      "--accept-candidate-architecture"
+    ],
+    "process_state": "R"
+  },
+  "formal_output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1",
+  "progress_at_observation": {
+    "phase": "train",
+    "epoch": 1,
+    "max_epochs": 30,
+    "train_videos": 1600,
+    "train_total": 7193,
+    "optimizer_updates": 100,
+    "progress_precision": "last logged checkpoint, every 25 optimizer updates",
+    "latest_complete_validation": null,
+    "best_epoch": null,
+    "early_stop_count": 0
+  },
+  "queued_jobs": 11,
+  "common_trainer_and_readiness_pins_verified": true,
+  "queue_cpu_tests_passed": 9,
+  "test_videos_opened_by_this_campaign": 0,
+  "prior_project_test_exposure": true,
+  "live_state_not_this_snapshot": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/state.json"
+}
