@@ -1,0 +1,14 @@
+{
+  "schema": "research_result_snapshot_v1",
+  "source_branch": "codex/tanet-experiments",
+  "source_artifact": "development/tanet_l_v2/artifacts/error_audit_v1_fq35geum/run_state.json",
+  "source_sha256": "d27a95dceea754b123a560b7770b9575a31c9e444085a9d7aee4f993e3d1b549",
+  "snapshot_only_no_new_evaluation": true,
+  "result": {
+    "status": "completed_with_preliminary_AI_visual_review",
+    "completed_cases": 24,
+    "AI_preliminary_reviews": 24,
+    "human_verified_cases": 0,
+    "test_used": false
+  }
+}

@@ -1,0 +1,723 @@
+{
+  "schema": "research_result_snapshot_v1",
+  "source_branch": "codex/tanet-experiments",
+  "source_artifact": "development/tanet_l_v2/artifacts/three_seed_cew8zqhi/summary.json",
+  "source_sha256": "ed9c49a1a2a265f9eede19eb925e5333b1a4114b3799dbb6afe05c5232270db2",
+  "snapshot_only_no_new_evaluation": true,
+  "result": {
+    "status": "completed",
+    "seeds": [
+      20261024,
+      20261025,
+      20261026
+    ],
+    "validation_videos_each_seed": 1547,
+    "details": [
+      {
+        "seed": 20261024,
+        "TANet_run": "/home/tsai/projects/basketball/development/tanet_l_seed20261024_v2/artifacts/formal_train_0r5pcjto",
+        "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261024_y7wv4h0p",
+        "TANet_best_epoch": 8,
+        "mainline_best_epoch": 6,
+        "TANet_validation_CE": 0.3651650547981262,
+        "mainline_validation_BCE": 0.5228471755981445,
+        "TANet": {
+          "videos": 1547,
+          "accuracy": 0.8345184227537169,
+          "macro_f1": 0.8338379329095145,
+          "confusion_matrix": [
+            [
+              596,
+              144
+            ],
+            [
+              112,
+              695
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.8418079096045198,
+              "recall": 0.8054054054054054,
+              "f1": 0.8232044198895028
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.8283671036948749,
+              "recall": 0.8612143742255266,
+              "f1": 0.8444714459295262
+            }
+          },
+          "predicted_Make_count": 839
+        },
+        "mainline": {
+          "videos": 1547,
+          "accuracy": 0.7795733678086619,
+          "macro_f1": 0.7790948587221658,
+          "confusion_matrix": [
+            [
+              567,
+              173
+            ],
+            [
+              168,
+              639
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.7714285714285715,
+              "recall": 0.7662162162162162,
+              "f1": 0.7688135593220339
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.7869458128078818,
+              "recall": 0.79182156133829,
+              "f1": 0.7893761581222977
+            }
+          },
+          "predicted_Make_count": 812
+        },
+        "paired_counts": {
+          "both_correct": 1090,
+          "tanet_only_correct": 201,
+          "both_wrong": 140,
+          "main_only_correct": 116
+        },
+        "accuracy_difference_TANet_minus_mainline": 0.05494505494505497
+      },
+      {
+        "seed": 20261025,
+        "TANet_run": "/home/tsai/projects/basketball/development/tanet_l_v2/artifacts/formal_train_hyj0j2ui",
+        "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261025_cwac4gwz",
+        "TANet_best_epoch": 12,
+        "mainline_best_epoch": 4,
+        "TANet_validation_CE": 0.43240851163864136,
+        "mainline_validation_BCE": 0.5120354890823364,
+        "TANet": {
+          "videos": 1547,
+          "accuracy": 0.81060116354234,
+          "macro_f1": 0.8085532704090921,
+          "confusion_matrix": [
+            [
+              547,
+              193
+            ],
+            [
+              100,
+              707
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.8454404945904173,
+              "recall": 0.7391891891891892,
+              "f1": 0.7887527036770007
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.7855555555555556,
+              "recall": 0.8760842627013631,
+              "f1": 0.8283538371411834
+            }
+          },
+          "predicted_Make_count": 900
+        },
+        "mainline": {
+          "videos": 1547,
+          "accuracy": 0.7550096961861668,
+          "macro_f1": 0.7549687417591626,
+          "confusion_matrix": [
+            [
+              574,
+              166
+            ],
+            [
+              213,
+              594
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.7293519695044473,
+              "recall": 0.7756756756756756,
+              "f1": 0.7518009168303864
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.781578947368421,
+              "recall": 0.7360594795539034,
+              "f1": 0.7581365666879387
+            }
+          },
+          "predicted_Make_count": 760
+        },
+        "paired_counts": {
+          "both_correct": 1023,
+          "tanet_only_correct": 231,
+          "main_only_correct": 145,
+          "both_wrong": 148
+        },
+        "accuracy_difference_TANet_minus_mainline": 0.05559146735617326
+      },
+      {
+        "seed": 20261026,
+        "TANet_run": "/home/tsai/projects/basketball/development/tanet_l_seed20261026_v2/artifacts/formal_train_jdnr13ci",
+        "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261026_59bm89qx",
+        "TANet_best_epoch": 15,
+        "mainline_best_epoch": 6,
+        "TANet_validation_CE": 0.4721274971961975,
+        "mainline_validation_BCE": 0.4988704025745392,
+        "TANet": {
+          "videos": 1547,
+          "accuracy": 0.7892695539754363,
+          "macro_f1": 0.7871326161243702,
+          "confusion_matrix": [
+            [
+              533,
+              207
+            ],
+            [
+              119,
+              688
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.8174846625766872,
+              "recall": 0.7202702702702702,
+              "f1": 0.7658045977011494
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.7687150837988826,
+              "recall": 0.8525402726146221,
+              "f1": 0.8084606345475911
+            }
+          },
+          "predicted_Make_count": 895
+        },
+        "mainline": {
+          "videos": 1547,
+          "accuracy": 0.7705235940530059,
+          "macro_f1": 0.7703543255228533,
+          "confusion_matrix": [
+            [
+              575,
+              165
+            ],
+            [
+              190,
+              617
+            ]
+          ],
+          "per_class": {
+            "Miss": {
+              "support": 740,
+              "precision": 0.7516339869281046,
+              "recall": 0.777027027027027,
+              "f1": 0.7641196013289037
+            },
+            "Make": {
+              "support": 807,
+              "precision": 0.789002557544757,
+              "recall": 0.7645600991325898,
+              "f1": 0.776589049716803
+            }
+          },
+          "predicted_Make_count": 782
+        },
+        "paired_counts": {
+          "both_correct": 1024,
+          "tanet_only_correct": 197,
+          "main_only_correct": 168,
+          "both_wrong": 158
+        },
+        "accuracy_difference_TANet_minus_mainline": 0.018745959922430444
+      }
+    ],
+    "aggregate": {
+      "TANet": {
+        "accuracy": {
+          "values": [
+            0.8345184227537169,
+            0.81060116354234,
+            0.7892695539754363
+          ],
+          "mean": 0.8114630467571644,
+          "sample_sd": 0.02263674365794496,
+          "min": 0.7892695539754363,
+          "max": 0.8345184227537169
+        },
+        "macro_f1": {
+          "values": [
+            0.8338379329095145,
+            0.8085532704090921,
+            0.7871326161243702
+          ],
+          "mean": 0.809841273147659,
+          "sample_sd": 0.023379282865201093,
+          "min": 0.7871326161243702,
+          "max": 0.8338379329095145
+        },
+        "Miss_recall": {
+          "values": [
+            0.8054054054054054,
+            0.7391891891891892,
+            0.7202702702702702
+          ],
+          "mean": 0.7549549549549549,
+          "sample_sd": 0.04470366132941657,
+          "min": 0.7202702702702702,
+          "max": 0.8054054054054054
+        },
+        "Make_recall": {
+          "values": [
+            0.8612143742255266,
+            0.8760842627013631,
+            0.8525402726146221
+          ],
+          "mean": 0.8632796365138372,
+          "sample_sd": 0.011907092362990153,
+          "min": 0.8525402726146221,
+          "max": 0.8760842627013631
+        }
+      },
+      "mainline": {
+        "accuracy": {
+          "values": [
+            0.7795733678086619,
+            0.7550096961861668,
+            0.7705235940530059
+          ],
+          "mean": 0.7683688860159449,
+          "sample_sd": 0.012422784146002666,
+          "min": 0.7550096961861668,
+          "max": 0.7795733678086619
+        },
+        "macro_f1": {
+          "values": [
+            0.7790948587221658,
+            0.7549687417591626,
+            0.7703543255228533
+          ],
+          "mean": 0.7681393086680606,
+          "sample_sd": 0.01221462666962806,
+          "min": 0.7549687417591626,
+          "max": 0.7790948587221658
+        },
+        "Miss_recall": {
+          "values": [
+            0.7662162162162162,
+            0.7756756756756756,
+            0.777027027027027
+          ],
+          "mean": 0.772972972972973,
+          "sample_sd": 0.005890403977757671,
+          "min": 0.7662162162162162,
+          "max": 0.777027027027027
+        },
+        "Make_recall": {
+          "values": [
+            0.79182156133829,
+            0.7360594795539034,
+            0.7645600991325898
+          ],
+          "mean": 0.7641470466749277,
+          "sample_sd": 0.027883335533643385,
+          "min": 0.7360594795539034,
+          "max": 0.79182156133829
+        }
+      }
+    },
+    "paired_accuracy_difference": {
+      "values": [
+        0.05494505494505497,
+        0.05559146735617326,
+        0.018745959922430444
+      ],
+      "mean": 0.04309416074121956,
+      "sample_sd": 0.02108863733353519,
+      "min": 0.018745959922430444,
+      "max": 0.05559146735617326
+    },
+    "sd_definition": "Sample standard deviation across three training seeds; not a confidence interval over sources/videos",
+    "limitations": [
+      "Same validation used for checkpoint selection",
+      "Systems differ in input and training settings",
+      "Three seeds are descriptive variability, not proof of superiority",
+      "No seed selected for deployment",
+      "Policy chosen after inspecting the same validation split; exploratory comparison",
+      "No untouched test estimate and no deployment seed selection"
+    ],
+    "new_predictions_computed": false,
+    "test_used": false,
+    "completed_at": "2026-10-31T05:56:26.541126+08:00",
+    "variant": "TANet L per-video statistics v2",
+    "evaluation_policy": "TAM_L_per_video_stats_batch1_no_buffer_update",
+    "historical_TANet": {
+      "status": "completed",
+      "seeds": [
+        20261024,
+        20261025,
+        20261026
+      ],
+      "validation_videos_each_seed": 1547,
+      "details": [
+        {
+          "seed": 20261024,
+          "TANet_run": "/home/tsai/projects/basketball/development/tanet_seed20261024_v1/artifacts/formal_train_3auu0x0k",
+          "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261024_y7wv4h0p",
+          "TANet_best_epoch": 1,
+          "mainline_best_epoch": 6,
+          "TANet_validation_CE": 0.7668291330337524,
+          "mainline_validation_BCE": 0.5228471755981445,
+          "TANet": {
+            "videos": 1547,
+            "accuracy": 0.6658047834518422,
+            "macro_f1": 0.6620062519201814,
+            "confusion_matrix": [
+              [
+                597,
+                143
+              ],
+              [
+                374,
+                433
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.6148300720906282,
+                "recall": 0.8067567567567567,
+                "f1": 0.6978375219170077
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.7517361111111112,
+                "recall": 0.5365551425030979,
+                "f1": 0.6261749819233551
+              }
+            },
+            "predicted_Make_count": 576
+          },
+          "mainline": {
+            "videos": 1547,
+            "accuracy": 0.7795733678086619,
+            "macro_f1": 0.7790948587221658,
+            "confusion_matrix": [
+              [
+                567,
+                173
+              ],
+              [
+                168,
+                639
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.7714285714285715,
+                "recall": 0.7662162162162162,
+                "f1": 0.7688135593220339
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.7869458128078818,
+                "recall": 0.79182156133829,
+                "f1": 0.7893761581222977
+              }
+            },
+            "predicted_Make_count": 812
+          },
+          "paired_counts": {
+            "both_correct": 852,
+            "tanet_only_correct": 178,
+            "main_only_correct": 354,
+            "both_wrong": 163
+          },
+          "accuracy_difference_TANet_minus_mainline": -0.11376858435681969
+        },
+        {
+          "seed": 20261025,
+          "TANet_run": "/home/tsai/projects/basketball/development/tanet_v1/artifacts/formal_train_ji1xnlg_",
+          "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261025_cwac4gwz",
+          "TANet_best_epoch": 10,
+          "mainline_best_epoch": 4,
+          "TANet_validation_CE": 0.5108525156974792,
+          "mainline_validation_BCE": 0.5120354890823364,
+          "TANet": {
+            "videos": 1547,
+            "accuracy": 0.7666451195862961,
+            "macro_f1": 0.7636551692324751,
+            "confusion_matrix": [
+              [
+                506,
+                234
+              ],
+              [
+                127,
+                680
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.7993680884676145,
+                "recall": 0.6837837837837838,
+                "f1": 0.7370721048798252
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.7439824945295405,
+                "recall": 0.8426270136307311,
+                "f1": 0.7902382335851249
+              }
+            },
+            "predicted_Make_count": 914
+          },
+          "mainline": {
+            "videos": 1547,
+            "accuracy": 0.7550096961861668,
+            "macro_f1": 0.7549687417591626,
+            "confusion_matrix": [
+              [
+                574,
+                166
+              ],
+              [
+                213,
+                594
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.7293519695044473,
+                "recall": 0.7756756756756756,
+                "f1": 0.7518009168303864
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.781578947368421,
+                "recall": 0.7360594795539034,
+                "f1": 0.7581365666879387
+              }
+            },
+            "predicted_Make_count": 760
+          },
+          "paired_counts": {
+            "both_correct": 969,
+            "main_only_correct": 199,
+            "tanet_only_correct": 217,
+            "both_wrong": 162
+          },
+          "accuracy_difference_TANet_minus_mainline": 0.011635423400129352
+        },
+        {
+          "seed": 20261026,
+          "TANet_run": "/home/tsai/projects/basketball/development/tanet_seed20261026_v1/artifacts/formal_train_y6xhlt7x",
+          "mainline_run": "/home/tsai/projects/basketball/development/temporal_baseline_v1/artifacts/temporal_seed20261026_59bm89qx",
+          "TANet_best_epoch": 8,
+          "mainline_best_epoch": 6,
+          "TANet_validation_CE": 0.548855721950531,
+          "mainline_validation_BCE": 0.4988704025745392,
+          "TANet": {
+            "videos": 1547,
+            "accuracy": 0.7175177763413058,
+            "macro_f1": 0.7174795278502728,
+            "confusion_matrix": [
+              [
+                546,
+                194
+              ],
+              [
+                243,
+                564
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.6920152091254753,
+                "recall": 0.7378378378378379,
+                "f1": 0.7141922825376062
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.7440633245382586,
+                "recall": 0.6988847583643123,
+                "f1": 0.7207667731629392
+              }
+            },
+            "predicted_Make_count": 758
+          },
+          "mainline": {
+            "videos": 1547,
+            "accuracy": 0.7705235940530059,
+            "macro_f1": 0.7703543255228533,
+            "confusion_matrix": [
+              [
+                575,
+                165
+              ],
+              [
+                190,
+                617
+              ]
+            ],
+            "per_class": {
+              "Miss": {
+                "support": 740,
+                "precision": 0.7516339869281046,
+                "recall": 0.777027027027027,
+                "f1": 0.7641196013289037
+              },
+              "Make": {
+                "support": 807,
+                "precision": 0.789002557544757,
+                "recall": 0.7645600991325898,
+                "f1": 0.776589049716803
+              }
+            },
+            "predicted_Make_count": 782
+          },
+          "paired_counts": {
+            "both_correct": 905,
+            "tanet_only_correct": 205,
+            "main_only_correct": 287,
+            "both_wrong": 150
+          },
+          "accuracy_difference_TANet_minus_mainline": -0.0530058177117001
+        }
+      ],
+      "aggregate": {
+        "TANet": {
+          "accuracy": {
+            "values": [
+              0.6658047834518422,
+              0.7666451195862961,
+              0.7175177763413058
+            ],
+            "mean": 0.7166558931264814,
+            "sample_sd": 0.05042569265696216,
+            "min": 0.6658047834518422,
+            "max": 0.7666451195862961
+          },
+          "macro_f1": {
+            "values": [
+              0.6620062519201814,
+              0.7636551692324751,
+              0.7174795278502728
+            ],
+            "mean": 0.7143803163343098,
+            "sample_sd": 0.05089527907091081,
+            "min": 0.6620062519201814,
+            "max": 0.7636551692324751
+          },
+          "Miss_recall": {
+            "values": [
+              0.8067567567567567,
+              0.6837837837837838,
+              0.7378378378378379
+            ],
+            "mean": 0.7427927927927928,
+            "sample_sd": 0.06163604225132489,
+            "min": 0.6837837837837838,
+            "max": 0.8067567567567567
+          },
+          "Make_recall": {
+            "values": [
+              0.5365551425030979,
+              0.8426270136307311,
+              0.6988847583643123
+            ],
+            "mean": 0.6926889714993805,
+            "sample_sd": 0.15312997226228894,
+            "min": 0.5365551425030979,
+            "max": 0.8426270136307311
+          }
+        },
+        "mainline": {
+          "accuracy": {
+            "values": [
+              0.7795733678086619,
+              0.7550096961861668,
+              0.7705235940530059
+            ],
+            "mean": 0.7683688860159449,
+            "sample_sd": 0.012422784146002666,
+            "min": 0.7550096961861668,
+            "max": 0.7795733678086619
+          },
+          "macro_f1": {
+            "values": [
+              0.7790948587221658,
+              0.7549687417591626,
+              0.7703543255228533
+            ],
+            "mean": 0.7681393086680606,
+            "sample_sd": 0.01221462666962806,
+            "min": 0.7549687417591626,
+            "max": 0.7790948587221658
+          },
+          "Miss_recall": {
+            "values": [
+              0.7662162162162162,
+              0.7756756756756756,
+              0.777027027027027
+            ],
+            "mean": 0.772972972972973,
+            "sample_sd": 0.005890403977757671,
+            "min": 0.7662162162162162,
+            "max": 0.777027027027027
+          },
+          "Make_recall": {
+            "values": [
+              0.79182156133829,
+              0.7360594795539034,
+              0.7645600991325898
+            ],
+            "mean": 0.7641470466749277,
+            "sample_sd": 0.027883335533643385,
+            "min": 0.7360594795539034,
+            "max": 0.79182156133829
+          }
+        }
+      },
+      "paired_accuracy_difference": {
+        "values": [
+          -0.11376858435681969,
+          0.011635423400129352,
+          -0.0530058177117001
+        ],
+        "mean": -0.05171299288946348,
+        "sample_sd": 0.06271199915001895,
+        "min": -0.11376858435681969,
+        "max": 0.011635423400129352
+      },
+      "sd_definition": "Sample standard deviation across three training seeds; not a confidence interval over sources/videos",
+      "limitations": [
+        "Same validation used for checkpoint selection",
+        "Systems differ in input and training settings",
+        "Three seeds are descriptive variability, not proof of superiority",
+        "No seed selected for deployment"
+      ],
+      "new_predictions_computed": false,
+      "test_used": false,
+      "completed_at": "2026-10-29T22:02:00.721391+08:00"
+    },
+    "same_validation_used_to_choose_policy": true,
+    "training_recipe_changes": [
+      "validation/inference L statistics policy only"
+    ]
+  }
+}
