@@ -1,0 +1,28 @@
+{
+  "schema": "tanet_binary_preparation_v1",
+  "frames": 50,
+  "height": 192,
+  "width": 256,
+  "seed": 20261026,
+  "dropout": 0.5,
+  "sampling": "full_video_uniform_endpoint_floor",
+  "classes": [
+    "Miss",
+    "Make"
+  ],
+  "rgb_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "rgb_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "imagenet_checkpoint": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/artifacts/weights/resnet50-0676ba61.pth",
+  "imagenet_sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+  "imagenet_size_bytes": 102530333,
+  "formal_training_authorized": false,
+  "test_video_access": false
+}

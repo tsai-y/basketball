@@ -1,0 +1,28 @@
+{
+  "original_package": "/home/tsai/projects/basketball/development/tanet_v1",
+  "seed": 20261024,
+  "only_config_changes": [
+    "seed"
+  ],
+  "original_formal_contract_sha256": "ff13885ba229e2ed72837f59e65e72e5da0881c03b136b9536f4dd95c5cc74c5",
+  "repeat_contract_sha256": "eda3bc61f846a193a315b00e0b3df43c0102103ed36c9001477421e9422c644b",
+  "files_sha256": {
+    "__init__.py": "58b2f971e55e8982e929a3828db7c5504c0f6d86a15099e8123552a9316bb809",
+    "config.py": "25c9be6a84a15ee72efd270a9b2407a2e793ab9c5b1719b7a2bd8f6cb29c1363",
+    "config.json": "9ff9e9b806a6fe6e4c5ac9a66776bd0cdf422e079590b0fbb45aa92997ec6b16",
+    "data.py": "978810f0decae46fd50ea7162ee16797691be6184133bf780b8dfb414dc98e3e",
+    "model.py": "2442b459304a25ab70dd2b7f27d65e0c14a8a5228df30ac5035d3ee48b87e080",
+    "prepare.py": "2fdd07beee423c32436300d29ec7724c5f83f58683fb3b855b80fb2837b6bd73",
+    "training.py": "d49b2a6ae33e3327eddc6335c862f2d211b8710cc4596a77e64931b1a3df414b",
+    "train.py": "9b30f97b8a5ca184bde798201af1f8e6811eb1ec821e9a37a6d76ddb078c405e",
+    "readiness.py": "1122ed3ba06042320bb5925d966f54a33af62d8d7e18be4e69a40ea095538200",
+    "train_config.json": "45c9b0233ed494588a03de87baa330eddff826f5013a53ce9548288c400b8d92",
+    "upstream/__init__.py": "2ba8ecfde26d4fba722689d90fcd2dcbb63ae8d298fa767f205c54b99ca79860",
+    "upstream/temporal_module.py": "b437fe46eb69198c824e1f2ecba286e7a8bf0bc5fc46e47462d68b94b7c7fb24",
+    "upstream/PROVENANCE.json": "9639f45a23152e5b8d5c19f03c1739a4bde6b7f5464a42d4e8f8ade3a8583de9",
+    "upstream/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "upstream/reference_models.py.txt": "9bb2be080a60f2f005e720d944497693a569ae604ab9c8ae0e88ce6d9d42f65f"
+  },
+  "author_code_modified": false,
+  "test_access": false
+}
