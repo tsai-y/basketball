@@ -1,0 +1,123 @@
+{
+  "schema": "aca_four_arm_continuation_launch_v1",
+  "observed_at_taiwan": "2026-11-04T20:26:15.280605+08:00",
+  "status_at_observation": "running",
+  "output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk",
+  "previous_output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja",
+  "plan_file_sha256": "e505a82f9dbec297fc513ae42300f6740fc8adccc2d79ad9af10bb175174621f",
+  "campaign_sha256": "12085d4b6a7a430e5faed853e028b0f7b7d997db4a05147371f054e82b949d83",
+  "source_git_head": "4277df21331a2d70bfb585475f725db6bacce115",
+  "supervisor": {
+    "pid": 365035,
+    "process_start_ticks": 12139880,
+    "boot_id": "cd570953-c000-4930-8927-e026fb067584",
+    "command_line": [
+      "/home/tsai/miniconda3/envs/yolo11/bin/python",
+      "-u",
+      "-B",
+      "-m",
+      "development.aca_four_arm_campaign_v1.continuation",
+      "--supervise",
+      "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk",
+      "--lock-fd",
+      "3"
+    ],
+    "process_state": "R"
+  },
+  "active_job": "tsci_seed20261024",
+  "trainer": {
+    "pid": 365052,
+    "process_start_ticks": 12140080,
+    "boot_id": "cd570953-c000-4930-8927-e026fb067584",
+    "command_line": [
+      "/home/tsai/miniconda3/envs/yolo11/bin/python",
+      "-u",
+      "-B",
+      "-m",
+      "development.aca_four_arm_campaign_v1.train_entry",
+      "--gpu-policy",
+      "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk/gpu_policy.json",
+      "--gpu-policy-sha256",
+      "086351da49fbb3a65240a68d5b63c08fdf4c0c5808887a2c34b9d543ad504557",
+      "--source-root",
+      "/home/tsai/projects/basketball",
+      "--start-training",
+      "--variant",
+      "tsci",
+      "--seed",
+      "20261024",
+      "--readiness-report",
+      "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/gpu_readiness_seed20261024_jcs_u8yr/report.json",
+      "--accept-candidate-architecture"
+    ],
+    "process_state": "R"
+  },
+  "formal_output": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_tsci_seed20261024_viwjqsar",
+  "progress_at_observation": {
+    "phase": "train",
+    "epoch": 1,
+    "max_epochs": 30,
+    "train_videos": 800,
+    "train_total": 7193,
+    "optimizer_updates": 50,
+    "progress_precision": "last logged checkpoint, every 25 optimizer updates",
+    "latest_complete_validation": null,
+    "best_epoch": null,
+    "early_stop_count": 0
+  },
+  "completed_preserved": 2,
+  "queued": 9,
+  "common_trainer_and_readiness_hashes_unchanged": true,
+  "gpu_scheduling_policy": {
+    "schema": "aca_gpu_desktop_policy_v1",
+    "legacy_desktop_names": [
+      "Codex",
+      "Discord",
+      "Xwayland",
+      "chrome",
+      "codex",
+      "gnome-remote-desktop-daemon",
+      "gnome-shell",
+      "gnome-text-editor",
+      "nautilus",
+      "ptyxis"
+    ],
+    "extra_executables": [
+      {
+        "path": "/usr/bin/papers",
+        "package": "papers",
+        "sha256": "861256a78210e297cc94b6a793fb1c2401ae5c16a7595c570cac77d1c604c450"
+      },
+      {
+        "path": "/usr/bin/gnome-control-center",
+        "package": "gnome-control-center",
+        "sha256": "3546ff1a0e8b1ddae546df44367a1486687e2b74909d77446455b66ec035c789"
+      }
+    ],
+    "scope": "GPU launch scheduling only; common mathematical trainer unchanged",
+    "unknown_compute": "block; never terminate other processes",
+    "minimum_free_gpu_MiB": 6144
+  },
+  "preserved_files_sha256": {
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/plan.json": "54524f39613ec3e23a39335376337eabf5978563113d33bde97a67a5adc0ac0e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/state.json": "9847d002679b0f039d65818c3b1f27c5df4b5089a60f64fc43dc6c04ddda5c00",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/launcher.json": "079d816330732b33fa36e503bc72e68cb90d8f615682ed2d4f2d15757e85c8aa",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/failure.json": "b2baffcdcd1e5d8513c0d58cd5aba50e65d5b3f0f291d482f230d212c8bd561e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/supervisor.log": "fe9d8fdd4ae8c024a6377efb7b0186c60b25a93e560b3f8b126c7f629ee9a329",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/plan.json": "32d741a5fd40c3977a7ac4b25e4cd32c8d392c375cf601b854c49cfd7d14e259",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/campaign.json": "512e4842e584bb026638b34f04d9972cee6e9a294ed750eae415f0a9920b220a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/history.json": "331a04fe31420407bcd78b396105f750bd3f7131761a7741391fef93010eebbb",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/summary.json": "8810929bce86aa69ebb5abd3c999b87b64fdb3f1a4ad26e658b452fe471b5f0f",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/last.pt": "314501d6d42a5c1863d41424be845a234e214d48ed49b1881fea6dbeb32f8441",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/best.pt": "22a29ab03f0c7fde352ecee6ca6020722698eba8b5f6f42994e9f02952da9443",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/plan.json": "8a7e52f81055e8410fb55631acbf49cf4bdc5d9942d50bc930b5d4b3c2f7ef86",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/campaign.json": "512e4842e584bb026638b34f04d9972cee6e9a294ed750eae415f0a9920b220a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/history.json": "9f53c05f41327c06e2c0bc03c18bd34dddc12ecd6cdce4fb51f550a56080a720",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/summary.json": "980e7c6edfbf62d866e8f86fd4d6e94cefa0e587041d1ed886240e20f15a1621",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/last.pt": "69c49a5866afcc6ab58c021d57bb7375d41624e262bb35e3a27a60609e2a133a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/best.pt": "4a7e946367e8afc226ea7a51fd92f50925efa956cb3df7a07fc7e45ced686b10"
+  },
+  "cpu_tests_passed": 17,
+  "test_videos_opened_by_this_campaign": 0,
+  "prior_project_test_exposure": true
+}

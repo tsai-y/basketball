@@ -55,3 +55,33 @@ OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES='' \
   /home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest \
   development.aca_four_arm_campaign_v1.test_queue -v
 ```
+
+
+## Explicit continuation after the desktop scheduling stop (2026-11-04)
+
+The original campaign stopped between jobs after completing baseline and LSTA
+seed20261024. Current execution is under
+`artifacts/campaign_g14srnja/continuation_6k8sd4fk/`; read its state/launcher/log,
+not the preserved failed state in the parent. Parent `latest_attempt.json` points
+there. Original failures and the two completed runs stay unchanged, with protected
+artifact SHA256 recorded in the continuation plan.
+
+`continuation.py` accepts only a completed prefix followed by untouched queued
+jobs. It holds the same global lock, verifies current common campaign/readiness,
+then skips the completed prefix and executes the remaining ten. All twelve results
+are aggregated together only after completion. It does not retry or resume a partly
+trained model. The explicit launch used the original campaign path with
+`--continue-from` and `--accept-candidate-architecture`.
+
+`train_entry.py` explicitly replaces only the imported GPU pre-launch guard binding
+before delegating the CLI and training to unchanged `aca_four_arm_v1.train`.
+This scheduling policy is recorded separately; model, optimizer, RNG setup, data,
+fit, checkpoint schema, numerical settings, readiness and CE selection stay frozen.
+`gpu_guard.py` retains the prior desktop names and adds only root-protected,
+dpkg-owned, SHA-pinned `/usr/bin/papers` and `/usr/bin/gnome-control-center`.
+Unknown GPU compute remains blocked; no process is killed; at least6144MiB must
+remain available. Package updates change fingerprints and require fresh inspection.
+
+CPU verification now includes `development.aca_four_arm_campaign_v1.test_continuation`
+in addition to `test_queue` (17 checks total). Simulation completion lines in unit
+test output do not represent formal training results.
