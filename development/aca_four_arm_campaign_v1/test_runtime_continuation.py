@@ -19,6 +19,18 @@ def fixture():
 
 
 class RuntimeContinuationTests(unittest.TestCase):
+    def test_only_non_shadowing_opencv_prefix_is_allowed(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); libs = root / 'driver'; cvlibs = root / 'opencv'
+            libs.mkdir(); cvlibs.mkdir()
+            with patch.object(r, 'opencv_libdir', return_value=cvlibs), \
+                 patch.dict(os.environ, {'LD_LIBRARY_PATH': str(cvlibs) + ':' + str(libs)}):
+                r.safe_search_path(libs)
+                (cvlibs / 'libnvidia-ml.so.1').write_text('shadow')
+                with self.assertRaises(RuntimeError): r.safe_search_path(libs)
+            with patch.dict(os.environ, {'LD_LIBRARY_PATH': '/unknown:' + str(libs)}):
+                with self.assertRaises(RuntimeError): r.safe_search_path(libs)
+
     def test_only_unstarted_nvml_failure_resets_and_preserves_four(self):
         state, failure = fixture()
         original = copy.deepcopy(state)

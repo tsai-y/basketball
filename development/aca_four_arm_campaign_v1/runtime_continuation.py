@@ -2,6 +2,7 @@
 import argparse
 import copy
 import fcntl
+import importlib.util
 import os
 from pathlib import Path
 import shutil
@@ -11,6 +12,21 @@ import tempfile
 from . import queue as q
 from . import continuation as c
 from .gpu_guard import assert_idle_gpu, make_policy
+
+
+def opencv_libdir():
+    return (Path(importlib.util.find_spec('cv2').origin).parent / '../../lib64').resolve()
+
+
+def safe_search_path(libdir):
+    paths = [Path(x).resolve() for x in os.environ.get('LD_LIBRARY_PATH', '').split(':') if x]
+    q.require(libdir in paths, 'Recovered driver library path missing')
+    # The pinned OpenCV wheel prepends its Qt/FFmpeg lib64 directory on import.
+    # Accept only that known prefix, and only when it cannot shadow driver libraries.
+    for path in paths[:paths.index(libdir)]:
+        q.require(path == opencv_libdir() and
+                  not any(path.glob('libcuda.so*')) and not any(path.glob('libnvidia*.so*')),
+                  'An untrusted/conflicting driver search path precedes the recovered runtime')
 
 
 def eligible_jobs(state, failure):
@@ -53,8 +69,8 @@ def verify_runtime(manifest_path):
         q.require(path.is_symlink() and os.readlink(path) == target and
                   path.resolve(strict=True).is_relative_to(root), 'Recovered runtime symlink changed')
     libdir = root / 'usr/lib/x86_64-linux-gnu'
-    q.require(os.environ.get('LD_LIBRARY_PATH', '').split(':')[0] == str(libdir) and
-              Path(shutil.which('nvidia-smi')).resolve() == root / 'usr/bin/nvidia-smi',
+    safe_search_path(libdir)
+    q.require(Path(shutil.which('nvidia-smi')).resolve() == root / 'usr/bin/nvidia-smi',
               'Launch process must already use the recovered runtime environment')
     return m
 
