@@ -60,8 +60,8 @@ OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES='' \
 ## Explicit continuation after the desktop scheduling stop (2026-11-04)
 
 The original campaign stopped between jobs after completing baseline and LSTA
-seed20261024. Current execution is under
-`artifacts/campaign_g14srnja/continuation_6k8sd4fk/`; read its state/launcher/log,
+seed20261024. The 11/04 execution was under
+`artifacts/campaign_g14srnja/continuation_6k8sd4fk/`; its state is now historical. Read the latest runtime-recovery attempt below,
 not the preserved failed state in the parent. Parent `latest_attempt.json` points
 there. Original failures and the two completed runs stay unchanged, with protected
 artifact SHA256 recorded in the continuation plan.
@@ -85,3 +85,41 @@ remain available. Package updates change fingerprints and require fresh inspecti
 CPU verification now includes `development.aca_four_arm_campaign_v1.test_continuation`
 in addition to `test_queue` (17 checks total). Simulation completion lines in unit
 test output do not represent formal training results.
+
+
+## Original-version driver runtime recovery (2026-11-05)
+
+The system package updater replaced NVIDIA user-space595.91.07 with595.99.02
+while the loaded kernel driver stayed595.91.07. Seed24 completed all four arms;
+the next job failed only at the NVML check, before a subprocess/run existed.
+User authorization to repair and continue is recorded in the new plan.
+
+`runtime_continuation.py` permits only that exact NVML pre-launch failure to return
+to queued, preserves all four completed results/checkpoints and failed-attempt
+records by SHA, restores the original common campaign/readiness hash, then delegates
+to unchanged `continuation.supervise`. A started or partially trained failure is
+rejected. Order remains all four arms seed25 followed by all four arms seed26.
+
+Current state is
+`artifacts/campaign_g14srnja/continuation_6k8sd4fk/continuation_runtime_4vljx69c/state.json`.
+Parent `latest_attempt.json` points there. The first new formal job is baseline
+seed20261025. Read current stdout OUTPUT for each next job, not an old run.
+
+Original Ubuntu595.91.07 compute/utils packages were checksum-verified against
+official build33482603 .changes, then extracted with dpkg-deb, without installation
+or maintainer scripts. `artifacts/runtime_5959107_g80cyzp_/manifest.json` pins the
+libraries, genuine nvidia-smi and symlinks. Runtime validation proves CUDA gradients,
+actual driver library mappings, and the unchanged original campaign hash. Only the
+known non-driver-shadowing OpenCV lib64 prefix may precede recovered driver libs.
+
+GPU monitoring must use the current launch_request.json runtime_environment (PATH
+and LD_LIBRARY_PATH) with subprocess env, like training. Default system nvidia-smi
+can still fail; system packages and the desktop are unchanged. A future reboot or
+kernel-version change requires inspection; no automatic service restarts training.
+The source command requires explicit --continue-from, --runtime-manifest and
+--accept-candidate-architecture, launched under the recovered process environment.
+
+Tests: test_runtime_continuation plus test_continuation and test_queue (21 total).
+No test dataset was evaluated. Math trainer, seeds, epochs, optimizer and selection
+are unchanged. Official package downloads, extracted runtime and checkpoints remain
+ignored, with small provenance summaries saved in docs/research/results.

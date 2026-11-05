@@ -1,6 +1,6 @@
 # ACA 候選實驗保存狀態（2026-11-03）
 
-2026-11-04 已保留完成的 baseline／LSTA（seed20261024），依使用者授權從 TSCI 接續剩餘十組，見 [最新 attempt 與本輪執行狀態](ACA_FOUR_ARM_CAMPAIGN.md)。十二組全新初始化，不混用以下歷史候選成績。
+2026-11-05 已保留 seed20261024 四組完成成果，以原版 NVIDIA 局部環境修復後，依使用者授權從 Baseline seed25 接續剩餘八組，見 [最新 attempt 與本輪執行狀態](ACA_FOUR_ARM_CAMPAIGN.md)。十二組全新初始化，不混用以下歷史候選成績。
 
 2026-11-03 架構核對已完成，參見 [三方對照、補充檔與參數核算](ACA_ARCHITECTURE_AUDIT.md)。四組共用設定與 [十二組工程預檢](ACA_FOUR_ARM_READINESS.md) 已完成，正式訓練接續執行中。
 
