@@ -1,0 +1,73 @@
+{
+  "schema": "aca_eight_class_split_policy_v1",
+  "status": "candidate_metadata_policy_not_training",
+  "author_exact_split": false,
+  "training_authorized": false,
+  "activate_existing_trainer": false,
+  "class_order": [
+    "2p0",
+    "2p1",
+    "3p0",
+    "3p1",
+    "ft0",
+    "ft1",
+    "mp0",
+    "mp1"
+  ],
+  "input_sha256": {
+    "data/processed/dataset_manifest.csv": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "docs/dataset_summary.json": "9a2846185e2d9ccbb172f97cec848330413b0f28d9e2b82edddd054f5fb4a482"
+  },
+  "quality": {
+    "ambiguous_labels": "quarantine ALL members of any saved byte-identical group with different original_class",
+    "same_class_duplicates": "retain lexical smallest video_id; exclude remaining copies",
+    "singles": "retain original label",
+    "raw_files": "read-only; no raw video access",
+    "no_human_label_adjudication_claim": true,
+    "known_duplicates": "historical saved SHA-identical list only; near-duplicates unresolved"
+  },
+  "split": {
+    "seed": 20261108,
+    "ranking_namespace": "aca_eight_class_sourcegroup_split_v1",
+    "metadata_candidates": 512,
+    "group_quotas": {
+      "train": 40,
+      "validation": 5,
+      "test": 5
+    },
+    "ratios": {
+      "train": [
+        4,
+        5
+      ],
+      "validation": [
+        1,
+        10
+      ],
+      "test": [
+        1,
+        10
+      ]
+    },
+    "objective": "sum_s abs(N_s/N-r_s) + (1/8)*sum_s,c abs(N_sc/N_c-r_s)",
+    "coverage": "all eight classes in every candidate split",
+    "ranking": "SHA256(namespace:seed:trial:source_group), then source_group; quotas assigned in train/validation/test order",
+    "tie_break": "objective as exact Fraction, canonical assignment SHA256, then trial index",
+    "fixed_metadata_budget": true,
+    "model_predictions_or_scores_allowed": false,
+    "source_group": "frozen source_group; v160/v166 merged; not independently verified real game IDs"
+  },
+  "evaluation": {
+    "primary": "eight-class top1; same top1 mapped to Make/Miss",
+    "globally_unseen_test": false,
+    "old_checkpoints_eligible_for_new_split_comparison": false,
+    "historical_test_exposure_disclosed": true
+  },
+  "remaining": [
+    "D3 preprocessing contract",
+    "D4 isolated eight-class engineering validation",
+    "G1 exact-author architecture unresolved"
+  ],
+  "activation": "No current loader or trainer reads this candidate; creating metadata does not authorize training"
+}

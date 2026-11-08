@@ -71,3 +71,6 @@ development/aca_four_arm_v1/artifacts/
 
 # Sequential four-arm formal campaign runtime
 development/aca_four_arm_campaign_v1/artifacts/
+
+# Isolated eight-class metadata candidates; never active training inputs
+development/aca_eight_class_data_v1/artifacts/

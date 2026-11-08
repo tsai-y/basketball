@@ -1,0 +1,161 @@
+{
+  "schema": "aca_eight_class_split_candidate_v1",
+  "status": "metadata_candidate_not_active",
+  "policy_sha256": "f6c5d0dd4950a19041666952044233ef1743e39fa4f525fc365e87cf6fe58396",
+  "builder_sha256": "f792d3b1d6d0358120bd61f62d52d46cdc5d41736ced0476de2aeb55639654b7",
+  "manifest_sha256": "3966c1bba9715f8a51e36a81745cb59d9580e9862eb619170097c379e7a8d585",
+  "exact_author_split": false,
+  "training_authorized": false,
+  "globally_unseen_test": false,
+  "original_manifest_overwritten": false,
+  "raw_video_access": 0,
+  "predictions_or_model_scores_used": 0,
+  "artifact_directory": "development/aca_eight_class_data_v1/artifacts/sourcegroup80_seed20261108_v1",
+  "group_assignment": {
+    "v108": "test",
+    "v111": "train",
+    "v112": "train",
+    "v113": "train",
+    "v114": "train",
+    "v115": "train",
+    "v116": "test",
+    "v117": "train",
+    "v118": "train",
+    "v119": "train",
+    "v120": "train",
+    "v121": "validation",
+    "v122": "test",
+    "v123": "validation",
+    "v124": "train",
+    "v127": "train",
+    "v128": "train",
+    "v129": "train",
+    "v130": "train",
+    "v131": "train",
+    "v133": "test",
+    "v145": "train",
+    "v146": "train",
+    "v147": "train",
+    "v149": "train",
+    "v150": "train",
+    "v152": "train",
+    "v153": "train",
+    "v154": "train",
+    "v155": "test",
+    "v156": "train",
+    "v157": "train",
+    "v158": "validation",
+    "v159": "train",
+    "v160_v166": "train",
+    "v161": "train",
+    "v162": "train",
+    "v163": "train",
+    "v164": "train",
+    "v165": "validation",
+    "v167": "train",
+    "v168": "train",
+    "v169": "train",
+    "v171": "train",
+    "v174": "validation",
+    "v175": "train",
+    "v181": "train",
+    "v182": "train",
+    "v183": "train",
+    "v184": "train"
+  },
+  "class_counts": {
+    "train": [
+      1133,
+      1571,
+      1701,
+      944,
+      465,
+      1353,
+      617,
+      446
+    ],
+    "validation": [
+      144,
+      199,
+      222,
+      108,
+      54,
+      174,
+      74,
+      52
+    ],
+    "test": [
+      137,
+      170,
+      206,
+      123,
+      46,
+      189,
+      92,
+      57
+    ]
+  },
+  "selected_trial": 42,
+  "valid_metadata_candidates": 512,
+  "score_fraction": "27831972672242260963789/1200539067317689196588400",
+  "score_decimal": 0.023182896275442327,
+  "counts": {
+    "test": 1020,
+    "train": 8230,
+    "excluded": 34,
+    "validation": 1027
+  },
+  "exclusions": {
+    "ambiguous_eight_class_label": 10,
+    "duplicate_copy": 24
+  },
+  "included": 10277,
+  "raw": 10311,
+  "group_counts": {
+    "test": 5,
+    "train": 40,
+    "validation": 5
+  },
+  "old_to_candidate_split_counts": {
+    "train": {
+      "train": 5797,
+      "validation": 375,
+      "test": 1020,
+      "excluded": 1
+    },
+    "validation": {
+      "train": 1127,
+      "validation": 420,
+      "test": 0,
+      "excluded": 0
+    },
+    "test": {
+      "train": 1306,
+      "validation": 232,
+      "test": 0,
+      "excluded": 1
+    },
+    "excluded": {
+      "train": 0,
+      "validation": 0,
+      "test": 0,
+      "excluded": 32
+    }
+  },
+  "newly_quarantined": [
+    "2p1/2p1_v166_005133_x264.mp4",
+    "3p0/3p0_v121_000328_x264.mp4"
+  ],
+  "original_excluded_reintroduced": [],
+  "source_policy_path": "docs/research/specs/aca_eight_class_split_policy_v1.json",
+  "decisions": {
+    "D1": "quarantine all known byte-identical multi-class groups; no relabeling",
+    "D2": "one metadata-balanced sourcegroup80 reconstruction candidate, inactive",
+    "D3": "pending",
+    "D4": "pending"
+  },
+  "current_trainer_candidate_integration": false,
+  "labels_changed": 0,
+  "original_split_changed": false,
+  "new_candidate_split_created": true
+}

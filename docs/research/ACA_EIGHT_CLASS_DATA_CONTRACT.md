@@ -3,6 +3,8 @@
 日期：2026-11-08。**唯讀盤點已完成；八類訓練契約仍為草案，尚未放行訓練。**
 主線優先Basketball-51原八類任務；Make/Miss由同一模型的八類top-1映射取得。現有四組二類成績、manifest、切分、checkpoint及排程保持原樣。
 
+**後續更新：D1統一隔離規則與D2獨立候選已完成，見[候選決策與驗收](ACA_EIGHT_CLASS_SPLIT_CANDIDATE.md)。下文保留首次G2盤點快照；新候選未啟用，下一步為D3前處理。**
+
 - [資料盤點與來源SHA](results/aca_eight_class_data_audit_v1.json)
 - [八類契約草案](specs/aca_eight_class_contract_draft_v1.json)：文件資料，不是可執行訓練設定
 - [兩組標籤歧義清單](results/aca_eight_class_label_review_v1.csv)：本輪未看片、未改標籤
