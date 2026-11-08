@@ -1,0 +1,53 @@
+{
+  "schema": "aca_reconstruction_spec_arithmetic_audit_v1",
+  "status": "passed",
+  "spec_sha256": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+  "source_pins_verified": 24,
+  "configuration_checked_by_AST": true,
+  "insertion_sites_verified": 16,
+  "arithmetic_matches_existing_meta_rows": [
+    "baseline/2",
+    "lsta/2",
+    "tsci/2",
+    "aca/2",
+    "baseline/8",
+    "lsta/8",
+    "tsci/8",
+    "aca/8"
+  ],
+  "historical_readiness_count_rows_verified": 12,
+  "TSCI_inverse_permutations_verified": 3,
+  "components": {
+    "backbone": 23508032,
+    "gating": 69160960,
+    "short_term": 475564,
+    "dynamic_kernel": 10416,
+    "tsci": 4800
+  },
+  "scope": "integer arithmetic, AST, SHA and existing JSON only; not a new forward/gradient test",
+  "models_instantiated": 0,
+  "weights_loaded": 0,
+  "GPU_jobs_started": 0,
+  "inference_runs": 0,
+  "optimizer_updates": 0,
+  "test_runs": 0,
+  "created_at_taiwan": "2026-11-08T18:20:01.741421+08:00",
+  "hand_written_insertion_table_rows_verified": 16,
+  "protected_historical_files_unchanged": 51,
+  "relative_links_broken": [],
+  "automation_status_observed": "PAUSED",
+  "saved_campaign_state": "interrupted",
+  "runtime_process_liveness_checked": false,
+  "document_sha256": {
+    "docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "docs/research/ACA_RECONSTRUCTION_SPEC.md": "165b32c3e18b3e93ce99d970ac51565f624c9e2da009e9a398be39c9d9f3bfb7",
+    "scripts/audit_aca_reconstruction_spec.py": "6141ebaa97a087a818e03d81e22f4f591647f20d0338a7f1c2c208c4224b23a2",
+    "docs/research/ACA_REPRODUCTION_CHECKPOINT.md": "c93cc6461d2d7f783eb34c7a0c3b55c11e8c68f9ed94d13c2061a66e6640d6d0",
+    "docs/research/aca_experiments.md": "d76c308b44b75bb76cfa71099a43911bdd54a3ae5d494989c46d2e6f9e76138e"
+  },
+  "exact_author_reproduction_confirmed": false,
+  "G1": "existing_reconstruction_contract_only",
+  "G2": "not_passed",
+  "trainer_and_checkpoint_changes": 0,
+  "queue_or_automation_changes": 0
+}

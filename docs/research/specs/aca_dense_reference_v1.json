@@ -1,0 +1,918 @@
+{
+  "schema": "aca_dense_reference_spec_v1",
+  "spec_id": "aca_dense_reference_v1",
+  "date_taiwan": "2026-11-08",
+  "status": "frozen_description_of_existing_reconstruction",
+  "executable_training_config": false,
+  "exact_author_reproduction_confirmed": false,
+  "training_authorized_by_this_spec": false,
+  "source_commit_before_documentation": "0f227fd",
+  "scope": "Existing dense four-arm Make/Miss reference only; not a new candidate or a selected final model",
+  "paper_url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+  "configuration": {
+    "frames": 50,
+    "reduction": 16,
+    "short_kernel": 3,
+    "dynamic_kernel": 3,
+    "temporal_hidden_ratio": 0.25,
+    "gate_sigmoid": true,
+    "gate_groups": "dense"
+  },
+  "input": {
+    "layout": "N,C,T,H,W",
+    "channels": 3,
+    "frames": 50,
+    "height": 120,
+    "width": 160,
+    "class_order": [
+      "Miss",
+      "Make"
+    ],
+    "head_classes": 2
+  },
+  "backbone": {
+    "name": "torchvision ResNet50 v1.5",
+    "blocks": [
+      3,
+      4,
+      6,
+      3
+    ],
+    "narrow_channels": [
+      64,
+      128,
+      256,
+      512
+    ],
+    "expansion": 4,
+    "spatial_downsampling": "conv2 in first block of stages 2,3,4",
+    "temporal_stride": 1,
+    "insertion": "after conv1/bn1/ReLU, before conv2 in all 16 bottlenecks",
+    "pool": "mean T,H,W to 2048",
+    "head": "Linear(2048,2,bias=True)",
+    "dropout": false
+  },
+  "lsta": {
+    "gate_value": {
+      "kernel": [
+        1,
+        1,
+        1
+      ],
+      "groups": 1,
+      "bias": false
+    },
+    "gate_control": {
+      "kernel": [
+        3,
+        3,
+        3
+      ],
+      "groups": 1,
+      "bias": false
+    },
+    "gate_output": {
+      "kernel": [
+        3,
+        3,
+        3
+      ],
+      "groups": 1,
+      "bias": false
+    },
+    "all_gate_blocks": {
+      "channels": "C->C",
+      "stride": 1,
+      "padding": "kernel//2",
+      "order": [
+        "Conv3d",
+        "InstanceNorm3d",
+        "ReLU"
+      ],
+      "norm_affine": false,
+      "norm_track_running_stats": false,
+      "norm_eps": 1e-05
+    },
+    "equations": [
+      "B_k(U)=ReLU(IN(Conv3d_k(U)))",
+      "G=X+B_3_output(B_1_value(X)*sigmoid(B_3_control(X)))",
+      "P=mean_HW(G)",
+      "V=sigmoid(Conv1d_h_to_C(ReLU(Conv1d_C_to_h(P))))",
+      "Z=G*V[:,:,:,None,None]",
+      "theta=softmax_K(Linear_12_to_3(ReLU(Linear_50_to_12(P))))",
+      "Y[n,c,t,h,w]=sum_k theta[n,c,k]*zero_pad_T(Z)[n,c,t+k,h,w]"
+    ],
+    "short_term": {
+      "hidden": "max(1,C//16)",
+      "kernels": [
+        3,
+        3
+      ],
+      "bias": true,
+      "padding": 1,
+      "normalization": null
+    },
+    "dynamic": {
+      "hidden": 12,
+      "layers": [
+        50,
+        12,
+        3
+      ],
+      "bias": true,
+      "shared_weights": "across channels within one block; independent across blocks",
+      "generated_kernels": "per video, per channel; shared across spatial sites",
+      "operation": "temporal cross-correlation",
+      "padding": "one zero on each temporal side",
+      "normalization": "softmax over K=3",
+      "boundary_kernel_renormalization": false
+    },
+    "gate_control_range_real_arithmetic": "[0.5,1); sigmoid follows ReLU; float rounding can reach 1"
+  },
+  "tsci": {
+    "fold": "[N,C,T,H,W] -> [N*T,C,H,W]",
+    "branches": [
+      {
+        "name": "channel",
+        "permutation": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "inverse": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pooled_axis": "C"
+      },
+      {
+        "name": "height",
+        "permutation": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "inverse": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "pooled_axis": "H"
+      },
+      {
+        "name": "width",
+        "permutation": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "inverse": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pooled_axis": "W"
+      }
+    ],
+    "gate": "U*sigmoid(BN2d(Conv2d(concat(mean_axis1(U),max_axis1(U)))))",
+    "conv": {
+      "in_channels": 2,
+      "out_channels": 1,
+      "kernel": 7,
+      "padding": 3,
+      "bias": false
+    },
+    "bn": {
+      "features": 1,
+      "affine": true,
+      "eps": 1e-05,
+      "momentum": 0.1,
+      "track_running_stats": true
+    },
+    "fusion": "inverse-permute weighted branch features, average /3, unfold to N,C,T,H,W",
+    "weights": "three independent gates per block; shared across frames, not across blocks",
+    "explicit_temporal_mixing": false
+  },
+  "aca_fusion": "LSTA(X)+TSCI(X); no /2 and no additional module-level X skip",
+  "bn_policy": {
+    "all_BatchNorm": "eval mode with affine requires_grad=False during training and validation",
+    "backbone": "ImageNet stored affine and buffers",
+    "new_tsci": "gamma=1,beta=0,mean=0,var=1,counter=0; all frozen from initialization",
+    "new_tsci_bn_is_not_exact_identity": "division by sqrt(1+eps) remains",
+    "lsta_InstanceNorm": "per sample/channel statistics across T,H,W in train and eval; no affine or stored stats",
+    "backbone_BN_modules": 53,
+    "tsci_BN_modules": 48,
+    "backbone_frozen_affine": 53120,
+    "tsci_frozen_affine": 96,
+    "lsta_IN_modules": 48,
+    "author_policy_verified": false
+  },
+  "initialization": {
+    "schema": "aca_resnet50_initialization_v1",
+    "enum": "torchvision.models.ResNet50_Weights.IMAGENET1K_V1",
+    "url": "https://download.pytorch.org/models/resnet50-0676ba61.pth",
+    "filename": "resnet50-0676ba61.pth",
+    "sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+    "size_bytes": 102530333,
+    "local_relative_path": "artifacts/weights/resnet50-0676ba61.pth",
+    "hash_provenance": "Official HTTPS download on 2026-10-25; filename hash prefix and measured full SHA256 pinned here",
+    "source_tensor_count": 267,
+    "missing_bn_counter_count": 53,
+    "rgb_mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "rgb_std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "task_head": "new Linear(2048,2), Miss=0 Make=1",
+    "exact_paper_checkpoint_identity_known": false
+  },
+  "historical_runtime": {
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128"
+  },
+  "parameter_formulas": {
+    "gating_per_block": "55*C*C",
+    "short_per_block": "6*C*h+h+C, h=C//16",
+    "dynamic_per_block": "(50*12+12)+(12*3+3)=651",
+    "tsci_per_block": "3*(2*1*7*7+2*1)=300",
+    "backbone_block": "I*C+13*C*C+12*C + (4*I*C+8*C if projection else 0)",
+    "head": "2049*num_classes",
+    "counting": "all parameters including frozen affine; excludes buffers, Adam and gradients"
+  },
+  "paper_evidence": [
+    {
+      "item": "ResNet50, every bottleneck after first 1x1 conv, parallel additive LSTA/TSCI",
+      "source": "section 2.1 / Figure 1",
+      "status": "supported; exact BN/ReLU/stride placement not specified"
+    },
+    {
+      "item": "Instance normalization in LSTA gate sublayers",
+      "source": "section 2.2 text / Figure 2 Norm",
+      "status": "supported type; affine/running-stat flags and exact defaults not confirmed"
+    },
+    {
+      "item": "TSCI three branches, 7x7 convolutions, BN, average",
+      "source": "section 2.3 / Figure 3",
+      "status": "supported topology; freezing policy not confirmed"
+    },
+    {
+      "item": "Gate sigmoid",
+      "source": "Figure 2 vs Eq.1",
+      "status": "figure-supported reconstruction; printed Eq.1 omits sigmoid"
+    },
+    {
+      "item": "Z=G*V with spatial broadcast",
+      "source": "Figure 2 vs Eq.4",
+      "status": "shape-consistent reconstruction; Eq.4 writes pooled P*V"
+    }
+  ],
+  "unverified_author_details": [
+    "Conv3d groups/bias/channel configuration",
+    "r=16, beta=0.25, temporal kernels=3",
+    "FC sharing and biases",
+    "IN affine/running-stat flags",
+    "BN/ReLU precise insertion and ResNet stride variant",
+    "temporal padding and boundary rule",
+    "new TSCI BN training/freeze and initialization",
+    "exact ImageNet version, sampling/crop, split and evaluation contract",
+    "approximately 26.8M parameter discrepancy"
+  ],
+  "gates": {
+    "G1_reconstruction_contract": "specified_and_arithmetically_verified",
+    "G1_author_exact": "unverified",
+    "G2_original_task": "not_passed",
+    "G3_existing_engineering": "historical_pass_only; no new execution",
+    "G4_formal_training": "paused",
+    "G5_multiseed_and_SpaceJam": "deferred"
+  },
+  "not_a_new_experiment": true,
+  "stages": [
+    {
+      "stage": "layer1",
+      "channels": 64,
+      "blocks": 3,
+      "short_hidden": 4,
+      "gating_per_block": 225280,
+      "short_per_block": 1604,
+      "dynamic_per_block": 651,
+      "tsci_per_block": 300,
+      "module_per_block": 227835,
+      "module_stage": 683505,
+      "backbone_stage": 215808,
+      "backbone_frozen_BN_affine": 2816
+    },
+    {
+      "stage": "layer2",
+      "channels": 128,
+      "blocks": 4,
+      "short_hidden": 8,
+      "gating_per_block": 901120,
+      "short_per_block": 6280,
+      "dynamic_per_block": 651,
+      "tsci_per_block": 300,
+      "module_per_block": 908351,
+      "module_stage": 3633404,
+      "backbone_stage": 1219584,
+      "backbone_frozen_BN_affine": 7168
+    },
+    {
+      "stage": "layer3",
+      "channels": 256,
+      "blocks": 6,
+      "short_hidden": 16,
+      "gating_per_block": 3604480,
+      "short_per_block": 24848,
+      "dynamic_per_block": 651,
+      "tsci_per_block": 300,
+      "module_per_block": 3630279,
+      "module_stage": 21781674,
+      "backbone_stage": 7098368,
+      "backbone_frozen_BN_affine": 20480
+    },
+    {
+      "stage": "layer4",
+      "channels": 512,
+      "blocks": 3,
+      "short_hidden": 32,
+      "gating_per_block": 14417920,
+      "short_per_block": 98848,
+      "dynamic_per_block": 651,
+      "tsci_per_block": 300,
+      "module_per_block": 14517719,
+      "module_stage": 43553157,
+      "backbone_stage": 14964736,
+      "backbone_frozen_BN_affine": 22528
+    }
+  ],
+  "sites": [
+    {
+      "name": "layer1.0",
+      "input_channels": 64,
+      "channels": 64,
+      "insertion_shape": [
+        "N",
+        64,
+        50,
+        30,
+        40
+      ],
+      "output_shape": [
+        "N",
+        256,
+        50,
+        30,
+        40
+      ],
+      "conv2_stride": 1,
+      "projection": true,
+      "backbone_parameters": 75008,
+      "backbone_frozen_BN_affine": 1280
+    },
+    {
+      "name": "layer1.1",
+      "input_channels": 256,
+      "channels": 64,
+      "insertion_shape": [
+        "N",
+        64,
+        50,
+        30,
+        40
+      ],
+      "output_shape": [
+        "N",
+        256,
+        50,
+        30,
+        40
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 70400,
+      "backbone_frozen_BN_affine": 768
+    },
+    {
+      "name": "layer1.2",
+      "input_channels": 256,
+      "channels": 64,
+      "insertion_shape": [
+        "N",
+        64,
+        50,
+        30,
+        40
+      ],
+      "output_shape": [
+        "N",
+        256,
+        50,
+        30,
+        40
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 70400,
+      "backbone_frozen_BN_affine": 768
+    },
+    {
+      "name": "layer2.0",
+      "input_channels": 256,
+      "channels": 128,
+      "insertion_shape": [
+        "N",
+        128,
+        50,
+        30,
+        40
+      ],
+      "output_shape": [
+        "N",
+        512,
+        50,
+        15,
+        20
+      ],
+      "conv2_stride": 2,
+      "projection": true,
+      "backbone_parameters": 379392,
+      "backbone_frozen_BN_affine": 2560
+    },
+    {
+      "name": "layer2.1",
+      "input_channels": 512,
+      "channels": 128,
+      "insertion_shape": [
+        "N",
+        128,
+        50,
+        15,
+        20
+      ],
+      "output_shape": [
+        "N",
+        512,
+        50,
+        15,
+        20
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 280064,
+      "backbone_frozen_BN_affine": 1536
+    },
+    {
+      "name": "layer2.2",
+      "input_channels": 512,
+      "channels": 128,
+      "insertion_shape": [
+        "N",
+        128,
+        50,
+        15,
+        20
+      ],
+      "output_shape": [
+        "N",
+        512,
+        50,
+        15,
+        20
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 280064,
+      "backbone_frozen_BN_affine": 1536
+    },
+    {
+      "name": "layer2.3",
+      "input_channels": 512,
+      "channels": 128,
+      "insertion_shape": [
+        "N",
+        128,
+        50,
+        15,
+        20
+      ],
+      "output_shape": [
+        "N",
+        512,
+        50,
+        15,
+        20
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 280064,
+      "backbone_frozen_BN_affine": 1536
+    },
+    {
+      "name": "layer3.0",
+      "input_channels": 512,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        15,
+        20
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 2,
+      "projection": true,
+      "backbone_parameters": 1512448,
+      "backbone_frozen_BN_affine": 5120
+    },
+    {
+      "name": "layer3.1",
+      "input_channels": 1024,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 1117184,
+      "backbone_frozen_BN_affine": 3072
+    },
+    {
+      "name": "layer3.2",
+      "input_channels": 1024,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 1117184,
+      "backbone_frozen_BN_affine": 3072
+    },
+    {
+      "name": "layer3.3",
+      "input_channels": 1024,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 1117184,
+      "backbone_frozen_BN_affine": 3072
+    },
+    {
+      "name": "layer3.4",
+      "input_channels": 1024,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 1117184,
+      "backbone_frozen_BN_affine": 3072
+    },
+    {
+      "name": "layer3.5",
+      "input_channels": 1024,
+      "channels": 256,
+      "insertion_shape": [
+        "N",
+        256,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        1024,
+        50,
+        8,
+        10
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 1117184,
+      "backbone_frozen_BN_affine": 3072
+    },
+    {
+      "name": "layer4.0",
+      "input_channels": 1024,
+      "channels": 512,
+      "insertion_shape": [
+        "N",
+        512,
+        50,
+        8,
+        10
+      ],
+      "output_shape": [
+        "N",
+        2048,
+        50,
+        4,
+        5
+      ],
+      "conv2_stride": 2,
+      "projection": true,
+      "backbone_parameters": 6039552,
+      "backbone_frozen_BN_affine": 10240
+    },
+    {
+      "name": "layer4.1",
+      "input_channels": 2048,
+      "channels": 512,
+      "insertion_shape": [
+        "N",
+        512,
+        50,
+        4,
+        5
+      ],
+      "output_shape": [
+        "N",
+        2048,
+        50,
+        4,
+        5
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 4462592,
+      "backbone_frozen_BN_affine": 6144
+    },
+    {
+      "name": "layer4.2",
+      "input_channels": 2048,
+      "channels": 512,
+      "insertion_shape": [
+        "N",
+        512,
+        50,
+        4,
+        5
+      ],
+      "output_shape": [
+        "N",
+        2048,
+        50,
+        4,
+        5
+      ],
+      "conv2_stride": 1,
+      "projection": false,
+      "backbone_parameters": 4462592,
+      "backbone_frozen_BN_affine": 6144
+    }
+  ],
+  "stem": {
+    "conv_parameters": 9408,
+    "BN_affine": 128,
+    "total": 9536,
+    "conv_shape": [
+      "N",
+      64,
+      50,
+      60,
+      80
+    ],
+    "pool_shape": [
+      "N",
+      64,
+      50,
+      30,
+      40
+    ]
+  },
+  "components": {
+    "backbone": 23508032,
+    "gating": 69160960,
+    "short_term": 475564,
+    "dynamic_kernel": 10416,
+    "tsci": 4800
+  },
+  "totals": [
+    {
+      "variant": "baseline",
+      "classes": 2,
+      "total": 23512130,
+      "frozen_affine": 53120,
+      "trainable": 23459010,
+      "components": {
+        "backbone": 23508032,
+        "gating": 0,
+        "short_term": 0,
+        "dynamic_kernel": 0,
+        "tsci": 0,
+        "classifier": 4098
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "lsta",
+      "classes": 2,
+      "total": 93159070,
+      "frozen_affine": 53120,
+      "trainable": 93105950,
+      "components": {
+        "backbone": 23508032,
+        "gating": 69160960,
+        "short_term": 475564,
+        "dynamic_kernel": 10416,
+        "tsci": 0,
+        "classifier": 4098
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "tsci",
+      "classes": 2,
+      "total": 23516930,
+      "frozen_affine": 53216,
+      "trainable": 23463714,
+      "components": {
+        "backbone": 23508032,
+        "gating": 0,
+        "short_term": 0,
+        "dynamic_kernel": 0,
+        "tsci": 4800,
+        "classifier": 4098
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "aca",
+      "classes": 2,
+      "total": 93163870,
+      "frozen_affine": 53216,
+      "trainable": 93110654,
+      "components": {
+        "backbone": 23508032,
+        "gating": 69160960,
+        "short_term": 475564,
+        "dynamic_kernel": 10416,
+        "tsci": 4800,
+        "classifier": 4098
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "baseline",
+      "classes": 8,
+      "total": 23524424,
+      "frozen_affine": 53120,
+      "trainable": 23471304,
+      "components": {
+        "backbone": 23508032,
+        "gating": 0,
+        "short_term": 0,
+        "dynamic_kernel": 0,
+        "tsci": 0,
+        "classifier": 16392
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "lsta",
+      "classes": 8,
+      "total": 93171364,
+      "frozen_affine": 53120,
+      "trainable": 93118244,
+      "components": {
+        "backbone": 23508032,
+        "gating": 69160960,
+        "short_term": 475564,
+        "dynamic_kernel": 10416,
+        "tsci": 0,
+        "classifier": 16392
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "tsci",
+      "classes": 8,
+      "total": 23529224,
+      "frozen_affine": 53216,
+      "trainable": 23476008,
+      "components": {
+        "backbone": 23508032,
+        "gating": 0,
+        "short_term": 0,
+        "dynamic_kernel": 0,
+        "tsci": 4800,
+        "classifier": 16392
+      },
+      "trained_in_this_task": false
+    },
+    {
+      "variant": "aca",
+      "classes": 8,
+      "total": 93176164,
+      "frozen_affine": 53216,
+      "trainable": 93122948,
+      "components": {
+        "backbone": 23508032,
+        "gating": 69160960,
+        "short_term": 475564,
+        "dynamic_kernel": 10416,
+        "tsci": 4800,
+        "classifier": 16392
+      },
+      "trained_in_this_task": false
+    }
+  ],
+  "source_sha256": {
+    "development/aca_four_arm_v1/__init__.py": "4e5111b0a0ba071a2f8b6e384c309f77a08ce1005c1126446012f2d3a2fea336",
+    "development/aca_four_arm_v1/engine.py": "63f1869f91eb3c50380e6313d6bbbd3dd3909a0499046dab8b5919ce0c239707",
+    "development/aca_four_arm_v1/experiment.py": "24c990ea2a321e7add8e308e4840d684a711913c25962a15848d8c5b6796ca58",
+    "development/aca_four_arm_v1/preflight.py": "d89eb86d4053867d26383f484ba1ad8f7d8a341a5767ae31713d71c79cecc7c6",
+    "development/aca_four_arm_v1/protocol.json": "12affcec25d613c092d9213a1d7cb03ea17f01c5670f089304c7c415cddcf36e",
+    "development/aca_four_arm_v1/test_four_arm.py": "073d48ec17409dcc03e35e486de527bb7d325f61ad327895f8f4dff4a638f402",
+    "development/aca_four_arm_v1/train.py": "e6d786220e1e130148347b5346e8ae5e7adf7682e0f5a43e1ebedba87e8efe36",
+    "development/aca_net_v1/__init__.py": "9694880848f4b922ed9375b96ad3292a5ee89480f1c6b37fe0fff4247d83a263",
+    "development/aca_net_v1/audit_architecture.py": "618959f3eae35d4ff6fe2e6c36af917d4a9118154e15e44cad2548a6c04d9de2",
+    "development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "development/aca_net_v1/pipeline_smoke.py": "89fc0bc05fef686606bc59016d6534848cb724de349943bdf3dbcce00184d6b7",
+    "development/aca_net_v1/readiness.py": "f9400ab6eade1e747c81e6d876a7c21ac486aed9bf415fa30b165c330f9af6fe",
+    "development/aca_net_v1/smoke.py": "95956afe32c1bd4a444ffd4c418dd1b3e0b223ba46dc24f5d51f9355750466bd",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "docs/research/results/aca_architecture_audit_v1.json": "d5c02eb3e910d103bff68d66b9b706f4e26720f02fed28569851be531c56fab6",
+    "docs/research/results/aca_architecture_sources_v1.json": "fe02dca4b6eecb18a53c2bfea7a253200df6dff419b875a76ba7c164300c434a",
+    "docs/research/results/aca_four_arm_readiness_v1.json": "b613e66b3512190a0c550185f02ff8679d34cd1b50c62869a642763ff1c854ea"
+  },
+  "torchvision_resnet_source_sha256": "9faf2f321fdaf7edbd791aedc6e3610c7edf9c892112cbd75861beae1e9518d1",
+  "paper_evidence_sha256": {
+    "supplementary-response.bin": "56793fde1bd2621f32ff118a692adb2afc5454917fd9d11d665af3d22ef74ad2",
+    "paper.pdf": "737b5d770dc6cf30a01e51cb2053aa39869e4b43f0cce45dcb0ecd849c818291",
+    "frontiers.tex": "69fbb48fab524b0a802a0f92a28f4ceab2469358ec1dd2263860b8854660bc2e"
+  }
+}
