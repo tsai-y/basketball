@@ -1,6 +1,6 @@
 # ACA 候選實驗保存狀態（更新：2026-11-08）
 
-**目前訓練與每小時排程均暫停。** 四組seed20261024已完成，Baseline seed20261025保存於第1輪4928支／308次更新，另外七組未開始。G1重建規格、G2盤點及[D1/D2品質與切分候選](ACA_EIGHT_CLASS_SPLIT_CANDIDATE.md)已完成；候選尚未啟用，作者精確版與整體八類契約仍未放行。下一步定D3前處理，再驗證D4八類adapter，不直接續跑八組；見 [研究決策](ACA_REPRODUCTION_CHECKPOINT.md)。
+**目前訓練與每小時排程均暫停。** 四組seed20261024已完成，Baseline seed20261025保存於第1輪4928支／308次更新，另外七組未開始。G1重建規格、G2盤點、D1/D2候選及[D3前處理規格](ACA_EIGHT_CLASS_PREPROCESSING.md)已完成。D3通過17項合成測試，候選未啟用，作者精確版未核實；下一步D4真實解碼與隔離八類adapter工程驗證，不直接續跑八組；見 [研究決策](ACA_REPRODUCTION_CHECKPOINT.md)。
 
 11/03架構核對與十二組工程readiness完成；後續正式訓練/環境修復與11/05使用者主動暫停，見 [執行歷史](ACA_FOUR_ARM_CAMPAIGN.md)。這些工程驗收不代表已核實作者精確實作。
 

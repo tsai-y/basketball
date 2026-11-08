@@ -2,6 +2,8 @@
 
 日期：2026-11-08。**D1品質規則及D2切分候選已完成；候選尚未啟用，訓練與每小時排程維持暫停。**
 
+**後續更新：[D3單一前處理已定稿並通過17項合成測試](ACA_EIGHT_CLASS_PREPROCESSING.md)，下一步是D4真實解碼與八類adapter。下文保留D1/D2完成時的決策快照；候選未啟用。**
+
 這次實際產出一份獨立metadata manifest；不是只提出下一輪清單。原始影片、二類manifest／split及既有run全部保留。新候選不是作者原split，也不代表原論文精確複刻已完成。
 
 - [固定政策](specs/aca_eight_class_split_policy_v1.json)

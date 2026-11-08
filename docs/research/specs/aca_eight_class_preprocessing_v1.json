@@ -1,0 +1,140 @@
+{
+  "schema": "aca_eight_class_preprocessing_v1",
+  "pipeline_id": "aca8_pts25_uniform50_identitycrop_v1",
+  "status": "frozen_reconstruction_contract_engineering_only",
+  "date_taiwan": "2026-11-08",
+  "exact_author_preprocessing": false,
+  "training_authorized": false,
+  "candidate_activated": false,
+  "model_architecture_changed": false,
+  "candidate_manifest_sha256": "3966c1bba9715f8a51e36a81745cb59d9580e9862eb619170097c379e7a8d585",
+  "candidate_split_policy_sha256": "f6c5d0dd4950a19041666952044233ef1743e39fa4f525fc365e87cf6fe58396",
+  "input": {
+    "expected_source_height": 240,
+    "expected_source_width": 320,
+    "decoded_color": "BGR uint8",
+    "frame_order": "display order with audited frame-to-timestamp binding",
+    "timestamp_source": "best_effort_timestamp * stream time_base, exact rational seconds",
+    "missing_timestamps": "reject; no average-FPS fallback",
+    "old_split_video_access_not_inherited": true
+  },
+  "temporal": {
+    "output_frames": 50,
+    "virtual_fps": [
+      25,
+      1
+    ],
+    "source_rate": "preserve encoded source and actual display timestamps",
+    "relative_timestamps": "u_j=t_j-t_0, strictly increasing",
+    "virtual_count": "M=floor(25*u_last)+1",
+    "virtual_positions": "v_i=floor(i*(M-1)/49), i=0..49",
+    "target_times": "q_i=v_i/25",
+    "native_mapping": "argmin_j |u_j-q_i|; earlier display index on ties",
+    "minimum_native_frames": 50,
+    "minimum_virtual_positions": 50,
+    "repeated_selected_native_indices": "reject; never pad or loop",
+    "temporal_interpolation": false,
+    "reencoding": false,
+    "span": "full clip; not contiguous 50 frames at 25Hz",
+    "target_hz_is_virtual_grid_not_network_sampling_hz": true,
+    "use_labels_or_model_scores": false,
+    "multiview_count": 1
+  },
+  "spatial": {
+    "crop": "identity full-frame",
+    "xyxy_exclusive": [
+      0,
+      0,
+      320,
+      240
+    ],
+    "output_height": 120,
+    "output_width": 160,
+    "resize": "cv2.INTER_AREA",
+    "color_conversion": "cv2.COLOR_BGR2RGB before resize",
+    "letterbox": false,
+    "random_crop": false,
+    "roi_detector": false,
+    "laplacian_frame_selection": false,
+    "flips": false,
+    "augmentation": "none",
+    "paper_crop_algorithm_unverified": true
+  },
+  "normalization": {
+    "scale": 255.0,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "operation": "((uint8_RGB.astype(float32)/float32(255))-float32(mean))/float32(std)",
+    "output_dtype": "float32",
+    "output_layout": "C,T,H,W",
+    "output_shape": [
+      3,
+      50,
+      120,
+      160
+    ],
+    "contiguous": true,
+    "statistics_fitted_on_dataset": false,
+    "source": "fixed ImageNet V1 mean/std only; not full official 256/224 crop transform"
+  },
+  "modes": {
+    "train": "same deterministic temporal/spatial/normalization",
+    "validation": "same deterministic temporal/spatial/normalization",
+    "test": "same rule specified only; no decoder/test authorization in this stage"
+  },
+  "failure_policy": "stop on invalid geometry, dtype, PTS, short source or repeated selected frame; no silent skip/substitution/split mutation",
+  "runtime": {
+    "python": "3.10.20",
+    "numpy": "2.1.3",
+    "opencv": "4.13.0",
+    "torch_required_for_reference": false
+  },
+  "verification_scope": "synthetic timestamps and synthetic BGR arrays only; no real video/model/weights/GPU/test",
+  "remaining_before_formal_training": [
+    "D4 guarded timestamp-to-frame decode binding",
+    "D4 eight-class labels, CE and confusion metrics adapter",
+    "G1 author architecture/groups/BN/parameter mismatch still unverified"
+  ],
+  "evidence": [
+    {
+      "item": "T50 and 120x160 after crop; 25FPS dataset description",
+      "source": "ACA sections3.1/3.3",
+      "status": "paper-supported facts; exact crop/sampling/resampling unknown"
+    },
+    {
+      "item": "virtual 25Hz grid, full-clip 50 samples, nearest PTS and identity crop",
+      "source": "this project reconstruction",
+      "status": "explicit assumption, not author algorithm"
+    },
+    {
+      "item": "ImageNet mean/std",
+      "source": "pinned ImageNet V1 metadata and official torchvision ResNet50 docs",
+      "status": "reused constants only"
+    },
+    {
+      "item": "best_effort_timestamp is a heuristic display timestamp in stream time base",
+      "source": "official FFmpeg libavutil/frame.h",
+      "status": "timestamp semantics only; installed decoder binding not yet verified"
+    }
+  ],
+  "urls": {
+    "paper": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "torchvision": "https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.resnet50.html",
+    "ffmpeg": "https://raw.githubusercontent.com/FFmpeg/FFmpeg/master/libavutil/frame.h"
+  },
+  "source_sha256": {
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "docs/research/specs/aca_eight_class_split_policy_v1.json": "974f595eb5ad657223a65e16ed66f4a0501ebcbc40702f5a532ddc2213735856",
+    "docs/research/results/aca_eight_class_split_candidate_v1.json": "6afed7db3193456d18714af4d2346ab76cfff115c2832c187b4fcc1d6faba22c",
+    "development/aca_architecture_audit_v1/artifacts/evidence_20261103/frontiers.tex": "69fbb48fab524b0a802a0f92a28f4ceab2469358ec1dd2263860b8854660bc2e"
+  }
+}
