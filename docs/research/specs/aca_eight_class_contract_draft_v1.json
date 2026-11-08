@@ -1,0 +1,56 @@
+{
+  "schema": "aca_eight_class_contract_draft_v1",
+  "status": "draft_not_released_for_training",
+  "executable_training_config": false,
+  "training_authorized": false,
+  "priority": "Basketball-51 eight-class paper-guided reproduction; Make/Miss is secondary from same top1",
+  "class_order": [
+    "2p0",
+    "2p1",
+    "3p0",
+    "3p1",
+    "ft0",
+    "ft1",
+    "mp0",
+    "mp1"
+  ],
+  "class_to_binary": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+  ],
+  "label_source": "existing original_class metadata; never label/name/OCR as model inputs",
+  "primary_metric": "per-video eight-class top1 accuracy, percent",
+  "secondary_metrics": [
+    "eight-class macro precision/recall/F1, each label equally weighted",
+    "per-class support/recall, 8x8 true-row predicted-column confusion",
+    "Make/Miss accuracy/macro-F1/recall from mapped eight-class top1"
+  ],
+  "AUC": "not yet released; author multiclass averaging unresolved; any OvR/macro choice must be declared before evaluation",
+  "primary_decision": "argmax of eight logits, first class ID on exact tie",
+  "binary_decision": "class_to_binary[primary_decision]; do not substitute summed-probability threshold",
+  "selection_proposal": "strict minimum mean per-video eight-class validation CE, ties retain earlier epoch; project choice, not confirmed author implementation",
+  "success_goal": {
+    "eight_accuracy_at_least": 0.9,
+    "binary_accuracy_at_least": 0.9,
+    "evaluated_on": "same fixed, predeclared evaluation set after training contract release",
+    "claim_limit": "90% alone is not exact reproduction or proof of new-match generalization; current test has historical exposure"
+  },
+  "existing_manifest_read_only": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "original_split": "unavailable; no new split produced",
+  "preprocessing": "pending resolution of FPS, crop, temporal sampling, short video and eval-view rules",
+  "full_video_not_pre_release": true,
+  "release_conditions": [
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+  ],
+  "architecture_gate": "G1 reconstruction described; exact author groups/BN/26.8M discrepancy unresolved",
+  "next_allowed_work": "resolve two ambiguous source-label groups and prepare explicit split/preprocessing decision; no GPU launch"
+}

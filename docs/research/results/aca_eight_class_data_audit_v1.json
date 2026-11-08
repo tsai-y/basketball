@@ -1,0 +1,478 @@
+{
+  "schema": "aca_eight_class_data_audit_v1",
+  "created_at_taiwan": "2026-11-08T22:12:46.714621+08:00",
+  "status": "metadata_audit_completed_training_release_on_hold",
+  "exact_author_dataset_protocol_confirmed": false,
+  "source_sha256": {
+    "data/processed/dataset_manifest.csv": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "docs/dataset_summary.json": "9a2846185e2d9ccbb172f97cec848330413b0f28d9e2b82edddd054f5fb4a482",
+    "scripts/build_manifest.py": "0477d76b286c977487e0789ebd2793e02dbec471ec786319e8ae77bbbf35d1e3",
+    "scripts/inspect_dataset.py": "caf0bf72236b0851c622537eb8d4405a03d54f546e8f9c3368db1301962b7494",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_four_arm_v1/experiment.py": "24c990ea2a321e7add8e308e4840d684a711913c25962a15848d8c5b6796ca58",
+    "development/aca_four_arm_v1/engine.py": "63f1869f91eb3c50380e6313d6bbbd3dd3909a0499046dab8b5919ce0c239707",
+    "development/aca_four_arm_v1/protocol.json": "12affcec25d613c092d9213a1d7cb03ea17f01c5670f089304c7c415cddcf36e",
+    "docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "docs/research/results/aca_architecture_sources_v1.json": "fe02dca4b6eecb18a53c2bfea7a253200df6dff419b875a76ba7c164300c434a",
+    "docs/research/results/aca_frozen_ensemble_test.json": "16f87ac9417c58e843202f21c91ba2fca82d3fd282bc417eb1ff2c2cc391511d",
+    "development/aca_architecture_audit_v1/artifacts/evidence_20261103/frontiers.tex": "69fbb48fab524b0a802a0f92a28f4ceab2469358ec1dd2263860b8854660bc2e"
+  },
+  "counts": {
+    "raw": 10311,
+    "included": 10279,
+    "train": 7193,
+    "validation": 1547,
+    "test": 1539,
+    "excluded": 32
+  },
+  "classes": [
+    {
+      "id": 0,
+      "label": "2p0",
+      "outcome": 0,
+      "raw": 1418,
+      "train": 1033,
+      "validation": 171,
+      "test": 210,
+      "excluded": 4
+    },
+    {
+      "id": 1,
+      "label": "2p1",
+      "outcome": 1,
+      "raw": 1950,
+      "train": 1386,
+      "validation": 266,
+      "test": 289,
+      "excluded": 9
+    },
+    {
+      "id": 2,
+      "label": "3p0",
+      "outcome": 0,
+      "raw": 2132,
+      "train": 1440,
+      "validation": 356,
+      "test": 334,
+      "excluded": 2
+    },
+    {
+      "id": 3,
+      "label": "3p1",
+      "outcome": 1,
+      "raw": 1178,
+      "train": 818,
+      "validation": 173,
+      "test": 184,
+      "excluded": 3
+    },
+    {
+      "id": 4,
+      "label": "ft0",
+      "outcome": 0,
+      "raw": 566,
+      "train": 400,
+      "validation": 90,
+      "test": 75,
+      "excluded": 1
+    },
+    {
+      "id": 5,
+      "label": "ft1",
+      "outcome": 1,
+      "raw": 1724,
+      "train": 1175,
+      "validation": 277,
+      "test": 264,
+      "excluded": 8
+    },
+    {
+      "id": 6,
+      "label": "mp0",
+      "outcome": 0,
+      "raw": 785,
+      "train": 548,
+      "validation": 123,
+      "test": 112,
+      "excluded": 2
+    },
+    {
+      "id": 7,
+      "label": "mp1",
+      "outcome": 1,
+      "raw": 558,
+      "train": 393,
+      "validation": 91,
+      "test": 71,
+      "excluded": 3
+    }
+  ],
+  "group_counts": {
+    "train": 35,
+    "validation": 8,
+    "test": 7
+  },
+  "group_assignment": {
+    "v108": "train",
+    "v111": "train",
+    "v112": "test",
+    "v113": "validation",
+    "v114": "test",
+    "v115": "train",
+    "v116": "train",
+    "v117": "train",
+    "v118": "train",
+    "v119": "train",
+    "v120": "train",
+    "v121": "test",
+    "v122": "train",
+    "v123": "validation",
+    "v124": "train",
+    "v127": "train",
+    "v128": "train",
+    "v129": "test",
+    "v130": "train",
+    "v131": "train",
+    "v133": "train",
+    "v145": "train",
+    "v146": "test",
+    "v147": "train",
+    "v149": "validation",
+    "v150": "train",
+    "v152": "validation",
+    "v153": "validation",
+    "v154": "validation",
+    "v155": "train",
+    "v156": "train",
+    "v157": "train",
+    "v158": "train",
+    "v159": "train",
+    "v160_v166": "train",
+    "v161": "train",
+    "v162": "test",
+    "v163": "train",
+    "v164": "train",
+    "v165": "validation",
+    "v167": "train",
+    "v168": "validation",
+    "v169": "train",
+    "v171": "test",
+    "v174": "train",
+    "v175": "train",
+    "v181": "train",
+    "v182": "train",
+    "v183": "train",
+    "v184": "train"
+  },
+  "split_seed": 20260927,
+  "split_target_ratios": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "split_selection": {
+    "candidate_assignments": 20000,
+    "criterion": "size and binary Make balance; not eight-class balance; no model scores"
+  },
+  "group_identity": "filename source IDs; v160/v166 merged; true match identity not independently verified",
+  "split_ratios_observed": {
+    "train": 0.6997762428251776,
+    "validation": 0.15050102150014594,
+    "test": 0.14972273567467653
+  },
+  "exclusions": {
+    "conflicting_outcome": 6,
+    "duplicate_copy": 26
+  },
+  "saved_duplicate_groups": 29,
+  "eight_class_conflict_groups": [
+    {
+      "cached_duplicate_index": 2,
+      "duplicate_group": "dup_0001",
+      "labels": [
+        "2p0",
+        "2p1"
+      ],
+      "outcomes": [
+        0,
+        1
+      ],
+      "retained_ids": [],
+      "members": [
+        {
+          "video_id": "2p0/2p0_v120_013024_x264.mp4",
+          "original_class": "2p0",
+          "binary_label": "0",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        },
+        {
+          "video_id": "2p1/2p1_v120_013024_x264.mp4",
+          "original_class": "2p1",
+          "binary_label": "1",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        }
+      ],
+      "evidence": "saved historical SHA-identical duplicate list; not rehashed raw videos this turn"
+    },
+    {
+      "cached_duplicate_index": 4,
+      "duplicate_group": "dup_0004",
+      "labels": [
+        "2p0",
+        "2p1"
+      ],
+      "outcomes": [
+        0,
+        1
+      ],
+      "retained_ids": [],
+      "members": [
+        {
+          "video_id": "2p0/2p0_v183_001444_x264.mp4",
+          "original_class": "2p0",
+          "binary_label": "0",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        },
+        {
+          "video_id": "2p1/2p1_v183_001444_x264.mp4",
+          "original_class": "2p1",
+          "binary_label": "1",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        }
+      ],
+      "evidence": "saved historical SHA-identical duplicate list; not rehashed raw videos this turn"
+    },
+    {
+      "cached_duplicate_index": 15,
+      "duplicate_group": "dup_0012",
+      "labels": [
+        "2p1",
+        "mp1"
+      ],
+      "outcomes": [
+        1
+      ],
+      "retained_ids": [
+        "2p1/2p1_v166_005133_x264.mp4"
+      ],
+      "members": [
+        {
+          "video_id": "2p1/2p1_v166_005133_x264.mp4",
+          "original_class": "2p1",
+          "binary_label": "1",
+          "split": "train",
+          "exclusion_reason": ""
+        },
+        {
+          "video_id": "mp1/mp1_v160_005133_x264.mp4",
+          "original_class": "mp1",
+          "binary_label": "1",
+          "split": "excluded",
+          "exclusion_reason": "duplicate_copy"
+        }
+      ],
+      "evidence": "saved historical SHA-identical duplicate list; not rehashed raw videos this turn"
+    },
+    {
+      "cached_duplicate_index": 17,
+      "duplicate_group": "dup_0013",
+      "labels": [
+        "3p0",
+        "mp0"
+      ],
+      "outcomes": [
+        0
+      ],
+      "retained_ids": [
+        "3p0/3p0_v121_000328_x264.mp4"
+      ],
+      "members": [
+        {
+          "video_id": "3p0/3p0_v121_000328_x264.mp4",
+          "original_class": "3p0",
+          "binary_label": "0",
+          "split": "test",
+          "exclusion_reason": ""
+        },
+        {
+          "video_id": "mp0/mp0_v121_000328_x264.mp4",
+          "original_class": "mp0",
+          "binary_label": "0",
+          "split": "excluded",
+          "exclusion_reason": "duplicate_copy"
+        }
+      ],
+      "evidence": "saved historical SHA-identical duplicate list; not rehashed raw videos this turn"
+    },
+    {
+      "cached_duplicate_index": 29,
+      "duplicate_group": "dup_0028",
+      "labels": [
+        "mp0",
+        "mp1"
+      ],
+      "outcomes": [
+        0,
+        1
+      ],
+      "retained_ids": [],
+      "members": [
+        {
+          "video_id": "mp0/mp0_v113_003041_x264.mp4",
+          "original_class": "mp0",
+          "binary_label": "0",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        },
+        {
+          "video_id": "mp1/mp1_v113_003041_x264.mp4",
+          "original_class": "mp1",
+          "binary_label": "1",
+          "split": "excluded",
+          "exclusion_reason": "conflicting_outcome"
+        }
+      ],
+      "evidence": "saved historical SHA-identical duplicate list; not rehashed raw videos this turn"
+    }
+  ],
+  "unadjudicated_retained_groups": [
+    {
+      "group": "dup_0012",
+      "retained_id": "2p1/2p1_v166_005133_x264.mp4",
+      "retained_split": "train",
+      "labels": "2p1|mp1",
+      "duplicate_member_ids": "2p1/2p1_v166_005133_x264.mp4|mp1/mp1_v160_005133_x264.mp4",
+      "reason": "same bytes, same binary outcome, different eight-class labels",
+      "adjudication": "not_reviewed; no automatic relabel or removal",
+      "raw_video_opened": "false"
+    },
+    {
+      "group": "dup_0013",
+      "retained_id": "3p0/3p0_v121_000328_x264.mp4",
+      "retained_split": "test",
+      "labels": "3p0|mp0",
+      "duplicate_member_ids": "3p0/3p0_v121_000328_x264.mp4|mp0/mp0_v121_000328_x264.mp4",
+      "reason": "same bytes, same binary outcome, different eight-class labels",
+      "adjudication": "not_reviewed; no automatic relabel or removal",
+      "raw_video_opened": "false"
+    }
+  ],
+  "current_eight_class_labels_available": true,
+  "all_classes_present_in_each_existing_split": true,
+  "cached_FPS_distribution": {
+    "25/1": 234,
+    "2997/100": 2475,
+    "2997/125": 7602
+  },
+  "cached_frame_count": {
+    "min": 145,
+    "p05": 146,
+    "median": 146,
+    "p95": 180,
+    "max": 180
+  },
+  "cached_FPS_caveat": "September 27 inspection metadata only; no new ffprobe/decode; paper states 25FPS",
+  "source_group_overlap": 0,
+  "known_exact_duplicate_groups_with_multiple_included_copies": 0,
+  "exact_duplicate_caveat": "Based on saved historical byte-duplicate list, not new raw file hashing; near-duplicates unverified",
+  "test_access": {
+    "manifest_metadata_read": true,
+    "raw_videos_opened": 0,
+    "predictions_read": 0,
+    "new_inference": 0,
+    "new_scores_computed": 0,
+    "globally_unseen_test": false
+  },
+  "paper": {
+    "url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "checked_on": "2026-11-08",
+    "sections": [
+      "3.1",
+      "3.2",
+      "3.3"
+    ],
+    "classes": [
+      "2p0",
+      "2p1",
+      "3p0",
+      "3p1",
+      "ft0",
+      "ft1",
+      "mp0",
+      "mp1"
+    ],
+    "stated_raw_count": 10311,
+    "stated_FPS": 25,
+    "split_ratios": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "frames": 50,
+    "spatial_size": [
+      120,
+      160
+    ],
+    "crop_algorithm": "not specified in reviewed evidence",
+    "exact_split_ids_available": false,
+    "split_seed_available": false,
+    "multiclass_metric_averaging": "not established by binary formulas"
+  },
+  "blockers": [
+    {
+      "id": "D1",
+      "item": "Two retained sources have unresolved eight-class labels",
+      "action": "Metadata review queue; adjudicate with documented evidence or define a uniform quarantine policy in a new version, before scores"
+    },
+    {
+      "id": "D2",
+      "item": "Original 80/10/10 split IDs/seed and dedup policy unavailable",
+      "action": "Acquire author split or explicitly select a reconstructed protocol; do not silently rewrite existing 70/15/15 split"
+    },
+    {
+      "id": "D3",
+      "item": "25FPS versus mixed-FPS/crop/temporal sampling differences",
+      "action": "Fix one explicit preprocessing contract after bounded source verification; do not search many settings for 90%"
+    },
+    {
+      "id": "D4",
+      "item": "Current trainer/metrics/head are binary",
+      "action": "After contract release, create isolated eight-class adapter and verify CE/confusion/mapping; do not overwrite historical trainer"
+    }
+  ],
+  "mapping_proof": {
+    "rule": "outcome(argmax_8 logits)",
+    "class_to_binary": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "label_pair_cases": 64,
+    "correct8_implies_correct2": true,
+    "accuracy_binary_at_least_eight_on_identical_samples": true,
+    "not_guaranteed_for": "summed probability threshold, different splits, new games, different retained samples"
+  },
+  "this_turn": {
+    "models_created": 0,
+    "raw_videos_opened": 0,
+    "training_jobs": 0,
+    "optimizer_updates": 0,
+    "test_runs": 0,
+    "labels_changed": 0,
+    "splits_created_or_changed": 0,
+    "checkpoints_changed": 0,
+    "raw_dataset_inventory_rechecked": false
+  }
+}

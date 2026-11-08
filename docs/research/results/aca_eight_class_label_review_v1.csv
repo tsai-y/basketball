@@ -1,0 +1,3 @@
+group,retained_id,retained_split,labels,duplicate_member_ids,reason,adjudication,raw_video_opened
+dup_0012,2p1/2p1_v166_005133_x264.mp4,train,2p1|mp1,2p1/2p1_v166_005133_x264.mp4|mp1/mp1_v160_005133_x264.mp4,"same bytes, same binary outcome, different eight-class labels",not_reviewed; no automatic relabel or removal,false
+dup_0013,3p0/3p0_v121_000328_x264.mp4,test,3p0|mp0,3p0/3p0_v121_000328_x264.mp4|mp0/mp0_v121_000328_x264.mp4,"same bytes, same binary outcome, different eight-class labels",not_reviewed; no automatic relabel or removal,false
