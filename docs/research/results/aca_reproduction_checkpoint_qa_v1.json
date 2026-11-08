@@ -1,0 +1,19 @@
+{
+  "schema": "aca_reproduction_checkpoint_qa_v1",
+  "status": "passed",
+  "report_sha256": "79658fe5117c8e07aede6bf36157802e8b2c764f98083397fbdb278347210163",
+  "complete_runs_verified": 4,
+  "metrics_recomputed_from_saved_confusion": true,
+  "CE_selection_checked_against_full_history": true,
+  "paired_initialization_evidence_checked": true,
+  "completed_epochs": 53,
+  "saved_optimizer_updates": 24158,
+  "relative_links_broken": [],
+  "protected_files_unchanged": 51,
+  "training_state": "interrupted_user_pause",
+  "automation_status": "PAUSED",
+  "new_GPU_jobs_or_test": false,
+  "new_unit_tests_required": false,
+  "document_sha256": "cab245f50a53f9aaff34cca7b3dc6cb76e21247fabd6b33faafc8c5583f2298a",
+  "current_status_navigation_checked": true
+}

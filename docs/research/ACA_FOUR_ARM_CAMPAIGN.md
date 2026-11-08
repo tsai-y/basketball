@@ -1,4 +1,6 @@
-# ACA 四組 × 三 seed 正式訓練（更新：2026-11-05）
+# ACA 四組 × 三 seed 正式訓練（更新：2026-11-08）
+
+**目前已依使用者要求暫停，沒有自動續訓；每小時排程為PAUSED。** 4組完成、Baseline seed25保存4928/7193支與308次更新、另7組未開始。11/08決策為先完成 [複刻核對與研究收斂](ACA_REPRODUCTION_CHECKPOINT.md)，不直接恢復剩餘八組。下文為此前執行與環境修復歷史；`user_pause.json`記錄主動暫停，不能把缺少完整summary當成訓練崩潰。
 
 已依使用者「下一步」指示啟動十二組全新正式訓練。這是共同協定下的專案消融比較；尚未核實為作者精確復刻。既有 ACA／TANet 結果與權重不作為這十二組的初始化或對照成績。
 
@@ -20,7 +22,7 @@ seed20261024 的四組均已完成並保留：Baseline 12輪／最佳7，LSTA 16
 - 恢復入口與原佇列合計21項CPU檢查通過。四組成果與best/last權重SHA逐一核對，保存在新plan的preserved_files。
 - 新正式run為 `development/aca_four_arm_v1/artifacts/formal_baseline_seed20261025_0nv14783/`；已觀察實際更新，後面七組排隊。此時點不代表即時進度。
 
-監測GPU必須讀取最新attempt `launch_request.json` 的 `runtime_environment`，以同樣的PATH／LD_LIBRARY_PATH執行真實nvidia-smi。系統預設環境仍可能因更新後版本失配而查詢失敗；本次修復限訓練程序。主機若重啟載入不同版本核心，必須重新核對，不能假設這份局部環境仍適用。排程已恢復每小時回報，不自動修環境或重跑。
+監測GPU必須讀取最新attempt `launch_request.json` 的 `runtime_environment`，以同樣的PATH／LD_LIBRARY_PATH執行真實nvidia-smi。系統預設環境仍可能因更新後版本失配而查詢失敗；本次修復限訓練程序。主機若重啟載入不同版本核心，必須重新核對，不能假設這份局部環境仍適用。11/05修復後當時曾恢復每小時回報，隨後依使用者暫停；目前狀態以上方11/08決策為準，不自動修環境或重跑。
 
 [修復來源、環境驗證、保留成果SHA與啟動快照](results/aca_four_arm_runtime_recovery_v1.json)。模型上限30輪、patience5、最低完整validation CE選模及不執行test均維持不變。
 

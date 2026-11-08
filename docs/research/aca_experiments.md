@@ -1,10 +1,10 @@
-# ACA 候選實驗保存狀態（2026-11-03）
+# ACA 候選實驗保存狀態（更新：2026-11-08）
 
-2026-11-05 已保留 seed20261024 四組完成成果，以原版 NVIDIA 局部環境修復後，依使用者授權從 Baseline seed25 接續剩餘八組，見 [最新 attempt 與本輪執行狀態](ACA_FOUR_ARM_CAMPAIGN.md)。十二組全新初始化，不混用以下歷史候選成績。
+**目前訓練與每小時排程均暫停。** 四組seed20261024已完成，Baseline seed20261025保存於第1輪4928支／308次更新，另外七組未開始。下一步先完成作者規格與任務契約核對，不直接續跑八組；見 [複刻核對與研究決策](ACA_REPRODUCTION_CHECKPOINT.md)。
 
-2026-11-03 架構核對已完成，參見 [三方對照、補充檔與參數核算](ACA_ARCHITECTURE_AUDIT.md)。四組共用設定與 [十二組工程預檢](ACA_FOUR_ARM_READINESS.md) 已完成，正式訓練接續執行中。
+11/03架構核對與十二組工程readiness完成；後續正式訓練/環境修復與11/05使用者主動暫停，見 [執行歷史](ACA_FOUR_ARM_CAMPAIGN.md)。這些工程驗收不代表已核實作者精確實作。
 
-以下歷史候選與 Git 驗收保存前輪整理結果；本輪新增正式佇列的狀態見上方連結。
+以下歷史候選與Git驗收保存前輪整理結果；目前研究決策以上方核對表為準。
 `aca_net_v1/README.md` 的「正式訓練尚未開始」描述原型階段，不涵蓋後來獨立目錄的實驗。
 原型與實驗來源檔按原貌保留，不修改已被歷史 run 記錄的程式指紋。
 
@@ -46,7 +46,7 @@
 `codex/aca-net-reproduction` 保存既有候選程式、設定、測試與摘要；由此建立
 `codex/aca-architecture-audit` 進行下一步結構核對。
 TANet 位於 [獨立研究分支](https://github.com/tsai-y/basketball/tree/codex/tanet-experiments)，本次不整支合併。
-架構證據核對與共同預檢已完成，目前先完成新的固定協定十二組比較；SpaceJam 暫不下載或訓練。
+共同預檢與單seed四組已完成；作者規格仍有缺口，依最新決策先收斂複刻核對，暫不續跑多seed或下載SpaceJam。
 
 ## 初次 Git 整理驗收（歷史）
 

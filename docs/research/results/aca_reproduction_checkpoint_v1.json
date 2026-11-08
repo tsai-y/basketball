@@ -1,0 +1,690 @@
+{
+  "schema": "aca_reproduction_checkpoint_v1",
+  "created_at_taiwan": "2026-11-08T18:04:53.759612+08:00",
+  "decision": "Remain paused; specification and task alignment before more GPU training",
+  "exact_author_reproduction_confirmed": false,
+  "existing_experiment_scope": "Project binary Make/Miss controlled ablation",
+  "paper": {
+    "url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "doi": "10.3389/fnbot.2024.1471327",
+    "checked_on": "2026-11-08",
+    "evidence_sections": [
+      "3.1",
+      "3.2",
+      "3.3",
+      "Fig.1–3",
+      "Table4"
+    ],
+    "author_implementation_verified": false,
+    "bounded_searches": [
+      "site:github.com \"ACA-Net\" \"basketball\"",
+      "\"10.3389/fnbot.2024.1471327\" code GitHub"
+    ],
+    "search_caveat": "No verified author implementation located in this bounded check; not proof none exists"
+  },
+  "latest_attempt": "development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk/continuation_runtime_4vljx69c",
+  "saved_state": "interrupted",
+  "intentional_user_pause": true,
+  "automation_status": "PAUSED",
+  "completed": [
+    {
+      "variant": "baseline",
+      "seed": 20261024,
+      "output": "development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1",
+      "completed_epochs": 12,
+      "optimizer_updates": 5400,
+      "best_epoch": 7,
+      "best_validation": {
+        "count": 1547,
+        "accuracy": 0.7478991596638656,
+        "macro_f1": 0.7476459841191765,
+        "miss_recall": 0.7486486486486487,
+        "make_recall": 0.7472118959107806,
+        "confusion_rows_true_columns_predicted": [
+          [
+            554,
+            186
+          ],
+          [
+            204,
+            603
+          ]
+        ],
+        "loss": 0.5808035558597721,
+        "by_shot_type": {
+          "2p": {
+            "count": 437,
+            "accuracy": 0.700228832951945,
+            "macro_f1": 0.6959232996042812,
+            "miss_recall": 0.7426900584795322,
+            "make_recall": 0.6729323308270677,
+            "confusion_rows_true_columns_predicted": [
+              [
+                127,
+                44
+              ],
+              [
+                87,
+                179
+              ]
+            ]
+          },
+          "3p": {
+            "count": 529,
+            "accuracy": 0.780718336483932,
+            "macro_f1": 0.7486318204161888,
+            "miss_recall": 0.8455056179775281,
+            "make_recall": 0.6473988439306358,
+            "confusion_rows_true_columns_predicted": [
+              [
+                301,
+                55
+              ],
+              [
+                61,
+                112
+              ]
+            ]
+          },
+          "ft": {
+            "count": 367,
+            "accuracy": 0.7411444141689373,
+            "macro_f1": 0.587459917409156,
+            "miss_recall": 0.26666666666666666,
+            "make_recall": 0.8953068592057761,
+            "confusion_rows_true_columns_predicted": [
+              [
+                24,
+                66
+              ],
+              [
+                29,
+                248
+              ]
+            ]
+          },
+          "mp": {
+            "count": 214,
+            "accuracy": 0.7757009345794392,
+            "macro_f1": 0.7683982683982684,
+            "miss_recall": 0.8292682926829268,
+            "make_recall": 0.7032967032967034,
+            "confusion_rows_true_columns_predicted": [
+              [
+                102,
+                21
+              ],
+              [
+                27,
+                64
+              ]
+            ]
+          }
+        }
+      },
+      "validation_correct": 1157,
+      "wall_seconds": 6417.514569,
+      "stop_reason": "early_stop"
+    },
+    {
+      "variant": "lsta",
+      "seed": 20261024,
+      "output": "development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv",
+      "completed_epochs": 16,
+      "optimizer_updates": 7200,
+      "best_epoch": 11,
+      "best_validation": {
+        "count": 1547,
+        "accuracy": 0.8177117000646412,
+        "macro_f1": 0.8173691349341907,
+        "miss_recall": 0.8094594594594594,
+        "make_recall": 0.8252788104089219,
+        "confusion_rows_true_columns_predicted": [
+          [
+            599,
+            141
+          ],
+          [
+            141,
+            666
+          ]
+        ],
+        "loss": 0.411338189654576,
+        "by_shot_type": {
+          "2p": {
+            "count": 437,
+            "accuracy": 0.8123569794050344,
+            "macro_f1": 0.8078399828399829,
+            "miss_recall": 0.8421052631578947,
+            "make_recall": 0.793233082706767,
+            "confusion_rows_true_columns_predicted": [
+              [
+                144,
+                27
+              ],
+              [
+                55,
+                211
+              ]
+            ]
+          },
+          "3p": {
+            "count": 529,
+            "accuracy": 0.8752362948960303,
+            "macro_f1": 0.8617902270640023,
+            "miss_recall": 0.8820224719101124,
+            "make_recall": 0.861271676300578,
+            "confusion_rows_true_columns_predicted": [
+              [
+                314,
+                42
+              ],
+              [
+                24,
+                149
+              ]
+            ]
+          },
+          "ft": {
+            "count": 367,
+            "accuracy": 0.7220708446866485,
+            "macro_f1": 0.6095744680851064,
+            "miss_recall": 0.37777777777777777,
+            "make_recall": 0.8339350180505415,
+            "confusion_rows_true_columns_predicted": [
+              [
+                34,
+                56
+              ],
+              [
+                46,
+                231
+              ]
+            ]
+          },
+          "mp": {
+            "count": 214,
+            "accuracy": 0.8504672897196262,
+            "macro_f1": 0.847047261681408,
+            "miss_recall": 0.8699186991869918,
+            "make_recall": 0.8241758241758241,
+            "confusion_rows_true_columns_predicted": [
+              [
+                107,
+                16
+              ],
+              [
+                16,
+                75
+              ]
+            ]
+          }
+        }
+      },
+      "validation_correct": 1265,
+      "wall_seconds": 35169.83116,
+      "stop_reason": "early_stop"
+    },
+    {
+      "variant": "tsci",
+      "seed": 20261024,
+      "output": "development/aca_four_arm_v1/artifacts/formal_tsci_seed20261024_viwjqsar",
+      "completed_epochs": 11,
+      "optimizer_updates": 4950,
+      "best_epoch": 6,
+      "best_validation": {
+        "count": 1547,
+        "accuracy": 0.6884292178409825,
+        "macro_f1": 0.6846659629678498,
+        "miss_recall": 0.8337837837837838,
+        "make_recall": 0.5551425030978935,
+        "confusion_rows_true_columns_predicted": [
+          [
+            617,
+            123
+          ],
+          [
+            359,
+            448
+          ]
+        ],
+        "loss": 0.5994922349026989,
+        "by_shot_type": {
+          "2p": {
+            "count": 437,
+            "accuracy": 0.6361556064073226,
+            "macro_f1": 0.6355372551076608,
+            "miss_recall": 0.8654970760233918,
+            "make_recall": 0.48872180451127817,
+            "confusion_rows_true_columns_predicted": [
+              [
+                148,
+                23
+              ],
+              [
+                136,
+                130
+              ]
+            ]
+          },
+          "3p": {
+            "count": 529,
+            "accuracy": 0.7429111531190926,
+            "macro_f1": 0.6585023163970533,
+            "miss_recall": 0.9213483146067416,
+            "make_recall": 0.37572254335260113,
+            "confusion_rows_true_columns_predicted": [
+              [
+                328,
+                28
+              ],
+              [
+                108,
+                65
+              ]
+            ]
+          },
+          "ft": {
+            "count": 367,
+            "accuracy": 0.6920980926430518,
+            "macro_f1": 0.5656804733727812,
+            "miss_recall": 0.3111111111111111,
+            "make_recall": 0.8158844765342961,
+            "confusion_rows_true_columns_predicted": [
+              [
+                28,
+                62
+              ],
+              [
+                51,
+                226
+              ]
+            ]
+          },
+          "mp": {
+            "count": 214,
+            "accuracy": 0.6542056074766355,
+            "macro_f1": 0.5876041666666667,
+            "miss_recall": 0.9186991869918699,
+            "make_recall": 0.2967032967032967,
+            "confusion_rows_true_columns_predicted": [
+              [
+                113,
+                10
+              ],
+              [
+                64,
+                27
+              ]
+            ]
+          }
+        }
+      },
+      "validation_correct": 1065,
+      "wall_seconds": 8059.401775,
+      "stop_reason": "early_stop"
+    },
+    {
+      "variant": "aca",
+      "seed": 20261024,
+      "output": "development/aca_four_arm_v1/artifacts/formal_aca_seed20261024_22qliegt",
+      "completed_epochs": 14,
+      "optimizer_updates": 6300,
+      "best_epoch": 9,
+      "best_validation": {
+        "count": 1547,
+        "accuracy": 0.8170652876535229,
+        "macro_f1": 0.8169768813650868,
+        "miss_recall": 0.831081081081081,
+        "make_recall": 0.8042131350681536,
+        "confusion_rows_true_columns_predicted": [
+          [
+            615,
+            125
+          ],
+          [
+            158,
+            649
+          ]
+        ],
+        "loss": 0.41800847801067526,
+        "by_shot_type": {
+          "2p": {
+            "count": 437,
+            "accuracy": 0.8032036613272311,
+            "macro_f1": 0.8000361809900822,
+            "miss_recall": 0.8654970760233918,
+            "make_recall": 0.7631578947368421,
+            "confusion_rows_true_columns_predicted": [
+              [
+                148,
+                23
+              ],
+              [
+                63,
+                203
+              ]
+            ]
+          },
+          "3p": {
+            "count": 529,
+            "accuracy": 0.8601134215500945,
+            "macro_f1": 0.8415654848632022,
+            "miss_recall": 0.8932584269662921,
+            "make_recall": 0.791907514450867,
+            "confusion_rows_true_columns_predicted": [
+              [
+                318,
+                38
+              ],
+              [
+                36,
+                137
+              ]
+            ]
+          },
+          "ft": {
+            "count": 367,
+            "accuracy": 0.7465940054495913,
+            "macro_f1": 0.6454769249945467,
+            "miss_recall": 0.43333333333333335,
+            "make_recall": 0.8483754512635379,
+            "confusion_rows_true_columns_predicted": [
+              [
+                39,
+                51
+              ],
+              [
+                42,
+                235
+              ]
+            ]
+          },
+          "mp": {
+            "count": 214,
+            "accuracy": 0.8598130841121495,
+            "macro_f1": 0.8557303370786518,
+            "miss_recall": 0.8943089430894309,
+            "make_recall": 0.8131868131868132,
+            "confusion_rows_true_columns_predicted": [
+              [
+                110,
+                13
+              ],
+              [
+                17,
+                74
+              ]
+            ]
+          }
+        }
+      },
+      "validation_correct": 1264,
+      "wall_seconds": 33728.502607,
+      "stop_reason": "early_stop"
+    }
+  ],
+  "partial_seed20261025": {
+    "at": "2026-11-05T02:56:07.043529+00:00",
+    "reason": "User requested pause before planned host reboot",
+    "intentional_user_pause": true,
+    "supervisor_exited": true,
+    "trainer_exited": true,
+    "job": "baseline_seed20261025",
+    "checkpoint": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1/artifacts/formal_baseline_seed20261025_0nv14783/last.pt",
+    "checkpoint_sha256": "113f470d84dc951081176a76f560ebb58b3e2412e971c680e0c86709c71dc3b6",
+    "completed_epochs": 0,
+    "current_epoch": 1,
+    "cursor": 4928,
+    "optimizer_updates": 308,
+    "model_Adam_RNG_verified": true,
+    "completed_jobs_preserved": 4,
+    "queued_jobs": 7,
+    "automation": "PAUSED",
+    "automatic_resume": false,
+    "before_resume": "Recheck loaded GPU driver/runtime and checkpoint plan identity after reboot"
+  },
+  "complete_epochs": 53,
+  "complete_optimizer_updates": 23850,
+  "total_saved_optimizer_updates_including_partial": 24158,
+  "completed_wall_seconds": 83375.250111,
+  "wall_time_caveat": "Per-job process elapsed time includes loading, I/O and validation; not pure GPU time or ETA",
+  "contrasts_single_seed_only": [
+    {
+      "contrast": "lsta_minus_baseline",
+      "accuracy_pp": 6.981254040077567,
+      "CE": -0.16946536620519603,
+      "macro_f1": 0.06972315081501423,
+      "correct_count": 108,
+      "miss_recall_pp": 6.0810810810810745,
+      "make_recall_pp": 7.80669144981413
+    },
+    {
+      "contrast": "tsci_minus_baseline",
+      "accuracy_pp": -5.946994182288301,
+      "CE": 0.018688679042926815,
+      "macro_f1": -0.06298002115132673,
+      "correct_count": -92,
+      "miss_recall_pp": 8.513513513513516,
+      "make_recall_pp": -19.206939281288715
+    },
+    {
+      "contrast": "aca_minus_baseline",
+      "accuracy_pp": 6.916612798965738,
+      "CE": -0.1627950778490968,
+      "macro_f1": 0.06933089724591035,
+      "correct_count": 107,
+      "miss_recall_pp": 8.243243243243237,
+      "make_recall_pp": 5.700123915737299
+    },
+    {
+      "contrast": "aca_minus_lsta",
+      "accuracy_pp": -0.06464124111182912,
+      "CE": 0.00667028835609923,
+      "macro_f1": -0.0003922535691038842,
+      "correct_count": -1,
+      "miss_recall_pp": 2.1621621621621623,
+      "make_recall_pp": -2.106567534076831
+    }
+  ],
+  "alignment_matrix": [
+    {
+      "item": "作者實作",
+      "paper": "目前未核實作者模型原碼；已檢查補充檔",
+      "project": "依圖與公式重建",
+      "status": "待作者證據；工程通過不代表作者一致",
+      "source": "Fig.1–3；11/03來源核對"
+    },
+    {
+      "item": "任務與標籤",
+      "paper": "Basketball-51 八類動作",
+      "project": "Make/Miss 二類",
+      "status": "明確不等同",
+      "source": "§3.1"
+    },
+    {
+      "item": "資料切分",
+      "paper": "80/10/10；精確影片清單及seed尚未取得",
+      "project": "7193/1547/1539，source-group隔離，另排除32支",
+      "status": "專案約70/15/15，不能作論文同split比較",
+      "source": "§3.3；固定manifest/split"
+    },
+    {
+      "item": "輸入",
+      "paper": "50幀，裁切後120×160",
+      "project": "全片均勻端點取50幀、全圖縮放120×160、RGB",
+      "status": "尺寸/幀數對齊；crop與取幀規則未核實",
+      "source": "§3.3；POLICY"
+    },
+    {
+      "item": "骨幹與融合",
+      "paper": "ResNet50；LSTA/TSCI並聯融合",
+      "project": "16個bottleneck窄通道，conv1/BN/ReLU後插入並相加",
+      "status": "核心方向有依據；精確插入/stride細節仍待證據",
+      "source": "Fig.1；model.py"
+    },
+    {
+      "item": "總參數（同八類）",
+      "paper": "約26.8M",
+      "project": "dense ACA 93,176,164",
+      "status": "主要未解差異；不能只靠湊數修改",
+      "source": "§3.3；既有meta核算"
+    },
+    {
+      "item": "LSTA細節",
+      "paper": "gating、短/長期分支與動態時間核",
+      "project": "dense groups=1；r16、k3/k3、β0.25、K3、gate sigmoid",
+      "status": "具體值與groups/bias/BN等尚未由作者程式核實",
+      "source": "Fig.2/Eq.1–6；modules.py"
+    },
+    {
+      "item": "TSCI與BN",
+      "paper": "三支路空間/通道交互與BN",
+      "project": "逐幀共享gate；全部BN affine/buffers凍結，含新TSCI",
+      "status": "主拓撲有依據；凍結規則是專案選擇",
+      "source": "Fig.3/Eq.7–8；baseline_preflight.py"
+    },
+    {
+      "item": "初始化",
+      "paper": "ImageNet預訓練",
+      "project": "固定ImageNet V1；新head與共用模組配對RNG",
+      "status": "來源方向對齊；具體權重版本/新增模組初始化未核實",
+      "source": "§3.3；weights pin/readiness"
+    },
+    {
+      "item": "優化與輪數",
+      "paper": "Adam、lr1e-4、初設30輪、validation loss早停",
+      "project": "同上述；另定patience5、wd0、clip1、嚴格最低CE",
+      "status": "部分對齊；未記載項是專案明示決定",
+      "source": "§3.3；protocol.json"
+    },
+    {
+      "item": "Batch與硬體",
+      "paper": "batch16、8張RTX3090",
+      "project": "單張5070Ti，physical1累積至effective16，尾批9",
+      "status": "累積平均通過驗證；不等同physical16的BN行為",
+      "source": "§3.3；protocol/readiness"
+    },
+    {
+      "item": "評估",
+      "paper": "原任務測試指標",
+      "project": "1547支validation最低CE選模，macro-F1",
+      "status": "不能直接比較論文accuracy/F1；平均方式亦待核實",
+      "source": "§3.2–3.4；history/summary"
+    },
+    {
+      "item": "資料集範圍",
+      "paper": "Basketball-51與SpaceJam",
+      "project": "目前僅Basketball-51專案；SpaceJam未開跑",
+      "status": "尚非整篇雙資料集複刻",
+      "source": "§3.1"
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G0 現況與既有結果盤點",
+      "status": "本輪完成",
+      "next": "使用本報告作單一入口"
+    },
+    {
+      "gate": "G1 作者規格或重建假設定稿",
+      "status": "尚未通過",
+      "next": "先解gating/group/插入點/參數量/BN；無證據就明列重建，不再聲稱精確作者版"
+    },
+    {
+      "gate": "G2 原任務資料/評估契約",
+      "status": "尚未通過",
+      "next": "若採論文複刻，另定Basketball-51八類及切分/前處理；此輪不改現存資料契約"
+    },
+    {
+      "gate": "G3 定稿版本工程驗證",
+      "status": "現有候選已通過；更動後須重驗",
+      "next": "先CPU形狀、參數、梯度與小樣本檢查；不直接完整訓練"
+    },
+    {
+      "gate": "G4 必要單seed正式比較",
+      "status": "暫緩",
+      "next": "只有前述契約通過後才安排必要baseline/ACA；完全同契約的已完成結果才可沿用"
+    },
+    {
+      "gate": "G5 多seed與第二資料集",
+      "status": "暫緩",
+      "next": "只有待驗假說明確且單seed比較具可解釋性時，另行決定；不自動跑剩餘八組"
+    }
+  ],
+  "parameter_context": {
+    "dense_two_classes": 93163870,
+    "dense_eight_classes": 93176164,
+    "paper_reported_approximate": 26800000,
+    "gating_parameters": 69160960,
+    "head_two_to_eight_difference": 12294,
+    "counts_from_existing_meta_audit_not_new_model_instantiation": true
+  },
+  "paired_initialization_verified_from_existing_readiness": true,
+  "partial_checkpoint_sha_verified_in_this_review": true,
+  "per_video_predictions_analyzed": false,
+  "all_scores": "validation; CE-selected within each completed run; one seed",
+  "historical_test_exposure": true,
+  "this_review": {
+    "GPU_jobs_started": 0,
+    "formal_optimizer_updates": 0,
+    "raw_videos_opened": 0,
+    "inference_runs": 0,
+    "test_evaluations": 0,
+    "new_models": 0,
+    "split_or_label_changes": 0
+  },
+  "protected_files_sha256": {
+    "docs/research/results/aca_four_arm_readiness_v1.json": "b613e66b3512190a0c550185f02ff8679d34cd1b50c62869a642763ff1c854ea",
+    "development/aca_four_arm_v1/__init__.py": "4e5111b0a0ba071a2f8b6e384c309f77a08ce1005c1126446012f2d3a2fea336",
+    "development/aca_four_arm_v1/engine.py": "63f1869f91eb3c50380e6313d6bbbd3dd3909a0499046dab8b5919ce0c239707",
+    "development/aca_four_arm_v1/experiment.py": "24c990ea2a321e7add8e308e4840d684a711913c25962a15848d8c5b6796ca58",
+    "development/aca_four_arm_v1/preflight.py": "d89eb86d4053867d26383f484ba1ad8f7d8a341a5767ae31713d71c79cecc7c6",
+    "development/aca_four_arm_v1/protocol.json": "12affcec25d613c092d9213a1d7cb03ea17f01c5670f089304c7c415cddcf36e",
+    "development/aca_four_arm_v1/test_four_arm.py": "073d48ec17409dcc03e35e486de527bb7d325f61ad327895f8f4dff4a638f402",
+    "development/aca_four_arm_v1/train.py": "e6d786220e1e130148347b5346e8ae5e7adf7682e0f5a43e1ebedba87e8efe36",
+    "development/aca_net_v1/__init__.py": "9694880848f4b922ed9375b96ad3292a5ee89480f1c6b37fe0fff4247d83a263",
+    "development/aca_net_v1/audit_architecture.py": "618959f3eae35d4ff6fe2e6c36af917d4a9118154e15e44cad2548a6c04d9de2",
+    "development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "development/aca_net_v1/pipeline_smoke.py": "89fc0bc05fef686606bc59016d6534848cb724de349943bdf3dbcce00184d6b7",
+    "development/aca_net_v1/readiness.py": "f9400ab6eade1e747c81e6d876a7c21ac486aed9bf415fa30b165c330f9af6fe",
+    "development/aca_net_v1/smoke.py": "95956afe32c1bd4a444ffd4c418dd1b3e0b223ba46dc24f5d51f9355750466bd",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "development/aca_four_arm_v1/artifacts/cpu_prepare_a045_cte/report.json": "4d50468a3768a1e033ed363b8f8b2069bfe9196509dda47b2f02e8b54ac7e0e5",
+    "development/aca_four_arm_v1/artifacts/cpu_prepare_a045_cte/plan.json": "512e4842e584bb026638b34f04d9972cee6e9a294ed750eae415f0a9920b220a",
+    "development/aca_four_arm_v1/artifacts/gpu_readiness_seed20261024_jcs_u8yr/report.json": "e0a59d4a899fe3c4156f39148b0e4dd6d919504f303a027a00a48a6e3171f457",
+    "development/aca_four_arm_v1/artifacts/gpu_readiness_seed20261025_wflhs9qn/report.json": "ddf5f218dda0307dc8faad6a6e17e97d02cfb01a7d76324b5fe9d212e0e9b3ae",
+    "development/aca_four_arm_v1/artifacts/gpu_readiness_seed20261026_2gk3lxp2/report.json": "7a574d0d60d182549bb4d53ca43b1ceafc4a3ad74b7cebd701f1d1f39417e1fc",
+    "development/aca_four_arm_campaign_v1/__init__.py": "ff70eea62af6b1959d6ae68ab6749937454bb82432cc268f1e3290c8f4212ab7",
+    "development/aca_four_arm_campaign_v1/test_queue.py": "d4e4eedbfe0890c245099dc9963f9b848dd1f2be0f22f3f9eb05b11135b1c9f4",
+    "development/aca_four_arm_campaign_v1/queue.py": "fd497dfcbc8281d63846ab179d089a6284f7c85b39acd4a803dca9e6a55199c8",
+    "development/aca_four_arm_campaign_v1/continuation.py": "a94041d515eaa2d9d8f14dfe8cf6e13ec752b551835cf7bd77d2aa68244e97e9",
+    "development/aca_four_arm_campaign_v1/train_entry.py": "d891cc3ce5511e8a1af29eca7e31f9f8f8f1bafa9a01d95719bc831a6f4c708a",
+    "development/aca_four_arm_campaign_v1/test_continuation.py": "b753010b3fcf112fcdd14873249212acc877c5548e384c66bf502d407d32f9fa",
+    "development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e",
+    "development/aca_four_arm_campaign_v1/runtime_continuation.py": "e16ec970a185c86b4f516d38f35517d9dc7763d65c70c59ef09041a1dbebb2fc",
+    "development/aca_four_arm_campaign_v1/test_runtime_continuation.py": "0d3f17625a257a16140daae776d0fbf0f582d1df0f678e428dbcd0531bf8b1f2",
+    "development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk/continuation_runtime_4vljx69c/state.json": "c0370048c5987bb4f71e71168f9b05e5552816c72103af4ae601e7871482477b",
+    "development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk/continuation_runtime_4vljx69c/plan.json": "9a9b56d438fa236ff2cf5bd7c11b9632a5e9650ef40c31efbacf39ba8c548a9e",
+    "development/aca_four_arm_campaign_v1/artifacts/campaign_g14srnja/continuation_6k8sd4fk/continuation_runtime_4vljx69c/user_pause.json": "6025d82bbcb2f84990922eea056c5873f1c99d9ccddc6b7d63b7426a2c699e18",
+    "development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/summary.json": "8810929bce86aa69ebb5abd3c999b87b64fdb3f1a4ad26e658b452fe471b5f0f",
+    "development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/history.json": "331a04fe31420407bcd78b396105f750bd3f7131761a7741391fef93010eebbb",
+    "development/aca_four_arm_v1/artifacts/formal_baseline_seed20261024_mfeniv_1/plan.json": "32d741a5fd40c3977a7ac4b25e4cd32c8d392c375cf601b854c49cfd7d14e259",
+    "development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/summary.json": "980e7c6edfbf62d866e8f86fd4d6e94cefa0e587041d1ed886240e20f15a1621",
+    "development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/history.json": "9f53c05f41327c06e2c0bc03c18bd34dddc12ecd6cdce4fb51f550a56080a720",
+    "development/aca_four_arm_v1/artifacts/formal_lsta_seed20261024_81cikmnv/plan.json": "8a7e52f81055e8410fb55631acbf49cf4bdc5d9942d50bc930b5d4b3c2f7ef86",
+    "development/aca_four_arm_v1/artifacts/formal_tsci_seed20261024_viwjqsar/summary.json": "fff6f0647a8a9eef1486cce2615e966b2492141eeb7889de43458f3b9f556668",
+    "development/aca_four_arm_v1/artifacts/formal_tsci_seed20261024_viwjqsar/history.json": "39318d9b2ea8592816fcd21f59e120b525a1dd9f0c155717f678ac02672cc80c",
+    "development/aca_four_arm_v1/artifacts/formal_tsci_seed20261024_viwjqsar/plan.json": "e0fc306849914074c84cfad60d90a02052a86d515798a29690f17af95c7bcb4f",
+    "development/aca_four_arm_v1/artifacts/formal_aca_seed20261024_22qliegt/summary.json": "d77bc3c6d48f5aa75912603816cfaeec8bb03339d646f42ac62cf316ef5d8dca",
+    "development/aca_four_arm_v1/artifacts/formal_aca_seed20261024_22qliegt/history.json": "2890f72a1f250baf9f9d50355a6a6fd05a9efa4e65e89bf8bee9e1f083dc947e",
+    "development/aca_four_arm_v1/artifacts/formal_aca_seed20261024_22qliegt/plan.json": "d53517650e59350c4fb65f8c8f45c2f6dd19eb62f2ef347a52687738f9f64753"
+  }
+}
