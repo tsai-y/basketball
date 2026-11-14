@@ -1,5 +1,7 @@
 # ACA 複刻核對與研究決策（2026-11-08）
 
+**2026-11-15最新方向：依使用者收斂至七步資料處理基礎流程；D3虛擬25Hz暫存、不啟用。已完成資料版本及單支技術核對，因160×120球／籃框細節難以視覺確認，依指示停在第2步待決策。見[目前進度](INPUT_PROCESSING_FOUNDATION_STATUS.md)。下列11/08內容保留為歷史階段快照，不代表目前繼續D4或訓練。**
+
 **目前維持暫停。G1重建規格、G2盤點、D1/D2品質與切分候選及D3單一前處理契約已完成；候選尚未啟用。下一步D4隔離八類資料／metrics adapter與真實解碼工程驗證。**
 
 2026-11-08 D3更新：[前處理規格與17項合成測試](ACA_EIGHT_CLASS_PREPROCESSING.md)。固定PTS→25Hz虛擬格點→全片50幀、全圖120×160、RGB與ImageNet V1常數；不代表取得作者crop或真實decoder已驗證。最新文件SHA見[D3驗收](results/aca_eight_class_preprocessing_qa_v1.json)，以前快照維持各自時點。
