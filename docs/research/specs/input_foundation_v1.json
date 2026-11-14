@@ -1,0 +1,108 @@
+{
+  "schema": "input_foundation_contract_v1",
+  "version": "native_uniform50_whole_clip_eight_class_v1",
+  "frozen_at_taiwan": "2026-11-15T03:03:09.897547+08:00",
+  "original_manifest_sha256": "e7bba1acd6028cf67cdf28251e69852e82cff201e13519ed05970ac483cce6b6",
+  "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+  "immutable_dependencies_sha256": {
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5"
+  },
+  "counts": {
+    "train": 7192,
+    "validation": 1547,
+    "test": 1538,
+    "excluded": 34
+  },
+  "classes": [
+    "2p0",
+    "2p1",
+    "3p0",
+    "3p1",
+    "ft0",
+    "ft1",
+    "mp0",
+    "mp1"
+  ],
+  "class_to_binary": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+  ],
+  "quarantined_ambiguous_ids": [
+    "2p0/2p0_v120_013024_x264.mp4",
+    "2p0/2p0_v183_001444_x264.mp4",
+    "2p1/2p1_v120_013024_x264.mp4",
+    "2p1/2p1_v166_005133_x264.mp4",
+    "2p1/2p1_v183_001444_x264.mp4",
+    "3p0/3p0_v121_000328_x264.mp4",
+    "mp0/mp0_v113_003041_x264.mp4",
+    "mp0/mp0_v121_000328_x264.mp4",
+    "mp1/mp1_v113_003041_x264.mp4",
+    "mp1/mp1_v160_005133_x264.mp4"
+  ],
+  "split_policy": "Preserve original source-group split assignment; apply existing eight-class ambiguity quarantine only",
+  "allowed_decode_splits": [
+    "train",
+    "validation"
+  ],
+  "test": "metadata_only_no_source_path_access",
+  "temporal": {
+    "frames": 50,
+    "selection": "floor(i*(native_frame_count-1)/49), i=0..49",
+    "short_video": "reject_if_fewer_than_50_frames",
+    "virtual_fps_resampling": false,
+    "times": "nominal_source_index_over_fps_not_verified_pts"
+  },
+  "spatial": {
+    "source": [
+      240,
+      320
+    ],
+    "input": [
+      120,
+      160
+    ],
+    "operation": "full_frame_INTER_AREA_no_crop",
+    "roi": false
+  },
+  "tensor": {
+    "color": "RGB",
+    "layout": "C,T,H,W",
+    "shape": [
+      3,
+      50,
+      120,
+      160
+    ],
+    "dtype": "float32",
+    "scale": 255.0,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "contiguous": true
+  },
+  "content_policy": "Preserve all frames in the full source clip; record sampled observations only. No statistics-card/cut/occlusion filtering or relabeling.",
+  "augmentation": "none",
+  "models_loaded": false,
+  "training_authorized": false,
+  "exact_author_preprocessing_confirmed": false,
+  "user_decisions": [
+    "keep160x120_complete_fixed16_before_deciding_changes",
+    "preserve_whole_clips_record_content_issues_complete_baseline_pipeline"
+  ]
+}

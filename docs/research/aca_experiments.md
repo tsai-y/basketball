@@ -1,6 +1,6 @@
 # ACA 候選實驗保存狀態（更新：2026-11-08）
 
-**2026-11-15：目前收斂至[資料處理基礎流程](INPUT_PROCESSING_FOUNDATION_STATUS.md)，停在第2步等待視覺輸入決策；未啟用新切分、D3虛擬25Hz或模型訓練。下列為既有歷史紀錄。**
+**2026-11-15：[七步基準資料處理](INPUT_PROCESSING_FOUNDATION_STATUS.md)已完成並凍結；保留整片與160×120，全8739支train／validation解碼通過。未啟用新切分、D3虛擬25Hz或模型訓練，原片內容問題只記註記。下列為既有歷史紀錄。**
 
 **目前訓練與每小時排程均暫停。** 四組seed20261024已完成，Baseline seed20261025保存於第1輪4928支／308次更新，另外七組未開始。G1重建規格、G2盤點、D1/D2候選及[D3前處理規格](ACA_EIGHT_CLASS_PREPROCESSING.md)已完成。D3通過17項合成測試，候選未啟用，作者精確版未核實；下一步D4真實解碼與隔離八類adapter工程驗證，不直接續跑八組；見 [研究決策](ACA_REPRODUCTION_CHECKPOINT.md)。
 

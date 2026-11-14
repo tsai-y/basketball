@@ -1,7 +1,7 @@
 {
   "schema": "input_foundation_progress_v1",
-  "updated_at_taiwan": "2026-11-15T02:50:36.039179+08:00",
-  "status": "waiting_for_user_at_step2_visual_review",
+  "updated_at_taiwan": "2026-11-15T03:07:03.359052+08:00",
+  "status": "completed_baseline_data_foundation_frozen",
   "data_version": "old_source_group_split_plus_existing_eight_class_quarantine_native_uniform50",
   "counts": {
     "train": 7192,
@@ -14,13 +14,13 @@
   "original_split_summary_sha256": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
   "completed_step1": true,
   "step2_technical_passed": true,
-  "step2_visual_decision_pending": true,
-  "representative_16_completed": false,
-  "full_train_validation_read_completed": false,
-  "data_processing_complete": false,
-  "unique_train_videos_opened": 1,
-  "source_decodes": 2,
-  "validation_videos_opened": 0,
+  "step2_visual_decision_pending": false,
+  "representative_16_completed": true,
+  "full_train_validation_read_completed": true,
+  "data_processing_complete": true,
+  "unique_train_videos_opened": 7192,
+  "source_decodes": 8771,
+  "validation_videos_opened": 1547,
   "test_videos_opened": 0,
   "metadata_selection_16_fixed_before_visual_review": true,
   "original_split_assignment_changed": false,
@@ -111,7 +111,7 @@
     "input_max": 2.640000104904175,
     "native_source_unchanged": true,
     "visual_assessment": {
-      "status": "requires_user_decision",
+      "status": "user_accepted_keep160x120_continue_fixed16",
       "observations": [
         "Player motion and court context remain visible in the sampled frames.",
         "Ball and rim details are small and difficult to verify visually in the 160x120 input.",
@@ -128,20 +128,398 @@
   },
   "artifact_directory": "development/aca_eight_class_data_v1/artifacts/input_foundation_20261115_v1",
   "artifacts_sha256": {
+    "audit_manifest.csv": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
     "frame_21_comparison.png": "6be3e5d50db658c2558775d1adc88f020df7bd7c3d28fcb57fcb9e271a01c7f0",
-    "plan.json": "40c9898e256be597c72295028299e4c5e5d20efaa020c380369bf178b1c3e8ce",
+    "frame_24_comparison.png": "7f2828ff208625ed4ab1fe4cab911a5f5ab6fa3cd68b75a2adf1e9cfe45dc0fa",
     "frame_27_comparison.png": "b4636d424b9247641f9f8f370e7d19c10abf80c8934bd067a6872e24cf3dd05c",
     "frame_33_comparison.png": "c5faffe64509925f99aa1b6d258f034475dce955b7173755f568a53a45f91424",
+    "freeze.json": "2499a731d665e100bc26f3734b146cf2f16bdd07a4a36cede89fa120b7a25783",
+    "full_audit_v1/audit_manifest.csv": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+    "full_audit_v1/plan.json": "f096d394f6b8222f9b6a32f7dd7924bb73d1a53bfc301ace320b3682649feae3",
+    "full_audit_v1/records.jsonl": "f6254f19f3c0ecadce034ef37958eb15ac51d80c47d8324be59f3652ba789f90",
+    "full_audit_v1/state.json": "edcc460d99c2da33fb6769be0eb1316049b66315964b5ec6514de62318ff26d3",
+    "full_audit_v1/summary.json": "be26cef205e4a7deba678bbf7d4d4bdc5d878068e8844cc624e11114c3f1cef5",
+    "plan.json": "0f06c4baf250eac0d402acf497828c044937563ab2f0a724dd5850e0b342b17e",
+    "representative16/00_comparison.png": "8359807a71c606951fc00c69585b5aefe8a969a27535cc3f91b20644070b1c4a",
+    "representative16/00_input.png": "889628c2855cb32cce4c9e61a2b22b8136073e935175bba6dc8661b99d2711de",
+    "representative16/01_comparison.png": "0d0ece49c514c38ab3fcdee938de3876286954f1ee81e23cc748233ee45d2641",
+    "representative16/01_input.png": "c58f0eea16fcf819df4a20ede7d52d744907742ebff5f56b7ea394256e293557",
+    "representative16/02_comparison.png": "fed3097a59a57ffdf305ea03ff265fea4327caae12fdb404c349c1805895a844",
+    "representative16/02_input.png": "6a18d7a11bc50b0c74f165997e68238283a47d8c1becd256077d823741745144",
+    "representative16/03_comparison.png": "e1fc0e0c5391ef4519898b1e312e7e21e8f148d1872b8cad3a81e4c15384b736",
+    "representative16/03_input.png": "12e82cd8c5ebd94aa4f58147689174c05b343d67b9bd5ab95081ef33370ff4da",
+    "representative16/04_comparison.png": "1d9423e56e5dfd5970d793cea1a3c5460a7f18f7c417cd253c42b6d24b9b8cbc",
+    "representative16/04_input.png": "7b766d753fef0fc10a837c7d5f8ee01d63b330ebb5d435bf49a2f28999842d7e",
+    "representative16/05_comparison.png": "10fc7002a98fb39e03f9f4a318af8289dd52820f1e5d2ed48b5e97042eccc657",
+    "representative16/05_input.png": "2cd0a6720cdd6643fcd472c16339ccdc027e5c1b5d00e4d4c5cec1fe17c9a11e",
+    "representative16/06_comparison.png": "009b78dc4b93dd358f3dfe77c500d21ea3dad1fa1fb3ed170fce9794b10be996",
+    "representative16/06_input.png": "10aa7b869b02e81e05416092b22b6943f0043086bb65ea40f6cfeaffedb51e29",
+    "representative16/07_comparison.png": "d26b6daa6d145aed7903605c9374fafbf54b31eb3d044c17e718ba294850d4ab",
+    "representative16/07_input.png": "80daa68e8d4b745a544298192aaaa226302f40068900ed7dbee1cc4abe9c5b15",
+    "representative16/08_comparison.png": "772536cb37557fe49bab7c778bf95b4187ec293b405f97bf8265359b4b30db24",
+    "representative16/08_input.png": "4fee684a31d6b3541874a99ecddc3393cb64b751d219da63cb18c269f31e54ff",
+    "representative16/09_comparison.png": "5d678fe3f7d989cf504291f6a2fc8fe55a094dcb3ae0f0b9fc67a141d3c421e4",
+    "representative16/09_input.png": "2b9ca9d9b6da69be2e49a7bacfc3fa465f0fa937960632c48c782af4611425bc",
+    "representative16/10_comparison.png": "32269fed3a6d546f4e2d4a2e6116451c8d6a55692d6638d502f644c39d8ab38c",
+    "representative16/10_input.png": "83c5e63097594c9af9bf6f6ff42275e8c99031c1f280725522fc5c03de16cdb3",
+    "representative16/11_comparison.png": "fb661d213cd0d6f6ab875ce1e86e4c8f5d55f4db7efa41b441e1b3ea2760d76d",
+    "representative16/11_input.png": "770f352363978019ce17bfb30f9fc304460b41ae53504c9a06346e8e861bb606",
+    "representative16/12_comparison.png": "ee97bcae650fbabb231ae5c35e0f622eb37701d9ae5af360a0d894168c17b372",
+    "representative16/12_input.png": "eb2d0abe1fda20e7afa7ac362a70281021e377c8c79206b8156c395adfb43819",
+    "representative16/13_comparison.png": "904ecaecbe3dc38b2ca51e13e6c5b988a6394aabaf22577fe1e57152905f5803",
+    "representative16/13_input.png": "18a46a7c5d4686d90fc8117d56a2aad24e2bdcffe97b37a0d27ada29e1733a66",
+    "representative16/14_comparison.png": "7bb1b2572b352784d741ea8868754741845fabaca1449a258151ef9cfd3f5ea3",
+    "representative16/14_input.png": "11c536a073abb31d8ece55cdfb763f383141a56b68e8507f2821eccbe1a34d22",
+    "representative16/15_comparison.png": "50ebc981631ed513ae0a13d131aa3f1c4f3f8ec3eb4e83848193b71e608c08b2",
+    "representative16/15_input.png": "a30ab6946e0c932056782e97300e6bc45a45b35732d79713df214f7325257da3",
+    "representative16/overview_00_03.png": "4305b918a498244eeeac35890f4b70dec82d5fbd1d7389899046a72d1fdd8e52",
+    "representative16/overview_04_07.png": "793f703ae8f679d901743e4feeb6a13f46c097d908f508423983b71afaa264a5",
+    "representative16/overview_08_11.png": "1d3367b7f6d1c474f0f15fc0ce73d40fa3d6168012a37cc833b9113f4798b8e9",
+    "representative16/overview_12_15.png": "9a049584bb1cf4d9af5352224608f6aa1217d36eb782ce0a84186c3b1b3bb826",
+    "representative16/records.json": "46440607bcf8a48e5c671a45f4804c3cb053aff9316649058a7079063450f07d",
+    "representative16/visual_review.json": "3b9d1f2ac077d339732cef28ccfc9f7bebd2046a592fb887a446a0a62956f080",
+    "single_clip.json": "1bd3a853c4157235ca82f97bd62974616d554cca644e4ea1681e27ec6d0f5853",
     "single_comparison.png": "8359807a71c606951fc00c69585b5aefe8a969a27535cc3f91b20644070b1c4a",
-    "frame_24_comparison.png": "7f2828ff208625ed4ab1fe4cab911a5f5ab6fa3cd68b75a2adf1e9cfe45dc0fa",
-    "audit_manifest.csv": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
-    "single_contact_native.png": "fca47889d8e0d47e7353d1de0db953ddb39dcffb3157d7993d988f9a9345eec8",
     "single_contact_input.png": "889628c2855cb32cce4c9e61a2b22b8136073e935175bba6dc8661b99d2711de",
-    "single_clip.json": "1bd3a853c4157235ca82f97bd62974616d554cca644e4ea1681e27ec6d0f5853"
+    "single_contact_native.png": "fca47889d8e0d47e7353d1de0db953ddb39dcffb3157d7993d988f9a9345eec8"
   },
-  "question": {
-    "recommended": "Keep baseline160x120 and complete the fixed16 visual review before changing preprocessing",
-    "alternative": "First inspect the same imagery at native320x240, no training",
-    "user_instruction": "Stop and ask on any issue; no downstream processing while waiting"
-  }
+  "question": null,
+  "user_decision_step2": "keep160x120_complete_fixed16_before_deciding_changes",
+  "representative_16_technical_passed": 16,
+  "representative_16_sampled_visual_review_completed": true,
+  "step3_content_policy_decision_pending": false,
+  "visual_ground_truth_adjudication": false,
+  "source_content_modified": false,
+  "user_decisions": [
+    {
+      "at_taiwan": "2026-11-15T02:53:46.717584+08:00",
+      "decision": "keep160x120_complete_fixed16_before_deciding_changes"
+    },
+    {
+      "at_taiwan": "2026-11-15T03:03:09.897547+08:00",
+      "decision": "preserve_whole_clips_record_content_issues_complete_baseline_pipeline"
+    }
+  ],
+  "representative_16": [
+    {
+      "video_id": "2p0/2p0_v182_002546_x264.mp4",
+      "source_group": "v182",
+      "original_class": "2p0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "b05a4eae30733776fba45e30acdb214ae360369cf0e097ec0eca33cb1bc5272e",
+      "tensor_sha256": "4a0ca1fb6d2a827bd130b8275d7a8b529f7159e60dad75030c041e33124ee434",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "2p0/2p0_v128_002757_x264.mp4",
+      "source_group": "v128",
+      "original_class": "2p0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "19670b31292c249649afb314b0b2cece61d29f4d892b433f7bcf37dd632940a7",
+      "tensor_sha256": "e43417857d48cf55610b5201b9fade38fdc627790895118cf1244a1034639579",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "2p1/2p1_v122_004030_x264.mp4",
+      "source_group": "v122",
+      "original_class": "2p1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "d8fe954c532fa4a02c59713bc00733cac93fc990710ccf1982dc5acc144fb0ca",
+      "tensor_sha256": "bb25066e623682eb3ed69e904d7c3175a261503c5e91419a13f0a08613cad440",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "2p1/2p1_v163_000521_x264.mp4",
+      "source_group": "v163",
+      "original_class": "2p1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "59a1b9582a383ec7d7a2c0812fb4ef5871fcc6a39cd631e1afdbceaea0666039",
+      "tensor_sha256": "1a53cc9d359dd7259c763a68361709b99849742bfaba85d6014dd77723d69eda",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "3p0/3p0_v115_000742_x264.mp4",
+      "source_group": "v115",
+      "original_class": "3p0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "71f2e2e6153795cb90e1aa5f0279eb247ee0a26ad505d9a34b6136998fc23fe2",
+      "tensor_sha256": "0be29bd4d33612d30dfd29fa2f404ba396f4f66828b5d2eb815a4fd9c6888b63",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "3p0/3p0_v156_004034_x264.mp4",
+      "source_group": "v156",
+      "original_class": "3p0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "92eb116efed6f1a96d9a40b340e7bae2d3ee8a3831921a14aae7bd7ed4d5ce32",
+      "tensor_sha256": "f34756852cbb25c9b28a521a5e24e205e814d6ed5f8643833af7bb42b79ccb30",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "3p1/3p1_v150_004107_x264.mp4",
+      "source_group": "v150",
+      "original_class": "3p1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "ce6c0ad3c3114491733dbc571b59e20f64d7fd470e339f02b7f3d2888fd50386",
+      "tensor_sha256": "bc212592ec1d821cabdb20b278d978d8f2b9d9aa84a9fc6d9cd331bc52c72635",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "3p1/3p1_v158_003926_x264.mp4",
+      "source_group": "v158",
+      "original_class": "3p1",
+      "source_frame_count": 180,
+      "source_fps": 29.97,
+      "source_sha256": "d906482333d9ade65f2b660468aae894b447d2e02f65bf7cafb78591ad98e205",
+      "tensor_sha256": "23831368d34f3144025687e4539b3b56da6416995a2179906dca50bbcf12760d",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "ft0/ft0_v161_013702_x264.mp4",
+      "source_group": "v161",
+      "original_class": "ft0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "449308fd6d836fa63284d55c4512054d7c7c87cf245811b25a958ef9b3f064af",
+      "tensor_sha256": "a71480073a5da16c3d28de7059fde9b335caa84168ac245814634f9d488eaf51",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "ft0/ft0_v120_003741_x264.mp4",
+      "source_group": "v120",
+      "original_class": "ft0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "1d9a5b3f8b2eaae5322050e9ff5a80197067ea1ec86f129a584d1f243a3a4c10",
+      "tensor_sha256": "61675aa9f66699c3e6e5aa5c3ed9664c70d703d032a02e840a1118a1dc9c9557",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "ft1/ft1_v167_001943_x264.mp4",
+      "source_group": "v167",
+      "original_class": "ft1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "94d3d3717e8759fac0ba6a21302f724013c57f1fc195697a0711f42a14dc568e",
+      "tensor_sha256": "07029653a52d2138fc7b62be4adc9465b13b10164e20aef767a4d9d37cc471ef",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "ft1/ft1_v131_013526_x264.mp4",
+      "source_group": "v131",
+      "original_class": "ft1",
+      "source_frame_count": 180,
+      "source_fps": 29.97,
+      "source_sha256": "2b54acb97d9752929490bcd985a9f7b73a64da695692ac3b184109a91247491f",
+      "tensor_sha256": "5dbd56eb8201fe517da20ab06d3fb10db2f706e42e27ca178d030fb8936eaf8d",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "mp0/mp0_v118_005139_x264.mp4",
+      "source_group": "v118",
+      "original_class": "mp0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "4191ee13f2144b08f23c7d34c98af3e87f47b66eecbd2690338135252078895c",
+      "tensor_sha256": "698c5cbf25d17a0b404a525f95960a1daa8d3973ab8c666680bbf52cca96870d",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "mp0/mp0_v174_001911_x264.mp4",
+      "source_group": "v174",
+      "original_class": "mp0",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "2145536d0ac697bab3696e356f2eadd1f5ec3f4f77734fcf2e557278d668c64b",
+      "tensor_sha256": "32ff258334beff0d6043e55b92e58ae81d4be053cb7eaafd084b63d52b6944fb",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "mp1/mp1_v124_002714_x264.mp4",
+      "source_group": "v124",
+      "original_class": "mp1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "c31a13635ec70faa296adef1bdd1dc09637ab382ddf767a37268df310f062313",
+      "tensor_sha256": "a90720693c9e2a3936177ad45a3c1cd09dfc6cd52ce74ce258be4f9ae1d6f55b",
+      "baseline_decoder_parity": "bitwise_equal"
+    },
+    {
+      "video_id": "mp1/mp1_v147_004244_x264.mp4",
+      "source_group": "v147",
+      "original_class": "mp1",
+      "source_frame_count": 146,
+      "source_fps": 23.976,
+      "source_sha256": "685ed6ef0d15adceb9673526ccc4c416ad89adecb8de7a3979af630623f86f95",
+      "tensor_sha256": "b4b4d5b50d2606d322e86b15965bd3d46d119b226736441367d4d205f2b19739",
+      "baseline_decoder_parity": "bitwise_equal"
+    }
+  ],
+  "content_findings": [
+    {
+      "representative_index": 8,
+      "video_id": "ft0/ft0_v161_013702_x264.mp4",
+      "technical_checks": "passed",
+      "visual_review": "50_sampled_input_frames_contact_sheet_reviewed",
+      "native_comparison_confirmed_for_content_observations": true,
+      "observations": [
+        "開頭球員特寫，之後切至籃框上方視角；原圖與輸入均存在。"
+      ],
+      "visual_ground_truth_adjudication": false,
+      "action_taken": "record_only_no_filter_crop_relabel",
+      "input_contact_sheet": "08_input.png",
+      "native_input_comparison": "08_comparison.png"
+    },
+    {
+      "representative_index": 9,
+      "video_id": "ft0/ft0_v120_003741_x264.mp4",
+      "technical_checks": "passed",
+      "visual_review": "50_sampled_input_frames_contact_sheet_reviewed",
+      "native_comparison_confirmed_for_content_observations": true,
+      "observations": [
+        "抽樣影格約0.00、0.96、1.96秒顯示全畫面統計卡，約2.59秒已切回罰球場景；原圖與輸入均存在。邊界未逐幀標註。"
+      ],
+      "visual_ground_truth_adjudication": false,
+      "action_taken": "record_only_no_filter_crop_relabel",
+      "input_contact_sheet": "09_input.png",
+      "native_input_comparison": "09_comparison.png"
+    },
+    {
+      "representative_index": 10,
+      "video_id": "ft1/ft1_v167_001943_x264.mp4",
+      "technical_checks": "passed",
+      "visual_review": "50_sampled_input_frames_contact_sheet_reviewed",
+      "native_comparison_confirmed_for_content_observations": true,
+      "observations": [
+        "原圖與輸入均有前景頭部遮擋部分球場畫面及片末板凳席特寫；不能據此宣稱整段投籃結果不可見。"
+      ],
+      "visual_ground_truth_adjudication": false,
+      "action_taken": "record_only_no_filter_crop_relabel",
+      "input_contact_sheet": "10_input.png",
+      "native_input_comparison": "10_comparison.png"
+    },
+    {
+      "representative_index": 11,
+      "video_id": "ft1/ft1_v131_013526_x264.mp4",
+      "technical_checks": "passed",
+      "visual_review": "50_sampled_input_frames_contact_sheet_reviewed",
+      "native_comparison_confirmed_for_content_observations": true,
+      "observations": [
+        "罰球後鏡頭向上移動，片末切至球員特寫；原圖與輸入均存在。"
+      ],
+      "visual_ground_truth_adjudication": false,
+      "action_taken": "record_only_no_filter_crop_relabel",
+      "input_contact_sheet": "11_input.png",
+      "native_input_comparison": "11_comparison.png"
+    }
+  ],
+  "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+  "access_and_cohort_checks_passed": 4,
+  "full_audit_directory": "development/aca_eight_class_data_v1/artifacts/input_foundation_20261115_v1/full_audit_v1",
+  "latest_full_audit_state": {
+    "status": "completed",
+    "started_at_taiwan": "2026-11-15T03:03:38.412301+08:00",
+    "completed": 8739,
+    "total": 8739,
+    "by_split": {
+      "train": 7192,
+      "validation": 1547
+    },
+    "stage": "full_decode",
+    "test_videos_opened": 0,
+    "updated_at_taiwan": "2026-11-15T03:05:51.860503+08:00",
+    "elapsed_seconds": 133.4,
+    "last_video": "mp1/mp1_v168_012649_x264.mp4"
+  },
+  "full_audit_summary": {
+    "schema": "input_foundation_full_audit_v1",
+    "status": "completed",
+    "completed_at_taiwan": "2026-11-15T03:05:51.830151+08:00",
+    "elapsed_seconds": 133.6,
+    "counts": {
+      "train": 7192,
+      "validation": 1547
+    },
+    "total": 8739,
+    "failures": 0,
+    "full_decode_eof_checks_passed": 8739,
+    "tensor_checks_passed": 8739,
+    "fixed16_source_and_tensor_parity_passed": 16,
+    "decoded_source_frames": 1337628,
+    "frame_count_range": [
+      145,
+      180
+    ],
+    "fps_counts": {
+      "23.976": 6917,
+      "29.97": 1822
+    },
+    "per_split_class_counts": {
+      "train": {
+        "2p0": 1033,
+        "2p1": 1385,
+        "3p0": 1440,
+        "3p1": 818,
+        "ft0": 400,
+        "ft1": 1175,
+        "mp0": 548,
+        "mp1": 393
+      },
+      "validation": {
+        "2p0": 171,
+        "2p1": 266,
+        "3p0": 356,
+        "3p1": 173,
+        "ft0": 90,
+        "ft1": 277,
+        "mp0": 123,
+        "mp1": 91
+      }
+    },
+    "per_split_binary_counts": {
+      "train": {
+        "0": 3421,
+        "1": 3771
+      },
+      "validation": {
+        "0": 740,
+        "1": 807
+      }
+    },
+    "dataset_source_and_tensor_sha256": "3c9d38363001d363191282ef9851394405ed7c13937cb8bc560e668a80c85b81",
+    "records_sha256": "f6254f19f3c0ecadce034ef37958eb15ac51d80c47d8324be59f3652ba789f90",
+    "source_files_sha256": {
+      "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+      "development/aca_eight_class_data_v1/audit_foundation.py": "e7feeb343bb5035dc67e777b357371379d68ef1f5a665592e3091364c2e56c48",
+      "development/aca_eight_class_data_v1/test_foundation.py": "62117feacbe2b73debee1da65fdf7aabdb9bfff5bbe9c0f1dafac3c1c41f2f27",
+      "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+      "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+      "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+      "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+      "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5"
+    },
+    "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+    "runtime": {
+      "python": "3.10.20",
+      "torch": "2.11.0+cu128",
+      "numpy": "2.1.3",
+      "opencv": "4.13.0"
+    },
+    "test_videos_opened": 0,
+    "excluded_videos_opened": 0,
+    "model_forwards": 0,
+    "optimizer_updates": 0,
+    "CUDA_context_initialized": false,
+    "source_content_modified": false,
+    "notes": "Engineering coverage only. Whole clips preserved. No visual relabeling, content prevalence estimate, test score or author-exact reproduction claim."
+  },
+  "release_report": "docs/research/results/input_processing_foundation_release_v1.json"
 }

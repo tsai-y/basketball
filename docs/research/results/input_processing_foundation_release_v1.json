@@ -1,0 +1,162 @@
+{
+  "schema": "input_processing_foundation_release_v1",
+  "version": "native_uniform50_whole_clip_eight_class_v1",
+  "status": "completed_baseline_data_foundation_frozen",
+  "frozen_at_taiwan": "2026-11-15T03:07:03.359052+08:00",
+  "base_git_commit": "ae7c43b",
+  "data_version": "old_source_group_split_plus_existing_eight_class_quarantine_native_uniform50",
+  "counts": {
+    "train": 7192,
+    "validation": 1547,
+    "test": 1538,
+    "excluded": 34
+  },
+  "user_decisions": [
+    {
+      "at_taiwan": "2026-11-15T02:53:46.717584+08:00",
+      "decision": "keep160x120_complete_fixed16_before_deciding_changes"
+    },
+    {
+      "at_taiwan": "2026-11-15T03:03:09.897547+08:00",
+      "decision": "preserve_whole_clips_record_content_issues_complete_baseline_pipeline"
+    }
+  ],
+  "input_contract": "docs/research/specs/input_foundation_v1.json",
+  "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+  "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+  "loader": "development/aca_eight_class_data_v1/foundation.py:FoundationDataset",
+  "source_files_sha256": {
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_eight_class_data_v1/audit_foundation.py": "e7feeb343bb5035dc67e777b357371379d68ef1f5a665592e3091364c2e56c48",
+    "development/aca_eight_class_data_v1/test_foundation.py": "62117feacbe2b73debee1da65fdf7aabdb9bfff5bbe9c0f1dafac3c1c41f2f27",
+    "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "development/aca_eight_class_data_v1/README.md": "ba50b4c3df31ba5a36491edd64b2700e5fd95358b244978b029ff7ad813dbf67"
+  },
+  "boundary_and_cohort_validation": {
+    "tests_passed": 4,
+    "exit_code": 0,
+    "command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest development.aca_eight_class_data_v1.test_foundation -v"
+  },
+  "full_audit": {
+    "schema": "input_foundation_full_audit_v1",
+    "status": "completed",
+    "completed_at_taiwan": "2026-11-15T03:05:51.830151+08:00",
+    "elapsed_seconds": 133.6,
+    "counts": {
+      "train": 7192,
+      "validation": 1547
+    },
+    "total": 8739,
+    "failures": 0,
+    "full_decode_eof_checks_passed": 8739,
+    "tensor_checks_passed": 8739,
+    "fixed16_source_and_tensor_parity_passed": 16,
+    "decoded_source_frames": 1337628,
+    "frame_count_range": [
+      145,
+      180
+    ],
+    "fps_counts": {
+      "23.976": 6917,
+      "29.97": 1822
+    },
+    "per_split_class_counts": {
+      "train": {
+        "2p0": 1033,
+        "2p1": 1385,
+        "3p0": 1440,
+        "3p1": 818,
+        "ft0": 400,
+        "ft1": 1175,
+        "mp0": 548,
+        "mp1": 393
+      },
+      "validation": {
+        "2p0": 171,
+        "2p1": 266,
+        "3p0": 356,
+        "3p1": 173,
+        "ft0": 90,
+        "ft1": 277,
+        "mp0": 123,
+        "mp1": 91
+      }
+    },
+    "per_split_binary_counts": {
+      "train": {
+        "0": 3421,
+        "1": 3771
+      },
+      "validation": {
+        "0": 740,
+        "1": 807
+      }
+    },
+    "dataset_source_and_tensor_sha256": "3c9d38363001d363191282ef9851394405ed7c13937cb8bc560e668a80c85b81",
+    "records_sha256": "f6254f19f3c0ecadce034ef37958eb15ac51d80c47d8324be59f3652ba789f90",
+    "source_files_sha256": {
+      "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+      "development/aca_eight_class_data_v1/audit_foundation.py": "e7feeb343bb5035dc67e777b357371379d68ef1f5a665592e3091364c2e56c48",
+      "development/aca_eight_class_data_v1/test_foundation.py": "62117feacbe2b73debee1da65fdf7aabdb9bfff5bbe9c0f1dafac3c1c41f2f27",
+      "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+      "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+      "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+      "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+      "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5"
+    },
+    "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+    "runtime": {
+      "python": "3.10.20",
+      "torch": "2.11.0+cu128",
+      "numpy": "2.1.3",
+      "opencv": "4.13.0"
+    },
+    "test_videos_opened": 0,
+    "excluded_videos_opened": 0,
+    "model_forwards": 0,
+    "optimizer_updates": 0,
+    "CUDA_context_initialized": false,
+    "source_content_modified": false,
+    "notes": "Engineering coverage only. Whole clips preserved. No visual relabeling, content prevalence estimate, test score or author-exact reproduction claim."
+  },
+  "full_audit_directory": "development/aca_eight_class_data_v1/artifacts/input_foundation_20261115_v1/full_audit_v1",
+  "full_audit_summary_sha256": "be26cef205e4a7deba678bbf7d4d4bdc5d878068e8844cc624e11114c3f1cef5",
+  "representative16_records_sha256": "46440607bcf8a48e5c671a45f4804c3cb053aff9316649058a7079063450f07d",
+  "representative16_visual_review_sha256": "3b9d1f2ac077d339732cef28ccfc9f7bebd2046a592fb887a446a0a62956f080",
+  "protected_historical_files_unchanged": 51,
+  "cumulative_this_foundation": {
+    "unique_train_videos_decoded": 7192,
+    "unique_validation_videos_decoded": 1547,
+    "source_decodes": 8771,
+    "source_decodes_breakdown": {
+      "initial_and_fixed16": 32,
+      "full_audit": 8739
+    },
+    "test_videos_opened": 0,
+    "models_created": 0,
+    "model_forwards": 0,
+    "optimizer_updates": 0
+  },
+  "content_policy": "whole_clip_preserved_quality_flags_only",
+  "source_content_modified": false,
+  "original_split_assignment_changed": false,
+  "original_labels_changed": false,
+  "D3_virtual25_activated": false,
+  "training_started": false,
+  "automation_status": "PAUSED",
+  "training_or_test_authorized_by_release": false,
+  "limitations": [
+    "Engineering coverage is complete for this fixed project baseline, not for an author-exact protocol.",
+    "Only the fixed16 train clips received sampled visual inspection; full8739 audit checks decoding and tensor consistency, not semantic quality or label truth.",
+    "Broadcast graphics, camera cuts, closeups and occlusion remain in whole clips; no content filter, ROI, event boundary or feature extraction was added.",
+    "Native frame-index sampling and nominal FPS times are preserved; per-frame PTS and virtual25Hz resampling were not introduced.",
+    "Source-group isolation is from existing metadata, not an independently verified game-identity audit.",
+    "No accuracy improvement, 90percent target attainment, test result or model-readiness conclusion is implied.",
+    "Existing historical project test exposure remains documented; test metadata here is not a new untouched holdout claim."
+  ]
+}
