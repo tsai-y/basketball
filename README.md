@@ -1,3 +1,7 @@
+> **2026-11-16 實體整理完成：37個產物目錄已集中分類到主專案outputs。[目前資料夾配置](docs/research/input_processing/WORKSPACE_LAYOUT.md)。原程式位置與舊產物路徑相容連結保留。**
+
+> **2026-11-16 目前工作入口：[研究工作台](workspace/README.md)｜[影片輸入調整總表](docs/research/input_processing/INPUT_CHANGES.md)。目前採用50幀RGB基準，訓練暫停。**
+
 # Basketball-51 籃球影片研究
 
 > - **給誰看：** 第一次接觸專案的組員與需要確認目前範圍的人。

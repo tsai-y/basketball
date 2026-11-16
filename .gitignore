@@ -74,3 +74,9 @@ development/aca_four_arm_campaign_v1/artifacts/
 
 # Isolated eight-class metadata candidates; never active training inputs
 development/aca_eight_class_data_v1/artifacts/
+
+# Local artifact directory compatibility links (no trailing slash)
+/development/*/artifacts
+
+# Local-only navigation to another worktree
+/workspace/04_history/tanet/

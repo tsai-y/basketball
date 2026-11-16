@@ -1,0 +1,1478 @@
+{
+  "summary": {
+    "schema": "fixed16_event_reference_summary_v1",
+    "date": "2026-11-16",
+    "status": "completed_coarse_reference_no_crop_adoption",
+    "fixed16_reviewed": 16,
+    "counts": {
+      "coarse_single_candidate": 11,
+      "multiple_actions_unresolved": 3,
+      "partial_visibility": 2
+    },
+    "source_decodes": 16,
+    "unique_train_videos": 16,
+    "validation_videos_opened": 0,
+    "test_videos_opened": 0,
+    "models_loaded": 0,
+    "optimizer_updates": 0,
+    "formal_input_changed": false,
+    "sampling": "case14 all146 sourceframes; other15 every5 sourceframes plus final; all38 generated pages viewed",
+    "reviewed_pages": 38,
+    "annotation_truth": "assistant visual draft; no independent target/outcome adjudication",
+    "conclusion": "可作人工事件核對索引；不足以採用自動事件裁切。全部保持整段50幀RGB160x120。",
+    "user_decision_case14": "保留整段，標為多事件待判，繼續其餘15支",
+    "next_bounded_step": "先人工確認01、06、10、12、14的事件可見性／目標；再逐幀核對其餘候選，不新增模型或訓練。",
+    "events_sha256": "b04bf8b2ea23a123160e2238c7aee50c6bec8731231fdbd907714e63fae610d4"
+  },
+  "events": [
+    {
+      "index": 0,
+      "video_id": "2p0/2p0_v182_002546_x264.mp4",
+      "source_sha256": "b05a4eae30733776fba45e30acdb214ae360369cf0e097ec0eca33cb1bc5272e",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "投手由右往中間移動；保留整條突破路徑、中央籃框及禁區線。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "00/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "f06954126bbfa5483f3e3deff54532639cb2dfd239e881166b9adf27d59289e0"
+        },
+        {
+          "path": "00/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "ef0604b59ccf94b3abcdf564583b30a3b395eb6814605445875a8f52cf59f563"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        45,
+        60
+      ],
+      "candidate_rim_context_frame_interval": [
+        60,
+        85
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "右側持球突破至籃下；後段取得球權並往另一側推進。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        1.877,
+        2.503
+      ]
+    },
+    {
+      "index": 1,
+      "video_id": "2p0/2p0_v128_002757_x264.mp4",
+      "source_sha256": "19670b31292c249649afb314b0b2cece61d29f4d892b433f7bcf37dd632940a7",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "multiple_actions_unresolved",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "左側籃框、低位球員群與禁區線需一併保留。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "01/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "1a0dcc0e6c7469ace2f3687ab75867e4296eb4cecc7ad3f69421c096dd28186d"
+        },
+        {
+          "path": "01/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "36c9a540aeb5d9ae55e0e5e830b95d75160a36887f14b05f9518ced0d942ded2"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": null,
+      "candidate_rim_context_frame_interval": null,
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "左側籃下有多次起跳與爭搶，尚不能指定哪次動作是標籤目標。",
+      "sampling": "every5_source_frames_plus_final"
+    },
+    {
+      "index": 2,
+      "video_id": "2p1/2p1_v122_004030_x264.mp4",
+      "source_sha256": "d8fe954c532fa4a02c59713bc00733cac93fc990710ccf1982dc5acc144fb0ca",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "右側傳導、左側攻框球員及籃框；片末亮度變化需記錄。"
+      ],
+      "camera_events": [
+        {
+          "kind": "brightness_change",
+          "observed_frames": [
+            145
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "02/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "c750de5de1aefafcb62c201a3367182f1bf5c62d691e10169cdfe8c110ff2354"
+        },
+        {
+          "path": "02/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "967fb99fb993ee5864653d2f09361e0c985c617de20591d18d1ac534a32c1c5a"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        70,
+        85
+      ],
+      "candidate_rim_context_frame_interval": [
+        85,
+        105
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "先在外圍傳導，再於左側籃下出現主要起跳／出手候選；精確結果待核。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.92,
+        3.545
+      ]
+    },
+    {
+      "index": 3,
+      "video_id": "2p1/2p1_v163_000521_x264.mp4",
+      "source_sha256": "59a1b9582a383ec7d7a2c0812fb4ef5871fcc6a39cd631e1afdbceaea0666039",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "快攻持球者、左側籃框及起跳落點；不能只留固定中央。"
+      ],
+      "camera_events": [
+        {
+          "kind": "cut_to_closeup",
+          "boundary_bracket": [
+            135,
+            140
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "03/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "32fbb34dfa33fd9236bdbc45a7cd67914d54763de531b50c4ec67652e27215c4"
+        },
+        {
+          "path": "03/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "c003c16da2671ba2897c9c1310ee776cc2554e052702d011cf0ad65e0c3e1fe9"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        65,
+        80
+      ],
+      "candidate_rim_context_frame_interval": [
+        75,
+        95
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "由中場快攻至左側籃框，片末轉為球員特寫。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.711,
+        3.337
+      ]
+    },
+    {
+      "index": 4,
+      "video_id": "3p0/3p0_v115_000742_x264.mp4",
+      "source_sha256": "71f2e2e6153795cb90e1aa5f0279eb247ee0a26ad505d9a34b6136998fc23fe2",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "左下投手、投手腳下外線、左側籃框及空中球路。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "04/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "600f66e4d62668765013e84061e7e48cc7859cf6feb16d305d11c4ee9fa5696c"
+        },
+        {
+          "path": "04/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "b02d6eafa0de4e4f84b2657419e8f225046fcf2b6a3f2b3a3651c0edce71fb60"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        25,
+        40
+      ],
+      "candidate_rim_context_frame_interval": [
+        50,
+        75
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "左下方外圍出手候選，接續籃下爭球與轉換進攻。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        1.043,
+        1.668
+      ]
+    },
+    {
+      "index": 5,
+      "video_id": "3p0/3p0_v156_004034_x264.mp4",
+      "source_sha256": "92eb116efed6f1a96d9a40b340e7bae2d3ee8a3831921a14aae7bd7ed4d5ce32",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "靠右邊緣的投手、腳下場地線、右上籃框；比分圖卡與必要區域相鄰。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "05/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "f5b0a4f3dd727472222e177eccece9e63c49374b058f92aecfcb78daf0a06dbb"
+        },
+        {
+          "path": "05/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "fb63dba5b0ee2070f4ac02393df344e75f3ef96e1679a17ceeb182b262515867"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        15,
+        30
+      ],
+      "candidate_rim_context_frame_interval": [
+        45,
+        75
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "右邊緣投手出手候選，後續右側籃下爭球。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        0.626,
+        1.251
+      ]
+    },
+    {
+      "index": 6,
+      "video_id": "3p1/3p1_v150_004107_x264.mp4",
+      "source_sha256": "ce6c0ad3c3114491733dbc571b59e20f64d7fd470e339f02b7f3d2888fd50386",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "partial_visibility",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "左下方可能出手來源、右上籃框及兩者間球路；投手起點需人工確認。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "06/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "636d5ee26a29fe07deeca76cc10a6924327ebee51bdd86c4213537ad0bff3b06"
+        },
+        {
+          "path": "06/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "ea9f3932fc8d292ea64f90a982056e7166741794e0f7638532dd4ebff4ca69e9"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": null,
+      "candidate_rim_context_frame_interval": [
+        55,
+        85
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "前段籃下動作與外圍球路脈絡並存；出手者接近左下邊緣，暫不指定精確出手或標籤對應。",
+      "sampling": "every5_source_frames_plus_final"
+    },
+    {
+      "index": 7,
+      "video_id": "3p1/3p1_v158_003926_x264.mp4",
+      "source_sha256": "d906482333d9ade65f2b660468aae894b447d2e02f65bf7cafb78591ad98e205",
+      "source_frame_count": 180,
+      "fps": 29.97,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        179
+      ],
+      "necessary_spatial_cues": [
+        "右側投手與腳下外線、左側籃框及跨畫面的球路。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "07/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "2ccc4a7adf82ccd67583e266b6e44cacd0960400ed51a4da7d73176ff5016876"
+        },
+        {
+          "path": "07/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            179
+          ],
+          "sha256": "73796085944075dce3f9f5ce79aae89cf583dcbb6685ba94e1f13f79b898a2a6"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        75,
+        85
+      ],
+      "candidate_rim_context_frame_interval": [
+        90,
+        110
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "右側外圍跳投候選，之後球員往另一側移動；本輪抽樣頁面片末仍為球場。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.503,
+        2.836
+      ]
+    },
+    {
+      "index": 8,
+      "video_id": "ft0/ft0_v161_013702_x264.mp4",
+      "source_sha256": "449308fd6d836fa63284d55c4512054d7c7c87cf245811b25a958ef9b3f064af",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "罰球者、罰球線、左上方籃框及板邊；保留切鏡前後連續性。"
+      ],
+      "camera_events": [
+        {
+          "kind": "closeup_to_overhead",
+          "boundary_bracket": [
+            35,
+            40
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "08/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "4582217a4013567283926e787070e94e5fc19f5968f5f50079a0d332c78194d3"
+        },
+        {
+          "path": "08/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "1570d1afeafd60ef61039c40ec20229eba4ef0b0afb24aa359845e21bd974578"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        50,
+        65
+      ],
+      "candidate_rim_context_frame_interval": [
+        75,
+        95
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "球員準備特寫轉俯視罰球場景，籃板接近畫面頂端。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.085,
+        2.711
+      ]
+    },
+    {
+      "index": 9,
+      "video_id": "ft0/ft0_v120_003741_x264.mp4",
+      "source_sha256": "1d9a5b3f8b2eaae5322050e9ff5a80197067ea1ec86f129a584d1f243a3a4c10",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "罰球者、罰球線與左側籃框；轉場不能當作已知出手邊界。"
+      ],
+      "camera_events": [
+        {
+          "kind": "graphics",
+          "observed_sample_span": [
+            0,
+            45
+          ]
+        },
+        {
+          "kind": "dissolve",
+          "observed_frames": [
+            50,
+            55
+          ]
+        },
+        {
+          "kind": "court_visible",
+          "observed_frame": 60
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "09/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "728d390599bc39d41ba06c23f3103b8408598b1fc9f8798b9813fb8a2b8f665f"
+        },
+        {
+          "path": "09/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "73be6e6c5bef14c21158da69dce414dea7c9d82058887a0638447ee99a4cc455"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        70,
+        85
+      ],
+      "candidate_rim_context_frame_interval": [
+        85,
+        105
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "片頭統計卡，轉場後有罰球候選；統計卡並非全片不可用的證據。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.92,
+        3.545
+      ]
+    },
+    {
+      "index": 10,
+      "video_id": "ft1/ft1_v167_001943_x264.mp4",
+      "source_sha256": "94d3d3717e8759fac0ba6a21302f724013c57f1fc195697a0711f42a14dc568e",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "partial_visibility",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "遠處罰球者、上方籃框及球路；裁切無法恢復已被遮擋的像素。"
+      ],
+      "camera_events": [
+        {
+          "kind": "closeup_to_obstructed_court",
+          "boundary_bracket": [
+            20,
+            25
+          ]
+        },
+        {
+          "kind": "court_to_bench",
+          "boundary_bracket": [
+            135,
+            140
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "10/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "2b8b0fd0686ea85735b4ee1c91af6c1db66be1c4b6f9a5697533238ae08b14eb"
+        },
+        {
+          "path": "10/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "4985bee8a86571f4676e0e8e02d2eccdd31227a411226220e2ea8395905840eb"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": null,
+      "candidate_rim_context_frame_interval": null,
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "準備特寫轉籃架鏡頭，前景頭部遮擋中央視野，片末切板凳席；出手與精確球路未充分確認。",
+      "sampling": "every5_source_frames_plus_final"
+    },
+    {
+      "index": 11,
+      "video_id": "ft1/ft1_v131_013526_x264.mp4",
+      "source_sha256": "2b54acb97d9752929490bcd985a9f7b73a64da695692ac3b184109a91247491f",
+      "source_frame_count": 180,
+      "fps": 29.97,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": [
+        95,
+        105
+      ],
+      "retention_frame_interval": [
+        0,
+        179
+      ],
+      "necessary_spatial_cues": [
+        "遠處罰球者、向上移動的球路及上方籃框；頂緣不可固定裁掉。"
+      ],
+      "camera_events": [
+        {
+          "kind": "camera_tilt_up",
+          "observed_sample_span": [
+            65,
+            100
+          ]
+        },
+        {
+          "kind": "cut_to_closeup",
+          "boundary_bracket": [
+            165,
+            170
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "11/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "7ffb51009332f2e5ba5bb7aa4d9440969294c590b0a5c5043aa2566336156ea1"
+        },
+        {
+          "path": "11/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145,
+            150,
+            155,
+            160,
+            165,
+            170,
+            175,
+            179
+          ],
+          "sha256": "6fd17dfaf7b691c69254bd5d7dfd37d5c8604b899ebe4a461424ca317bd429b4"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        60,
+        70
+      ],
+      "candidate_rim_context_frame_interval": [
+        85,
+        100
+      ],
+      "observed_result_note": "球出現在網下；未作獨立Make/Miss真值裁定",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "罰球者出手後鏡頭往上追球；f100附近可見球位於籃網下方，未據此改標籤。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.002,
+        2.336
+      ]
+    },
+    {
+      "index": 12,
+      "video_id": "mp0/mp0_v118_005139_x264.mp4",
+      "source_sha256": "4191ee13f2144b08f23c7d34c98af3e87f47b66eecbd2690338135252078895c",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "multiple_actions_unresolved",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "左側籃框、籃下多名球員與傳球來源；保留前後因果。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "12/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "5e11d01d3dc1e0a84b691b648b88b5f4b102cae79e84a913345fa0361f52db8e"
+        },
+        {
+          "path": "12/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "f23f8f3489d7fb45ac05e13873452c4920a608fc861da1872ce1f146d9162c75"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": null,
+      "candidate_rim_context_frame_interval": null,
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "前段傳導後，左側籃下出現連續動作與爭球；本輪不替原標籤指定其中一次。",
+      "sampling": "every5_source_frames_plus_final"
+    },
+    {
+      "index": 13,
+      "video_id": "mp0/mp0_v174_001911_x264.mp4",
+      "source_sha256": "2145536d0ac697bab3696e356f2eadd1f5ec3f4f77734fcf2e557278d668c64b",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "投手、左上籃框與腳下禁區／外線關係；板邊接近頂部。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "13/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "3fa07e4294702dee15efe840eb9f839eceba2bbcb12ba9ee78ff7a7c8d9289bf"
+        },
+        {
+          "path": "13/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "b480d856700af841f50db5c82e6fa660bc71a52dcd172ec80ab195748154d7ef"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        40,
+        55
+      ],
+      "candidate_rim_context_frame_interval": [
+        65,
+        95
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "左側中近距離跳投候選，後續籃下搶球及轉換進攻。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        1.668,
+        2.294
+      ]
+    },
+    {
+      "index": 14,
+      "video_id": "mp1/mp1_v124_002714_x264.mp4",
+      "source_sha256": "c31a13635ec70faa296adef1bdd1dc09637ab382ddf767a37268df310f062313",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "multiple_actions_unresolved",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "前段持球傳導、中央投手、右側籃框與後續籃下球員群。"
+      ],
+      "camera_events": [],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "14/frames_000_019.png",
+          "first": 0,
+          "last": 19,
+          "sha256": "9a9c61d7e8c19fa77813d450722a8e00795af66033abe9bc1d3d3f70474d8afe"
+        },
+        {
+          "path": "14/frames_020_039.png",
+          "first": 20,
+          "last": 39,
+          "sha256": "0befcf72dad6b36cf04751fb6c3e54d0329c52929a49183cb072cdbf4d728028"
+        },
+        {
+          "path": "14/frames_040_059.png",
+          "first": 40,
+          "last": 59,
+          "sha256": "7895c11f8fce990f98aca9da5ef60cf7227760d8b5c386127854aeefb0454241"
+        },
+        {
+          "path": "14/frames_060_079.png",
+          "first": 60,
+          "last": 79,
+          "sha256": "f34a6c0ddfb8797e829eb08a0016d8018dd6237a348bbb046e2724a5aecd5f13"
+        },
+        {
+          "path": "14/frames_080_099.png",
+          "first": 80,
+          "last": 99,
+          "sha256": "11b353cd1fcb8d23a39f6e9b0b084dc8d9c2692dda3b6dc201156cf41f042e00"
+        },
+        {
+          "path": "14/frames_100_119.png",
+          "first": 100,
+          "last": 119,
+          "sha256": "e3ed67c08afba8a33824a071f3629a75656f4941777cb9227bb428fd88d7744d"
+        },
+        {
+          "path": "14/frames_120_139.png",
+          "first": 120,
+          "last": 139,
+          "sha256": "9b13454689995e3e4a7a6d9a060cf15da2fa87631d972b0851e22d8acdb720c0"
+        },
+        {
+          "path": "14/frames_140_145.png",
+          "first": 140,
+          "last": 145,
+          "sha256": "9fb3999be931c102bf40074adaa031ee621fe0e4aa7d77699ab3dc155514c556"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": null,
+      "candidate_rim_context_frame_interval": null,
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "f60附近出手後還有籃下接續動作；依使用者決定，保留整段、標為多事件待判。片頭動作不另斷言為一次已確認投籃。",
+      "sampling": "every_source_frame",
+      "user_decision": "保留整段，標為多事件待判，繼續其餘15支"
+    },
+    {
+      "index": 15,
+      "video_id": "mp1/mp1_v147_004244_x264.mp4",
+      "source_sha256": "685ed6ef0d15adceb9673526ccc4c416ad89adecb8de7a3979af630623f86f95",
+      "source_frame_count": 146,
+      "fps": 23.976,
+      "status": "coarse_single_candidate",
+      "target_attempt": null,
+      "release_frame_interval": null,
+      "rim_approach_frame_interval": null,
+      "observable_result_frame_interval": null,
+      "retention_frame_interval": [
+        0,
+        145
+      ],
+      "necessary_spatial_cues": [
+        "中間投手、左側籃框及腳下場地線；不能依片末特寫指定結果。"
+      ],
+      "camera_events": [
+        {
+          "kind": "cut_to_closeup",
+          "boundary_bracket": [
+            125,
+            130
+          ]
+        }
+      ],
+      "limitations": [
+        "候選區間是人工視覺粗參考，不是逐幀標註或裁切指令。",
+        "原標籤與特定出手的對應未獨立裁定；不依檔名推定結果。"
+      ],
+      "reviewed_evidence": [
+        {
+          "path": "15/coarse_0.png",
+          "source_indices": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85,
+            90,
+            95
+          ],
+          "sha256": "5e9101e763d2a5b72e53f535c2504fe15e96a8c70146f679f302e0a1a98414f6"
+        },
+        {
+          "path": "15/coarse_1.png",
+          "source_indices": [
+            100,
+            105,
+            110,
+            115,
+            120,
+            125,
+            130,
+            135,
+            140,
+            145
+          ],
+          "sha256": "9d88939f7401b2eadb17afbb177ca008e6dcc01b6bc9e72c001693c4768678fa"
+        }
+      ],
+      "review_level": "assistant_visual_reference_not_independent_ground_truth",
+      "target_label_link_confirmed": false,
+      "candidate_release_frame_interval": [
+        55,
+        65
+      ],
+      "candidate_rim_context_frame_interval": [
+        75,
+        95
+      ],
+      "observed_result_note": "本輪未獨立核定精確結果",
+      "retention_policy": "unchanged_whole_clip",
+      "proposed_crop_frame_interval": null,
+      "observation": "中距離跳投候選後球員退防，片末切球員特寫。",
+      "sampling": "every5_source_frames_plus_final",
+      "candidate_release_nominal_seconds": [
+        2.294,
+        2.711
+      ]
+    }
+  ]
+}

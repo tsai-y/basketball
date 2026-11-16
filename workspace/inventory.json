@@ -1,0 +1,364 @@
+{
+  "date": "2026-11-16",
+  "organization": "source_navigation_plus_physical_artifact_storage",
+  "entries": [
+    {
+      "entry": "workspace/01_active_input/foundation.py",
+      "target": "development/aca_eight_class_data_v1/foundation.py",
+      "status": "active_frozen_loader",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/foundation.py"
+    },
+    {
+      "entry": "workspace/01_active_input/contract.json",
+      "target": "docs/research/specs/input_foundation_v1.json",
+      "status": "active_frozen_contract",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/input_foundation_v1.json"
+    },
+    {
+      "entry": "workspace/01_active_input/baseline_artifacts",
+      "target": "development/aca_eight_class_data_v1/artifacts/input_foundation_20261115_v1",
+      "status": "completed_frozen_evidence",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/outputs/01_current/input_foundation_20261115_v1"
+    },
+    {
+      "entry": "workspace/01_active_input/status.md",
+      "target": "docs/research/INPUT_PROCESSING_FOUNDATION_STATUS.md",
+      "status": "current_baseline_report",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/INPUT_PROCESSING_FOUNDATION_STATUS.md"
+    },
+    {
+      "entry": "workspace/02_event_review/report.md",
+      "target": "docs/research/input_processing/EVENT_REFERENCE.md",
+      "status": "completed_coarse_reference_not_ground_truth",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/input_processing/EVENT_REFERENCE.md"
+    },
+    {
+      "entry": "workspace/02_event_review/records.json",
+      "target": "docs/research/input_processing/event_reference_v1.json",
+      "status": "completed_coarse_reference_not_ground_truth",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/input_processing/event_reference_v1.json"
+    },
+    {
+      "entry": "workspace/02_event_review/evidence",
+      "target": "development/aca_eight_class_data_v1/artifacts/event_reference_fixed16_20261116_v1",
+      "status": "local_train_only_evidence",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/outputs/01_current/event_reference_fixed16_20261116_v1"
+    },
+    {
+      "entry": "workspace/03_candidates/rejected_fixed5percent",
+      "target": "development/aca_eight_class_data_v1/artifacts/crop_retention_fixed16_20261116_v1",
+      "status": "rejected_not_adopted",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/outputs/02_rejected/crop_retention_fixed16_20261116_v1"
+    },
+    {
+      "entry": "workspace/03_candidates/crop_decision.md",
+      "target": "docs/research/INPUT_CROP_RETENTION_DECISION.md",
+      "status": "rejected_not_adopted",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/INPUT_CROP_RETENTION_DECISION.md"
+    },
+    {
+      "entry": "workspace/03_candidates/inactive_sourcegroup80",
+      "target": "development/aca_eight_class_data_v1/artifacts/sourcegroup80_seed20261108_v1",
+      "status": "inactive_candidate",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/outputs/03_inactive/sourcegroup80_seed20261108_v1"
+    },
+    {
+      "entry": "workspace/03_candidates/inactive_virtual25.py",
+      "target": "development/aca_eight_class_data_v1/preprocessing.py",
+      "status": "inactive_candidate",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/preprocessing.py"
+    },
+    {
+      "entry": "workspace/05_shared_resources/aca_architecture_audit_v1",
+      "target": "development/aca_architecture_audit_v1",
+      "status": "shared_code_or_reference_not_blanket_activation",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_architecture_audit_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_candidate_v1",
+      "target": "development/aca_candidate_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_candidate_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_dw3d_v1",
+      "target": "development/aca_dw3d_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_dw3d_v1"
+    },
+    {
+      "entry": "workspace/05_shared_resources/aca_eight_class_data_v1",
+      "target": "development/aca_eight_class_data_v1",
+      "status": "shared_code_or_reference_not_blanket_activation",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_extension_v1",
+      "target": "development/aca_extension_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_extension_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_four_arm_campaign_v1",
+      "target": "development/aca_four_arm_campaign_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_four_arm_v1",
+      "target": "development/aca_four_arm_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_frame_review_v1",
+      "target": "development/aca_frame_review_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_frame_review_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_highres_v1",
+      "target": "development/aca_highres_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_highres_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_input_triage_v1",
+      "target": "development/aca_input_triage_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_input_triage_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_mainline_fusion_v1",
+      "target": "development/aca_mainline_fusion_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_mainline_fusion_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_net_v1",
+      "target": "development/aca_net_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_resolution_v1",
+      "target": "development/aca_resolution_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_resolution_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_review_v1",
+      "target": "development/aca_review_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_review_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_test_v1",
+      "target": "development/aca_test_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_test_v1"
+    },
+    {
+      "entry": "workspace/04_history/aca/aca_validation_v1",
+      "target": "development/aca_validation_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_validation_v1"
+    },
+    {
+      "entry": "workspace/05_shared_resources/data_pipeline",
+      "target": "development/data_pipeline",
+      "status": "shared_code_or_reference_not_blanket_activation",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/data_pipeline"
+    },
+    {
+      "entry": "workspace/05_shared_resources/data_quality",
+      "target": "development/data_quality",
+      "status": "shared_code_or_reference_not_blanket_activation",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/data_quality"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/i3d_gate",
+      "target": "development/i3d_gate",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/i3d_gate"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/linear_baseline_v1",
+      "target": "development/linear_baseline_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/linear_baseline_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/mixnet_i3d",
+      "target": "development/mixnet_i3d",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/mixnet_i3d"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/mlp_baseline_v1",
+      "target": "development/mlp_baseline_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/mlp_baseline_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/partial_finetune_v1",
+      "target": "development/partial_finetune_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/partial_finetune_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/temporal_balanced_v1",
+      "target": "development/temporal_balanced_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/temporal_balanced_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/temporal_baseline_v1",
+      "target": "development/temporal_baseline_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/temporal_baseline_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/temporal_quality_v1",
+      "target": "development/temporal_quality_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/temporal_quality_v1"
+    },
+    {
+      "entry": "workspace/04_history/baselines_and_other/yolo_audit_v1",
+      "target": "development/yolo_audit_v1",
+      "status": "historical_or_paused_do_not_auto_resume",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/yolo_audit_v1"
+    },
+    {
+      "entry": "workspace/04_history/frozen_mainline/baseline",
+      "target": "baseline",
+      "status": "historical_frozen",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/baseline"
+    },
+    {
+      "entry": "workspace/04_history/frozen_mainline/reference_c3d",
+      "target": "reference_c3d",
+      "status": "historical_frozen",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/reference_c3d"
+    },
+    {
+      "entry": "workspace/04_history/frozen_mainline/experiment_c",
+      "target": "experiment_c",
+      "status": "historical_frozen",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/experiment_c"
+    },
+    {
+      "entry": "workspace/04_history/frozen_mainline/runs",
+      "target": "runs",
+      "status": "historical_frozen",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/runs"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_l_seed20261024_v2",
+      "target": "/home/tsai/projects/basketball/development/tanet_l_seed20261024_v2",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_l_seed20261024_v2"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_l_seed20261026_v2",
+      "target": "/home/tsai/projects/basketball/development/tanet_l_seed20261026_v2",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_l_seed20261026_v2"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_l_v2",
+      "target": "/home/tsai/projects/basketball/development/tanet_l_v2",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_l_v2"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_seed20261024_v1",
+      "target": "/home/tsai/projects/basketball/development/tanet_seed20261024_v1",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_seed20261024_v1"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_seed20261026_v1",
+      "target": "/home/tsai/projects/basketball/development/tanet_seed20261026_v1",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_seed20261026_v1"
+    },
+    {
+      "entry": "workspace/04_history/tanet/tanet_v1",
+      "target": "/home/tsai/projects/basketball/development/tanet_v1",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/tanet_v1"
+    },
+    {
+      "entry": "workspace/04_history/tanet/temporal_selection_v1",
+      "target": "/home/tsai/projects/basketball/development/temporal_selection_v1",
+      "status": "historical_other_worktree_local_only",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/projects/basketball/development/temporal_selection_v1"
+    },
+    {
+      "entry": "workspace/05_shared_resources/data_metadata",
+      "target": "data/processed",
+      "status": "shared_metadata_not_permission_to_open_test",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/data/processed"
+    },
+    {
+      "entry": "workspace/05_shared_resources/research_reports",
+      "target": "docs/research",
+      "status": "reports_read_dates_and_status",
+      "kind": "navigation_symlink",
+      "resolved_physical_target": "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research"
+    }
+  ],
+  "physical_storage_root": "/home/tsai/projects/basketball/outputs"
+}

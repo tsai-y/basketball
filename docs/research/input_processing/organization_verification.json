@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "date": "2026-11-16",
+  "baseline_frozen_files_unchanged": 64,
+  "historical_protected_files_unchanged": 51,
+  "navigation_links_verified": 51,
+  "development_modules_classified": 27,
+  "root_alias": "/home/tsai/projects/basketball/研究工作台",
+  "physical_old_paths_relocated": 0,
+  "raw_videos_copied": 0,
+  "weights_modified": 0,
+  "event_pages_hash_verified": 38,
+  "input_contract_changed": false,
+  "training_started": false,
+  "commit_or_push": false,
+  "previous_phase": "navigation-only verification; superseded for physical relocation by outputs/00_admin/migration_manifest.json",
+  "current_physical_migration": {
+    "root": "/home/tsai/projects/basketball/outputs",
+    "moved_directories": 37,
+    "verified_regular_files": 48163,
+    "existing_tests_passed": 7
+  }
+}
