@@ -63,3 +63,12 @@ development/tanet_l_seed20261026_v2/artifacts/
 # Local detector previews and machine-specific campaign pointers
 runs/detect/
 development/tanet_l_v2/CURRENT_*.json
+
+# Local research outputs, physically separated from source code
+/outputs/
+
+# Local artifact directory compatibility links (no trailing slash)
+/development/*/artifacts
+
+# Local-only navigation to another worktree
+/研究工作台

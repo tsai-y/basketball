@@ -1,0 +1,17 @@
+{
+  "schema": "basketball_artifact_storage_migration_v1",
+  "date": "2026-11-16",
+  "status": "completed",
+  "regular_files": 48163,
+  "logical_bytes": 52625115915,
+  "internal_symlinks": 11,
+  "raw_dataset_moved": false,
+  "source_modules_moved": false,
+  "compatibility_policy": "old source path becomes relative directory symlink to new physical destination",
+  "verified_files_same_inode_size_mtime": 48163,
+  "compatibility_links_verified": 37,
+  "internal_links_repaired": 0,
+  "frozen_baseline_sha_verified": 64,
+  "historical_sha_verified": 51,
+  "existing_tests_passed": 7
+}
