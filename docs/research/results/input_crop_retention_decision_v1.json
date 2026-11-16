@@ -1,0 +1,408 @@
+{
+  "schema": "fixed16_crop_retention_decision_v1",
+  "completed_at_taiwan": "2026-11-16T15:06:33.407665+08:00",
+  "status": "completed_decision_do_not_adopt_fixed5percent_crop",
+  "formal_default_adopted": false,
+  "active_input_unchanged": "native_uniform50_whole_clip_eight_class_v1",
+  "decision_scope": "The tested fixed5percent spatial/temporal rule family only; not a rejection of all event-aware cropping or proof of best accuracy.",
+  "candidates": [
+    {
+      "name": "space",
+      "decision": "do_not_adopt_as_formal_default",
+      "reason": "Limited fixed magnification; known nuisance content remains and full necessary-cue safety not established near borders."
+    },
+    {
+      "name": "time",
+      "decision": "do_not_adopt_as_formal_default",
+      "reason": "Omission of early visible shot context; known graphics/closeups remain; no per-event boundary guarantee."
+    },
+    {
+      "name": "both",
+      "decision": "do_not_adopt_as_formal_default",
+      "reason": "Combines both unresolved limitations without lowering model input size."
+    }
+  ],
+  "technical": {
+    "unique_train_sources": 16,
+    "source_decodes": 16,
+    "candidate_variants_per_source": 4,
+    "total_generated_tensors": 64,
+    "valid_tensor_count": 64,
+    "baseline_parity_passed": 16,
+    "shape": [
+      3,
+      50,
+      120,
+      160
+    ],
+    "dtype": "float32",
+    "source_hash_parity_passed": 16,
+    "geometry_checks_passed": 3,
+    "original_manifest_or_labels_modified": false,
+    "validation_videos_opened": 0,
+    "test_videos_opened": 0,
+    "models_loaded": 0,
+    "model_forwards": 0,
+    "optimizer_updates": 0,
+    "CUDA_context_initialized": false
+  },
+  "geometry": {
+    "spatial_crop_xyxy": [
+      16,
+      12,
+      304,
+      228
+    ],
+    "native_shape": [
+      240,
+      320
+    ],
+    "retained_spatial_area_fraction": 0.81,
+    "linear_object_magnification": 1.1111111111111112,
+    "temporal_trim_frames_each_edge": {
+      "7": 14,
+      "9": 2
+    },
+    "model_input_elements_per_variant": 2880000,
+    "model_input_volume_ratio_to_base": 1.0,
+    "measured_training_speedup": null,
+    "note": "Same architecture and50RGB120x160 tensor volume. No wall-clock training benchmark or claim that all pipeline costs are identical."
+  },
+  "visual_review": {
+    "schema": "fixed16_crop_retention_visual_observations_v1",
+    "reviewed_at_taiwan": "2026-11-16T15:06:33.407665+08:00",
+    "reviewer": "assistant_visual_review_not_blind",
+    "cases": [
+      {
+        "index": 0,
+        "video_id": "2p0/2p0_v182_002546_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "球場、籃框及比分條在四路關鍵影格中仍可見；畫面只略為放大，沒有建立逐幀球路安全性證據。",
+        "evidence_viewed": [
+          {
+            "file": "00/comparison.png",
+            "sha256": "3b95be5ba3e3d9a03f102107e9f284342a2cbef42a5d808a6e94090521f69c9e"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 1,
+        "video_id": "2p0/2p0_v128_002757_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "側邊籃框與半場線索仍可見；未在九個關鍵slot確認新的主要線索損失，也不能以此保證其餘影格。",
+        "evidence_viewed": [
+          {
+            "file": "01/comparison.png",
+            "sha256": "9bb16b8792b77b241a5402da15e19c5b8c3e39c3ffb6368c2db4fd443b08ea61"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 2,
+        "video_id": "2p1/2p1_v122_004030_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "球場與籃框脈絡保留；片末曝光變化仍在空間版本中，時間版本改變末端影格，但未證實是穩定改善。",
+        "evidence_viewed": [
+          {
+            "file": "02/comparison.png",
+            "sha256": "4fcaebfe1b1964d6aaf24d9f0bcedae3cb9a08ee6c62c6b76254dd72f79d95bf"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 3,
+        "video_id": "2p1/2p1_v163_000521_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "相機跟隨進攻，片末特寫在時間版本仍存在；固定去尾未能去除全部轉播切鏡。",
+        "evidence_viewed": [
+          {
+            "file": "03/comparison.png",
+            "sha256": "9171af338c169c176c565294ad6792ea844047ced924c34ef1ba91f25e69de00"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 4,
+        "video_id": "3p0/3p0_v115_000742_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "場地與籃框脈絡仍可見，觀眾及比分仍存在；沒有為此片單獨調整裁切。",
+        "evidence_viewed": [
+          {
+            "file": "04/comparison.png",
+            "sha256": "a8bb6ab5171976340d4eae15df34977a74cb5c1c6242ee69296b18f85eb8ac9d"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 5,
+        "video_id": "3p0/3p0_v156_004034_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "籃框位於畫面右側，裁切後仍有大量背景與比分；未確認同一規則能完整保留每幀球路。",
+        "evidence_viewed": [
+          {
+            "file": "05/comparison.png",
+            "sha256": "78ab8226800c040d9c856990a709e3abf1e5c1bfa96253eb635da2feff38dabf"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 6,
+        "video_id": "3p1/3p1_v150_004107_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "籃框及投籃事件脈絡可見；空間版本只略為放大，未新增球或籃框偵測。",
+        "evidence_viewed": [
+          {
+            "file": "06/comparison.png",
+            "sha256": "704ee1a97eb883c9f165754264431914cf259006dcaf3c9b8a9058435df0d343"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 7,
+        "video_id": "3p1/3p1_v158_003926_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "籃框位置隨相機移動而改變；場地、觀眾、比分及轉播文字多數仍在。",
+        "evidence_viewed": [
+          {
+            "file": "07/comparison.png",
+            "sha256": "b7f3af7c888054310156b3151dbbe763dc7356023c9172eda46f022d21304080"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 8,
+        "video_id": "ft0/ft0_v161_013702_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "俯視鏡頭的籃板上緣貼近原圖上邊，固定去上緣會進一步減少籃板脈絡；未據此宣稱籃圈整個消失或投籃結果不可判讀。",
+        "evidence_viewed": [
+          {
+            "file": "08/comparison.png",
+            "sha256": "95cfbea11c02562fdb292cc90866f2a8b51e32cacc3c3ac4ab9787709c81f892"
+          },
+          {
+            "file": "08/crop_overlay.png",
+            "sha256": "0288e6d2fd5fce2dac4d888b558903f4e6c712378bf8fd9c94834d62bea3e37d"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 9,
+        "video_id": "ft0/ft0_v120_003741_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "time版本slot0至16（來源f7至f49）仍是完整統計卡；slot17為轉場。base的slot0至16也已確認為完整統計卡，未把後續轉場硬算成純統計卡。四路開頭均保留統計卡。",
+        "evidence_viewed": [
+          {
+            "file": "09/comparison.png",
+            "sha256": "ecc6fb15a174d35ffae68a151d88eb5336c69ccbe5d4268f8284e9fba17265e1"
+          },
+          {
+            "file": "09/base.png",
+            "sha256": "1569add2b9173bd3897416ded68f8a987b9d96a247a3740f567122c84fa42207"
+          },
+          {
+            "file": "09/time.png",
+            "sha256": "1f688a252b990ebec6d8540c8c512e83e5f8c3568d703b6c1d886b3edbe92f6d"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 10,
+        "video_id": "ft1/ft1_v167_001943_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "both版本完整50幀仍含人物特寫、中央前景頭部遮擋及片末板凳席；固定裁切沒有消除這些來源內容。",
+        "evidence_viewed": [
+          {
+            "file": "10/comparison.png",
+            "sha256": "789f9c46b79c7f6f7d034cfb7bd645171e3aefdf678f8a57b80cc9e169277843"
+          },
+          {
+            "file": "10/both.png",
+            "sha256": "8b27a0b2ca6425d5acded700683fcf7fcf905c27831c710d5ca9d87bbb745007"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 11,
+        "video_id": "ft1/ft1_v131_013526_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "鏡頭向籃框與上方移動，籃板靠近上緣，固定裁切的必要脈絡安全性未充分證實；沒有宣稱所有籃圈或球都被裁掉。",
+        "evidence_viewed": [
+          {
+            "file": "11/comparison.png",
+            "sha256": "d8f71a739dfd5f7599d45718fd7985bf647cff7c11106d7158e1521f9ed95d5a"
+          },
+          {
+            "file": "11/crop_overlay.png",
+            "sha256": "39c7a9afa4b1a8e2e3c355ab60e4c926a0e13172884b3bb2611c9608d8411ed5"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 12,
+        "video_id": "mp0/mp0_v118_005139_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "事件脈絡仍可見，右側球員／必要位置線索接近邊緣；未確認此片有新增主要損失，也未判為全幀安全。",
+        "evidence_viewed": [
+          {
+            "file": "12/comparison.png",
+            "sha256": "30b5c3c60558c085526f17063583d95936f71cc1ad768f29cedd0beaa24e05b0"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 13,
+        "video_id": "mp0/mp0_v174_001911_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "原圖籃板部分靠近頂端，空間裁切減少頂緣脈絡；沒有獨立判斷八類標籤或準確率。",
+        "evidence_viewed": [
+          {
+            "file": "13/comparison.png",
+            "sha256": "86d78af092226aa4daef4d5f452810d8a3e1a8e4497884f71005f29d973c9911"
+          },
+          {
+            "file": "13/crop_overlay.png",
+            "sha256": "56503661f8d3b2b7d3f018acef6b24166509a1d97ad1e7a65e8e09f95886d25e"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 14,
+        "video_id": "mp1/mp1_v124_002714_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "原片前15幀可見開頭投籃動作／籃框附近球路脈絡；time從f7開始，確定移除baseline會採用的f0、f2、f5。這證明去頭並非只刪空白，未聲稱已精確標註出手或進球時刻。",
+        "evidence_viewed": [
+          {
+            "file": "14/comparison.png",
+            "sha256": "3d9439b5dc0216563b5b88e6838e6ff8a7a3b49f630274aaa47d7586a7c788de"
+          },
+          {
+            "file": "14/base.png",
+            "sha256": "41c2f42d5205fd1360a4b28c32af65a222bd105bbb06808ecd6470c2c63f2a23"
+          },
+          {
+            "file": "14/time.png",
+            "sha256": "78fb62e2a3808e247020c1f28ba90953bcca535178fe5531de986733ffc056d5"
+          },
+          {
+            "file": "14/head_native.png",
+            "sha256": "40bcb8863a997b984f15ed00e09758d88af29f511bbf8060f2643ca2f88eccbe"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      },
+      {
+        "index": 15,
+        "video_id": "mp1/mp1_v147_004244_x264.mp4",
+        "split": "train",
+        "scope": "Nine paired slots0,8,16,21,24,27,33,41,49 in all four variants; only listed extras additionally inspected.",
+        "observation": "左側籃框與片末人物特寫仍存在；時間裁切後末張仍為特寫，未形成可靠去特寫規則。",
+        "evidence_viewed": [
+          {
+            "file": "15/comparison.png",
+            "sha256": "9fb2ac56b5d69e74eaff7d47047155ad4ea8c65b4f97b5e68e17866472c9326c"
+          }
+        ],
+        "label_truth_verified": false,
+        "complete_frame_by_frame_safety_verified": false
+      }
+    ],
+    "limits": "Source labels and previous fixed16 views were already known. No continuous video playback, independent human adjudication, exact event-boundary annotation or model-score comparison.",
+    "known_graphics_case": {
+      "index": 9,
+      "variant": "time",
+      "confirmed_graphics_only_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "transition_slot": 17,
+      "count_is_per_this_one_clip_not_dataset_prevalence": true
+    },
+    "temporal_counterexample": {
+      "index": 14,
+      "baseline_sample_indices_omitted": [
+        0,
+        2,
+        5
+      ],
+      "candidate_start": 7,
+      "event_claim": "Early visible shooting-related context is omitted; exact target release/outcome time not adjudicated."
+    }
+  },
+  "provenance": {
+    "probe_source_sha256": "ca6785e2f71ecb5c288d237ff16239e2eef9d41cdb1d60195015e955b74f52c9",
+    "probe_checks_sha256": "54fa510cfd554b1a563dd170bdf748a9639d1af7476c6e66f07c0c77e8bc3a5d",
+    "reviewed_records_sha256": "a9e0cd348e94e3a9548ef319f64ca2c6d0c5f5f01c81c08968920985af554cd0",
+    "plan_sha256": "c1f4bec5f81dbad60df894a39a5f425a3a6fda1cadf7ccea6d4d1b25277b1b63",
+    "baseline_release_sha256": "2499a731d665e100bc26f3734b146cf2f16bdd07a4a36cede89fa120b7a25783",
+    "frozen_baseline_files_verified": 64,
+    "historical_protected_files_verified": 51
+  },
+  "artifact_directory": "development/aca_eight_class_data_v1/artifacts/crop_retention_fixed16_20261116_v1",
+  "limitations": [
+    "Exploratory fixed16 train sample, previously seen; cannot estimate dataset prevalence or generalization.",
+    "All64 candidate tensors generated, but only the explicitly listed image sheets were visually inspected.",
+    "Not a calibrated object-visibility metric or exact event/target-attempt annotation.",
+    "No accuracy, class recall, validation or test score was measured; no claim that cropping lowers accuracy.",
+    "Augmentation and automatic detection/segmentation were not part of this bounded probe.",
+    "Frozen baseline, model weights, training configuration and paused automation remain unchanged."
+  ]
+}
