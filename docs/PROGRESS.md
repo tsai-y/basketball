@@ -1,6 +1,6 @@
 # Basketball-51 投籃進球二元分類：目前進度與研究路線總覽
 
-> 最後更新：2026-11-24
+> 最後更新：2026-11-25
 > 對應活躍分支：`research/video-action-baseline`（舊 `origin/codex/*` 實驗分支已全數打上 `archive/codex/*` tag 封存，GitHub 僅維持 `main` 與單一活躍研究分支）
 
 ## 1. 任務定義與評估原則
@@ -30,26 +30,26 @@
 
 ---
 
-## 3. 已完成盤點：Stage B（`swin3d_t` 影片預訓練骨幹可行性）
+## 3. Stage B 進展：含動態位置索引修正的 Swin3D-T（已完成全關工程驗收，準備啟動正式訓練）
 
-為確認換用影片預訓練骨幹（新系統比較，而非 ACA 模組消融）是否可行，已完成有上限的唯讀盤點（未下載權重、未跑 GPU、未修改程式碼）：
+為進行影片預訓練骨幹的**系統比較**（同時改變架構、Kinetics-400 預訓練來源、LayerNorm／StochasticDepth，非純骨幹消融），已完成全部四道隔離工程驗收（未修改已安裝 `torchvision`、未動用受保護基準檔）：
 
-- **本機相容性（`torch 2.11.0+cu128`, `torchvision 0.26.0+cu128`）**：
-  - `swin3d_t(weights=None)` 改為 2 類分類頭（`27,852,008` 參數；29 層 `LayerNorm`、0 層 `BatchNorm`、12 層 `StochasticDepth(0 → 0.1)`），CPU 推論 `[1, 3, 50, 120, 160]` 與訓練反向 `[2, 3, 8, 64, 64]` 皆可通過且梯度有限。
-- **盤點發現的兩項關鍵缺口／風險**：
-  1. **本機權重缺口**：官方 `Swin3D_T_Weights.KINETICS400_V1`（`swin3d_t-7615ae03.pth`，約 121.5 MB）目前不在本機快取，尚未下載。
-  2. **輸入規格與 Stage 3 位置偏置差異**：官方權重於 `32 幀、224×224` 評估；若直接輸入現有 `50 幀、120×160`，Stage 3 特徵圖縮至 `[1, 25, 4, 5, 768]`（`H=4, W=5 < window 7`），上游 `torchvision` 實作會直接對 `(8, 7, 7)` 展平的 `relative_position_index[:160, :160]` 切片，造成最後 2 個 block 的相對位置索引步長不對齊。
-- **備註**：`LayerNorm` 雖消除了 BN 的 batch 統計相依，但不保證 `microbatch=1 + grad_accum=16` 與實體 `batch=16` 逐值等價（仍受 loss 縮放、梯度裁剪時點、浮點加總順序與 `StochasticDepth` 隨機性影響）。
+1. **隔離套件與 `weights=None` CPU 驗收（`PASS_CPU_ONLY`）**：
+   - 於 `development/swin3d_t_binary50_v1/` 實作 `DynamicPosShiftedWindowAttention3d`，保留原 `relative_position_bias_table`（`[2535, num_heads]`）、原 `relative_position_index` buffer（`[392, 392]`）與所有參數／buffer 名稱，於空間視窗縮小時以實際 `(t, h, w)` 座標選取對應行列（修正 `(8, 4, 5)` 下原版截取 `24,980 / 25,600` 錯位；完整 `(8, 7, 7)` 視窗輸出與 173 組梯度與原版逐值一致）。
+2. **官方預訓練權重下載與 CPU 載入驗收（`PASS_PRETRAINED_LOAD_CPU_ONLY`）**：
+   - 單次下載官方 `Swin3D_T_Weights.KINETICS400_V1` 至本地 `.gitignore` 路徑，鎖定完整 SHA-256 `7615ae035996b65eb38dad437ae533d2dfcd36f9f89d28c0f0fa7bfb8e6b3130`；驗證 400 類 `strict=True` 載入、以獨立 `head_seed` 替換 `Linear(768, 2)` 並確認全部 183 個非分類頭張量與下載檔逐值一致。
+3. **正式入口整合與 CPU／GPU 接線驗收（`PREPARED_NOT_STARTED` → 核准啟動）**：
+   - 於 `development/swin3d_t_binary50_formal_v1/` 整合與 `ACA temporal50`（`seed=20261024`）1:1 對齊之正式訓練契約（`plan_sha256: 6bd908ced780140ebf88fae132a566f338eb2b04e6ce76b5a9c44d5d6ff2787c`）：train seed `20261024`、head seed `20264024`、endpoint-stratified 50 幀時間採樣、關閉空間／色彩增強、固定均勻 50 幀 validation（1,547 支）、Adam 固定 LR `1e-4`、`weight_decay=0`、梯度裁切 `1.0`、嚴格 FP32、`microbatch=1` / `effective=16` / 尾批 `8`、最多 30 輪、`patience=5`、最低完整二類 validation CE（同分保留較早輪）。
+   - 正式迴圈實測單模型峰值顯存 **`3.3891 GiB` allocated / `4.3555 GiB` reserved**，並驗證輪中 `cursor=16`（`best_model` 非空）恢復與未改善時保留先前 `best_model` 分支皆 6 / 6 逐值一致。
 
 ---
 
 ## 4. 目前決策與下一步計畫
 
-1. **優先（Stage B — `swin3d_t` 新系統比較）**：
-   - 依唯讀盤點結果拍板唯一輸入／正規化／分類頭契約（決定 `120×160` 直接輸入或補齊/縮放至 `224×224`，並核准下載本機權重）。
-   - 完成有上限的 CPU 驗收與顯存／續訓 GPU readiness 後，再決定是否啟動正式訓練；暫不納入 `LSTA/TSCI` 或並行展開 `mvit_v2_s`。
+1. **進行中（Stage B — `swin3d_t_binary50_seed20261024_labelrev1_v1` 正式單 seed 訓練）**：
+   - 執行唯一一組 `seed20261024` 正式比較（對照 `ACA temporal50`），依 1,547 支 validation 結果決定後續方向；不並行追加其他模型或 LR 搜尋分支。
 2. **備案（Stage A2 — ACA `CosineAnnealingLR`）**：
-   - 僅在 Stage B 不可行時啟動：固定其餘超參數與資料設定，只更動 LR schedule，並補齊 scheduler checkpoint 與續訓一致性驗證。
+   - 僅在 Stage B 結果不理想時啟動：固定其餘超參數與資料設定，只更動 LR schedule，並補齊 scheduler checkpoint 與續訓一致性驗證。
 3. **已關閉路線（不再投入）**：
    - 純 `MixNet-I3D` 50 幀二元分類；固定降 LR `5e-5`；重現論文未公開 8 類高分設定。
 
@@ -61,5 +61,6 @@
 - `development/aca_binary_v1/`、`development/aca_temporal_v1/`、`development/aca_temporal_pair_v1/`：ACA 二元基準與時間增強（`seed20261024` / `seed20261025`）。
 - `development/mixnet_binary50_v1/`、`development/mixnet_binary50_formal_v1/`：MixNet-I3D 50 幀二元封裝與正式訓練腳本（已結案）。
 - `development/aca_spatial_v1/`、`development/aca_spatial_pair_v1/`：ACA 空間增強（`clip_flip_color_light_v2`）與雙 seed 正式訓練／readiness 腳本。
+- `development/swin3d_t_binary50_v1/`、`development/swin3d_t_binary50_formal_v1/`：含動態位置索引修正的 Swin3D-T 隔離套件、預訓練載入驗收與 `seed20261024` 正式訓練入口。
 - `docs/research/`：各階段工程規格、研究筆記與歷史審計紀錄。
 - `outputs/` 與 `development/*/artifacts/`：訓練產物、checkpoint 與預訓練權重（皆由 `.gitignore` 排除，不上傳 GitHub）。
