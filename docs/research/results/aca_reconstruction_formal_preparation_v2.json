@@ -1,0 +1,81 @@
+{
+  "schema": "aca_reconstruction_v2_formal_preparation_qa_v1",
+  "date_taiwan": "2026-11-18",
+  "status": "prepared_verified_not_started",
+  "cpu_tests": {
+    "status": "passed",
+    "tests": 6,
+    "elapsed_seconds": 0.36036350400001993,
+    "cuda_initialized": false,
+    "real_video_decodes": 0,
+    "formal_training_started": false
+  },
+  "baseline_reuse": "accepted_exact_common_plan_equality_and_complete_history_selection",
+  "baseline_plan_sha256": "7934894ec6d8252b1b03ebd918ee2cc973e92676af3a66c7e0a8f4f7fca39318",
+  "prepared_plans": [
+    {
+      "arm": "lsta",
+      "plan_path": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_lsta_plan_seed20261024_v1/plan.json",
+      "plan_sha256": "076399e5668f6df57124e84de9027a2f8c8cbf7ad8a044c9f4e060530bad2e12",
+      "planned_run": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_lsta_seed20261024_v1",
+      "verified": true
+    },
+    {
+      "arm": "tsci",
+      "plan_path": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_tsci_plan_seed20261024_v1/plan.json",
+      "plan_sha256": "210a7ab1d1c05794b2fdd32c76f824735afe268f5f816e94ff308d9c97049424",
+      "planned_run": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_tsci_seed20261024_v1",
+      "verified": true
+    },
+    {
+      "arm": "aca",
+      "plan_path": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_aca_plan_seed20261024_v1/plan.json",
+      "plan_sha256": "94d447a702270b2be9aabac9813164bb45d8ff2d899d26e5130fafe1d8c23913",
+      "planned_run": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_aca_seed20261024_v1",
+      "verified": true
+    }
+  ],
+  "source_sha256": {
+    "data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "development/aca_dw3d_v1/model.py": "283fd7cfdeceb4e524d4d58602681fb79f16bd99d374b4b5352a5b2df234ab3b",
+    "development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "development/aca_eight_class_data_v1/formal_train.py": "7499014b5dde99cf5b271cfec3d86cba57818be8f20b0ca203fb2aaa7fee715e",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8",
+    "development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "development/aca_eight_class_data_v1/training_runtime.py": "19e21966e5e01d80faa1f0c2fd6edab3e63174e4e80b294cf1958a1f26fb053e",
+    "development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e",
+    "development/aca_four_arm_campaign_v1/queue.py": "fd497dfcbc8281d63846ab179d089a6284f7c85b39acd4a803dca9e6a55199c8",
+    "development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "development/aca_reconstruction_v2/__init__.py": "024f074f49d39a3299fda417acb03a4557d849bef2d2531eb437d54231add9be",
+    "development/aca_reconstruction_v2/engine.py": "224516542e15694288ee78a4d092398a88096f9cc303f1872b56036780f4cbe4",
+    "development/aca_reconstruction_v2/formal_train.py": "be951f65f9a03a204e84cff6ebd4d525cdf37ef5734bae6d8a313110507d5fcf",
+    "development/aca_reconstruction_v2/gpu_readiness.py": "22f6c8db2cdcf16dff0f3c2d9ea2119a0891398883ee661cbd170a2f1b2e955b",
+    "development/aca_reconstruction_v2/model.py": "a034d089295c1b7f65a108fd9dff4f226c8ed09e088a23ed142d7c046200eeb1",
+    "development/aca_reconstruction_v2/test_engineering.py": "6575f9a6579a3bf662cbc67c32047c1aad1c97266ddf7beb47da48ee7de2a788",
+    "development/aca_reconstruction_v2/test_formal.py": "5476b4d7c7db6e53e4fb9b35bf40c004582432dd7b2147c6fa81c949ff781f31",
+    "development/aca_reconstruction_v2/training_runtime.py": "8b71e224994b852d030865ed822acbba5c815f0c1806f073093b2a6198747e0a",
+    "development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "docs/research/specs/aca_reconstruction_proposal_v2.json": "a4066366c987b4dda66a90debb6496983fa839ed8aad1e3f2bc60d19c0f302e0",
+    "docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+    "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998"
+  },
+  "formal_training_started": false,
+  "real_video_decodes_this_step": 0,
+  "automatic_queue": false,
+  "test_enabled": false,
+  "limits": [
+    "Real CUDA evidence covers ACA only; formal adapter CPU identity tests plus unchanged GPU-tested numerical loop.",
+    "No claim of author-exact reproduction or new accuracy evidence."
+  ]
+}

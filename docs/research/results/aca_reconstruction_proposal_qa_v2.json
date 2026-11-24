@@ -1,0 +1,121 @@
+{
+  "schema": "aca_reconstruction_proposal_qa_v2",
+  "date_taiwan": "2026-11-18",
+  "proposal_status": "pending_review",
+  "route_authorized": true,
+  "architecture_approved": false,
+  "new_models_instantiated": 0,
+  "new_optimizer_updates": 0,
+  "training_launched": false,
+  "test_run": false,
+  "protected_files_unchanged": true,
+  "protected_files_sha256": {
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/formal_train.py": "7499014b5dde99cf5b271cfec3d86cba57818be8f20b0ca203fb2aaa7fee715e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/training_runtime.py": "19e21966e5e01d80faa1f0c2fd6edab3e63174e4e80b294cf1958a1f26fb053e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/queue.py": "fd497dfcbc8281d63846ab179d089a6284f7c85b39acd4a803dca9e6a55199c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_dw3d_v1/model.py": "283fd7cfdeceb4e524d4d58602681fb79f16bd99d374b4b5352a5b2df234ab3b",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/plan.json": "27ff397dc78107ce3fdd50791a1de82755d2de7cec00e906f83be3b43bfdef18",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/summary.json": "fa8a26a7c5b4fc35ddd2b20b00e00b54e24b3d876ad83b8b63508dbb02f810fb",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/history.json": "a56e0b34c26fd5e0802744e77c962fd713de6ac5518179ecfa190e2e9df2bf39",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/run.json": "940faf5aef09afa3c75f9717281fb5c0fa8e55ccac78ada287dbd28ad255e70f"
+  },
+  "parameter_arithmetic": {
+    "stages": [
+      {
+        "stage": 1,
+        "blocks": 3,
+        "channels": 64,
+        "short_hidden": 4,
+        "gate_per_block": 7552,
+        "short_per_block": 1604,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 30321
+      },
+      {
+        "stage": 2,
+        "blocks": 4,
+        "channels": 128,
+        "short_hidden": 8,
+        "gate_per_block": 23296,
+        "short_per_block": 6280,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 122108
+      },
+      {
+        "stage": 3,
+        "blocks": 6,
+        "channels": 256,
+        "short_hidden": 16,
+        "gate_per_block": 79360,
+        "short_per_block": 24848,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 630954
+      },
+      {
+        "stage": 4,
+        "blocks": 3,
+        "channels": 512,
+        "short_hidden": 32,
+        "gate_per_block": 289792,
+        "short_per_block": 98848,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 1168773
+      }
+    ],
+    "gate": 1461376,
+    "short": 475564,
+    "dynamic": 10416,
+    "tsci": 4800,
+    "total": {
+      "baseline": 23524424,
+      "lsta": 25471780,
+      "tsci": 23529224,
+      "aca": 25476580
+    },
+    "frozen_affine": 53120,
+    "trainable": {
+      "baseline": 23471304,
+      "lsta": 25418660,
+      "tsci": 23476104,
+      "aca": 25423460
+    },
+    "model_instantiated": false,
+    "implementation_recount_required": true,
+    "paper_approximate_total": 26800000,
+    "difference_from_paper_approx": -1323420
+  },
+  "shared_protocol_exactly_copied_from_baseline": true,
+  "baseline_reuse": "conditional_not_yet_engineering_verified",
+  "local_links_checked": true,
+  "documents_sha256": {
+    "docs/research/ACA_RECONSTRUCTION_PROPOSAL.md": "1e842e17b1a13c7e42d68a25649871913ca440ae9f24052197ace08a9871d61e",
+    "docs/research/specs/aca_reconstruction_proposal_v2.json": "a4066366c987b4dda66a90debb6496983fa839ed8aad1e3f2bc60d19c0f302e0",
+    "docs/research/ACA_CURRENT_STATUS.md": "ea8d929dfcc2247117cc1853e48e70c3d11a9ca12dee98655030dfe06b38ca4e",
+    "docs/research/ACA_ARCHITECTURE_GAPS.md": "26c55d329fb797e593e29f0ebf264b3c3e3c8b8582490728e4ea3ae5044202b5",
+    "workspace/README.md": "b2b96a7cf92fddd559d21418128bab4e888e7f7246c6528a813b0004b654e8f5"
+  }
+}

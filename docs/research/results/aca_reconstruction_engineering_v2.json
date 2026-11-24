@@ -1,0 +1,1186 @@
+{
+  "schema": "aca_reconstruction_engineering_v2",
+  "date_taiwan": "2026-11-18",
+  "status": "cpu_and_bounded_aca_gpu_passed",
+  "user_authorization": "Continue next step after sole architecture/protocol proposal; finite engineering only; user explicitly said 接續 after arranging kernel closure",
+  "architecture_route": "explicit_assumptions_reconstruction",
+  "proposal_sha256": "a4066366c987b4dda66a90debb6496983fa839ed8aad1e3f2bc60d19c0f302e0",
+  "proposal_immutable_snapshot_preserved": true,
+  "cpu_report": {
+    "status": "passed",
+    "tests": 8,
+    "seconds": 2.3362249480123864,
+    "cuda_initialized": false,
+    "real_video_decodes": 0,
+    "formal_training_started": false,
+    "evidence": {
+      "dynamic_reference_and_isolation": true,
+      "initialization": {
+        "shared_backbone_head_bitwise_equal": true,
+        "shared_modules_bitwise_equal": true,
+        "global_cpu_rng_unchanged_by_modules": true,
+        "baseline_logits_bitwise_equal": true,
+        "old_task_weights_loaded": false
+      },
+      "numerical_loop_ast_equal": true,
+      "new_bn_lifecycle_and_module_gradients": true,
+      "meta_shapes_parameters": {
+        "baseline": {
+          "total": 23524424,
+          "trainable": 23471304,
+          "positions": [
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ]
+          ],
+          "output_shape": [
+            1,
+            8
+          ]
+        },
+        "lsta": {
+          "total": 25471780,
+          "trainable": 25418660,
+          "positions": [
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ]
+          ],
+          "output_shape": [
+            1,
+            8
+          ]
+        },
+        "tsci": {
+          "total": 23529224,
+          "trainable": 23476104,
+          "positions": [
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ]
+          ],
+          "output_shape": [
+            1,
+            8
+          ]
+        },
+        "aca": {
+          "total": 25476580,
+          "trainable": 25423460,
+          "positions": [
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              64,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              30,
+              40
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              128,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              15,
+              20
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              256,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              8,
+              10
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ],
+            [
+              1,
+              512,
+              50,
+              4,
+              5
+            ]
+          ],
+          "output_shape": [
+            1,
+            8
+          ]
+        }
+      },
+      "synthetic_resume_train_and_validation_exact": true,
+      "formal_scope_rejected": true,
+      "tail8_independent_adam_exact": true
+    }
+  },
+  "gpu_policy_unchanged": true,
+  "automatic_retry": false,
+  "baseline_reuse": {
+    "initial_weights_and_head_equal": true,
+    "synthetic_logits_equal": true,
+    "numerical_loop_ast_equal": true,
+    "frozen_data_contract_preserved": true,
+    "runtime_matches_original_plan_before_resource_gate": true,
+    "remaining": "Formal launch compatibility decision and interface pending; ACA real-input CUDA engineering passed"
+  },
+  "source_sha256": {
+    "development/aca_reconstruction_v2/__init__.py": "024f074f49d39a3299fda417acb03a4557d849bef2d2531eb437d54231add9be",
+    "development/aca_reconstruction_v2/engine.py": "224516542e15694288ee78a4d092398a88096f9cc303f1872b56036780f4cbe4",
+    "development/aca_reconstruction_v2/gpu_readiness.py": "22f6c8db2cdcf16dff0f3c2d9ea2119a0891398883ee661cbd170a2f1b2e955b",
+    "development/aca_reconstruction_v2/model.py": "a034d089295c1b7f65a108fd9dff4f226c8ed09e088a23ed142d7c046200eeb1",
+    "development/aca_reconstruction_v2/test_engineering.py": "6575f9a6579a3bf662cbc67c32047c1aad1c97266ddf7beb47da48ee7de2a788"
+  },
+  "protected_source_hashes_verified": {
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/formal_train.py": "7499014b5dde99cf5b271cfec3d86cba57818be8f20b0ca203fb2aaa7fee715e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/training_runtime.py": "19e21966e5e01d80faa1f0c2fd6edab3e63174e4e80b294cf1958a1f26fb053e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/queue.py": "fd497dfcbc8281d63846ab179d089a6284f7c85b39acd4a803dca9e6a55199c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_dw3d_v1/model.py": "283fd7cfdeceb4e524d4d58602681fb79f16bd99d374b4b5352a5b2df234ab3b",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/plan.json": "27ff397dc78107ce3fdd50791a1de82755d2de7cec00e906f83be3b43bfdef18",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/summary.json": "fa8a26a7c5b4fc35ddd2b20b00e00b54e24b3d876ad83b8b63508dbb02f810fb",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/history.json": "a56e0b34c26fd5e0802744e77c962fd713de6ac5518179ecfa190e2e9df2bf39",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/run.json": "940faf5aef09afa3c75f9717281fb5c0fa8e55ccac78ada287dbd28ad255e70f"
+  },
+  "all_protected_files_unchanged": true,
+  "no_new_research_scores": true,
+  "next_action": "Freeze formal single-seed ablation launch plan and baseline reuse decision; prepare reviewable interface, do not launch automatically",
+  "gpu_attempt_history": [
+    {
+      "output_directory": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_engineering_20261118_v1/gpu",
+      "failure": {
+        "error": "RuntimeError(\"Other GPU compute processes active: [{'pid': 3722836, 'classification': '/home/tsai/miniconda3/envs/pytorch/bin/python3.13'}]; none were stopped\")",
+        "formal_training_started": false,
+        "elapsed_seconds": 0.5108674239891116
+      },
+      "resource_blocked_before_configure_or_video_decode": true,
+      "model_initialized_on_gpu": false,
+      "real_video_decodes": 0,
+      "real_optimizer_updates": 0,
+      "test_videos_opened": 0,
+      "formal_training_started": false
+    }
+  ],
+  "historical_blocking_process": {
+    "pid": 3722836,
+    "process_start_ticks": 8224841,
+    "boot_id": "663fe56d-7d9e-472f-8a8e-29f1fac680a7",
+    "executable": "/home/tsai/miniconda3/envs/pytorch/bin/python3.13",
+    "role": "Jupyter ipykernel",
+    "cwd": "/home/tsai/Downloads/Yolov11(1)/Yolov11",
+    "observed_gpu_MiB": 1206,
+    "stopped_or_modified": false
+  },
+  "gpu_attempt": {
+    "output_directory": "/home/tsai/projects/basketball/outputs/01_current/aca_reconstruction_v2_engineering_20261118_v1/gpu_attempt2",
+    "report_sha256": "bcd9175182bdd1484060184df253bdd89d268466ca07edfe557fbccc47dca841",
+    "report": {
+      "schema": "aca_reconstruction_v2_engineering_only",
+      "status": "passed",
+      "plan_sha256": "96dbb656f7b6ea33ede1158a0e2ffb0cb181bc4a0b7ab76dec7e81952edf4004",
+      "formal_training_started": false,
+      "formal_training_ready": false,
+      "test_videos_opened": 0,
+      "real_optimizer_updates_engineering_only": 4,
+      "gpu_rng_draw_roundtrip_equal": true,
+      "continuous_vs_resumed_equal": {
+        "schema": true,
+        "run_id": true,
+        "plan_sha256": true,
+        "plan": true,
+        "model": true,
+        "optimizer": true,
+        "rng": true,
+        "cuda_rng": true,
+        "state": true,
+        "best_model": true
+      },
+      "workers_equal_serial_tensor_sha": true,
+      "worker_rng_isolated": true,
+      "original_videos_unchanged": true,
+      "runs": {
+        "continuous": {
+          "status": "completed",
+          "stream": [
+            [
+              "train",
+              7,
+              "3p0/3p0_v108_000526_x264.mp4"
+            ],
+            [
+              "train",
+              17,
+              "ft1/ft1_v108_000709_x264.mp4"
+            ],
+            [
+              "train",
+              12,
+              "ft0/ft0_v108_002649_x264.mp4"
+            ],
+            [
+              "train",
+              10,
+              "3p1/3p1_v108_001153_x264.mp4"
+            ],
+            [
+              "train",
+              9,
+              "3p1/3p1_v108_001141_x264.mp4"
+            ],
+            [
+              "train",
+              5,
+              "2p1/2p1_v108_000635_x264.mp4"
+            ],
+            [
+              "train",
+              18,
+              "mp0/mp0_v108_000245_x264.mp4"
+            ],
+            [
+              "train",
+              13,
+              "ft0/ft0_v108_002706_x264.mp4"
+            ],
+            [
+              "train",
+              20,
+              "mp0/mp0_v108_001722_x264.mp4"
+            ],
+            [
+              "train",
+              21,
+              "mp1/mp1_v108_000416_x264.mp4"
+            ],
+            [
+              "train",
+              3,
+              "2p1/2p1_v108_000340_x264.mp4"
+            ],
+            [
+              "train",
+              1,
+              "2p0/2p0_v108_000447_x264.mp4"
+            ],
+            [
+              "train",
+              19,
+              "mp0/mp0_v108_001120_x264.mp4"
+            ],
+            [
+              "train",
+              22,
+              "mp1/mp1_v108_000429_x264.mp4"
+            ],
+            [
+              "train",
+              23,
+              "mp1/mp1_v108_000758_x264.mp4"
+            ],
+            [
+              "train",
+              6,
+              "3p0/3p0_v108_000322_x264.mp4"
+            ],
+            [
+              "train",
+              8,
+              "3p0/3p0_v108_000534_x264.mp4"
+            ],
+            [
+              "train",
+              4,
+              "2p1/2p1_v108_000546_x264.mp4"
+            ],
+            [
+              "train",
+              0,
+              "2p0/2p0_v108_000437_x264.mp4"
+            ],
+            [
+              "train",
+              16,
+              "ft1/ft1_v108_000653_x264.mp4"
+            ],
+            [
+              "train",
+              14,
+              "ft0/ft0_v108_003636_x264.mp4"
+            ],
+            [
+              "train",
+              2,
+              "2p0/2p0_v108_000627_x264.mp4"
+            ],
+            [
+              "train",
+              11,
+              "3p1/3p1_v108_001544_x264.mp4"
+            ],
+            [
+              "train",
+              15,
+              "ft1/ft1_v108_000302_x264.mp4"
+            ],
+            [
+              "validation",
+              0,
+              "2p0/2p0_v113_001708_x264.mp4"
+            ],
+            [
+              "validation",
+              1,
+              "2p1/2p1_v113_000305_x264.mp4"
+            ],
+            [
+              "validation",
+              2,
+              "3p0/3p0_v113_000248_x264.mp4"
+            ],
+            [
+              "validation",
+              3,
+              "3p1/3p1_v113_001646_x264.mp4"
+            ],
+            [
+              "validation",
+              4,
+              "ft0/ft0_v113_004037_x264.mp4"
+            ],
+            [
+              "validation",
+              5,
+              "ft1/ft1_v113_000500_x264.mp4"
+            ],
+            [
+              "validation",
+              6,
+              "mp0/mp0_v113_000315_x264.mp4"
+            ],
+            [
+              "validation",
+              7,
+              "mp1/mp1_v113_000228_x264.mp4"
+            ]
+          ],
+          "updates": 2,
+          "cursor": 0,
+          "history_epochs": 1,
+          "seconds": 11.808059205999598,
+          "peak_allocated_bytes": 3957236736,
+          "peak_reserved_bytes": 4227858432,
+          "frozen_backbone_bn_unchanged": true,
+          "backbone_and_head_updated": true,
+          "new_tsci_bn_train_counters": {
+            "layer1.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.width.bn.num_batches_tracked": 24
+          },
+          "validation_bn_buffers_unchanged": true
+        },
+        "interrupted": {
+          "status": "paused",
+          "stream": [
+            [
+              "train",
+              7,
+              "3p0/3p0_v108_000526_x264.mp4"
+            ],
+            [
+              "train",
+              17,
+              "ft1/ft1_v108_000709_x264.mp4"
+            ],
+            [
+              "train",
+              12,
+              "ft0/ft0_v108_002649_x264.mp4"
+            ],
+            [
+              "train",
+              10,
+              "3p1/3p1_v108_001153_x264.mp4"
+            ],
+            [
+              "train",
+              9,
+              "3p1/3p1_v108_001141_x264.mp4"
+            ],
+            [
+              "train",
+              5,
+              "2p1/2p1_v108_000635_x264.mp4"
+            ],
+            [
+              "train",
+              18,
+              "mp0/mp0_v108_000245_x264.mp4"
+            ],
+            [
+              "train",
+              13,
+              "ft0/ft0_v108_002706_x264.mp4"
+            ],
+            [
+              "train",
+              20,
+              "mp0/mp0_v108_001722_x264.mp4"
+            ],
+            [
+              "train",
+              21,
+              "mp1/mp1_v108_000416_x264.mp4"
+            ],
+            [
+              "train",
+              3,
+              "2p1/2p1_v108_000340_x264.mp4"
+            ],
+            [
+              "train",
+              1,
+              "2p0/2p0_v108_000447_x264.mp4"
+            ],
+            [
+              "train",
+              19,
+              "mp0/mp0_v108_001120_x264.mp4"
+            ],
+            [
+              "train",
+              22,
+              "mp1/mp1_v108_000429_x264.mp4"
+            ],
+            [
+              "train",
+              23,
+              "mp1/mp1_v108_000758_x264.mp4"
+            ],
+            [
+              "train",
+              6,
+              "3p0/3p0_v108_000322_x264.mp4"
+            ]
+          ],
+          "updates": 1,
+          "cursor": 16,
+          "history_epochs": 0,
+          "seconds": 5.886673210989102,
+          "peak_allocated_bytes": 3754187776,
+          "peak_reserved_bytes": 4011851776,
+          "frozen_backbone_bn_unchanged": true,
+          "backbone_and_head_updated": true,
+          "new_tsci_bn_train_counters": {
+            "layer1.0.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer1.0.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer1.0.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer1.1.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer1.1.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer1.1.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer1.2.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer1.2.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer1.2.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer2.0.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer2.0.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer2.0.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer2.1.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer2.1.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer2.1.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer2.2.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer2.2.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer2.2.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer2.3.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer2.3.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer2.3.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.0.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.0.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.0.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.1.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.1.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.1.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.2.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.2.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.2.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.3.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.3.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.3.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.4.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.4.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.4.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer3.5.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer3.5.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer3.5.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer4.0.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer4.0.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer4.0.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer4.1.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer4.1.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer4.1.aca.tsci.width.bn.num_batches_tracked": 16,
+            "layer4.2.aca.tsci.channel.bn.num_batches_tracked": 16,
+            "layer4.2.aca.tsci.height.bn.num_batches_tracked": 16,
+            "layer4.2.aca.tsci.width.bn.num_batches_tracked": 16
+          },
+          "validation_bn_buffers_unchanged": true
+        },
+        "resumed": {
+          "status": "completed",
+          "stream": [
+            [
+              "train",
+              8,
+              "3p0/3p0_v108_000534_x264.mp4"
+            ],
+            [
+              "train",
+              4,
+              "2p1/2p1_v108_000546_x264.mp4"
+            ],
+            [
+              "train",
+              0,
+              "2p0/2p0_v108_000437_x264.mp4"
+            ],
+            [
+              "train",
+              16,
+              "ft1/ft1_v108_000653_x264.mp4"
+            ],
+            [
+              "train",
+              14,
+              "ft0/ft0_v108_003636_x264.mp4"
+            ],
+            [
+              "train",
+              2,
+              "2p0/2p0_v108_000627_x264.mp4"
+            ],
+            [
+              "train",
+              11,
+              "3p1/3p1_v108_001544_x264.mp4"
+            ],
+            [
+              "train",
+              15,
+              "ft1/ft1_v108_000302_x264.mp4"
+            ],
+            [
+              "validation",
+              0,
+              "2p0/2p0_v113_001708_x264.mp4"
+            ],
+            [
+              "validation",
+              1,
+              "2p1/2p1_v113_000305_x264.mp4"
+            ],
+            [
+              "validation",
+              2,
+              "3p0/3p0_v113_000248_x264.mp4"
+            ],
+            [
+              "validation",
+              3,
+              "3p1/3p1_v113_001646_x264.mp4"
+            ],
+            [
+              "validation",
+              4,
+              "ft0/ft0_v113_004037_x264.mp4"
+            ],
+            [
+              "validation",
+              5,
+              "ft1/ft1_v113_000500_x264.mp4"
+            ],
+            [
+              "validation",
+              6,
+              "mp0/mp0_v113_000315_x264.mp4"
+            ],
+            [
+              "validation",
+              7,
+              "mp1/mp1_v113_000228_x264.mp4"
+            ]
+          ],
+          "updates": 2,
+          "cursor": 0,
+          "history_epochs": 1,
+          "seconds": 8.648645146997296,
+          "peak_allocated_bytes": 3965666304,
+          "peak_reserved_bytes": 4204789760,
+          "frozen_backbone_bn_unchanged": true,
+          "backbone_and_head_updated": true,
+          "new_tsci_bn_train_counters": {
+            "layer1.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer1.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer2.3.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.2.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.3.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.4.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer3.5.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.0.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.1.aca.tsci.width.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.channel.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.height.bn.num_batches_tracked": 24,
+            "layer4.2.aca.tsci.width.bn.num_batches_tracked": 24
+          },
+          "validation_bn_buffers_unchanged": true
+        }
+      },
+      "gradient_checks": [
+        {
+          "backbone": 1218.5392637252808,
+          "head": 50.37416719272733,
+          "lsta": 119.34233516515087,
+          "tsci": 0.6928295661236348
+        },
+        {
+          "backbone": 1279.9546632766724,
+          "head": 37.40606777742505,
+          "lsta": 130.95632655723603,
+          "tsci": 0.8858305803407234
+        },
+        {
+          "backbone": 1218.5392637252808,
+          "head": 50.37416719272733,
+          "lsta": 119.34233516515087,
+          "tsci": 0.6928295661236348
+        },
+        {
+          "backbone": 1279.9546632766724,
+          "head": 37.40606777742505,
+          "lsta": 130.95632655723603,
+          "tsci": 0.8858305803407234
+        }
+      ],
+      "gpu_processes_before_start": [
+        {
+          "pid": 7074,
+          "classification": "desktop"
+        }
+      ],
+      "checkpoint_sizes_bytes": [
+        408464400,
+        306094368,
+        408464400
+      ],
+      "temporary_checkpoints_removed": true,
+      "elapsed_seconds": 30.955088721995708,
+      "scope_note": "32 unique real train/validation clips, 96 bounded decodes, 4 temporary engineering updates; no scores are research results.",
+      "remaining": [
+        "Formal four-arm launch interface not implemented or authorized.",
+        "This real CUDA probe covers ACA only; other arms have CPU/meta engineering evidence.",
+        "No author-exact ACA claim or accuracy conclusion."
+      ]
+    }
+  }
+}

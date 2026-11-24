@@ -1,0 +1,89 @@
+{
+  "schema": "baseline_input_acceptance_v1",
+  "date": "2026-11-16",
+  "status": "completed_baseline_acceptance_with_unresolved_flags",
+  "user_decision": "保留疑義，完成基準資料驗收整理（建議；不訓練）",
+  "baseline_version": "native_uniform50_whole_clip_eight_class_v1",
+  "baseline_release": "docs/research/results/input_processing_foundation_release_v1.json",
+  "input": {
+    "frames": 50,
+    "channels": "RGB",
+    "width": 160,
+    "height": 120,
+    "tensor_shape": [
+      3,
+      50,
+      120,
+      160
+    ],
+    "temporal_scope": "whole_clip",
+    "augmentation": false,
+    "event_crop": false
+  },
+  "counts": {
+    "train": 7192,
+    "validation": 1547,
+    "test_metadata_only": 1538,
+    "excluded": 34
+  },
+  "previous_full_audit": {
+    "total": 8739,
+    "failures": 0,
+    "rerun_this_round": false
+  },
+  "fixed16_review": {
+    "coarse_single_candidate": 11,
+    "multiple_actions_unresolved": [
+      1,
+      12,
+      14
+    ],
+    "visibility_limited": [
+      6,
+      10
+    ],
+    "no_relabeling": true
+  },
+  "dense_followup": {
+    "reviewed_this_round": [
+      1,
+      6,
+      10,
+      12
+    ],
+    "pages_viewed": 32,
+    "case14_prior_pages_reused": 8,
+    "source_decodes": 4,
+    "local_evidence": "/home/tsai/projects/basketball/outputs/01_current/event_adjudication_fixed5_20261116_v1"
+  },
+  "integrity_verification": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "adoption": {
+    "whole_clip_baseline": true,
+    "fixed5percent_crop": false,
+    "event_crop": false
+  },
+  "scope_closed": "baseline_engineering_and_bounded_content_review",
+  "not_claimed": [
+    "semantic_label_ground_truth",
+    "all_dataset_content_reviewed",
+    "author_exact_reproduction",
+    "accuracy_improvement",
+    "90_percent_accuracy",
+    "untouched_test_holdout"
+  ],
+  "training_started": false,
+  "test_accessed_this_round": false,
+  "training_authorized": false,
+  "next_step_requires_separate_scope": "If pursuing reproduction, reconcile the existing frozen input contract with the paper before defining one bounded baseline integration task; no training authorized by this acceptance."
+}

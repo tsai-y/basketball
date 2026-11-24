@@ -1,0 +1,147 @@
+{
+  "schema": "input_paper_gap_v1",
+  "checked_date_taiwan": "2026-11-16",
+  "status": "completed_document_and_source_audit_only",
+  "active_contract": "native_uniform50_whole_clip_eight_class_v1",
+  "paper": {
+    "url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "sections_reviewed": [
+      "2.3",
+      "3.1",
+      "3.3"
+    ],
+    "scope": "Published article checked this round; no fresh exhaustive author-code search."
+  },
+  "comparisons": [
+    {
+      "item": "frames",
+      "classification": "aligned_declared_value",
+      "paper": "50",
+      "project": "50",
+      "section": "3.3"
+    },
+    {
+      "item": "color",
+      "classification": "aligned_declared_value",
+      "paper": "RGB",
+      "project": "RGB",
+      "section": "3.1"
+    },
+    {
+      "item": "size",
+      "classification": "aligned_declared_value",
+      "paper": "120x160",
+      "project": "H120,W160",
+      "section": "3.3"
+    },
+    {
+      "item": "task",
+      "classification": "data_labels_aligned_trainer_not_connected",
+      "paper": "eight classes",
+      "project": "FoundationDataset class_id exists; old trainer uses binary_label",
+      "section": "3.1"
+    },
+    {
+      "item": "fps",
+      "classification": "source_description_discrepancy",
+      "paper": "25 FPS dataset description",
+      "project": "native reported FPS 23.976 or 29.97; no resampling",
+      "section": "3.1"
+    },
+    {
+      "item": "split",
+      "classification": "explicit_ratio_difference_exact_assignment_unknown",
+      "paper": "80/10/10",
+      "project": "7192/1547/1538; 34 excluded; preserve source-group assignments",
+      "section": "3.3"
+    },
+    {
+      "item": "crop",
+      "classification": "operation_not_verified",
+      "paper": "crop then resize; crop rule unspecified",
+      "project": "full-frame resize; no spatial/temporal crop",
+      "section": "3.3"
+    },
+    {
+      "item": "temporal_sampling",
+      "classification": "unspecified_author_rule",
+      "paper": "T50 only; exact selection unavailable",
+      "project": "floor(i*(F-1)/49), native frame indices, full clip",
+      "section": "3.3"
+    },
+    {
+      "item": "normalization",
+      "classification": "unspecified_author_transform",
+      "paper": "exact pixel transform unavailable",
+      "project": "RGB/255 and ImageNet mean/std",
+      "section": "3.3"
+    },
+    {
+      "item": "augmentation",
+      "classification": "unspecified_author_rule",
+      "paper": "not detailed in reviewed setup",
+      "project": "none",
+      "section": "3.3"
+    },
+    {
+      "item": "quality_filter",
+      "classification": "unspecified_author_rule",
+      "paper": "no reproducible exclusion list obtained",
+      "project": "existing dedup and ambiguity quarantine; content flags only",
+      "section": "3.1/3.3"
+    }
+  ],
+  "integrity_verification": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "files_checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "files_checked": 51,
+      "mismatches": []
+    }
+  ],
+  "source_sha256": {
+    "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "docs/research/results/input_processing_foundation_release_v1.json": "2499a731d665e100bc26f3734b146cf2f16bdd07a4a36cede89fa120b7a25783",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969"
+  },
+  "counts": {
+    "train": 7192,
+    "validation": 1547,
+    "test": 1538,
+    "excluded": 34
+  },
+  "native_fps_counts_from_saved_audit": {
+    "23.976": 6917,
+    "29.97": 1822
+  },
+  "baseline_unchanged": true,
+  "author_exact_preprocessing_confirmed": false,
+  "new_video_decodes": 0,
+  "new_models": 0,
+  "optimizer_updates": 0,
+  "test_access": 0,
+  "training_authorized": false,
+  "inactive_candidates": [
+    "sourcegroup80_seed20261108_v1",
+    "aca8_pts25_uniform50_identitycrop_v1"
+  ],
+  "next_single_task": {
+    "name": "Frozen eight-class baseline data-to-metrics adapter",
+    "status": "proposed_not_implemented",
+    "constraints": [
+      "preserve frozen loader and cohort",
+      "do not reuse binary trainer as-is",
+      "no new model variants",
+      "no split/FPS/crop/augmentation changes",
+      "no real model forward, optimizer, test, or training launch"
+    ],
+    "deliverable": "Small isolated eight-class data/metrics adapter plus bounded CPU synthetic-label checks; report unsupported author details explicitly."
+  }
+}

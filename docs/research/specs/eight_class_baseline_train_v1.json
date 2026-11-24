@@ -1,0 +1,243 @@
+{
+  "schema": "eight_class_baseline_train_contract_v1",
+  "date_taiwan": "2026-11-17",
+  "status": "specification_finalized_implementation_pending",
+  "name": "frozen_native50_rgb_baseline8_seed20261024_v1",
+  "purpose": "Single project eight-class baseline using frozen input; not author-exact reproduction or a multi-arm campaign",
+  "execution": {
+    "training_authorized": false,
+    "launch_enabled": false,
+    "trainer_implemented": false,
+    "resume_existing_run": false,
+    "test_enabled": false,
+    "model_variants": [
+      "baseline"
+    ],
+    "seeds": [
+      20261024
+    ]
+  },
+  "data": {
+    "input_contract": "docs/research/specs/input_foundation_v1.json",
+    "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+    "train_count": 7192,
+    "validation_count": 1547,
+    "classes": [
+      "2p0",
+      "2p1",
+      "3p0",
+      "3p1",
+      "ft0",
+      "ft1",
+      "mp0",
+      "mp1"
+    ],
+    "class_to_binary": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "dataset": "development.aca_eight_class_data_v1.adapter.EightClassDataset",
+    "collate": "development.aca_eight_class_data_v1.adapter.collate_eight_class",
+    "target_field": "targets_from_class_id",
+    "input_shape": [
+      "N",
+      3,
+      50,
+      120,
+      160
+    ],
+    "augmentation": "none",
+    "source_order": "FoundationScope default sorted video_id",
+    "train_order": "torch.randperm(train_count, generator=torch.Generator().manual_seed(seed + epoch_index)); epoch_index starts at 0",
+    "validation_order": "sorted video_id; every allowed video exactly once",
+    "shuffle_validation": false,
+    "drop_last": false,
+    "sampler": "no class weighting/oversampling",
+    "test": "no loader or CLI test path",
+    "frozen_content_flags": "preserve; no exclusion/relabeling from visual review"
+  },
+  "model": {
+    "class": "development.aca_net_v1.model.VideoResNet50",
+    "variant": "baseline",
+    "num_classes": 8,
+    "frames": 50,
+    "aca_modules": "Identity only; no LSTA/TSCI",
+    "pooling": "mean over T,H,W after ResNet50 features; then Linear(2048,8)",
+    "dropout": "none",
+    "parameters_from_saved_inventory": {
+      "total": 23524424,
+      "frozen_bn_affine": 53120,
+      "trainable": 23471304,
+      "recount_at_integration_required": true
+    }
+  },
+  "initialization": {
+    "seed": 20261024,
+    "seed_reason": "First seed in existing research sequence; fixed before any eight-class score, no seed search",
+    "pretrained_enum": "torchvision.models.ResNet50_Weights.IMAGENET1K_V1",
+    "pretrained_path": "development/aca_net_v1/artifacts/weights/resnet50-0676ba61.pth",
+    "pretrained_sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+    "pretrained_size_bytes": 102530333,
+    "checkpoint_verified_without_deserialization": true,
+    "source_head": "1000-class ImageNet head is checked then discarded",
+    "task_head": "fresh torch.nn.Linear(2048,8) constructor initialization; seed once immediately before constructing VideoResNet50; preserve new head during transfer",
+    "backbone_transfer": "existing load_imagenet_state strict complete key/shape/dtype/finite checks; all non-fc backbone weights and BN statistics",
+    "legacy_missing_bn_counters": {
+      "expected": 53,
+      "initial_value": 0,
+      "report_required": true
+    },
+    "forbidden_helper": "weights.initialized_baseline(seed) hardcodes num_classes=2; implement isolated eight-class initializer without editing frozen helper",
+    "old_task_checkpoints_allowed": false,
+    "network_download_allowed": false
+  },
+  "trainability": {
+    "train": "all backbone convolution and eight-class fc parameters",
+    "freeze": "all BatchNorm affine parameters and running buffers; eval mode reapplied after model.train()",
+    "bn_author_exact": false,
+    "backbone_fully_frozen": false,
+    "optimizer_parameters": "requires_grad True only"
+  },
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "amsgrad": false,
+    "foreach": false,
+    "fused": false,
+    "scheduler": "none",
+    "gradient_clip": {
+      "norm_type": 2.0,
+      "max_norm": 1.0,
+      "when": "once after full effective-batch accumulation before optimizer.step",
+      "error_if_nonfinite": true
+    }
+  },
+  "batch": {
+    "micro_videos": 1,
+    "effective_videos": 16,
+    "full_effective_batches_per_epoch": 449,
+    "tail_videos": 8,
+    "updates_per_epoch": 450,
+    "max_updates_30_epochs": 13500,
+    "gradient_rule": "For effective batch of actual size B, backprop each microbatch summed unweighted 8-class CE divided by B; zero_grad once before window; step once after window",
+    "tail_divisor": 8,
+    "validation_micro_videos": 1,
+    "not_equivalent_claim": "No assertion of bitwise equivalence to physical batch16; BN frozen is a project choice"
+  },
+  "loss_metrics": {
+    "training_loss": "8-class CE; no class weights, smoothing, or auxiliary binary loss",
+    "training_device_plan": "CUDA FP32 logits/targets, explicit functional.cross_entropy(sum)/actual_B; CPU-only adapter CE is not called on CUDA tensors",
+    "metrics_device_plan": "detach logits to CPU float32, targets to CPU int64; use EightClassMetrics float64 CE accumulation",
+    "validation": "eval/no_grad; all 1547 videos; compute eight-class CE and metrics; no train-time BN updates",
+    "primary_selection": "minimum full validation eight-class CE",
+    "reports": [
+      "count",
+      "ce",
+      "accuracy",
+      "macro_f1_all8_zero_division0",
+      "8x8_confusion",
+      "class_recall",
+      "derived_binary_from_eight_class_argmax"
+    ],
+    "binary": "diagnostic only; map eight-class argmax; do not sum class probabilities or select by binary accuracy"
+  },
+  "stopping": {
+    "max_epochs": 30,
+    "patience": 5,
+    "min_delta": 0.0,
+    "improvement": "strict less-than best complete validation CE",
+    "ties": "keep earlier epoch; increment bad_epochs",
+    "first_complete_epoch": "select as best; bad_epochs=0",
+    "incomplete_validation": "do not append history or update best/bad_epochs; repeat entire validation on explicit resume",
+    "nan_or_infinity": "fail and preserve last valid checkpoint; no silent skip",
+    "early_stop": "stop when bad_epochs >= 5; no automatic extension"
+  },
+  "runtime_plan": {
+    "device": "one CUDA GPU; no silent CPU fallback",
+    "precision": "FP32; AMP and TF32 disabled",
+    "deterministic_algorithms": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "cublas_workspace_config": ":4096:8",
+    "data_workers": 2,
+    "microbatch_prefetch_factor": 2,
+    "worker_start": "spawn",
+    "persistent_workers": false,
+    "torch_cpu_threads": 4,
+    "opencv_threads_per_worker": 1,
+    "loader_generator_seed": "seed + epoch_index + 100000; separate from model RNG",
+    "record_at_future_launch": [
+      "Python/torch/torchvision/numpy/opencv/CUDA/cuDNN versions",
+      "GPU identity",
+      "code/data/protocol/checkpoint SHA"
+    ],
+    "resource_readiness_checked_this_round": false
+  },
+  "checkpoint_plan": {
+    "cadence": "every 25 optimizer updates, train-epoch end, validation commit, and requested stop at optimizer boundary",
+    "payload": [
+      "schema",
+      "resolved run plan hash",
+      "model",
+      "Adam",
+      "Python/NumPy/torch CPU/CUDA RNG",
+      "epoch and train cursor",
+      "optimizer updates",
+      "train metric state",
+      "validation history",
+      "best epoch/CE",
+      "bad_epochs"
+    ],
+    "writes": "atomic checkpoint then authoritative progress; histories recover from committed checkpoint if interrupted",
+    "resume": "explicit user request only; same run schema, plan/data/code/runtime identities; no old binary or other split checkpoint",
+    "progress_formula": "completed_epochs*450 + ceil(cursor/16); cursor multiple of16 or7192",
+    "validation_commit": "transaction must bind selected best checkpoint to selected epoch; recovery must not pair a new history with an old best.pt",
+    "not_implemented": true
+  },
+  "integration_requirements": [
+    "New isolated eight-class initializer, not old two-class helper; record exact transferred tensors and fresh head.",
+    "Frozen loader/old trainer unchanged; bridge batch.records to video-order checks, not old batch.video_id assumptions.",
+    "Implement CPU/GPU loss bridge with explicit eight-class targets; do not silently broaden the current CPU metrics contract.",
+    "New metrics checkpoint serialization and validation needed; old binary Metrics.state is incompatible.",
+    "Verify model parameter counts/BN buffers and no source tensor transformations beyond frozen contract.",
+    "Trainer launch, model readiness, resource checks, full validation and resume recovery remain unimplemented/unverified; no automatic launch."
+  ],
+  "paper_and_project_boundary": {
+    "paper_supported_direction": "ResNet50 baseline, eight classes, T50 RGB 120x160, ImageNet initialization; Adam/lr1e-4/batch16/30 epoch starting cap and validation-loss early stopping",
+    "project_choices": [
+      "original source-group ~70/15/15 split",
+      "native frame-index full-clip sampling",
+      "no crop/augmentation",
+      "exact V1 weights/head initialization/seed",
+      "frozen BN, physical1 accumulation16",
+      "patience5, clip1, Adam flags, no scheduler",
+      "explicit macro-F1 and binary mapping, checkpoint rules"
+    ],
+    "author_exact": false,
+    "aca_parameter_gap_solved": false
+  },
+  "source_sha256": {
+    "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b"
+  }
+}

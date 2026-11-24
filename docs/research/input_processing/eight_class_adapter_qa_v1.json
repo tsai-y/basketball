@@ -1,0 +1,96 @@
+{
+  "schema": "eight_class_adapter_qa_v1",
+  "date_taiwan": "2026-11-16",
+  "status": "passed_bounded_cpu_engineering_checks",
+  "input_contract": "native_uniform50_whole_clip_eight_class_v1",
+  "dataset_counts_verified_without_video_access": {
+    "train": 7192,
+    "validation": 1547
+  },
+  "class_order": [
+    "2p0",
+    "2p1",
+    "3p0",
+    "3p1",
+    "ft0",
+    "ft1",
+    "mp0",
+    "mp1"
+  ],
+  "class_to_binary": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+  ],
+  "metrics": {
+    "ce": "mean unweighted eight-class CE, no label smoothing",
+    "aggregation": "sample weighted; float64 detached CE accumulation",
+    "confusion": "8x8 true rows/predicted columns",
+    "macro_f1": "all 8 classes, zero_division=0",
+    "binary": "map eight-class argmax, NOT probability sum",
+    "tie": "lowest class index",
+    "empty_accumulator": "reject",
+    "supported_logits": "CPU float32/float64 only"
+  },
+  "validation": {
+    "command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest development.aca_eight_class_data_v1.test_adapter development.aca_eight_class_data_v1.test_foundation -v",
+    "tests_run": 10,
+    "new_adapter_tests": 6,
+    "existing_foundation_tests": 4,
+    "elapsed_seconds": 0.741,
+    "exit_code": 0,
+    "result": "OK",
+    "cases": [
+      "metadata counts and forbidden split/IDs",
+      "unchanged delegated synthetic tensor and eight-class collation",
+      "label/provenance/shape/mixed split rejection",
+      "analytical CE and gradient, full confusion, fixed macro-F1, unequal-tail weighting",
+      "argmax mapping differs from summed probability",
+      "ties, absent classes, empty/nonfinite/out-of-range/shape/dtype rejection, failed update preserves state"
+    ]
+  },
+  "integrity": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "source_sha256": {
+    "development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e"
+  },
+  "scope": {
+    "new_real_video_decodes": 0,
+    "models_created": 0,
+    "model_forwards": 0,
+    "synthetic_logits_autograd_checks": true,
+    "optimizer_updates": 0,
+    "test_videos_opened": 0,
+    "training_started": false,
+    "old_binary_trainer_modified": false,
+    "frozen_loader_modified": false,
+    "split_labels_or_pixel_rules_changed": false
+  },
+  "limitations": [
+    "No GPU integration validated; this version is CPU-only.",
+    "No real decode or model-forward integration run this round; existing frozen decoding audit is reused.",
+    "This is an isolated data/metrics adapter, not an enabled eight-class trainer.",
+    "No model accuracy result, training release, or author-exact reproduction claim."
+  ],
+  "next_task": "Specify one eight-class baseline training contract before any model/trainer integration; no automatic training or multiseed campaign."
+}

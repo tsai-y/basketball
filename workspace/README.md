@@ -1,6 +1,8 @@
 # 研究工作台
 
-更新：2026-11-16。現在先處理資料輸入與事件定義；訓練與每小時排程維持暫停。
+更新：2026-11-19。八類baseline已完成12輪、5400次更新，依最低validation CE選第7輪；LSTA已完成，每小時排程現已改追蹤TSCI並啟用。先看[最新狀態與完整執行順序](../docs/research/ACA_CURRENT_STATUS.md)，再看[ACA架構缺口與待決事項](../docs/research/ACA_ARCHITECTURE_GAPS.md)。目前唯一候選的[CPU與有限ACA真實GPU驗收](../docs/research/ACA_ENGINEERING_STATUS.md)已通過；[單seed消融正式計畫與入口](../docs/research/ACA_SINGLE_SEED_LAUNCH.md)已備妥，baseline核定沿用；TSCI一組已啟動，詳見[啟動紀錄](../docs/research/TSCI_FORMAL_LAUNCH.md)。
+
+已驗收的資料、八類介面與訓練工程見[資料輸入入口](../docs/research/input_processing/README.md)；正式baseline完成紀錄見[正式入口](../docs/research/input_processing/FORMAL_LAUNCH.md)。歷史文件的「下一步」保留當時語境，以最新狀態頁為準。
 
 先看[影片輸入調整總表](../docs/research/input_processing/INPUT_CHANGES.md)，再看[固定16支事件參考](../docs/research/input_processing/EVENT_REFERENCE.md)。瀏覽圖片可開啟[index.html](index.html)。
 
@@ -18,4 +20,4 @@
 
 請從原ACA工作樹執行程式，不要透過程式檔捷徑啟動。訓練、資料與歷史輸出仍使用原路徑。[完整位置對照](inventory.json)與[整理方式](../docs/research/input_processing/WORKSPACE_LAYOUT.md)可查每個入口實際指向哪裡。
 
-後續文字摘要集中於docs/research/input_processing；大型事件證據沿用development/aca_eight_class_data_v1/artifacts下的單一專題目錄。不要再為一般檢查新增一個模型資料夾。
+後續文字摘要集中於docs/research/input_processing；大型事件證據集中於主專案outputs/01_current；既有development/artifacts相容連結保留。不要再為一般檢查新增一個模型資料夾。

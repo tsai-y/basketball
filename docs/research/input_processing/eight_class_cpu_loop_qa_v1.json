@@ -1,0 +1,55 @@
+{
+  "schema": "eight_class_cpu_loop_qa_v1",
+  "date_taiwan": "2026-11-17",
+  "status": "passed_synthetic_cpu_loop_only",
+  "validation": {
+    "tests_run": 8,
+    "failures": 0,
+    "errors": 0,
+    "successful": true
+  },
+  "checks": [
+    "test_atomic_replace_and_validation_commit_failure_preserve_consistent_old_state",
+    "test_metrics_reject_corruption_and_return_independent_copies",
+    "test_micro_accumulation_tail8_matches_independent_physical_batches",
+    "test_nonfinite_or_wrong_id_preserves_last_commit_and_blocks_reentry",
+    "test_partial_validation_restarts_full_without_selection_or_extra_updates",
+    "test_resume_rejects_identity_boundary_metrics_and_optimizer_before_mutation",
+    "test_ties_keep_first_best_and_stop_at_patience5",
+    "test_train_resume_exact_model_adam_metrics_history_and_all_rng"
+  ],
+  "source_sha256": {
+    "development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "development/aca_eight_class_data_v1/test_loop_core.py": "274281c007742c291958cdc4d9a6b9ba47206a69fbe700c6c68f7e2bfdeac0d5",
+    "docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086"
+  },
+  "protected_files": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "scope": {
+    "real_video_decodes": 0,
+    "test_videos_opened": 0,
+    "resnet_instances": 0,
+    "cuda_initialized": false,
+    "formal_training_started": false,
+    "synthetic_optimizer_updates": true,
+    "checkpoints": "TemporaryDirectory fixtures, removed after each test",
+    "automations_changed": false
+  },
+  "reproduce_command": "/home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest development.aca_eight_class_data_v1.test_loop_core -v",
+  "limits": [
+    "CPU fixture only; CUDA RNG, full ResNet backward, real video loader/workers, formal resource/launch guard not implemented in this core.",
+    "Synthetic numbers are engineering checks, not validation/test research results.",
+    "CPU state schema cannot resume an old binary or a future formal CUDA run."
+  ],
+  "next_single_task": "Integrate the fixed real input adapter and GPU model into one bounded end-to-end readiness check; do not start a formal run or multi-seed campaign automatically."
+}

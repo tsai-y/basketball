@@ -1,0 +1,451 @@
+{
+  "schema": "aca_reconstruction_proposal_v2",
+  "date_taiwan": "2026-11-18",
+  "status": "proposal_pending_review",
+  "user_route": "explicit_assumptions_reconstruction",
+  "author_exact": false,
+  "architecture_approved": false,
+  "execution": {
+    "implementation_authorized": false,
+    "training_authorized": false,
+    "launch_enabled": false,
+    "test_enabled": false,
+    "resume_old_runs": false
+  },
+  "scope": "Basketball-51 eight-class project reconstruction; one fixed architecture and its component-removal arms",
+  "base_contract": {
+    "path": "docs/research/specs/eight_class_baseline_train_v1.json",
+    "sha256": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086"
+  },
+  "shared_protocol": {
+    "data": {
+      "input_contract": "docs/research/specs/input_foundation_v1.json",
+      "input_contract_sha256": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+      "audit_manifest_sha256": "29ccbf8edaec8d29d93c38199154ad7e3085f664b288f1153e46592b05b2637b",
+      "train_count": 7192,
+      "validation_count": 1547,
+      "classes": [
+        "2p0",
+        "2p1",
+        "3p0",
+        "3p1",
+        "ft0",
+        "ft1",
+        "mp0",
+        "mp1"
+      ],
+      "class_to_binary": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "dataset": "development.aca_eight_class_data_v1.adapter.EightClassDataset",
+      "collate": "development.aca_eight_class_data_v1.adapter.collate_eight_class",
+      "target_field": "targets_from_class_id",
+      "input_shape": [
+        "N",
+        3,
+        50,
+        120,
+        160
+      ],
+      "augmentation": "none",
+      "source_order": "FoundationScope default sorted video_id",
+      "train_order": "torch.randperm(train_count, generator=torch.Generator().manual_seed(seed + epoch_index)); epoch_index starts at 0",
+      "validation_order": "sorted video_id; every allowed video exactly once",
+      "shuffle_validation": false,
+      "drop_last": false,
+      "sampler": "no class weighting/oversampling",
+      "test": "no loader or CLI test path",
+      "frozen_content_flags": "preserve; no exclusion/relabeling from visual review"
+    },
+    "optimizer": {
+      "name": "Adam",
+      "lr": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0,
+      "amsgrad": false,
+      "foreach": false,
+      "fused": false,
+      "scheduler": "none",
+      "gradient_clip": {
+        "norm_type": 2.0,
+        "max_norm": 1.0,
+        "when": "once after full effective-batch accumulation before optimizer.step",
+        "error_if_nonfinite": true
+      }
+    },
+    "batch": {
+      "micro_videos": 1,
+      "effective_videos": 16,
+      "full_effective_batches_per_epoch": 449,
+      "tail_videos": 8,
+      "updates_per_epoch": 450,
+      "max_updates_30_epochs": 13500,
+      "gradient_rule": "For effective batch of actual size B, backprop each microbatch summed unweighted 8-class CE divided by B; zero_grad once before window; step once after window",
+      "tail_divisor": 8,
+      "validation_micro_videos": 1,
+      "not_equivalent_claim": "No assertion of bitwise equivalence to physical batch16; BN frozen is a project choice"
+    },
+    "loss_metrics": {
+      "training_loss": "8-class CE; no class weights, smoothing, or auxiliary binary loss",
+      "training_device_plan": "CUDA FP32 logits/targets, explicit functional.cross_entropy(sum)/actual_B; CPU-only adapter CE is not called on CUDA tensors",
+      "metrics_device_plan": "detach logits to CPU float32, targets to CPU int64; use EightClassMetrics float64 CE accumulation",
+      "validation": "eval/no_grad; all 1547 videos; compute eight-class CE and metrics; no train-time BN updates",
+      "primary_selection": "minimum full validation eight-class CE",
+      "reports": [
+        "count",
+        "ce",
+        "accuracy",
+        "macro_f1_all8_zero_division0",
+        "8x8_confusion",
+        "class_recall",
+        "derived_binary_from_eight_class_argmax"
+      ],
+      "binary": "diagnostic only; map eight-class argmax; do not sum class probabilities or select by binary accuracy"
+    },
+    "stopping": {
+      "max_epochs": 30,
+      "patience": 5,
+      "min_delta": 0.0,
+      "improvement": "strict less-than best complete validation CE",
+      "ties": "keep earlier epoch; increment bad_epochs",
+      "first_complete_epoch": "select as best; bad_epochs=0",
+      "incomplete_validation": "do not append history or update best/bad_epochs; repeat entire validation on explicit resume",
+      "nan_or_infinity": "fail and preserve last valid checkpoint; no silent skip",
+      "early_stop": "stop when bad_epochs >= 5; no automatic extension"
+    },
+    "runtime_plan": {
+      "device": "one CUDA GPU; no silent CPU fallback",
+      "precision": "FP32; AMP and TF32 disabled",
+      "deterministic_algorithms": true,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "cublas_workspace_config": ":4096:8",
+      "data_workers": 2,
+      "microbatch_prefetch_factor": 2,
+      "worker_start": "spawn",
+      "persistent_workers": false,
+      "torch_cpu_threads": 4,
+      "opencv_threads_per_worker": 1,
+      "loader_generator_seed": "seed + epoch_index + 100000; separate from model RNG",
+      "record_at_future_launch": [
+        "Python/torch/torchvision/numpy/opencv/CUDA/cuDNN versions",
+        "GPU identity",
+        "code/data/protocol/checkpoint SHA"
+      ],
+      "resource_readiness_checked_this_round": false
+    }
+  },
+  "architecture": {
+    "backbone": "torchvision ResNet50 v1.5, [3,4,6,3], conv2 spatial stride; framewise shared 2D weights",
+    "input": [
+      "N",
+      3,
+      50,
+      120,
+      160
+    ],
+    "positions": "all 16 bottlenecks after conv1/BN/ReLU before conv2, including transition blocks before stride2",
+    "channel_widths": [
+      64,
+      128,
+      256,
+      512
+    ],
+    "gate": {
+      "value": {
+        "kernel": 1,
+        "groups": 1
+      },
+      "control": {
+        "kernel": 3,
+        "groups": "C"
+      },
+      "output": {
+        "kernel": 3,
+        "groups": "C"
+      },
+      "channels": "C to C for each branch",
+      "bias": false,
+      "stride": 1,
+      "dilation": 1,
+      "padding": "kernel//2 on T,H,W",
+      "normalization": {
+        "type": "InstanceNorm3d",
+        "eps": 1e-05,
+        "affine": false,
+        "track_running_stats": false
+      },
+      "activation": "ReLU followed by sigmoid only on control",
+      "equation": "G = X + output(value(X) * sigmoid(control(X))); value/control/output include IN and ReLU"
+    },
+    "short": {
+      "reduction": 16,
+      "hidden": "max(1,C//16)",
+      "kernels": [
+        3,
+        3
+      ],
+      "bias": true,
+      "padding": 1,
+      "batchnorm": false,
+      "equation": "P=mean_HW(G); V=sigmoid(Conv1d_h_C(ReLU(Conv1d_C_h(P)))); Z=G*V[...,None,None]"
+    },
+    "dynamic": {
+      "frames": 50,
+      "beta": 0.25,
+      "hidden": 12,
+      "kernel": 3,
+      "bias": true,
+      "batchnorm": false,
+      "mlp": [
+        50,
+        12,
+        3
+      ],
+      "activation": "ReLU then softmax over K",
+      "sharing": "FC weights shared across C within block, independent across blocks",
+      "convolution": "per-video per-channel temporal cross-correlation, zero pad1, no boundary renormalization"
+    },
+    "tsci": {
+      "fold": "N,C,T,H,W to NT,C,H,W",
+      "branches": [
+        {
+          "name": "channel",
+          "permute": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "inverse": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "height",
+          "permute": [
+            0,
+            2,
+            1,
+            3
+          ],
+          "inverse": [
+            0,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "width",
+          "permute": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "inverse": [
+            0,
+            2,
+            3,
+            1
+          ]
+        }
+      ],
+      "pool": "axis1 mean and max concat in that order",
+      "conv": {
+        "in": 2,
+        "out": 1,
+        "kernel": 7,
+        "padding": 3,
+        "bias": false
+      },
+      "bn": {
+        "eps": 1e-05,
+        "momentum": 0.1,
+        "affine": true,
+        "track_running_stats": true,
+        "gamma_init": 1,
+        "beta_init": 0,
+        "mean_init": 0,
+        "var_init": 1,
+        "counter_init": 0
+      },
+      "activation": "sigmoid",
+      "merge": "multiply original permuted features, inverse permute, average3",
+      "temporal_weights": "shared across frames, separate across blocks"
+    },
+    "arms": {
+      "baseline": "Identity(X)",
+      "lsta": "LSTA(X)",
+      "tsci": "TSCI(X)",
+      "aca": "LSTA(X)+TSCI(X)"
+    },
+    "outer_residual": "unchanged original ResNet bottleneck identity/projection; no extra X around module",
+    "head": "mean T,H,W then Linear(2048,8), bias=True, no dropout"
+  },
+  "normalization_policy": {
+    "backbone_bn": "all 53 BN modules eval, affine and buffers frozen in train/validation",
+    "new_tsci_bn": "train affine and update running statistics in train; eval saved statistics during validation; no recalibration",
+    "lsta_in": "per-clip statistics in train/validation; no affine or buffers",
+    "microbatch_limitation": "TSCI BN statistics over folded frames and spatial positions of one clip, not 16 independent videos; no equivalence to author multi-GPU batch16"
+  },
+  "initialization": {
+    "pretrained_sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+    "seed_first": 20261024,
+    "paired_backbone_head": "construct the same fresh baseline8 template with exact existing initializer sequence and copy its initial backbone/BN/head into every arm; never use trained baseline last.pt",
+    "block_index": "0..15, layer1.0 through layer4.2",
+    "lsta_seed": "seed+1000+block_index in isolated CPU RNG context",
+    "tsci_seed": "seed+2000+block_index in isolated CPU RNG context",
+    "module_order": "LSTA value, control, output, short conv1/conv2, dynamic linear1/linear2; TSCI channel,height,width",
+    "module_init": "fresh PyTorch 2.11 Conv/Linear constructor defaults; direct target groups at creation; no dense-then-replace initialization",
+    "global_rng": "restore template post-construction RNG; module scoped draws must not change common data/training RNG",
+    "later_seeds": [
+      20261025,
+      20261026
+    ],
+    "later_seed_policy": "future contract extension only after single-seed engineering and comparison; never silently bypass current seed24-only guard",
+    "old_candidate_weights_allowed": false
+  },
+  "parameter_arithmetic": {
+    "stages": [
+      {
+        "stage": 1,
+        "blocks": 3,
+        "channels": 64,
+        "short_hidden": 4,
+        "gate_per_block": 7552,
+        "short_per_block": 1604,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 30321
+      },
+      {
+        "stage": 2,
+        "blocks": 4,
+        "channels": 128,
+        "short_hidden": 8,
+        "gate_per_block": 23296,
+        "short_per_block": 6280,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 122108
+      },
+      {
+        "stage": 3,
+        "blocks": 6,
+        "channels": 256,
+        "short_hidden": 16,
+        "gate_per_block": 79360,
+        "short_per_block": 24848,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 630954
+      },
+      {
+        "stage": 4,
+        "blocks": 3,
+        "channels": 512,
+        "short_hidden": 32,
+        "gate_per_block": 289792,
+        "short_per_block": 98848,
+        "dynamic_per_block": 651,
+        "tsci_per_block": 300,
+        "aca_stage_total": 1168773
+      }
+    ],
+    "gate": 1461376,
+    "short": 475564,
+    "dynamic": 10416,
+    "tsci": 4800,
+    "total": {
+      "baseline": 23524424,
+      "lsta": 25471780,
+      "tsci": 23529224,
+      "aca": 25476580
+    },
+    "frozen_affine": 53120,
+    "trainable": {
+      "baseline": 23471304,
+      "lsta": 25418660,
+      "tsci": 23476104,
+      "aca": 25423460
+    },
+    "model_instantiated": false,
+    "implementation_recount_required": true,
+    "paper_approximate_total": 26800000,
+    "difference_from_paper_approx": -1323420
+  },
+  "baseline_reuse": {
+    "status": "conditional_pending_integration_audit",
+    "run_directory": "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1",
+    "run_plan_sha256": "7934894ec6d8252b1b03ebd918ee2cc973e92676af3a66c7e0a8f4f7fca39318",
+    "conditions": [
+      "same ordered manifests/input/labels",
+      "same initial backbone and head bitwise",
+      "baseline operator order/training mode unchanged",
+      "same loss/optimizer/accumulation/validation/stopping",
+      "same recorded runtime or justified compatibility decision"
+    ],
+    "new_tsci_bn_does_not_exist_in_baseline": true,
+    "rerun_now": false
+  },
+  "engineering_exit": [
+    "meta shapes and exact parameters for four arms",
+    "paired shared tensors bitwise equal before training",
+    "CPU independent dynamic-convolution reference and finite nonzero module gradients",
+    "module train/eval and BN buffer lifecycle; validation cannot mutate buffers",
+    "baseline compatibility with existing initializer/numerical loop",
+    "bounded 24 train plus 8 validation source-approved clips, including tail and resume; temporary engineering weights not formal results",
+    "CUDA memory/time before formal run; no automatic AMP/resolution/architecture substitution"
+  ],
+  "sources": {
+    "paper": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1471327/full",
+    "conv3d": "https://docs.pytorch.org/docs/2.11/generated/torch.nn.Conv3d.html",
+    "bn2d": "https://docs.pytorch.org/docs/2.11/generated/torch.nn.BatchNorm2d.html"
+  },
+  "source_hashes": {
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/data/processed/split_summary.json": "953da31313976763c8f5d597da5f0fe5a6a45e10f5d5edcd42fb0c120af2f7c5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/formal_train.py": "7499014b5dde99cf5b271cfec3d86cba57818be8f20b0ca203fb2aaa7fee715e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/test_adapter.py": "18505c50927c64fde6833b1e9505a57d62797a0e18472c6e631f7ba4478b67f4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_eight_class_data_v1/training_runtime.py": "19e21966e5e01d80faa1f0c2fd6edab3e63174e4e80b294cf1958a1f26fb053e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_four_arm_campaign_v1/queue.py": "fd497dfcbc8281d63846ab179d089a6284f7c85b39acd4a803dca9e6a55199c8",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/baseline_preflight.py": "7fc87d152a794f574c154d6b71c962d5a8061da77fd0c3ca271266eb4420e35a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/data.py": "2e53e886e0eb369294476e098638f24891981eccde3f83c48a6f553c5b752af4",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/imagenet_v1.json": "e0450e329569f338fc2b2e30e83500eab42c196abfbdaf5b57315f50d79c9416",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/train.py": "b54bc3fd1ab7e75537a0f5f0c373e1a07e31af2272df0d49f9186851e2f9291b",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/data_pipeline/pipeline.py": "a07fc22d771b2c2f5af2224e85366018ff8be2c0fbf4211601d9a6609ce2672a",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/input_foundation_v1.json": "544f7de95104bc38f5168996ab40e1a46020971ec97923a5236f7b4f1780549e",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/scripts/audit_i3d_temporal_feasibility.py": "7cdbdac59633b7f69c21aa772a2dc2e5c05c0f80c0f07f6eed89fa26335fe998",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/docs/research/specs/aca_dense_reference_v1.json": "424edf79a9735b3cdb70eae9e34aaeac050961406ed8dd2f4940bcf0b2eec780",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_net_v1/modules.py": "a0e2103e887658d5fb5e56b7124b4d419f5366a27876adcda7d920420c540139",
+    "/home/tsai/.codex/worktrees/aca-net-reproduction/basketball/development/aca_dw3d_v1/model.py": "283fd7cfdeceb4e524d4d58602681fb79f16bd99d374b4b5352a5b2df234ab3b",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/plan.json": "27ff397dc78107ce3fdd50791a1de82755d2de7cec00e906f83be3b43bfdef18",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/summary.json": "fa8a26a7c5b4fc35ddd2b20b00e00b54e24b3d876ad83b8b63508dbb02f810fb",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/history.json": "a56e0b34c26fd5e0802744e77c962fd713de6ac5518179ecfa190e2e9df2bf39",
+    "/home/tsai/projects/basketball/outputs/01_current/baseline8_formal_seed20261024_v1/run.json": "940faf5aef09afa3c75f9717281fb5c0fa8e55ccac78ada287dbd28ad255e70f"
+  }
+}

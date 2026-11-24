@@ -1,0 +1,163 @@
+{
+  "schema": "eight_class_cpu_model_wiring_qa_v1",
+  "date_taiwan": "2026-11-17",
+  "status": "passed_cpu_initialization_and_single_synthetic_forward",
+  "validation": {
+    "tests_run": 4,
+    "successful": true,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 1.636,
+    "evidence": {
+      "initialization": {
+        "schema": "baseline8_initialization_v1",
+        "seed": 20261024,
+        "spec_sha256": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+        "pretrained_sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+        "source_tensor_count": 267,
+        "backbone_tensors_equal_to_source": 265,
+        "transfer": {
+          "backbone_tensors_loaded": 265,
+          "legacy_bn_counters_initialized_to_zero": [
+            "bn1.num_batches_tracked",
+            "layer1.0.bn1.num_batches_tracked",
+            "layer1.0.bn2.num_batches_tracked",
+            "layer1.0.bn3.num_batches_tracked",
+            "layer1.0.downsample.1.num_batches_tracked",
+            "layer1.1.bn1.num_batches_tracked",
+            "layer1.1.bn2.num_batches_tracked",
+            "layer1.1.bn3.num_batches_tracked",
+            "layer1.2.bn1.num_batches_tracked",
+            "layer1.2.bn2.num_batches_tracked",
+            "layer1.2.bn3.num_batches_tracked",
+            "layer2.0.bn1.num_batches_tracked",
+            "layer2.0.bn2.num_batches_tracked",
+            "layer2.0.bn3.num_batches_tracked",
+            "layer2.0.downsample.1.num_batches_tracked",
+            "layer2.1.bn1.num_batches_tracked",
+            "layer2.1.bn2.num_batches_tracked",
+            "layer2.1.bn3.num_batches_tracked",
+            "layer2.2.bn1.num_batches_tracked",
+            "layer2.2.bn2.num_batches_tracked",
+            "layer2.2.bn3.num_batches_tracked",
+            "layer2.3.bn1.num_batches_tracked",
+            "layer2.3.bn2.num_batches_tracked",
+            "layer2.3.bn3.num_batches_tracked",
+            "layer3.0.bn1.num_batches_tracked",
+            "layer3.0.bn2.num_batches_tracked",
+            "layer3.0.bn3.num_batches_tracked",
+            "layer3.0.downsample.1.num_batches_tracked",
+            "layer3.1.bn1.num_batches_tracked",
+            "layer3.1.bn2.num_batches_tracked",
+            "layer3.1.bn3.num_batches_tracked",
+            "layer3.2.bn1.num_batches_tracked",
+            "layer3.2.bn2.num_batches_tracked",
+            "layer3.2.bn3.num_batches_tracked",
+            "layer3.3.bn1.num_batches_tracked",
+            "layer3.3.bn2.num_batches_tracked",
+            "layer3.3.bn3.num_batches_tracked",
+            "layer3.4.bn1.num_batches_tracked",
+            "layer3.4.bn2.num_batches_tracked",
+            "layer3.4.bn3.num_batches_tracked",
+            "layer3.5.bn1.num_batches_tracked",
+            "layer3.5.bn2.num_batches_tracked",
+            "layer3.5.bn3.num_batches_tracked",
+            "layer4.0.bn1.num_batches_tracked",
+            "layer4.0.bn2.num_batches_tracked",
+            "layer4.0.bn3.num_batches_tracked",
+            "layer4.0.downsample.1.num_batches_tracked",
+            "layer4.1.bn1.num_batches_tracked",
+            "layer4.1.bn2.num_batches_tracked",
+            "layer4.1.bn3.num_batches_tracked",
+            "layer4.2.bn1.num_batches_tracked",
+            "layer4.2.bn2.num_batches_tracked",
+            "layer4.2.bn3.num_batches_tracked"
+          ],
+          "task_head_reinitialized": true,
+          "aca_parameters_reinitialized": false
+        },
+        "fresh_head_preserved": true,
+        "head_shape": [
+          8,
+          2048
+        ],
+        "parameters": {
+          "total": 23524424,
+          "trainable": 23471304,
+          "frozen_bn_affine": 53120
+        },
+        "device": "cpu",
+        "old_task_checkpoint_loaded": false,
+        "optimizer_created": false
+      },
+      "input_shape": [
+        1,
+        3,
+        50,
+        120,
+        160
+      ],
+      "output_shape": [
+        1,
+        8
+      ],
+      "target_class_id": 6,
+      "ce_matches_independent_logsumexp": true,
+      "state_sha256_before": "d72eaaad1ea1c603cc8b9129d16988c00dc86a94bdab1bfb2c805bb21bc8fa00",
+      "state_sha256_after": "d72eaaad1ea1c603cc8b9129d16988c00dc86a94bdab1bfb2c805bb21bc8fa00",
+      "all_parameter_grads_none": true,
+      "bn_modules": 53,
+      "model_forward_count": 1,
+      "model_instances": 1,
+      "optimizer_updates": 0,
+      "real_video_decodes": 0,
+      "cuda_initialized": false,
+      "synthetic_logits_not_accuracy_evidence": true
+    },
+    "runtime": {
+      "torch": "2.11.0+cu128",
+      "threads": 2
+    }
+  },
+  "reproduce_command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 /home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest development.aca_eight_class_data_v1.test_model_adapter -v",
+  "source_sha256": {
+    "development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "development/aca_eight_class_data_v1/test_model_adapter.py": "1983f8653128bdc7a2f4fb730ceadea1b377717a17a3b00f22c99abb116baf8f",
+    "development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_net_v1/model.py": "baf6678bd1d09f135800aa5fdc95e28109ab6cc41f9d204231edce1ca52d7969",
+    "development/aca_net_v1/weights.py": "e823b86242dd69b752a4503ad7992b46f486870b5bb4cf7e855e5015df18c73a",
+    "docs/research/specs/eight_class_baseline_train_v1.json": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086"
+  },
+  "protected_files": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "scope": {
+    "real_video_decodes": 0,
+    "test_videos_opened": 0,
+    "model_instances": 1,
+    "full_model_forwards": 1,
+    "model_backward_calls": 0,
+    "optimizers_created": 0,
+    "optimizer_updates": 0,
+    "model_checkpoints_written": 0,
+    "cuda_initialized": false,
+    "training_started": false,
+    "old_binary_initializer_used": false
+  },
+  "limits": [
+    "Synthetic CPU wiring, not accuracy or validation/test results.",
+    "No model backward, GPU, real loader-to-model streaming, training loop, or resume recovery validated.",
+    "Only current project baseline, no LSTA/TSCI or author-exact ACA claim."
+  ],
+  "next_single_task": "Implement isolated eight-class training-loop/checkpoint state with small CPU synthetic fixtures first; no formal launch or real dataset training."
+}

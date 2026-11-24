@@ -1,0 +1,457 @@
+{
+  "schema": "baseline8_cuda_readiness_only_v1",
+  "status": "passed",
+  "plan_sha256": "a8cbc45d0d7876be9357dd8ebbf1280ce1589db541af74e7d344efe0d523e047",
+  "formal_training_started": false,
+  "formal_training_ready": false,
+  "test_videos_opened": 0,
+  "real_optimizer_updates_engineering_only": 4,
+  "gpu_rng_draw_roundtrip_equal": true,
+  "continuous_vs_resumed_equal": {
+    "schema": true,
+    "plan_sha256": true,
+    "plan": true,
+    "model": true,
+    "optimizer": true,
+    "rng": true,
+    "cuda_rng": true,
+    "state": true,
+    "best_model": true
+  },
+  "workers_equal_serial_tensor_sha": true,
+  "worker_rng_isolated": true,
+  "original_videos_unchanged": true,
+  "runs": {
+    "continuous": {
+      "status": "completed",
+      "stream": [
+        [
+          "train",
+          7,
+          "3p0/3p0_v108_000526_x264.mp4"
+        ],
+        [
+          "train",
+          17,
+          "ft1/ft1_v108_000709_x264.mp4"
+        ],
+        [
+          "train",
+          12,
+          "ft0/ft0_v108_002649_x264.mp4"
+        ],
+        [
+          "train",
+          10,
+          "3p1/3p1_v108_001153_x264.mp4"
+        ],
+        [
+          "train",
+          9,
+          "3p1/3p1_v108_001141_x264.mp4"
+        ],
+        [
+          "train",
+          5,
+          "2p1/2p1_v108_000635_x264.mp4"
+        ],
+        [
+          "train",
+          18,
+          "mp0/mp0_v108_000245_x264.mp4"
+        ],
+        [
+          "train",
+          13,
+          "ft0/ft0_v108_002706_x264.mp4"
+        ],
+        [
+          "train",
+          20,
+          "mp0/mp0_v108_001722_x264.mp4"
+        ],
+        [
+          "train",
+          21,
+          "mp1/mp1_v108_000416_x264.mp4"
+        ],
+        [
+          "train",
+          3,
+          "2p1/2p1_v108_000340_x264.mp4"
+        ],
+        [
+          "train",
+          1,
+          "2p0/2p0_v108_000447_x264.mp4"
+        ],
+        [
+          "train",
+          19,
+          "mp0/mp0_v108_001120_x264.mp4"
+        ],
+        [
+          "train",
+          22,
+          "mp1/mp1_v108_000429_x264.mp4"
+        ],
+        [
+          "train",
+          23,
+          "mp1/mp1_v108_000758_x264.mp4"
+        ],
+        [
+          "train",
+          6,
+          "3p0/3p0_v108_000322_x264.mp4"
+        ],
+        [
+          "train",
+          8,
+          "3p0/3p0_v108_000534_x264.mp4"
+        ],
+        [
+          "train",
+          4,
+          "2p1/2p1_v108_000546_x264.mp4"
+        ],
+        [
+          "train",
+          0,
+          "2p0/2p0_v108_000437_x264.mp4"
+        ],
+        [
+          "train",
+          16,
+          "ft1/ft1_v108_000653_x264.mp4"
+        ],
+        [
+          "train",
+          14,
+          "ft0/ft0_v108_003636_x264.mp4"
+        ],
+        [
+          "train",
+          2,
+          "2p0/2p0_v108_000627_x264.mp4"
+        ],
+        [
+          "train",
+          11,
+          "3p1/3p1_v108_001544_x264.mp4"
+        ],
+        [
+          "train",
+          15,
+          "ft1/ft1_v108_000302_x264.mp4"
+        ],
+        [
+          "validation",
+          0,
+          "2p0/2p0_v113_001708_x264.mp4"
+        ],
+        [
+          "validation",
+          1,
+          "2p1/2p1_v113_000305_x264.mp4"
+        ],
+        [
+          "validation",
+          2,
+          "3p0/3p0_v113_000248_x264.mp4"
+        ],
+        [
+          "validation",
+          3,
+          "3p1/3p1_v113_001646_x264.mp4"
+        ],
+        [
+          "validation",
+          4,
+          "ft0/ft0_v113_004037_x264.mp4"
+        ],
+        [
+          "validation",
+          5,
+          "ft1/ft1_v113_000500_x264.mp4"
+        ],
+        [
+          "validation",
+          6,
+          "mp0/mp0_v113_000315_x264.mp4"
+        ],
+        [
+          "validation",
+          7,
+          "mp1/mp1_v113_000228_x264.mp4"
+        ]
+      ],
+      "updates": 2,
+      "cursor": 0,
+      "history_epochs": 1,
+      "seconds": 8.264508684999782,
+      "peak_allocated_bytes": 2182306304,
+      "peak_reserved_bytes": 2451570688,
+      "frozen_bn_unchanged": true,
+      "backbone_and_head_updated": true
+    },
+    "interrupted": {
+      "status": "paused",
+      "stream": [
+        [
+          "train",
+          7,
+          "3p0/3p0_v108_000526_x264.mp4"
+        ],
+        [
+          "train",
+          17,
+          "ft1/ft1_v108_000709_x264.mp4"
+        ],
+        [
+          "train",
+          12,
+          "ft0/ft0_v108_002649_x264.mp4"
+        ],
+        [
+          "train",
+          10,
+          "3p1/3p1_v108_001153_x264.mp4"
+        ],
+        [
+          "train",
+          9,
+          "3p1/3p1_v108_001141_x264.mp4"
+        ],
+        [
+          "train",
+          5,
+          "2p1/2p1_v108_000635_x264.mp4"
+        ],
+        [
+          "train",
+          18,
+          "mp0/mp0_v108_000245_x264.mp4"
+        ],
+        [
+          "train",
+          13,
+          "ft0/ft0_v108_002706_x264.mp4"
+        ],
+        [
+          "train",
+          20,
+          "mp0/mp0_v108_001722_x264.mp4"
+        ],
+        [
+          "train",
+          21,
+          "mp1/mp1_v108_000416_x264.mp4"
+        ],
+        [
+          "train",
+          3,
+          "2p1/2p1_v108_000340_x264.mp4"
+        ],
+        [
+          "train",
+          1,
+          "2p0/2p0_v108_000447_x264.mp4"
+        ],
+        [
+          "train",
+          19,
+          "mp0/mp0_v108_001120_x264.mp4"
+        ],
+        [
+          "train",
+          22,
+          "mp1/mp1_v108_000429_x264.mp4"
+        ],
+        [
+          "train",
+          23,
+          "mp1/mp1_v108_000758_x264.mp4"
+        ],
+        [
+          "train",
+          6,
+          "3p0/3p0_v108_000322_x264.mp4"
+        ]
+      ],
+      "updates": 1,
+      "cursor": 16,
+      "history_epochs": 0,
+      "seconds": 4.089774922000288,
+      "peak_allocated_bytes": 1998943744,
+      "peak_reserved_bytes": 2264924160,
+      "frozen_bn_unchanged": true,
+      "backbone_and_head_updated": true
+    },
+    "resumed": {
+      "status": "completed",
+      "stream": [
+        [
+          "train",
+          8,
+          "3p0/3p0_v108_000534_x264.mp4"
+        ],
+        [
+          "train",
+          4,
+          "2p1/2p1_v108_000546_x264.mp4"
+        ],
+        [
+          "train",
+          0,
+          "2p0/2p0_v108_000437_x264.mp4"
+        ],
+        [
+          "train",
+          16,
+          "ft1/ft1_v108_000653_x264.mp4"
+        ],
+        [
+          "train",
+          14,
+          "ft0/ft0_v108_003636_x264.mp4"
+        ],
+        [
+          "train",
+          2,
+          "2p0/2p0_v108_000627_x264.mp4"
+        ],
+        [
+          "train",
+          11,
+          "3p1/3p1_v108_001544_x264.mp4"
+        ],
+        [
+          "train",
+          15,
+          "ft1/ft1_v108_000302_x264.mp4"
+        ],
+        [
+          "validation",
+          0,
+          "2p0/2p0_v113_001708_x264.mp4"
+        ],
+        [
+          "validation",
+          1,
+          "2p1/2p1_v113_000305_x264.mp4"
+        ],
+        [
+          "validation",
+          2,
+          "3p0/3p0_v113_000248_x264.mp4"
+        ],
+        [
+          "validation",
+          3,
+          "3p1/3p1_v113_001646_x264.mp4"
+        ],
+        [
+          "validation",
+          4,
+          "ft0/ft0_v113_004037_x264.mp4"
+        ],
+        [
+          "validation",
+          5,
+          "ft1/ft1_v113_000500_x264.mp4"
+        ],
+        [
+          "validation",
+          6,
+          "mp0/mp0_v113_000315_x264.mp4"
+        ],
+        [
+          "validation",
+          7,
+          "mp1/mp1_v113_000228_x264.mp4"
+        ]
+      ],
+      "updates": 2,
+      "cursor": 0,
+      "history_epochs": 1,
+      "seconds": 6.357867945999715,
+      "peak_allocated_bytes": 2193007104,
+      "peak_reserved_bytes": 2424307712,
+      "frozen_bn_unchanged": true,
+      "backbone_and_head_updated": true
+    }
+  },
+  "gradient_checks": [
+    {
+      "backbone": 1634.0841755867004,
+      "head": 55.15857084095478
+    },
+    {
+      "backbone": 1641.2926502227783,
+      "head": 47.42048142105341
+    },
+    {
+      "backbone": 1634.0841755867004,
+      "head": 55.15857084095478
+    },
+    {
+      "backbone": 1641.2926502227783,
+      "head": 47.42048142105341
+    }
+  ],
+  "gpu_processes_before_start": [
+    {
+      "pid": 7074,
+      "classification": "desktop"
+    }
+  ],
+  "checkpoint_sizes_bytes": [
+    376653745,
+    282245873,
+    376653745
+  ],
+  "temporary_checkpoints_removed": true,
+  "elapsed_seconds": 22.764301010000054,
+  "scope_note": "32 unique real train/validation clips, 96 bounded decodes, 4 temporary engineering updates; no scores are research results.",
+  "remaining": [
+    "Formal run prelaunch plan/guard and all-7192/1547 loader identity binding.",
+    "General CUDA resume including interrupted validation and later epochs; readiness adapter only accepts cursor16.",
+    "No author-exact ACA claim or accuracy conclusion."
+  ],
+  "date_taiwan": "2026-11-17",
+  "source_sha256": {
+    "development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8",
+    "development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "development/aca_eight_class_data_v1/adapter.py": "e48d666f24c41633395f0b1eacac9a0ba2a170760743d0576329f2bf12ee3252",
+    "development/aca_eight_class_data_v1/model_adapter.py": "7ef7dc49e92a03476910509bf3593b3204990c60e7309c2dba7d01ca119970f3",
+    "development/aca_eight_class_data_v1/foundation.py": "75c7734b526c5847e817d990f3f7f8be036c83bbd8a2bcc7b0d4b65c44311eec",
+    "development/aca_four_arm_campaign_v1/gpu_guard.py": "15b8050b95110b35131521b1c62c5573dc681e7fe2a51670987247e5826a2d1e"
+  },
+  "protected_files": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "evidence_directory": "/home/tsai/projects/basketball/outputs/01_current/baseline8_gpu_readiness_20261117_v1",
+  "evidence_sha256": {
+    "plan.json": "f72e0cd7dd3a1244d27744510dc867916b3681d425cef987d5154e4e179554a1",
+    "report.json": "220adbe1ad5558995bde40f904f96200ca14c652b5e747cb694be865b18b6ff0",
+    "status.json": "008ae6103dca8b7f80b97ac09b829a468b76c02bd0aa5af8d2e072a069b48f4b"
+  },
+  "postrun_gpu_compute": [
+    {
+      "pid": 7074,
+      "classification": "existing_desktop_Discord",
+      "used_memory_MiB": 52
+    }
+  ],
+  "next_single_task": "Single baseline formal launch and general CUDA resume integration; fixed seed, counts and input; no new models or multi-seed campaign."
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "baseline8_formal_launch_qa_v1",
+  "date_taiwan": "2026-11-17",
+  "status": "entrypoints_verified_plan_prepared_not_started",
+  "tests": {
+    "run": 7,
+    "successful": true,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 7.038,
+    "device": "cuda",
+    "real_model_instances": 0,
+    "command": "CUBLAS_WORKSPACE_CONFIG=:4096:8 ACA8_TEST_DEVICE=cuda OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/tsai/miniconda3/envs/yolo11/bin/python -B -m unittest development.aca_eight_class_data_v1.test_formal_train -v"
+  },
+  "checks": [
+    "CUDA validation interruption and later-epoch train resume exactly match continuous execution",
+    "Wrong run/schema/history/Adam rejected before state mutation",
+    "Two spawn worker order across epochs",
+    "STOP marker and signal boundary requests",
+    "Recover history after reporter failure following successful checkpoint commit",
+    "Duplicate same-run lock rejected",
+    "All 8739 metadata rows bound and test rejected"
+  ],
+  "prepared_plan": "/home/tsai/projects/basketball/outputs/01_current/baseline8_launch_plan_20261117_v1/plan.json",
+  "prepared_plan_sha256": "7934894ec6d8252b1b03ebd918ee2cc973e92676af3a66c7e0a8f4f7fca39318",
+  "source_inventory": {
+    "count": 8739,
+    "sha256": "170313ffe14e0c3e13a1894731d78e8c6eba00530f554304bd848c635b7e8a8b",
+    "total_bytes": 5489738312,
+    "method": "guarded_open_fstat_no_video_bytes"
+  },
+  "scope": {
+    "formal_training_started": false,
+    "test_videos_opened": 0,
+    "real_video_decodes": 0,
+    "real_optimizer_updates": 0,
+    "tiny_synthetic_updates_executed": true,
+    "synthetic_checkpoints_removed": true,
+    "automations_changed": false
+  },
+  "source_sha256": {
+    "development/aca_eight_class_data_v1/formal_train.py": "7499014b5dde99cf5b271cfec3d86cba57818be8f20b0ca203fb2aaa7fee715e",
+    "development/aca_eight_class_data_v1/training_runtime.py": "19e21966e5e01d80faa1f0c2fd6edab3e63174e4e80b294cf1958a1f26fb053e",
+    "development/aca_eight_class_data_v1/test_formal_train.py": "57a3a5de8c148572d272254a2937d4fe578620a5d594731b66e74803675c7c16",
+    "development/aca_eight_class_data_v1/loop_core.py": "9b9658d58f14a007c46beaa0cb236d8e2548a1d8f3fb3661986d43811ad613a5",
+    "development/aca_eight_class_data_v1/gpu_readiness.py": "1efa985e1fc40103c0120cc5d36a2d10892aff4c57eaf6e7f1c094196b6287c8"
+  },
+  "evidence_sha256": {
+    "plan.json": "27ff397dc78107ce3fdd50791a1de82755d2de7cec00e906f83be3b43bfdef18",
+    "review.json": "8763b1d5955373790387e958af6751bdcbfa9cbfcae2215d3d2188845716f21c"
+  },
+  "protected_files": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "next_single_task": "Start exactly this single eight-class baseline plan when requested; no further model variants or multi-seed campaign.",
+  "limits": [
+    "No complete real eight-class training epoch or validation result yet.",
+    "New general CUDA adapter tested with tiny stochastic model; prior 24/8 real ResNet GPU evidence remains separate.",
+    "CLI starts a foreground process; supervised background launch and periodic monitoring are not automatically enabled."
+  ]
+}

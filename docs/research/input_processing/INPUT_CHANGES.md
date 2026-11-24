@@ -28,3 +28,13 @@
 本輪沒有訓練、推論或test影片存取。既有訓練與每小時排程仍暫停。沒有聲稱達到90%或作者精確複刻。
 
 [凍結基準與完整驗收](../INPUT_PROCESSING_FOUNDATION_STATUS.md) · [裁切否決原因](../INPUT_CROP_RETENTION_DECISION.md) · [本輪事件表](EVENT_REFERENCE.md) · [分類入口](../../../workspace/README.md)
+
+2026-11-16驗收結案：疑義5支補看完成，保留旗標，停止本輪逐幀探索；正式輸入未改。[驗收結論](BASELINE_ACCEPTANCE.md)。
+
+2026-11-16介面更新：[八類資料／指標adapter已完成](EIGHT_CLASS_ADAPTER.md)，不改像素處理；尚未接入訓練。
+
+2026-11-17工程接線更新：[CPU模型初始化](CPU_MODEL_WIRING.md)與[迴圈／中斷恢復合成驗收](CPU_TRAIN_LOOP.md)已完成。後者只更新極小合成模型；真實影片輸入、標籤與split未改，正式訓練未啟動。
+
+2026-11-17GPU接線更新：[真實輸入與GPU預檢通過](GPU_READINESS.md)，32支固定train／validation子集、共4次暫存工程更新，權重已清除。50幀RGB及全部既定輸入規則未改；正式訓練未啟動。
+
+2026-11-17正式入口更新：[單一baseline啟動／續訓入口與固定計畫已完成](FORMAL_LAUNCH.md)。本輪僅metadata／檔案狀態核對及極小CUDA合成恢復檢查；真實影片輸入未改，正式訓練未啟動。

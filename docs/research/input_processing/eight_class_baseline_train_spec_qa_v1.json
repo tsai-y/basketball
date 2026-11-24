@@ -1,0 +1,35 @@
+{
+  "schema": "eight_class_baseline_train_spec_qa_v1",
+  "date_taiwan": "2026-11-17",
+  "status": "passed_static_spec_checks_not_training_readiness",
+  "spec": "docs/research/specs/eight_class_baseline_train_v1.json",
+  "spec_sha256": "1398ee82bccbc9171357f3090b1ab716c3d228d41db95869ab1f8eabc5571086",
+  "checks": [
+    "frozen input/cohort and class order pinned",
+    "7192 = 449*16+8; 450 updates per epoch; maximum13500",
+    "baseline8 saved total/trainable/BN arithmetic",
+    "local pinned ImageNet payload full SHA and byte count, no torch.load",
+    "old initializer hardcoded two-class identified; forbidden for direct use",
+    "CPU-only adapter/GPU training bridge explicitly pending",
+    "binary label and metrics state incompatibilities documented"
+  ],
+  "protected_files": [
+    {
+      "set": "protected_baseline_files_sha256",
+      "checked": 64,
+      "mismatches": []
+    },
+    {
+      "set": "protected_files_sha256",
+      "checked": 51,
+      "mismatches": []
+    }
+  ],
+  "new_video_decodes": 0,
+  "models_created": 0,
+  "torch_load_calls": 0,
+  "optimizer_steps": 0,
+  "tests_reexecuted": false,
+  "test_access": 0,
+  "training_started": false
+}
