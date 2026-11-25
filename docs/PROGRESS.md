@@ -23,35 +23,33 @@
 | `ACA Spatial + Temporal50`（加空間增強） | `20261024` | 10 / 15 | **0.409121** | 80.87% | 0.8050 | 70.14% | 90.71% | CE 改善、ROC-AUC `0.8992 → 0.9074`，但 Miss recall 明顯下降、Brier/ECE 變差、8 場比賽 4 升 4 降 |
 | `ACA Temporal50`（時間增強基準） | `20261025` | 5 / 10 | 0.385870 | 82.48% | 0.8246 | 82.84% | 82.16% | 跨 seed 對照組 |
 | `ACA Spatial + Temporal50`（加空間增強） | `20261025` | 7 / 12 | **0.374929** | **82.93%** | **0.8293** | 84.59% | 81.41% | CE、Accuracy、Macro-F1 同步改善且雙類 recall 平衡 |
+| **`Swin3D-T Temporal50`（修正版＋K400，無空間增強）** | `20261024` | 5 / 10 | 0.411293 | 84.62% | 0.8455 | 81.89% | 87.11% | ROC-AUC `0.9181`（+0.0189）、Brier `0.1189`；8 場中 6 場 AUC 改善、5 場 Acc 改善（+1 平手） |
+| **`Swin3D-T Temporal50`（修正版＋K400，無空間增強）** | `20261025` | 3 / 8 | 0.397231 | 84.29% | 0.8416 | 78.51% | 89.59% | ROC-AUC `0.9231`（+0.0115）、Brier `0.1204`；跨兩 seed 平均 Acc **`84.45%`（+2.39 pp）** |
+| **`Swin3D-T Spatial + Temporal50`（單因子＋空間增強）** | `20261024` | 6 / 11 | **0.355902** | **85.07%** | **0.8506** | **85.95%** | **84.26%** | **全線最佳**：CE `-0.0554`、ROC-AUC **`0.9389`**、AP Make `0.9420`、Brier `0.1066`、7/8 場 CE 與 AUC 雙雙改善 |
 | *描述性兩 seed 平均（ACA Temporal50）* | *2 seeds* | — | *0.401794* | *82.06%* | *0.8203* | *81.35%* | *82.71%* | — |
-| *描述性兩 seed 平均（ACA Spatial + Temporal50）* | *2 seeds* | — | ***0.392025*** | *81.90%* | *0.8171* | *77.36%* | *86.06%* | CE 跨 seed 方向一致（`-0.0086` / `-0.0109`）；Acc / F1 方向分歧，保留為候選設定 |
+| *描述性兩 seed 平均（ACA Spatial + Temporal50）* | *2 seeds* | — | *0.392025* | *81.90%* | *0.8171* | *77.36%* | *86.06%* | CE 跨 seed 方向一致（`-0.0086` / `-0.0109`）；Acc / F1 方向分歧 |
+| *描述性兩 seed 平均（Swin3D-T Temporal50）* | *2 seeds* | — | *0.404262* | ***84.45%*** | ***0.8436*** | *80.20%* | *88.35%* | 跨 seed Acc / F1 / AUC / Brier 一致大幅領先 ACA |
 
 > 空間增強設定（`clip_flip_color_light_v2`）：整段 clip 一致性隨機水平翻轉（`p=0.5`）與亮度／對比／飽和度微調（`[0.95, 1.05]`）。
 
 ---
 
-## 3. Stage B 進展：含動態位置索引修正的 Swin3D-T（已完成全關工程驗收，準備啟動正式訓練）
+## 3. Stage B 成果：含動態位置索引修正的 Swin3D-T（已完成雙 seed 驗證與單因子空間增強消融）
 
-為進行影片預訓練骨幹的**系統比較**（同時改變架構、Kinetics-400 預訓練來源、LayerNorm／StochasticDepth，非純骨幹消融），已完成全部四道隔離工程驗收（未修改已安裝 `torchvision`、未動用受保護基準檔）：
+為進行影片預訓練骨幹的**系統比較**（同時改變架構、Kinetics-400 預訓練來源、LayerNorm／StochasticDepth，非純骨幹消融），已完成全部工程關卡與三組正式訓練（全數保存逐片 logits 並以 ties-aware 公式重算 ROC-AUC／AP／Brier／ECE）：
 
-1. **隔離套件與 `weights=None` CPU 驗收（`PASS_CPU_ONLY`）**：
-   - 於 `development/swin3d_t_binary50_v1/` 實作 `DynamicPosShiftedWindowAttention3d`，保留原 `relative_position_bias_table`（`[2535, num_heads]`）、原 `relative_position_index` buffer（`[392, 392]`）與所有參數／buffer 名稱，於空間視窗縮小時以實際 `(t, h, w)` 座標選取對應行列（修正 `(8, 4, 5)` 下原版截取 `24,980 / 25,600` 錯位；完整 `(8, 7, 7)` 視窗輸出與 173 組梯度與原版逐值一致）。
-2. **官方預訓練權重下載與 CPU 載入驗收（`PASS_PRETRAINED_LOAD_CPU_ONLY`）**：
-   - 單次下載官方 `Swin3D_T_Weights.KINETICS400_V1` 至本地 `.gitignore` 路徑，鎖定完整 SHA-256 `7615ae035996b65eb38dad437ae533d2dfcd36f9f89d28c0f0fa7bfb8e6b3130`；驗證 400 類 `strict=True` 載入、以獨立 `head_seed` 替換 `Linear(768, 2)` 並確認全部 183 個非分類頭張量與下載檔逐值一致。
-3. **正式入口整合與 CPU／GPU 接線驗收（`PREPARED_NOT_STARTED` → 核准啟動）**：
-   - 於 `development/swin3d_t_binary50_formal_v1/` 整合與 `ACA temporal50`（`seed=20261024`）1:1 對齊之正式訓練契約（`plan_sha256: 6bd908ced780140ebf88fae132a566f338eb2b04e6ce76b5a9c44d5d6ff2787c`）：train seed `20261024`、head seed `20264024`、endpoint-stratified 50 幀時間採樣、關閉空間／色彩增強、固定均勻 50 幀 validation（1,547 支）、Adam 固定 LR `1e-4`、`weight_decay=0`、梯度裁切 `1.0`、嚴格 FP32、`microbatch=1` / `effective=16` / 尾批 `8`、最多 30 輪、`patience=5`、最低完整二類 validation CE（同分保留較早輪）。
-   - 正式迴圈實測單模型峰值顯存 **`3.3891 GiB` allocated / `4.3555 GiB` reserved**，並驗證輪中 `cursor=16`（`best_model` 非空）恢復與未改善時保留先前 `best_model` 分支皆 6 / 6 逐值一致。
+1. **動態位置索引修正（`development/swin3d_t_binary50_v1/`）**：保留原 `relative_position_bias_table`、`relative_position_index` 與全部鍵名，於空間視窗縮小時依實際 `(t, h, w)` 座標選取對應行列（修正 `(8, 4, 5)` 下原版截取 `24,980 / 25,600` 錯位；完整 `(8, 7, 7)` 視窗輸出與 173 組梯度與原版逐值一致），單模型 FP32 峰值顯存僅 **`3.39 GiB` allocated / `4.36 GiB` reserved**。
+2. **雙 seed 系統比較（`Swin3D-T Temporal50` vs `ACA Temporal50`）**：在關閉空間增強、固定 `Adam(lr=1e-4, wd=0)` 的 1:1 條件下，`Swin3D-T` 兩組 seed 皆穩定勝出（`84.62%` / `84.29%` vs ACA `81.64%` / `82.48%`，平均 **`+2.39 pp`**；兩 seed 皆在 6/8 場未見比賽提升 ROC-AUC），但第 3–5 輪後快速過擬合導致 ECE 略高。
+3. **單因子空間增強消融（`Swin3D-T + clip_flip_color_light_v2`, `seed20261024`）**：僅加入已驗證之空間增強，所有指標全面同步改善、零取捨——**Val CE `0.355902`（`-0.0554`）、Accuracy `85.07%`（`+3.43 pp` vs ACA）、Macro-F1 `0.8506`、ROC-AUC `0.9389`、AP Make `0.9420`、Brier `0.1066`**，雙類 Recall 平衡（`85.95%` / `84.26%`），且 8 場中有 7 場 CE 與 ROC-AUC 雙雙改善。
 
 ---
 
 ## 4. 目前決策與下一步計畫
 
-1. **進行中（Stage B — `swin3d_t_binary50_seed20261024_labelrev1_v1` 正式單 seed 訓練）**：
-   - 執行唯一一組 `seed20261024` 正式比較（對照 `ACA temporal50`），依 1,547 支 validation 結果決定後續方向；不並行追加其他模型或 LR 搜尋分支。
-2. **備案（Stage A2 — ACA `CosineAnnealingLR`）**：
-   - 僅在 Stage B 結果不理想時啟動：固定其餘超參數與資料設定，只更動 LR schedule，並補齊 scheduler checkpoint 與續訓一致性驗證。
-3. **已關閉路線（不再投入）**：
-   - 純 `MixNet-I3D` 50 幀二元分類；固定降 LR `5e-5`；重現論文未公開 8 類高分設定。
+1. **優先 1**：補跑 **`Swin3D-T Spatial + Temporal50` 的 `seed20261025`**，確認 `0.356 CE / 85.1% Acc / 0.939 AUC` 的跨 seed 穩定性。
+2. **優先 2**：針對剩餘過擬合與 `ECE ≈ 0.072`，依序單因子驗證 `AdamW` weight decay 與 `CosineAnnealingLR`（補齊 scheduler checkpoint 與續訓一致性）。
+3. **優先 3**：在顯存充裕（僅用 3.39 / 16 GiB）前提下，評估提升輸入解析度（如 `160×224` 或 `224×224`）以保留更多籃框與小球空間細節。
+4. **已關閉路線（不再投入）**：純 `MixNet-I3D` 50 幀二元分類；固定降 LR `5e-5`；重現論文未公開 8 類高分設定。
 
 ---
 
@@ -61,6 +59,6 @@
 - `development/aca_binary_v1/`、`development/aca_temporal_v1/`、`development/aca_temporal_pair_v1/`：ACA 二元基準與時間增強（`seed20261024` / `seed20261025`）。
 - `development/mixnet_binary50_v1/`、`development/mixnet_binary50_formal_v1/`：MixNet-I3D 50 幀二元封裝與正式訓練腳本（已結案）。
 - `development/aca_spatial_v1/`、`development/aca_spatial_pair_v1/`：ACA 空間增強（`clip_flip_color_light_v2`）與雙 seed 正式訓練／readiness 腳本。
-- `development/swin3d_t_binary50_v1/`、`development/swin3d_t_binary50_formal_v1/`：含動態位置索引修正的 Swin3D-T 隔離套件、預訓練載入驗收與 `seed20261024` 正式訓練入口。
+- `development/swin3d_t_binary50_v1/`、`development/swin3d_t_binary50_formal_v1/`、`development/swin3d_t_binary50_pair_v1/`、`development/swin3d_t_binary50_spatial_v1/`：含動態位置索引修正的 Swin3D-T 隔離套件、雙 seed 正式訓練入口與單因子空間增強實驗入口。
 - `docs/research/`：各階段工程規格、研究筆記與歷史審計紀錄。
 - `outputs/` 與 `development/*/artifacts/`：訓練產物、checkpoint 與預訓練權重（皆由 `.gitignore` 排除，不上傳 GitHub）。
