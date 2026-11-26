@@ -1,6 +1,6 @@
 # Basketball-51 投籃進球二元分類：目前進度與研究路線總覽
 
-> 最後更新：2026-11-26（對稱 `4×2` 主線＋1-seed `AdamW(wd=1e-2)`＋1-seed `224×224` 整幀 `INTER_AREA` 規格比較；全部六組皆通過 Codex 獨立複查並修訂表述）
+> 最後更新：2026-11-26（對稱 `4×2` 主線＋3 組 1-seed 探索實驗：`AdamW(wd=1e-2)`、`224×224`、`Gated Temporal Attention`）
 > 對應活躍分支：`research/video-action-baseline`（舊 `origin/codex/*` 實驗分支已全數打上 `archive/codex/*` tag 封存，GitHub 僅維持 `main` 與單一活躍研究分支）
 
 ## 1. 任務定義與評估原則
@@ -29,7 +29,8 @@
 | **`Swin3D-T Spatial + Temporal50`（單因子＋空間增強）** | `20261024` | 6 / 11 | 0.355902 | 85.07% | 0.8506 | **85.95%** | 84.26% | 整體 CE `-0.0554`、ROC-AUC **`0.9389`**、Brier `0.1066`、ECE `0.0722`；7/8 場 CE/AUC 改善，但 Make recall `-2.85 pp`、8 場 Acc 3 升 1 平 4 降 |
 | **`Swin3D-T Spatial + Temporal50`（單因子＋空間增強）** | `20261025` | 3 / 8 | **0.342713** | 85.84% | 0.8576 | 81.76% | 89.59% | **主線最佳**：CE `-0.0545`、ROC-AUC `0.9308`、Brier **`0.1054`**、ECE **`0.0392`**；8/8 場 CE 改善、7/8 場 Acc 改善 |
 | *探索性：`Swin3D-T Spatial + AdamW (wd=1e-2)`* | `20261024` | 6 / 11 | 0.385291 | 86.36% | 0.8623 | 80.27% | **91.95%** | Acc/F1 提升（`+20` 支）、ECE `0.0635`，但 CE `+0.0294`、AUC `0.9319`（`-0.0070`）、Miss recall 退步、8 場 4 升 4 降；**尚未取代主線基準** |
-| *探索性：`Swin3D-T Spatial + 224×224 (INTER_AREA)`* | `20261024` | 5 / 10 | 0.358751 | **86.94%** | **0.8686** | 82.43% | 91.08% | **Acc/F1 創單輪新高、Brier(`0.1041`) 創新低**（淨 `+29` 支 = `ft1 +59`、`ft0 -24`、運動戰 `-6`；8 場 CE 3 降改善 5 升惡化）、ECE `0.0627`，但 CE `+0.0028`、AUC `0.9385` 未優於原規格，`ft0` 降至 `33.33%`；**保留為探索候選、未取代主線** |
+| *探索性：`Swin3D-T Spatial + 224×224 (INTER_AREA)`* | `20261024` | 5 / 10 | 0.358751 | **86.94%** | **0.8686** | 82.43% | 91.08% | Acc/F1 創單輪新高、Brier(`0.1041`) 偏低（淨 `+29` 支 = `ft1 +59`、`ft0 -24`、運動戰 `-6`；8 場 CE 3 降改善 5 升惡化）、ECE `0.0627`，但 CE `+0.0028`、AUC `0.9385` 未優於原規格，`ft0` 降至 `33.33%`；**保留為探索候選、未取代主線** |
+| *探索性：`Swin3D-T Spatial + Gated Temporal Attention`* | `20261024` | 6 / 11 | 0.351489 | 85.91% | 0.8578 | 79.86% | 91.45% | **六項整體指標全優於 `s24` 基底**（CE `-0.0044`、ROC-AUC **`0.9394`**／AP **`0.9430`** 新高、Brier **`0.1033`** 新低、ECE `0.0571`）；惟淨 `+13` 支為 `ft1 +47` / `ft0 -21` / 運動戰 `-13`、MissR 退步，`ft0` 仍僅 `36.67%`，最高權重集中末段 token `[20..24]`；**不自動取代主線，值得補跑 `s25` 確認** |
 | *描述性兩 seed 平均（ACA Temporal50）* | *2 seeds* | — | *0.401794* | *82.06%* | *0.8203* | *81.35%* | *82.71%* | *Mean AUC `0.9054` / Brier `0.1279` / ECE `0.0528`* |
 | *描述性兩 seed 平均（ACA Spatial + Temporal50）* | *2 seeds* | — | *0.392025* | *81.90%* | *0.8171* | *77.36%* | *86.06%* | *CE 跨 seed 方向一致（`-0.0086` / `-0.0109`）；Acc / F1 方向分歧* |
 | *描述性兩 seed 平均（Swin3D-T Temporal50）* | *2 seeds* | — | *0.404262* | *84.45%* | *0.8436* | *80.20%* | *88.35%* | *Mean AUC `0.9206` / Brier `0.1196` / ECE `0.0725`* |
@@ -41,7 +42,7 @@
 
 ## 3. Stage B 成果：含動態位置索引修正的 Swin3D-T（已完成對稱 4×2 雙種子驗證）
 
-為進行影片預訓練骨幹的**系統比較**（同時改變架構、Kinetics-400 預訓練來源、LayerNorm／StochasticDepth，非純骨幹消融），已完成全部工程關卡與六組正式訓練（對稱 4×2 主線四組＋2 組 1-seed 探索實驗 `AdamW(wd=1e-2)` 與 `224×224` 整幀 `INTER_AREA` 規格比較，全數保存逐片 logits 並以 ties-aware 公式重算 ROC-AUC／AP／Brier／Make-prob ECE）：
+為進行影片預訓練骨幹的**系統比較**（同時改變架構、Kinetics-400 預訓練來源、LayerNorm／StochasticDepth，非純骨幹消融），已完成全部工程關卡與七組正式訓練（對稱 4×2 主線四組＋3 組 1-seed 探索實驗：`AdamW(wd=1e-2)`、`224×224` 整幀 `INTER_AREA`、`Gated Temporal Attention Pooling`，全數保存逐片 logits 並以 ties-aware 公式重算 ROC-AUC／AP／Brier／Make-prob ECE）：
 
 1. **動態位置索引修正（`development/swin3d_t_binary50_v1/`）**：保留原 `relative_position_bias_table`、`relative_position_index` 與全部鍵名，於空間視窗縮小時依實際 `(t, h, w)` 座標選取對應行列（修正 `(8, 4, 5)` 下原版截取 `24,980 / 25,600` 錯位；完整 `(8, 7, 7)` 視窗輸出與 173 組梯度與原版逐值一致），`120×160` 單模型 FP32 峰值顯存為 **`3.39 GiB` allocated / `4.36 GiB` reserved**。
 2. **雙 seed 系統比較（`Swin3D-T Temporal50` vs `ACA Temporal50`）**：在關閉空間增強、固定 `Adam(lr=1e-4, wd=0)` 的 1:1 條件下，`Swin3D-T` 兩組 seed 皆優於 ACA（`84.62%` / `84.29%` vs `81.64%` / `82.48%`，平均 **`+2.39 pp`**；兩 seed 皆在 6/8 場提升 ROC-AUC），但第 3–5 輪後出現明顯後期過擬合（Train CE 降、Val CE 升），平均 Make-prob ECE 為 `0.0725`。
@@ -51,8 +52,8 @@
 
 ## 4. 目前決策與下一步計畫
 
-1. **優先 1（純單因子 `CosineAnnealingLR` 對照，待驗證假說）**：保留目前已具兩 seed 完整基底的 **`Swin3D-T Spatial + Temporal50 + Adam (wd=0)`**，首輪僅做單一 `CosineAnnealingLR` 排程對照（不同時加入 warmup、`AdamW` 或參數分組，確保可歸因）；實作前須鎖定 `T_max`、`eta_min`、步進單位與早停規則，並將 scheduler 狀態納入 checkpoint 通過續訓一致性驗收。
-2. **優先 2（針對 `ft`／`ft0` 瓶頸與教授討論後評估，列為待驗證假說）**：本 seed 之 `224×224` 整幀 `INTER_AREA` 輸入規格比較雖使整體 Acc 創 `86.94%` 新高、Brier 創 `0.1041` 新低，但最低 CE（`0.3588`）與 AUC（`0.9385`）未優於 `120×160`，且運動戰略退（AUC `0.9568 → 0.9524`）、`ft0` 退步至 `33.33%`（`ft` balanced accuracy `67.91% → 65.22%`）；8 類／家族均衡監督與籃框 ROI 聚焦均列為待驗證假說。
+1. **優先 1**：`Gated Temporal Attention` 為三組探索中唯一改善主指標 Val CE（`0.3515`）並同步提升六項整體指標之候選，可補跑 `seed20261025` 確認跨種子穩定性；或在 `120×160 Spatial+Temp50 + Adam (wd=0)` 基底進行純單因子 `CosineAnnealingLR` 對照（鎖定 `T_max`、`eta_min`、步進單位與 scheduler 續訓驗收）。
+2. **優先 2（與教授討論後評估針對 `ft`／`ft0` 之待驗證假說）**：三組探索實驗（`AdamW`、`224×224`、`TAttn`）均未改善 `ft0`（`33–39%`），且 `TAttn` 注意力最高權重集中於末段 token `[20..24]`；建議會中討論 8 類／家族內均衡監督、籃框 ROI 聚焦、以及 RL 選幀／`SpinalNet` 之優先序。
 3. **優先 3**：若會後決議推進高解析度路線，再補跑 `224×224 seed20261025` 檢驗跨種子穩定性。
 4. **已關閉路線（不再投入）**：純 `MixNet-I3D` 50 幀二元分類；固定降 LR `5e-5`；重現論文未公開 8 類高分設定。
 
@@ -64,6 +65,6 @@
 - `development/aca_binary_v1/`、`development/aca_temporal_v1/`、`development/aca_temporal_pair_v1/`：ACA 二元基準與時間增強（`seed20261024` / `seed20261025`）。
 - `development/mixnet_binary50_v1/`、`development/mixnet_binary50_formal_v1/`：MixNet-I3D 50 幀二元封裝與正式訓練腳本（已結案）。
 - `development/aca_spatial_v1/`、`development/aca_spatial_pair_v1/`：ACA 空間增強（`clip_flip_color_light_v2`）與雙 seed 正式訓練／readiness 腳本。
-- `development/swin3d_t_binary50_v1/`、`development/swin3d_t_binary50_formal_v1/`、`development/swin3d_t_binary50_pair_v1/`、`development/swin3d_t_binary50_spatial_v1/`、`development/swin3d_t_binary50_spatial_pair_v1/`、`development/swin3d_t_binary50_spatial_adamw_v1/`、`development/swin3d_t_binary50_spatial_224_v1/`：含動態位置索引修正的 Swin3D-T 隔離套件、雙 seed 主線、雙 seed 空間增強、探索性 `AdamW(wd=1e-2)` 與 `224×224` 整幀 `INTER_AREA` 規格比較入口。
+- `development/swin3d_t_binary50_v1/`、`development/swin3d_t_binary50_formal_v1/`、`development/swin3d_t_binary50_pair_v1/`、`development/swin3d_t_binary50_spatial_v1/`、`development/swin3d_t_binary50_spatial_pair_v1/`、`development/swin3d_t_binary50_spatial_adamw_v1/`、`development/swin3d_t_binary50_spatial_224_v1/`、`development/swin3d_t_binary50_spatial_tattn_v1/`：含動態位置索引修正的 Swin3D-T 隔離套件、雙 seed 主線、雙 seed 空間增強與三組探索性單因子入口（`AdamW`、`224×224`、`Gated Temporal Attention`）。
 - `docs/research/`：各階段工程規格、研究筆記與歷史審計紀錄。
 - `outputs/` 與 `development/*/artifacts/`：訓練產物、checkpoint 與預訓練權重（皆由 `.gitignore` 排除，不上傳 GitHub）。
